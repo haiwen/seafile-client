@@ -1585,6 +1585,10 @@ La ruta al archivo contiene caracteres invalidos. No se sincroniza a esta comput
         <source>Folder for library %1 is removed or moved. The library is unsynced.</source>
         <translation>La carpeta para la biblioteca %1 fue movida o eliminada. La biblioteca está dessincronizada.</translation>
     </message>
+    <message>
+        <source>The file path %1 contains symbols that are not supported by the Windows system.</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>PrivateShareDialog</name>
@@ -2198,6 +2202,10 @@ La ruta al archivo contiene caracteres invalidos. No se sincroniza a esta comput
     <message>
         <source>failed to open sync error id database</source>
         <translation>fallo al abrir la base de datos de id de errores de sincronización</translation>
+    </message>
+    <message>
+        <source>The file path contains symbols that are not supported by the Windows system</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -3044,16 +3052,20 @@ La ruta al archivo contiene caracteres invalidos. No se sincroniza a esta comput
         <translation>Copiar al portapapeles</translation>
     </message>
     <message>
-        <source>OK</source>
-        <translation>OK</translation>
+        <source>Password(At least 8 characters)</source>
+        <translation type="unfinished"/>
     </message>
     <message>
-        <source>Upload Link</source>
-        <translation>Enlace de Subida</translation>
+        <source>Show password</source>
+        <translation type="unfinished"/>
     </message>
     <message>
-        <source>Upload link:</source>
-        <translation>Enlace de subida:</translation>
+        <source>Expire days</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Generate link</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -3234,6 +3246,25 @@ La ruta al archivo contiene caracteres invalidos. No se sincroniza a esta comput
     <message>
         <source>No</source>
         <translation>No</translation>
+    </message>
+</context>
+<context>
+    <name>UploadLinkDialog</name>
+    <message>
+        <source>Upload Link</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Upload link:</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Copy to clipboard</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>OK</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 </TS>

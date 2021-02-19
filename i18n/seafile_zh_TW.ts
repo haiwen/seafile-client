@@ -1578,6 +1578,10 @@ File path contains invalid characters. It is not synced to this computer.</sourc
         <source>Folder for library %1 is removed or moved. The library is unsynced.</source>
         <translation type="unfinished"/>
     </message>
+    <message>
+        <source>The file path %1 contains symbols that are not supported by the Windows system.</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>PrivateShareDialog</name>
@@ -2190,6 +2194,10 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     </message>
     <message>
         <source>failed to open sync error id database</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>The file path contains symbols that are not supported by the Windows system</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -3038,15 +3046,19 @@ File path contains invalid characters. It is not synced to this computer.</sourc
         <translation>複製到剪貼簿</translation>
     </message>
     <message>
-        <source>OK</source>
-        <translation>確認</translation>
-    </message>
-    <message>
-        <source>Upload Link</source>
+        <source>Password(At least 8 characters)</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <source>Upload link:</source>
+        <source>Show password</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Expire days</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Generate link</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -3228,6 +3240,25 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     <message>
         <source>No</source>
         <translation>不好</translation>
+    </message>
+</context>
+<context>
+    <name>UploadLinkDialog</name>
+    <message>
+        <source>Upload Link</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Upload link:</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Copy to clipboard</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>OK</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 </TS>

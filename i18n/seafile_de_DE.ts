@@ -1584,6 +1584,10 @@ Die Ordnerstruktur enthält ungültige Zeichen. Synchronisieren mit diesem Compu
         <source>Folder for library %1 is removed or moved. The library is unsynced.</source>
         <translation>Der Ordner in Bibliothek %1 ist gelöscht oder verschoben. Die Bibliothek wurde nicht synchronisiert.</translation>
     </message>
+    <message>
+        <source>The file path %1 contains symbols that are not supported by the Windows system.</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>PrivateShareDialog</name>
@@ -2197,6 +2201,10 @@ Die Ordnerstruktur enthält ungültige Zeichen. Synchronisieren mit diesem Compu
     <message>
         <source>failed to open sync error id database</source>
         <translation>Fehler beim Öffnen der Datenbank zu Problemen bei der Synchronisation</translation>
+    </message>
+    <message>
+        <source>The file path contains symbols that are not supported by the Windows system</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -3043,16 +3051,20 @@ Die Ordnerstruktur enthält ungültige Zeichen. Synchronisieren mit diesem Compu
         <translation>Kopieren</translation>
     </message>
     <message>
-        <source>OK</source>
-        <translation>OK</translation>
+        <source>Password(At least 8 characters)</source>
+        <translation type="unfinished"/>
     </message>
     <message>
-        <source>Upload Link</source>
-        <translation>Upload-Link</translation>
+        <source>Show password</source>
+        <translation type="unfinished"/>
     </message>
     <message>
-        <source>Upload link:</source>
-        <translation>Upload-Link:</translation>
+        <source>Expire days</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Generate link</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -3233,6 +3245,25 @@ Die Ordnerstruktur enthält ungültige Zeichen. Synchronisieren mit diesem Compu
     <message>
         <source>No</source>
         <translation>Nein</translation>
+    </message>
+</context>
+<context>
+    <name>UploadLinkDialog</name>
+    <message>
+        <source>Upload Link</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Upload link:</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Copy to clipboard</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>OK</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 </TS>

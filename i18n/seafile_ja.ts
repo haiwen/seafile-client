@@ -3,27 +3,27 @@
     <name>AboutDialog</name>
     <message>
         <source>About %1</source>
-        <translation type="unfinished"/>
+        <translation>%1 について</translation>
     </message>
     <message>
         <source>&lt;h2&gt;%1 Client %2&lt;/h2&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;h2&gt; %1 クライアント %2 &lt;/h2&gt;</translation>
     </message>
     <message>
         <source>&lt;h5&gt; REV %1 &lt;/h5&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;h5&gt;REV %1 &lt;/h5&gt;</translation>
     </message>
     <message>
         <source>About</source>
-        <translation type="unfinished"/>
+        <translation>アバウト</translation>
     </message>
     <message>
         <source>Check For Updates</source>
-        <translation type="unfinished"/>
+        <translation>アップデートを確認</translation>
     </message>
     <message>
         <source>OK</source>
-        <translation type="unfinished"/>
+        <translation>OK</translation>
     </message>
 </context>
 <context>
@@ -38,11 +38,11 @@
     </message>
     <message>
         <source>Failed to remove local repos sync token: %1</source>
-        <translation type="unfinished"/>
+        <translation>ローカルリポジトリ同期トークンの削除に失敗しました：%1</translation>
     </message>
     <message>
         <source>Failed to get repo sync information from server: %1</source>
-        <translation type="unfinished"/>
+        <translation>サーバーからリポジトリ同期情報を取得できませんでした： %1</translation>
     </message>
 </context>
 <context>
@@ -96,7 +96,7 @@
     <name>AccountView</name>
     <message>
         <source>Are you sure you want to remove account %1?&lt;br&gt;&lt;br&gt;The account will be removed locally. All syncing configuration will be removed too. The account at the server will not be affected.</source>
-        <translation type="unfinished"/>
+        <translation>アカウント％ %1 を削除してもよろしいですか？&lt;br&gt;&lt;br&gt;アカウントはローカルで削除されます。 すべての同期構成も削除されます。 サーバーのアカウントは影響を受けません。</translation>
     </message>
     <message>
         <source>Failed to unsync libraries of this account: %1</source>
@@ -116,7 +116,7 @@
     </message>
     <message>
         <source>Choose</source>
-        <translation type="unfinished"/>
+        <translation>選択</translation>
     </message>
     <message>
         <source>Account settings</source>
@@ -124,11 +124,11 @@
     </message>
     <message>
         <source>Login</source>
-        <translation type="unfinished"/>
+        <translation>ログイン</translation>
     </message>
     <message>
         <source>Delete</source>
-        <translation type="unfinished"/>
+        <translation>削除</translation>
     </message>
     <message>
         <source>Add an account</source>
@@ -163,7 +163,7 @@
     <name>ActivitiesTab</name>
     <message>
         <source>File Activities are only supported in %1 Server Professional Edition.</source>
-        <translation type="unfinished"/>
+        <translation>ファイルアクティビティは、%1 Server Professional Editionでのみサポートされています。</translation>
     </message>
     <message>
         <source>retry</source>
@@ -171,7 +171,7 @@
     </message>
     <message>
         <source>Failed to get actvities information. Please %1</source>
-        <translation type="unfinished"/>
+        <translation>アクティビティ情報の取得に失敗しました。%1してください</translation>
     </message>
 </context>
 <context>
@@ -194,23 +194,23 @@ failed to upload.</source>
     </message>
     <message>
         <source>Permission Error!</source>
-        <translation type="unfinished"/>
+        <translation>許可エラー！</translation>
     </message>
     <message>
         <source>Authorization expired</source>
-        <translation type="unfinished"/>
+        <translation>承認の期限が切れました</translation>
     </message>
     <message>
         <source>File does not exist</source>
-        <translation type="unfinished"/>
+        <translation>ファイルが存在しません</translation>
     </message>
     <message>
         <source>The file is locked by %1, please try again later</source>
-        <translation type="unfinished"/>
+        <translation>ファイルは%1によってロックされています。後でもう一度やり直してください</translation>
     </message>
     <message>
         <source>Upload Failure: %1</source>
-        <translation type="unfinished"/>
+        <translation>アップロードの失敗：％1</translation>
     </message>
 </context>
 <context>
@@ -224,11 +224,11 @@ failed to upload.</source>
     <name>CheckRepoRootDirPermDialog</name>
     <message>
         <source>Checking Permission</source>
-        <translation type="unfinished"/>
+        <translation>許可の確認</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation type="unfinished"/>
+        <translation>キャンセル</translation>
     </message>
 </context>
 <context>
@@ -316,23 +316,23 @@ failed to upload.</source>
     </message>
     <message>
         <source>Starred</source>
-        <translation type="unfinished"/>
+        <translation>スター付き</translation>
     </message>
     <message>
         <source>Activities</source>
-        <translation type="unfinished"/>
+        <translation>活動</translation>
     </message>
     <message>
         <source>Search</source>
-        <translation type="unfinished"/>
+        <translation>検索</translation>
     </message>
     <message>
         <source>current download rate</source>
-        <translation type="unfinished"/>
+        <translation>現在のダウンロード速度</translation>
     </message>
     <message>
         <source>current upload rate</source>
-        <translation type="unfinished"/>
+        <translation>現在のアップロード速度</translation>
     </message>
     <message>
         <source>Please Choose a folder to sync</source>
@@ -340,15 +340,15 @@ failed to upload.</source>
     </message>
     <message>
         <source>no server connected</source>
-        <translation type="unfinished"/>
+        <translation>サーバーが接続されていません</translation>
     </message>
     <message>
         <source>all servers connected</source>
-        <translation type="unfinished"/>
+        <translation>接続されているすべてのサーバー</translation>
     </message>
     <message>
         <source>some servers not connected</source>
-        <translation type="unfinished"/>
+        <translation>一部のサーバーが接続されていません</translation>
     </message>
     <message>
         <source>Form</source>
@@ -376,27 +376,27 @@ failed to upload.</source>
     </message>
     <message>
         <source>brand</source>
-        <translation type="unfinished"/>
+        <translation>ブランド</translation>
     </message>
     <message>
         <source>or Drop Folder to Sync</source>
-        <translation type="unfinished"/>
+        <translation>またはフォルダをドロップして同期</translation>
     </message>
     <message>
         <source>download rate</source>
-        <translation type="unfinished"/>
+        <translation>ダウンロード速度</translation>
     </message>
     <message>
         <source>downarrow</source>
-        <translation type="unfinished"/>
+        <translation>下矢印</translation>
     </message>
     <message>
         <source>upload rate</source>
-        <translation type="unfinished"/>
+        <translation>アップロード速度</translation>
     </message>
     <message>
         <source>uparrow</source>
-        <translation type="unfinished"/>
+        <translation>上矢印</translation>
     </message>
 </context>
 <context>
@@ -407,18 +407,18 @@ failed to upload.</source>
     </message>
     <message>
         <source>Unable to create preconfigure directory &quot;%1&quot;</source>
-        <translation type="unfinished"/>
+        <translation>事前設定ディレクトリ &quot;%1&quot;を作成できません</translation>
     </message>
     <message>
         <source>failed to read %1</source>
-        <translation type="unfinished"/>
+        <translation>%1の読み取りに失敗しました</translation>
     </message>
 </context>
 <context>
     <name>CreateRepoDialog</name>
     <message>
         <source>Create a library</source>
-        <translation type="unfinished"/>
+        <translation>ライブラリを作成</translation>
     </message>
     <message>
         <source>Please choose a directory</source>
@@ -426,11 +426,11 @@ failed to upload.</source>
     </message>
     <message>
         <source>Creating...</source>
-        <translation type="unfinished"/>
+        <translation>作成中</translation>
     </message>
     <message>
         <source>Failed to generate encryption key for this library</source>
-        <translation type="unfinished"/>
+        <translation>このライブラリの暗号化キーの生成に失敗しました</translation>
     </message>
     <message>
         <source>Please choose the directory to sync</source>
@@ -438,7 +438,7 @@ failed to upload.</source>
     </message>
     <message>
         <source>The folder %1 does not exist</source>
-        <translation type="unfinished"/>
+        <translation>フォルダ %1 は存在しません</translation>
     </message>
     <message>
         <source>Please enter the name</source>
@@ -465,7 +465,8 @@ failed to upload.</source>
     <message>
         <source>Failed to create library on the server:
 %1</source>
-        <translation type="unfinished"/>
+        <translation>サーバー上にライブラリを作成できませんでした：
+％1</translation>
     </message>
     <message>
         <source>Dialog</source>
@@ -485,7 +486,7 @@ failed to upload.</source>
     </message>
     <message>
         <source>encrypted</source>
-        <translation type="unfinished"/>
+        <translation>暗号化</translation>
     </message>
     <message>
         <source>Password:</source>
@@ -497,7 +498,7 @@ failed to upload.</source>
     </message>
     <message>
         <source>status text</source>
-        <translation type="unfinished"/>
+        <translation>ステータステキスト</translation>
     </message>
     <message>
         <source>OK</source>
@@ -509,29 +510,29 @@ failed to upload.</source>
     </message>
     <message>
         <source>end-to-end encryption</source>
-        <translation type="unfinished"/>
+        <translation>エンドツーエンド暗号化</translation>
     </message>
     <message>
         <source>TextLabel</source>
-        <translation type="unfinished"/>
+        <translation>テキストラベル</translation>
     </message>
 </context>
 <context>
     <name>DaemonManager</name>
     <message>
         <source>%1 client failed to initialize</source>
-        <translation type="unfinished"/>
+        <translation>%1 クライアントは初期化に失敗しました</translation>
     </message>
     <message>
         <source>%1 exited unexpectedly</source>
-        <translation type="unfinished"/>
+        <translation>%1 が予期せず終了しました</translation>
     </message>
 </context>
 <context>
     <name>DataManager</name>
     <message>
         <source>Another copy or move operation is in progress. Please wait until it finishes.</source>
-        <translation type="unfinished"/>
+        <translation>別のコピーまたは移動操作が進行中です。 終了するまでお待ちください。</translation>
     </message>
 </context>
 <context>
@@ -542,31 +543,31 @@ failed to upload.</source>
     </message>
     <message>
         <source>Sync library &quot;%1&quot;</source>
-        <translation type="unfinished"/>
+        <translation>同期ライブラリ &quot;%1&quot;</translation>
     </message>
     <message>
         <source>Sync folder &quot;%1&quot;</source>
-        <translation type="unfinished"/>
+        <translation>同期フォルダ &quot;%1&quot;</translation>
     </message>
     <message>
         <source>Sync to folder:</source>
-        <translation type="unfinished"/>
+        <translation>フォルダに同期：</translation>
     </message>
     <message>
         <source>or</source>
-        <translation type="unfinished"/>
+        <translation>または</translation>
     </message>
     <message>
         <source>sync with an existing folder</source>
-        <translation type="unfinished"/>
+        <translation>既存のフォルダと同期</translation>
     </message>
     <message>
         <source>create a new sync folder</source>
-        <translation type="unfinished"/>
+        <translation>新しい同期フォルダを作成</translation>
     </message>
     <message>
         <source>Sync with this existing folder:</source>
-        <translation type="unfinished"/>
+        <translation>この既存のフォルダと同期</translation>
     </message>
     <message>
         <source>Please choose a folder</source>
@@ -574,7 +575,7 @@ failed to upload.</source>
     </message>
     <message>
         <source>The folder does not exist</source>
-        <translation type="unfinished"/>
+        <translation>フォルダが存在しません</translation>
     </message>
     <message>
         <source>Please choose the folder to sync.</source>
@@ -582,27 +583,27 @@ failed to upload.</source>
     </message>
     <message>
         <source>Your organization disables putting a library outside %1 folder.</source>
-        <translation type="unfinished"/>
+        <translation>組織は、ライブラリを %1 フォルダの外に配置することを無効にしています。</translation>
     </message>
     <message>
         <source>Conflicting with existing file &quot;%1&quot;, please choose a different folder.</source>
-        <translation type="unfinished"/>
+        <translation>既存のファイル &quot;%1&quot;と競合している場合は、別のフォルダを選択してください。</translation>
     </message>
     <message>
         <source>Conflicting with existing library &quot;%1&quot;, please choose a different folder.</source>
-        <translation type="unfinished"/>
+        <translation>既存のライブラリ &quot;%1&quot;と競合している場合は、別のフォルダを選択してください。</translation>
     </message>
     <message>
         <source>The folder &quot;%1&quot; already exists. Are you sure to sync with it (contents will be merged)?</source>
-        <translation type="unfinished"/>
+        <translation>フォルダ&quot;%1&quot;はすでに存在します。 同期してもよろしいですか（コンテンツはマージされます）？</translation>
     </message>
     <message>
         <source>Click No to sync with a new folder instead</source>
-        <translation type="unfinished"/>
+        <translation>代わりに、[いいえ]をクリックして新しいフォルダと同期します</translation>
     </message>
     <message>
         <source>Unable to find an alternative folder name</source>
-        <translation type="unfinished"/>
+        <translation>別のフォルダ名が見つかりません</translation>
     </message>
     <message>
         <source>Failed to add download task:
@@ -613,11 +614,12 @@ failed to upload.</source>
     <message>
         <source>Failed to get repo download information:
 %1</source>
-        <translation type="unfinished"/>
+        <translation>リポジトリのダウンロード情報を取得できませんでした：
+%1</translation>
     </message>
     <message>
         <source>Download Library</source>
-        <translation type="unfinished"/>
+        <translation>ダウンロードライブラリ</translation>
     </message>
     <message>
         <source>choose...</source>
@@ -647,34 +649,34 @@ failed to upload.</source>
     <name>EventDetailsListModel</name>
     <message>
         <source>Added files</source>
-        <translation type="unfinished"/>
+        <translation>追加されたファイル</translation>
     </message>
     <message>
         <source>Deleted files</source>
-        <translation type="unfinished"/>
+        <translation>削除されたファイル</translation>
     </message>
     <message>
         <source>Modified files</source>
-        <translation type="unfinished"/>
+        <translation>変更されたファイル</translation>
     </message>
     <message>
         <source>Added folders</source>
-        <translation type="unfinished"/>
+        <translation>追加されたフォルダ</translation>
     </message>
     <message>
         <source>Deleted folders</source>
-        <translation type="unfinished"/>
+        <translation>削除されたフォルダ</translation>
     </message>
 </context>
 <context>
     <name>EventDetailsListView</name>
     <message>
         <source>&amp;Open</source>
-        <translation type="unfinished"/>
+        <translation>開く(&amp;O)</translation>
     </message>
     <message>
         <source>Open &amp;parent folder</source>
-        <translation type="unfinished"/>
+        <translation>親フォルダを開く(&amp;P)</translation>
     </message>
 </context>
 <context>
@@ -705,7 +707,7 @@ failed to upload.</source>
     </message>
     <message>
         <source>You don&apos;t have permission to upload files to this library</source>
-        <translation type="unfinished"/>
+        <translation>このライブラリにファイルをアップロードする権限がありません</translation>
     </message>
     <message>
         <source>Create a folder</source>
@@ -713,11 +715,11 @@ failed to upload.</source>
     </message>
     <message>
         <source>Refresh</source>
-        <translation type="unfinished"/>
+        <translation>更新</translation>
     </message>
     <message>
         <source>%1 items</source>
-        <translation type="unfinished"/>
+        <translation>%1 アイテム</translation>
     </message>
     <message>
         <source>Folder name</source>
@@ -729,7 +731,7 @@ failed to upload.</source>
     </message>
     <message>
         <source>The name &quot;%1&quot; is already taken.</source>
-        <translation type="unfinished"/>
+        <translation>&quot;%1&quot; という名前はすでに使用されています。</translation>
     </message>
     <message>
         <source>retry</source>
@@ -737,31 +739,31 @@ failed to upload.</source>
     </message>
     <message>
         <source>Failed to get files information&lt;br/&gt;Please %1</source>
-        <translation type="unfinished"/>
+        <translation>ファイル情報の取得に失敗しました&lt;br/&gt;お願いします %1</translation>
     </message>
     <message>
         <source>This folder is empty.</source>
-        <translation type="unfinished"/>
+        <translation>このフォルダーは空</translation>
     </message>
     <message>
         <source>Enter name of file to save to...</source>
-        <translation type="unfinished"/>
+        <translation>保存するファイルの名前を入力してください...</translation>
     </message>
     <message>
         <source>Unable to remove file &quot;%1&quot;</source>
-        <translation type="unfinished"/>
+        <translation>ファイル &quot;%1&quot; を削除できません</translation>
     </message>
     <message>
         <source>Enter the path of the folder you want to save to...</source>
-        <translation type="unfinished"/>
+        <translation>保存するフォルダのパスを入力してください...</translation>
     </message>
     <message>
         <source>Do you want to overwrite the existing file &quot;%1&quot;?</source>
-        <translation type="unfinished"/>
+        <translation>既存のファイル &quot;%1&quot; を上書きしますか？</translation>
     </message>
     <message>
         <source>File &quot;%1&quot; haven&apos;t been synced</source>
-        <translation type="unfinished"/>
+        <translation>ファイル &quot;%1&quot; が同期されていません</translation>
     </message>
     <message>
         <source>File %1 already exists.&lt;br/&gt;Do you like to overwrite it?&lt;br/&gt;&lt;small&gt;(Choose No to upload using an alternative name).&lt;/small&gt;</source>
@@ -769,11 +771,11 @@ failed to upload.</source>
     </message>
     <message>
         <source>File does not exist</source>
-        <translation type="unfinished"/>
+        <translation>ファイルが存在しません</translation>
     </message>
     <message>
         <source>Failed to download file: %1</source>
-        <translation type="unfinished"/>
+        <translation>ファイルのダウンロードに失敗しました：%1</translation>
     </message>
     <message>
         <source>Select a file to upload</source>
@@ -785,102 +787,102 @@ failed to upload.</source>
     </message>
     <message>
         <source>Rename</source>
-        <translation type="unfinished"/>
+        <translation>改称</translation>
     </message>
     <message>
         <source>Do you really want to delete these items</source>
-        <translation type="unfinished"/>
+        <translation>これらのアイテムを本当に削除しますか</translation>
     </message>
     <message>
         <source>Create folder failed</source>
-        <translation type="unfinished"/>
+        <translation>フォルダの作成に失敗しました</translation>
     </message>
     <message>
         <source>Lock file failed</source>
-        <translation type="unfinished"/>
+        <translation>ファイルのロックに失敗しました</translation>
     </message>
     <message>
         <source>Select a file to update %1</source>
-        <translation type="unfinished"/>
+        <translation>%1を更新するファイルを選択します</translation>
     </message>
     <message>
         <source>Rename failed</source>
-        <translation type="unfinished"/>
+        <translation>名前の変更に失敗しました</translation>
     </message>
     <message>
         <source>Remove failed</source>
-        <translation type="unfinished"/>
+        <translation>削除に失敗しました</translation>
     </message>
     <message>
         <source>Share failed</source>
-        <translation type="unfinished"/>
+        <translation>共有に失敗しました</translation>
     </message>
     <message>
         <source>Cannot paste files from the same folder</source>
-        <translation type="unfinished"/>
+        <translation>同じフォルダからファイルを貼り付けることはできません</translation>
     </message>
     <message>
         <source>Cannot paste the folder to its subfolder</source>
-        <translation type="unfinished"/>
+        <translation>フォルダをそのサブフォルダに貼り付けることはできません</translation>
     </message>
     <message>
         <source>Copy failed</source>
-        <translation type="unfinished"/>
+        <translation>コピーに失敗しました</translation>
     </message>
     <message>
         <source>Move failed</source>
-        <translation type="unfinished"/>
+        <translation>移動に失敗しました</translation>
     </message>
     <message>
         <source>Create library failed!</source>
-        <translation type="unfinished"/>
+        <translation>ライブラリの作成に失敗しました！</translation>
     </message>
     <message>
         <source>You do not have permission to upload to this folder</source>
-        <translation type="unfinished"/>
+        <translation>このフォルダにアップロードする権限がありません</translation>
     </message>
     <message>
         <source>Authorization expired</source>
-        <translation type="unfinished"/>
+        <translation>承認の期限が切れました</translation>
     </message>
     <message>
         <source>Permission Error!</source>
-        <translation type="unfinished"/>
+        <translation>許可エラー！</translation>
     </message>
     <message>
         <source>Library/Folder not found.</source>
-        <translation type="unfinished"/>
+        <translation>ライブラリ/フォルダが見つかりません。</translation>
     </message>
     <message>
         <source>Failed to upload file %1: %2</source>
-        <translation type="unfinished"/>
+        <translation>ファイル %1 のアップロードに失敗しました：%2</translation>
     </message>
     <message>
         <source>Unable to create cache folder</source>
-        <translation type="unfinished"/>
+        <translation>キャッシュフォルダを作成できません</translation>
     </message>
     <message>
         <source>Unable to open cache folder</source>
-        <translation type="unfinished"/>
+        <translation>キャッシュフォルダを開くことができません</translation>
     </message>
     <message>
         <source>Search files</source>
-        <translation type="unfinished"/>
+        <translation>ファイル検索</translation>
     </message>
     <message>
         <source>Failed to get link</source>
-        <translation type="unfinished"/>
+        <translation>リンクを取得できませんでした</translation>
     </message>
     <message>
         <source>Failed to get upload link information for file &quot;%1&quot;</source>
-        <translation type="unfinished"/>
+        <translation>ファイル “%1” のアップロードリンク情報を取得できませんでした</translation>
     </message>
 </context>
 <context>
     <name>FileBrowserProgressDialog</name>
     <message>
         <source>Pending</source>
-        <translation type="unfinished"/>
+        <translation>保留中</translation>
     </message>
     <message>
         <source>Cancel</source>
@@ -904,61 +906,61 @@ failed to upload.</source>
     </message>
     <message>
         <source>%1 of %2</source>
-        <translation type="unfinished"/>
+        <translation>%2 の %1</translation>
     </message>
     <message>
         <source>Failed to upload file &quot;%1&quot;, do you want to retry?</source>
-        <translation type="unfinished"/>
+        <translation>ファイル &quot;%1&quot; のアップロードに失敗しました。再試行しますか？</translation>
     </message>
     <message>
         <source>Retry</source>
-        <translation type="unfinished"/>
+        <translation>再試行</translation>
     </message>
     <message>
         <source>Skip</source>
-        <translation type="unfinished"/>
+        <translation>スキップ</translation>
     </message>
     <message>
         <source>Abort</source>
-        <translation type="unfinished"/>
+        <translation>アボート</translation>
     </message>
     <message>
         <source>Saving</source>
-        <translation type="unfinished"/>
+        <translation>保存</translation>
     </message>
     <message>
         <source>File save failed</source>
-        <translation type="unfinished"/>
+        <translation>ファイルの保存に失敗しました</translation>
     </message>
     <message>
         <source>Index progress request error %1</source>
-        <translation type="unfinished"/>
+        <translation>インデックス進行要求エラー%1</translation>
     </message>
 </context>
 <context>
     <name>FileBrowserSearchModel</name>
     <message>
         <source>Name</source>
-        <translation type="unfinished"/>
+        <translation>名称</translation>
     </message>
     <message>
         <source>Size</source>
-        <translation type="unfinished"/>
+        <translation>サイズ</translation>
     </message>
     <message>
         <source>Last Modified</source>
-        <translation type="unfinished"/>
+        <translation>最終更新日</translation>
     </message>
 </context>
 <context>
     <name>FileBrowserSearchView</name>
     <message>
         <source>&amp;Show in folder</source>
-        <translation type="unfinished"/>
+        <translation>フォルダに表示（&amp;S）</translation>
     </message>
     <message>
         <source>Show in folder</source>
-        <translation type="unfinished"/>
+        <translation>フォルダに表示</translation>
     </message>
 </context>
 <context>
@@ -969,14 +971,14 @@ failed to upload.</source>
     </message>
     <message>
         <source>pending</source>
-        <translation type="unfinished"/>
+        <translation>保留中</translation>
     </message>
 </context>
 <context>
     <name>FileServerTask</name>
     <message>
         <source>task cancelled</source>
-        <translation type="unfinished"/>
+        <translation>タスクが取り消さ</translation>
     </message>
     <message>
         <source>Internal Server Error</source>
@@ -984,14 +986,14 @@ failed to upload.</source>
     </message>
     <message>
         <source>The storage quota has been used up</source>
-        <translation type="unfinished"/>
+        <translation>ストレージクォータが使い果たされました</translation>
     </message>
 </context>
 <context>
     <name>FileTableModel</name>
     <message>
         <source>locked by %1</source>
-        <translation type="unfinished"/>
+        <translation>%1 によってロックされ</translation>
     </message>
     <message>
         <source>Name</source>
@@ -1003,11 +1005,11 @@ failed to upload.</source>
     </message>
     <message>
         <source>Last Modified</source>
-        <translation type="unfinished"/>
+        <translation>最終更新日</translation>
     </message>
     <message>
         <source>Modifier</source>
-        <translation type="unfinished"/>
+        <translation>修飾語</translation>
     </message>
 </context>
 <context>
@@ -1018,7 +1020,7 @@ failed to upload.</source>
     </message>
     <message>
         <source>&amp;Lock</source>
-        <translation type="unfinished"/>
+        <translation>ロック（&amp;L）</translation>
     </message>
     <message>
         <source>&amp;Rename</source>
@@ -1030,7 +1032,7 @@ failed to upload.</source>
     </message>
     <message>
         <source>Share to Group</source>
-        <translation type="unfinished"/>
+        <translation>グループに共有</translation>
     </message>
     <message>
         <source>&amp;Update</source>
@@ -1064,104 +1066,104 @@ failed to upload.</source>
     </message>
     <message>
         <source>&amp;Generate %1 Download Link</source>
-        <translation type="unfinished"/>
+        <translation>%1ダウンロードリンクを生成 (&amp;G)</translation>
     </message>
     <message>
         <source>Share to User</source>
-        <translation type="unfinished"/>
+        <translation>ユーザーに共有</translation>
     </message>
     <message>
         <source>G&amp;enerate %1 Internal Link</source>
-        <translation type="unfinished"/>
+        <translation>％1内部リンクを生成 (&amp;E)</translation>
     </message>
     <message>
         <source>&amp;Save As To...</source>
-        <translation type="unfinished"/>
+        <translation>名前を付けて保存...(&amp;S)</translation>
     </message>
     <message>
         <source>Un&amp;lock</source>
-        <translation type="unfinished"/>
+        <translation>ロックを解除 (&amp;L)</translation>
     </message>
     <message>
         <source>Unable to remove readonly files</source>
-        <translation type="unfinished"/>
+        <translation>読み取り専用ファイルを削除できません</translation>
     </message>
     <message>
         <source>Unable to cut readonly files</source>
-        <translation type="unfinished"/>
+        <translation>読み取り専用ファイルをカットできません</translation>
     </message>
     <message>
         <source>Retry Upload</source>
-        <translation type="unfinished"/>
+        <translation>アップロードを再試行</translation>
     </message>
     <message>
         <source>Delete Local Version</source>
-        <translation type="unfinished"/>
+        <translation>ローカルバージョンを削除</translation>
     </message>
     <message>
         <source>Local Version Save As...</source>
-        <translation type="unfinished"/>
+        <translation>ローカルバージョン名前を付けて保存...</translation>
     </message>
     <message>
         <source>Open Local Cache Folder</source>
-        <translation type="unfinished"/>
+        <translation>ローカルキャッシュフォルダを開く</translation>
     </message>
     <message>
         <source>&amp;Generate %1 Upload Link</source>
-        <translation type="unfinished"/>
+        <translation>%1アップロードリンクを生成 (&amp;G)</translation>
     </message>
 </context>
 <context>
     <name>FinderSyncHost</name>
     <message>
         <source>Failed to get link</source>
-        <translation type="unfinished"/>
+        <translation>リンクを取得できませんでした</translation>
     </message>
     <message>
         <source>File &quot;%1&quot; is locked by %2</source>
-        <translation type="unfinished"/>
+        <translation>ファイル &quot;％1&quot;は％2によってロックされています</translation>
     </message>
     <message>
         <source>Failed to get lock information for file &quot;%1&quot;</source>
-        <translation type="unfinished"/>
+        <translation>ファイル “%1” のロック情報を取得できませんでした</translation>
     </message>
     <message>
         <source>Failed to get upload link for file &quot;%1&quot;</source>
-        <translation type="unfinished"/>
+        <translation>ファイルのアップロードリンクの取得に失敗しました “%1”</translation>
     </message>
 </context>
 <context>
     <name>GetFileTask</name>
     <message>
         <source>Failed to create folders</source>
-        <translation type="unfinished"/>
+        <translation>フォルダの作成に失敗しました</translation>
     </message>
     <message>
         <source>Failed to create temporary files</source>
-        <translation type="unfinished"/>
+        <translation>一時ファイルの作成に失敗しました</translation>
     </message>
     <message>
         <source>Failed to write file to disk</source>
-        <translation type="unfinished"/>
+        <translation>ファイルをディスクに書き込めませんでした</translation>
     </message>
     <message>
         <source>Failed to remove the older version of the downloaded file</source>
-        <translation type="unfinished"/>
+        <translation>ダウンロードしたファイルの古いバージョンを削除できませんでした</translation>
     </message>
     <message>
         <source>Failed to move file</source>
-        <translation type="unfinished"/>
+        <translation>ファイルの移動に失敗</translation>
     </message>
 </context>
 <context>
     <name>InitSeafileDialog</name>
     <message>
         <source>%1 Initialization</source>
-        <translation type="unfinished"/>
+        <translation>%1 初期化</translation>
     </message>
     <message>
         <source>Choose %1 folder</source>
-        <translation type="unfinished"/>
+        <translation>%1 フォルダを選択</translation>
     </message>
     <message>
         <source>Please choose a directory</source>
@@ -1169,11 +1171,11 @@ failed to upload.</source>
     </message>
     <message>
         <source>Initialization is not finished. Really quit?</source>
-        <translation type="unfinished"/>
+        <translation>初期化は終了していません。 本当にやめますか？</translation>
     </message>
     <message>
         <source>The folder %1 does not exist</source>
-        <translation type="unfinished"/>
+        <translation>フォルダ %1 は存在しません</translation>
     </message>
     <message>
         <source>Dialog</source>
@@ -1185,11 +1187,11 @@ failed to upload.</source>
     </message>
     <message>
         <source>Choose a folder</source>
-        <translation type="unfinished"/>
+        <translation>フォルダを選択</translation>
     </message>
     <message>
         <source>Please choose a folder. We will create a %1 subfolder in it. When you download a library, it will be saved there by default.</source>
-        <translation type="unfinished"/>
+        <translation>フォルダを選択してください。 その中に %1 サブフォルダーを作成します。 ライブラリをダウンロードすると、デフォルトでそこに保存されます。</translation>
     </message>
     <message>
         <source>Choose...</source>
@@ -1209,45 +1211,51 @@ failed to upload.</source>
     <message>
         <source>%1 organizes files by libraries.
 Do you like to download your default library?</source>
-        <translation type="unfinished"/>
+        <translation>%1 はファイルをライブラリごとに整理します。 デフォルトのライブラリをダウンロードしますか？</translation>
     </message>
     <message>
         <source>Checking your default library...</source>
-        <translation type="unfinished"/>
+        <translation>デフォルトのライブラリを確認中</translation>
     </message>
     <message>
         <source>Creating the default library...</source>
-        <translation type="unfinished"/>
+        <translation>デフォルトのライブラリを作成中</translation>
     </message>
     <message>
         <source>Failed to create default library:
 
 The server version must be 2.1 or higher to support this.</source>
-        <translation type="unfinished"/>
+        <translation>デフォルトライブラリの作成に失敗しました：
+
+これをサポートするには、サーバーのバージョンが2.1以降である必要があります。</translation>
     </message>
     <message>
         <source>Failed to get default library:
 %1</source>
-        <translation type="unfinished"/>
+        <translation>デフォルトのライブラリを取得できませんでした：
+%1</translation>
     </message>
     <message>
         <source>Failed to create default library:
 %1</source>
-        <translation type="unfinished"/>
+        <translation>デフォルトライブラリの作成に失敗しました：
+%1</translation>
     </message>
     <message>
         <source>Downloading default library...</source>
-        <translation type="unfinished"/>
+        <translation>デフォルトのライブラリをダウンロード中</translation>
     </message>
     <message>
         <source>Failed to download default library:
 %1</source>
-        <translation type="unfinished"/>
+        <translation>デフォルトのライブラリのダウンロードに失敗しました：
+%1</translation>
     </message>
     <message>
         <source>The default library has been downloaded.
 You can click the &quot;Open&quot; button to view it.</source>
-        <translation type="unfinished"/>
+        <translation>デフォルトのライブラリがダウンロードされました。 
+「開く」ボタンをクリックすると表示されます。</translation>
     </message>
     <message>
         <source>Error when downloading the default library: %1</source>
@@ -1256,7 +1264,8 @@ You can click the &quot;Open&quot; button to view it.</source>
     <message>
         <source>Failed to download default library:
  %1</source>
-        <translation type="unfinished"/>
+        <translation>デフォルトのライブラリのダウンロードに失敗しました：
+％1</translation>
     </message>
     <message>
         <source>Dialog</source>
@@ -1265,27 +1274,28 @@ You can click the &quot;Open&quot; button to view it.</source>
     <message>
         <source>%1 organizes files by libraries. 
 Do you like to download your default library?</source>
-        <translation type="unfinished"/>
+        <translation>%1はファイルをライブラリごとに整理します。
+デフォルトのライブラリをダウンロードしますか？</translation>
     </message>
     <message>
         <source>Skip</source>
-        <translation type="unfinished"/>
+        <translation>スキップ</translation>
     </message>
     <message>
         <source>Run in Background</source>
-        <translation type="unfinished"/>
+        <translation>バックグラウンドで実行</translation>
     </message>
     <message>
         <source>Open</source>
-        <translation type="unfinished"/>
+        <translation>開く</translation>
     </message>
     <message>
         <source>Finish</source>
-        <translation type="unfinished"/>
+        <translation>終了</translation>
     </message>
     <message>
         <source>Download Default Library</source>
-        <translation type="unfinished"/>
+        <translation>デフォルトのライブラリをダウンロードする</translation>
     </message>
     <message>
         <source>Yes</source>
@@ -1300,72 +1310,72 @@ Do you like to download your default library?</source>
     <name>LoadMoreButton</name>
     <message>
         <source>load more</source>
-        <translation type="unfinished"/>
+        <translation>もっと読み込む</translation>
     </message>
 </context>
 <context>
     <name>LogDirUploader</name>
     <message>
         <source>Upload log files failed</source>
-        <translation type="unfinished"/>
+        <translation>ログファイルのアップロードに失敗しました</translation>
     </message>
     <message>
         <source>Upload log files</source>
-        <translation type="unfinished"/>
+        <translation>ログファイルをアップロードする</translation>
     </message>
     <message>
         <source>Permission Error!</source>
-        <translation type="unfinished"/>
+        <translation>許可エラー！</translation>
     </message>
     <message>
         <source>Library/Folder not found.</source>
-        <translation type="unfinished"/>
+        <translation>ライブラリ/フォルダが見つかりません。</translation>
     </message>
     <message>
         <source>Authorization expired</source>
-        <translation type="unfinished"/>
+        <translation>承認の期限が切れました</translation>
     </message>
     <message>
         <source>Upload log files failed :%1</source>
-        <translation type="unfinished"/>
+        <translation>ログファイルのアップロードに失敗しました：%1</translation>
     </message>
     <message>
         <source>Successfully uploaded log files</source>
-        <translation type="unfinished"/>
+        <translation>ログファイルが正常にアップロードされました</translation>
     </message>
 </context>
 <context>
     <name>LogUploadProgressDialog</name>
     <message>
         <source>Compressing</source>
-        <translation type="unfinished"/>
+        <translation>圧縮</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation type="unfinished"/>
+        <translation>キャンセル</translation>
     </message>
     <message>
         <source>%1 of %2</source>
-        <translation type="unfinished"/>
+        <translation>%2 の %1</translation>
     </message>
 </context>
 <context>
     <name>LoginDialog</name>
     <message>
         <source>Add an account</source>
-        <translation type="unfinished"/>
+        <translation>アカウントを追加</translation>
     </message>
     <message>
         <source>Single Sign On</source>
-        <translation type="unfinished"/>
+        <translation>シングル・サインオン</translation>
     </message>
     <message>
         <source>Re-login</source>
-        <translation type="unfinished"/>
+        <translation>再ログイン</translation>
     </message>
     <message>
         <source>Logging in...</source>
-        <translation type="unfinished"/>
+        <translation>ログイン中</translation>
     </message>
     <message>
         <source>Network Error:
@@ -1375,15 +1385,15 @@ Do you like to download your default library?</source>
     </message>
     <message>
         <source>&lt;b&gt;Warning:&lt;/b&gt; The ssl certificate of this server is not trusted, proceed anyway?</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;警告：&lt;/b&gt; このサーバーのSSL証明書は信頼されていません、とにかく続行しますか？</translation>
     </message>
     <message>
         <source>Please enter the server address</source>
-        <translation type="unfinished"/>
+        <translation>サーバーアドレスを入力してください</translation>
     </message>
     <message>
         <source>%1 is not a valid server address</source>
-        <translation type="unfinished"/>
+        <translation>%1のサーバーアドレスは正しくありません</translation>
     </message>
     <message>
         <source>Please enter the username</source>
@@ -1395,15 +1405,15 @@ Do you like to download your default library?</source>
     </message>
     <message>
         <source>%1 Server Address</source>
-        <translation type="unfinished"/>
+        <translation>%1 サーバーアドレス</translation>
     </message>
     <message>
         <source>Server address must not be empty</source>
-        <translation type="unfinished"/>
+        <translation>サーバーアドレスは空であってはなりません</translation>
     </message>
     <message>
         <source>%1 is not a valid server address. It has to start with &apos;https://&apos;</source>
-        <translation type="unfinished"/>
+        <translation>%1は有効なサーバーアドレスではありません。 &apos;https://&apos; で始まる必要があります</translation>
     </message>
     <message>
         <source>Please enter the password</source>
@@ -1415,7 +1425,7 @@ Do you like to download your default library?</source>
     </message>
     <message>
         <source>Logging in too frequently, please wait a minute</source>
-        <translation type="unfinished"/>
+        <translation>ログイン頻度が高すぎるため、しばらくお待ちください</translation>
     </message>
     <message>
         <source>Internal Server Error</source>
@@ -1423,11 +1433,11 @@ Do you like to download your default library?</source>
     </message>
     <message>
         <source>Failed to login: %1</source>
-        <translation type="unfinished"/>
+        <translation>ログインに失敗しました：%1</translation>
     </message>
     <message>
         <source>Failed to login</source>
-        <translation type="unfinished"/>
+        <translation>ログインに失敗しました</translation>
     </message>
     <message>
         <source>Dialog</source>
@@ -1439,15 +1449,15 @@ Do you like to download your default library?</source>
     </message>
     <message>
         <source>Server:</source>
-        <translation type="unfinished"/>
+        <translation>サーバ:</translation>
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;For example: https://seacloud.cc&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;例:https://seacloud.cc&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <source>or http://192.168.1.24:8000</source>
-        <translation type="unfinished"/>
+        <translation>または: http://192.168.1.24:8000</translation>
     </message>
     <message>
         <source>Password:</source>
@@ -1455,7 +1465,7 @@ Do you like to download your default library?</source>
     </message>
     <message>
         <source>status text</source>
-        <translation type="unfinished"/>
+        <translation>ステータステキスト</translation>
     </message>
     <message>
         <source>Computer Name:</source>
@@ -1463,15 +1473,15 @@ Do you like to download your default library?</source>
     </message>
     <message>
         <source>Email / Username:</source>
-        <translation type="unfinished"/>
+        <translation>メール/ユーザー名：</translation>
     </message>
     <message>
         <source>e.g. Jim&apos;s laptop</source>
-        <translation type="unfinished"/>
+        <translation>例: Jim&apos;s laptop</translation>
     </message>
     <message>
         <source>Login</source>
-        <translation type="unfinished"/>
+        <translation>ログイン</translation>
     </message>
     <message>
         <source>Cancel</source>
@@ -1479,93 +1489,103 @@ Do you like to download your default library?</source>
     </message>
     <message>
         <source>Automatic Login</source>
-        <translation type="unfinished"/>
+        <translation>自動ログイン</translation>
     </message>
 </context>
 <context>
     <name>LogoutView</name>
     <message>
         <source>You are logout. Please </source>
-        <translation type="unfinished"/>
+        <translation>ログアウトしています。 お願いします</translation>
     </message>
     <message>
         <source>login</source>
-        <translation type="unfinished"/>
+        <translation>ログイン</translation>
     </message>
     <message>
         <source>Add an account</source>
-        <translation type="unfinished"/>
+        <translation>アカウントを追加</translation>
     </message>
 </context>
 <context>
     <name>MainWindow</name>
     <message>
         <source>Refresh</source>
-        <translation type="unfinished"/>
+        <translation>更新</translation>
     </message>
 </context>
 <context>
     <name>MessagePoller</name>
     <message>
         <source>&quot;%1&quot; is synchronized</source>
-        <translation type="unfinished"/>
+        <translation>&quot;%1&quot; は同期されます</translation>
     </message>
     <message>
         <source>Files uploaded to &quot;%1&quot;</source>
-        <translation type="unfinished"/>
+        <translation>&quot;%1&quot; にアップロードされたファイル</translation>
     </message>
     <message>
         <source>Failed to sync file %1
 File is locked by other application. This file will be updated when you close the application.</source>
-        <translation type="unfinished"/>
+        <translation>ファイル %1 の同期に失敗しました
+ファイルは他のアプリケーションによってロックされています。 このファイルは、アプリケーションを閉じると更新されます。</translation>
     </message>
     <message>
         <source>Failed to sync folder %1
 Some file in this folder is locked by other application. This folder will be updated when you close the application.</source>
-        <translation type="unfinished"/>
+        <translation>フォルダ %1 の同期に失敗しました
+このフォルダ内の一部のファイルは、他のアプリケーションによってロックされています。 このフォルダは、アプリケーションを閉じると更新されます。</translation>
     </message>
     <message>
         <source>Failed to sync file %1
 File is locked by another user. Update to this file is not uploaded.</source>
-        <translation type="unfinished"/>
+        <translation>ファイル %1 の同期に失敗しました
+ファイルは別のユーザーによってロックされています。 このファイルの更新はアップロードされません。</translation>
     </message>
     <message>
         <source>Failed to index file %1
 Please check file permission and disk space.</source>
-        <translation type="unfinished"/>
+        <translation>ファイル %1 のインデックス作成に失敗しました
+ファイルのアクセス許可とディスク容量を確認してください。</translation>
     </message>
     <message>
         <source>Failed to sync %1
 File path is ended with space or period and cannot be created on Windows.</source>
-        <translation type="unfinished"/>
+        <translation>%1 の同期に失敗しました
+ファイルパスはスペースまたはピリオドで終了し、Windowsでは作成できません。</translation>
     </message>
     <message>
         <source>Failed to sync %1
 File path contains invalid characters. It is not synced to this computer.</source>
-        <translation type="unfinished"/>
+        <translation>%1の同期に失敗しました
+ファイルパスに無効な文字が含まれています。 このコンピューターと同期されていません。</translation>
     </message>
     <message>
         <source>Update to file %1 is denied by folder permission setting.</source>
-        <translation type="unfinished"/>
+        <translation>ファイル％1への更新は、フォルダーのアクセス許可の設定によって拒否されます。</translation>
     </message>
     <message>
         <source>No permission to sync folder %1.</source>
-        <translation type="unfinished"/>
+        <translation>フォルダ％1を同期する権限がありません。</translation>
     </message>
     <message>
         <source>Updates in read-only library %1 will not be uploaded.</source>
-        <translation type="unfinished"/>
+        <translation>読み取り専用ライブラリ％1の更新はアップロードされません。</translation>
     </message>
     <message>
         <source>Concurrent updates to file. File %1 is saved as conflict file</source>
-        <translation type="unfinished"/>
+        <translation>ファイルの同時更新。 ファイル %1 は競合ファイルとして保存されます</translation>
     </message>
     <message>
         <source>Folder %1 is moved to seafile-recycle-bin folder since it contains not-yet uploaded files.</source>
-        <translation type="unfinished"/>
+        <translation>フォルダー％1には、まだアップロードされていないファイルが含まれているため、seafile-recycle-binフォルダーに移動されます。</translation>
     </message>
     <message>
         <source>Folder for library %1 is removed or moved. The library is unsynced.</source>
+        <translation>ライブラリ%1 のフォルダが削除または移動されました。 ライブラリは同期されていません。</translation>
+    </message>
+    <message>
+        <source>The file path %1 contains symbols that are not supported by the Windows system.</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -1573,134 +1593,134 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     <name>PrivateShareDialog</name>
     <message>
         <source>Share %1</source>
-        <translation type="unfinished"/>
+        <translation>共有 %1</translation>
     </message>
     <message>
         <source>Enter the group name</source>
-        <translation type="unfinished"/>
+        <translation>グループ名を入力してください</translation>
     </message>
     <message>
         <source>Enter user name or email address</source>
-        <translation type="unfinished"/>
+        <translation>ユーザー名またはメールアドレスを入力してください</translation>
     </message>
     <message>
         <source>Updated successfully</source>
-        <translation type="unfinished"/>
+        <translation>更新成功</translation>
     </message>
     <message>
         <source>Share Operation Failed: %1</source>
-        <translation type="unfinished"/>
+        <translation>共有操作に失敗しました：%1</translation>
     </message>
     <message>
         <source>Removed successfully</source>
-        <translation type="unfinished"/>
+        <translation>正常に削除されました</translation>
     </message>
     <message>
         <source>Failed to get share information of the folder</source>
-        <translation type="unfinished"/>
+        <translation>フォルダの共有情報の取得に失敗しました</translation>
     </message>
     <message>
         <source>Failed to get your groups and contacts information</source>
-        <translation type="unfinished"/>
+        <translation>グループと連絡先情報を取得できませんでした</translation>
     </message>
     <message>
         <source>Please enter the username</source>
-        <translation type="unfinished"/>
+        <translation>ユーザー名を入力してください</translation>
     </message>
     <message>
         <source>Please enter the group name</source>
-        <translation type="unfinished"/>
+        <translation>グループ名を入力してください</translation>
     </message>
     <message>
         <source>No such group &quot;%1&quot;</source>
-        <translation type="unfinished"/>
+        <translation>そのようなグループない “%1”</translation>
     </message>
     <message>
         <source>Already shared to group %1</source>
-        <translation type="unfinished"/>
+        <translation>すでにグループ ％1 に共有されています</translation>
     </message>
     <message>
         <source>Already shared to user %1</source>
-        <translation type="unfinished"/>
+        <translation>すでにユーザー %1に共有されています</translation>
     </message>
     <message>
         <source>The previous operation is still in progres</source>
-        <translation type="unfinished"/>
+        <translation>前の操作はまだ進行中です</translation>
     </message>
     <message>
         <source>Dialog</source>
-        <translation type="unfinished"/>
+        <translation>ダイアログ</translation>
     </message>
     <message>
         <source>Share To:</source>
-        <translation type="unfinished"/>
+        <translation>共有：</translation>
     </message>
     <message>
         <source>Share</source>
-        <translation type="unfinished"/>
+        <translation>共有：</translation>
     </message>
     <message>
         <source>Permission:</source>
-        <translation type="unfinished"/>
+        <translation>許可</translation>
     </message>
     <message>
         <source>Read-Write</source>
-        <translation type="unfinished"/>
+        <translation>読み書き</translation>
     </message>
     <message>
         <source>Read-Only</source>
-        <translation type="unfinished"/>
+        <translation>読み取り専用</translation>
     </message>
     <message>
         <source>Close</source>
-        <translation type="unfinished"/>
+        <translation>閉じる</translation>
     </message>
 </context>
 <context>
     <name>QObject</name>
     <message>
         <source>synchronized</source>
-        <translation type="unfinished"/>
+        <translation>同期</translation>
     </message>
     <message>
         <source>indexing files</source>
-        <translation type="unfinished"/>
+        <translation>インデックスファイル</translation>
     </message>
     <message>
         <source>sync initializing</source>
-        <translation type="unfinished"/>
+        <translation>同期の初期化</translation>
     </message>
     <message>
         <source>downloading</source>
-        <translation type="unfinished"/>
+        <translation>ダウンロード中</translation>
     </message>
     <message>
         <source>uploading</source>
-        <translation type="unfinished"/>
+        <translation>アップロード中</translation>
     </message>
     <message>
         <source>sync merging</source>
-        <translation type="unfinished"/>
+        <translation>同期マージ</translation>
     </message>
     <message>
         <source>waiting for sync</source>
-        <translation type="unfinished"/>
+        <translation>同期を待っています</translation>
     </message>
     <message>
         <source>server not connected</source>
-        <translation type="unfinished"/>
+        <translation>サーバーが接続されていません</translation>
     </message>
     <message>
         <source>server authenticating</source>
-        <translation type="unfinished"/>
+        <translation>サーバー認証</translation>
     </message>
     <message>
         <source>auto sync is turned off</source>
-        <translation type="unfinished"/>
+        <translation>自動同期がオフになっている</translation>
     </message>
     <message>
         <source>unknown</source>
-        <translation type="unfinished"/>
+        <translation>不明</translation>
     </message>
     <message>
         <source>Unknown error</source>
@@ -1708,99 +1728,99 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     </message>
     <message>
         <source>Network error</source>
-        <translation type="unfinished"/>
+        <translation>ネットワークエラー</translation>
     </message>
     <message>
         <source>Cannot resolve proxy address</source>
-        <translation type="unfinished"/>
+        <translation>プロキシアドレスを解決できません</translation>
     </message>
     <message>
         <source>Cannot resolve server address</source>
-        <translation type="unfinished"/>
+        <translation>サーバーアドレスを解決できません</translation>
     </message>
     <message>
         <source>Cannot connect to server</source>
-        <translation type="unfinished"/>
+        <translation>サーバーに接続できない</translation>
     </message>
     <message>
         <source>Failed to establish secure connection. Please check server SSL certificate</source>
-        <translation type="unfinished"/>
+        <translation>安全な接続を確立できませんでした。 サーバーのSSL証明書を確認してください</translation>
     </message>
     <message>
         <source>Data transfer was interrupted. Please check network or firewall</source>
-        <translation type="unfinished"/>
+        <translation>データ転送が中断されました。 ネットワークまたはファイアウォールを確認してください</translation>
     </message>
     <message>
         <source>Data transfer timed out. Please check network or firewall</source>
-        <translation type="unfinished"/>
+        <translation>データ転送がタイムアウトしました。 ネットワークまたはファイアウォールを確認してください</translation>
     </message>
     <message>
         <source>Unhandled http redirect from server. Please check server cofiguration</source>
-        <translation type="unfinished"/>
+        <translation>サーバーからの未処理のhttpリダイレクト。 サーバー構成を確認してください</translation>
     </message>
     <message>
         <source>Server error</source>
-        <translation type="unfinished"/>
+        <translation>サーバーエラー</translation>
     </message>
     <message>
         <source>Not enough memory</source>
-        <translation type="unfinished"/>
+        <translation>メモリーが充分ではありません</translation>
     </message>
     <message>
         <source>Failed to write data on the client. Please check disk space or folder permissions</source>
-        <translation type="unfinished"/>
+        <translation>クライアントへのデータの書き込みに失敗しました。 ディスク容量またはフォルダのアクセス許可を確認してください</translation>
     </message>
     <message>
         <source>Storage quota full</source>
-        <translation type="unfinished"/>
+        <translation>ストレージクォータがいっぱいです</translation>
     </message>
     <message>
         <source>Library deleted on server</source>
-        <translation type="unfinished"/>
+        <translation>サーバーでライブラリが削除されました</translation>
     </message>
     <message>
         <source>Library damaged on server</source>
-        <translation type="unfinished"/>
+        <translation>サーバーでライブラリが破損しています</translation>
     </message>
     <message>
         <source>The storage quota has been used up</source>
-        <translation type="unfinished"/>
+        <translation>ストレージクォータが使い果たされました</translation>
     </message>
     <message>
         <source>initializing...</source>
-        <translation type="unfinished"/>
+        <translation>初期化中...</translation>
     </message>
     <message>
         <source>connecting server...</source>
-        <translation type="unfinished"/>
+        <translation>サーバーを接続中...</translation>
     </message>
     <message>
         <source>indexing files...</source>
-        <translation type="unfinished"/>
+        <translation>インデックスファイル...</translation>
     </message>
     <message>
         <source>Downloading file list...</source>
-        <translation type="unfinished"/>
+        <translation>ファイルリストをダウンロード中...</translation>
     </message>
     <message>
         <source>Downloading files...</source>
-        <translation type="unfinished"/>
+        <translation>ファイルをダウンロード中...</translation>
     </message>
     <message>
         <source>Creating folder...</source>
-        <translation type="unfinished"/>
+        <translation>フォルダを作成中...</translation>
     </message>
     <message>
         <source>Merge file changes...</source>
-        <translation type="unfinished"/>
+        <translation>ファイルの変更をマージ...</translation>
     </message>
     <message>
         <source>Done</source>
-        <translation type="unfinished"/>
+        <translation>完了</translation>
     </message>
     <message>
         <source>checking server info...</source>
-        <translation type="unfinished"/>
+        <translation>サーバー情報を確認中...</translation>
     </message>
     <message>
         <source>Canceling</source>
@@ -1824,79 +1844,79 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     </message>
     <message>
         <source>failed to open certs database</source>
-        <translation type="unfinished"/>
+        <translation>証明書データベースを開くことができませんでした</translation>
     </message>
     <message>
         <source>File &quot;%1&quot; doesn&apos;t exist in &quot;%2&quot;</source>
-        <translation type="unfinished"/>
+        <translation>ファイル“％1”は“％2”に存在しません</translation>
     </message>
     <message>
         <source>%1 couldn&apos;t find an application to open file %2</source>
-        <translation type="unfinished"/>
+        <translation>％1はファイル％2を開くためのアプリケーションを見つけることができませんでした </translation>
     </message>
     <message>
         <source>Created library &quot;%1&quot;</source>
-        <translation type="unfinished"/>
+        <translation>ライブラリ &quot;％1&quot;を作成しました </translation>
     </message>
     <message>
         <source>Deleted library &quot;%1&quot;</source>
-        <translation type="unfinished"/>
+        <translation>ライブラリ &quot;％1&quot;を削除しました </translation>
     </message>
     <message>
         <source>Rename %1 to</source>
-        <translation type="unfinished"/>
+        <translation>％1の名前を </translation>
     </message>
     <message>
         <source>Unable to download item &quot;%1&quot;</source>
-        <translation type="unfinished"/>
+        <translation>アイテム &quot;％1&quot;をダウンロードできません</translation>
     </message>
     <message>
         <source>copy failed</source>
-        <translation type="unfinished"/>
+        <translation>コピーに失敗しました</translation>
     </message>
     <message>
         <source>Added</source>
-        <translation type="unfinished"/>
+        <translation>追加しました</translation>
     </message>
     <message>
         <source>Deleted</source>
-        <translation type="unfinished"/>
+        <translation>削除されました</translation>
     </message>
     <message>
         <source>Removed</source>
-        <translation type="unfinished"/>
+        <translation>リムーブ</translation>
     </message>
     <message>
         <source>Modified</source>
-        <translation type="unfinished"/>
+        <translation>変更</translation>
     </message>
     <message>
         <source>Renamed</source>
-        <translation type="unfinished"/>
+        <translation>名前が変更</translation>
     </message>
     <message>
         <source>Added or modified</source>
-        <translation type="unfinished"/>
+        <translation>追加または変更</translation>
     </message>
     <message>
         <source>Moved</source>
-        <translation type="unfinished"/>
+        <translation>移動しました</translation>
     </message>
     <message>
         <source>Added directory</source>
-        <translation type="unfinished"/>
+        <translation>ディレクトリを追加</translation>
     </message>
     <message>
         <source>Removed directory</source>
-        <translation type="unfinished"/>
+        <translation>ディレクトリを削除しました</translation>
     </message>
     <message>
         <source>Renamed directory</source>
-        <translation type="unfinished"/>
+        <translation>ディレクトリの名前を変更</translation>
     </message>
     <message>
         <source>Moved directory</source>
-        <translation type="unfinished"/>
+        <translation>移動したディレクトリ</translation>
     </message>
     <message>
         <source>files</source>
@@ -1904,31 +1924,31 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     </message>
     <message>
         <source>directories</source>
-        <translation type="unfinished"/>
+        <translation>ディレクトリ</translation>
     </message>
     <message>
         <source>and %1 more</source>
-        <translation type="unfinished"/>
+        <translation>および％1もっと</translation>
     </message>
     <message>
         <source>Reverted library to status at</source>
-        <translation type="unfinished"/>
+        <translation>ライブラリを次のステータスに戻しました</translation>
     </message>
     <message>
         <source>Reverted file &quot;%1&quot; to status at %2.</source>
-        <translation type="unfinished"/>
+        <translation>ファイル &quot;％1&quot;を%2のステータスに戻しました。</translation>
     </message>
     <message>
         <source>Recovered deleted directory</source>
-        <translation type="unfinished"/>
+        <translation>削除されたディレクトリを回復しました</translation>
     </message>
     <message>
         <source>Changed library name or description</source>
-        <translation type="unfinished"/>
+        <translation>ライブラリ名または説明を変更しました</translation>
     </message>
     <message>
         <source>Auto merge by %1 system</source>
-        <translation type="unfinished"/>
+        <translation>％1システムによる自動マージ</translation>
     </message>
     <message>
         <source>Just now</source>
@@ -1964,11 +1984,11 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     </message>
     <message>
         <source>Sync this library to:</source>
-        <translation type="unfinished"/>
+        <translation>このライブラリを次の場所に同期:</translation>
     </message>
     <message>
         <source>Sync this folder to:</source>
-        <translation type="unfinished"/>
+        <translation>このフォルダを次の場所に同期:</translation>
     </message>
     <message>
         <source>Folder</source>
@@ -1976,7 +1996,7 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     </message>
     <message>
         <source>Readonly Folder</source>
-        <translation type="unfinished"/>
+        <translation>読み取り専用フォルダ</translation>
     </message>
     <message>
         <source>Document</source>
@@ -2016,27 +2036,27 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     </message>
     <message>
         <source>The path &quot;%1&quot; conflicts with system path</source>
-        <translation type="unfinished"/>
+        <translation>パス &quot;%1&quot;がシステムパスと競合しています</translation>
     </message>
     <message>
         <source>The path &quot;%1&quot; conflicts with an existing library</source>
-        <translation type="unfinished"/>
+        <translation>パス &quot;%1&quot;が既存のライブラリと競合しています</translation>
     </message>
     <message>
         <source>uploading file list</source>
-        <translation type="unfinished"/>
+        <translation>ファイルリストのアップロード</translation>
     </message>
     <message>
         <source>File is locked by another application</source>
-        <translation type="unfinished"/>
+        <translation>ファイルが別のアプリケーションによってロックされています</translation>
     </message>
     <message>
         <source>Folder is locked by another application</source>
-        <translation type="unfinished"/>
+        <translation>フォルダが別のアプリケーションによってロックされています</translation>
     </message>
     <message>
         <source>File is locked by another user</source>
-        <translation type="unfinished"/>
+        <translation>ファイルは別のユーザーによってロックされています</translation>
     </message>
     <message>
         <source>Path is invalid</source>
@@ -2044,142 +2064,146 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     </message>
     <message>
         <source>Error when indexing</source>
-        <translation type="unfinished"/>
+        <translation>インデックス作成時のエラー</translation>
     </message>
     <message>
         <source>Path ends with space or period character</source>
-        <translation type="unfinished"/>
+        <translation>パスはスペースまたはピリオド文字で終わります</translation>
     </message>
     <message>
         <source>Path contains invalid characters like &apos;|&apos; or &apos;:&apos;</source>
-        <translation type="unfinished"/>
+        <translation>無効な文字が含まれています&apos;|&apos;または &apos;:&apos; </translation>
     </message>
     <message>
         <source>failed to open file cache database</source>
-        <translation type="unfinished"/>
+        <translation>ファイルキャッシュデータベースを開くことができませんでした</translation>
     </message>
     <message>
         <source>Library name contains invalid characters such as &apos;:&apos;, &apos;*&apos;, &apos;|&apos;, &apos;?&apos;</source>
-        <translation type="unfinished"/>
+        <translation>ライブラリ名に&apos;：&apos;、&apos;*&apos;、&apos;|&apos;、&apos;？&apos;などの無効な文字が含まれています </translation>
     </message>
     <message>
         <source>Update to file denied by folder permission setting</source>
-        <translation type="unfinished"/>
+        <translation>フォルダ権限設定によりファイルの更新が拒否されました </translation>
     </message>
     <message>
         <source>%1 Client is already running</source>
-        <translation type="unfinished"/>
+        <translation>％1クライアントはすでに実行されています</translation>
     </message>
     <message>
         <source>Internal data corrupt on the client. Please try to resync the library</source>
-        <translation type="unfinished"/>
+        <translation>クライアントで内部データが破損しています。 ライブラリを再同期してみてください</translation>
     </message>
     <message>
         <source>Do not have write permission to the library</source>
-        <translation type="unfinished"/>
+        <translation>ライブラリへの書き込み権限がありません</translation>
     </message>
     <message>
         <source>No permission to sync this folder</source>
-        <translation type="unfinished"/>
+        <translation>このフォルダを同期する権限がありません</translation>
     </message>
     <message>
         <source>Removed all items from trash</source>
-        <translation type="unfinished"/>
+        <translation>ゴミ箱からすべてのアイテムを削除しました</translation>
     </message>
     <message>
         <source>Removed items older than days %1 from trash</source>
-        <translation type="unfinished"/>
+        <translation>%1日より古いアイテムをゴミ箱から削除しました</translation>
     </message>
     <message>
         <source>Published draft</source>
-        <translation type="unfinished"/>
+        <translation>公開されたドラフト</translation>
     </message>
     <message>
         <source>Created draft</source>
-        <translation type="unfinished"/>
+        <translation>ドラフトを作成</translation>
     </message>
     <message>
         <source>Created file</source>
-        <translation type="unfinished"/>
+        <translation>作成したファイル</translation>
     </message>
     <message>
         <source>Renamed file</source>
-        <translation type="unfinished"/>
+        <translation>名前が変更されたファイル</translation>
     </message>
     <message>
         <source>Deleted draft</source>
-        <translation type="unfinished"/>
+        <translation>下書きを削除</translation>
     </message>
     <message>
         <source>Deleted file</source>
-        <translation type="unfinished"/>
+        <translation>削除されたファイル</translation>
     </message>
     <message>
         <source>Restored file</source>
-        <translation type="unfinished"/>
+        <translation>復元されたファイル</translation>
     </message>
     <message>
         <source>Moved file</source>
-        <translation type="unfinished"/>
+        <translation>移動したファイル</translation>
     </message>
     <message>
         <source>Updated file</source>
-        <translation type="unfinished"/>
+        <translation>更新済みファイル</translation>
     </message>
     <message>
         <source>Created folder</source>
-        <translation type="unfinished"/>
+        <translation>作成したフォルダ</translation>
     </message>
     <message>
         <source>Renamed folder</source>
-        <translation type="unfinished"/>
+        <translation>名前を変更したフォルダ</translation>
     </message>
     <message>
         <source>Deleted folder</source>
-        <translation type="unfinished"/>
+        <translation>削除されたフォルダ</translation>
     </message>
     <message>
         <source>Restored folder</source>
-        <translation type="unfinished"/>
+        <translation>復元されたフォルダ</translation>
     </message>
     <message>
         <source>Moved folder</source>
-        <translation type="unfinished"/>
+        <translation>移動したフォルダ</translation>
     </message>
     <message>
         <source>Created library</source>
-        <translation type="unfinished"/>
+        <translation>作成したライブラリ</translation>
     </message>
     <message>
         <source>Renamed library</source>
-        <translation type="unfinished"/>
+        <translation>ライブラリの名前を変更</translation>
     </message>
     <message>
         <source>Deleted library</source>
-        <translation type="unfinished"/>
+        <translation>ライブラリを削除しました</translation>
     </message>
     <message>
         <source>Restored library</source>
-        <translation type="unfinished"/>
+        <translation>復元されたライブラリ</translation>
     </message>
     <message>
         <source>Created or updated a file in a non-writable library or folder</source>
-        <translation type="unfinished"/>
+        <translation>書き込み不可能なライブラリまたはフォルダにファイルを作成または更新しました</translation>
     </message>
     <message>
         <source>Permission denied on server</source>
-        <translation type="unfinished"/>
+        <translation>サーバーでアクセスが拒否されました</translation>
     </message>
     <message>
         <source>Concurrent updates to file. File is saved as conflict file</source>
-        <translation type="unfinished"/>
+        <translation>ファイルの同時更新。 ファイルは競合ファイルとして保存されます</translation>
     </message>
     <message>
         <source>A folder that may contain not-yet-uploaded files is moved to seafile-recycle-bin folder.</source>
-        <translation type="unfinished"/>
+        <translation>まだアップロードされていないファイルが含まれている可能性のあるフォルダーは、seafile-ごみ箱フォルダーに移動されます。</translation>
     </message>
     <message>
         <source>failed to open sync error id database</source>
+        <translation>同期エラーIDデータベースを開くことができませんでした</translation>
+    </message>
+    <message>
+        <source>The file path contains symbols that are not supported by the Windows system</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -2187,7 +2211,7 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     <name>ReliablePostFileTask</name>
     <message>
         <source>File does not exist</source>
-        <translation type="unfinished"/>
+        <translation>ファイルが存在しません</translation>
     </message>
 </context>
 <context>
@@ -2198,7 +2222,7 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     </message>
     <message>
         <source>This library is not downloaded yet</source>
-        <translation type="unfinished"/>
+        <translation>このライブラリはまだダウンロードされていません</translation>
     </message>
     <message>
         <source>Error: </source>
@@ -2206,7 +2230,7 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     </message>
     <message>
         <source>every %1 seconds</source>
-        <translation type="unfinished"/>
+        <translation>%1 秒ごと </translation>
     </message>
     <message>
         <source>Dialog</source>
@@ -2214,7 +2238,7 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     </message>
     <message>
         <source>RepoIcon</source>
-        <translation type="unfinished"/>
+        <translation>レプリ</translation>
     </message>
     <message>
         <source>RepoName</source>
@@ -2222,23 +2246,23 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     </message>
     <message>
         <source>TextLabel</source>
-        <translation type="unfinished"/>
+        <translation>テキストラベル</translation>
     </message>
     <message>
         <source>Owner:</source>
-        <translation type="unfinished"/>
+        <translation>オーナー：</translation>
     </message>
     <message>
         <source>Last Modified:</source>
-        <translation type="unfinished"/>
+        <translation>最終更新日：</translation>
     </message>
     <message>
         <source>mtime</source>
-        <translation type="unfinished"/>
+        <translation>最終変更時刻</translation>
     </message>
     <message>
         <source>Size:</source>
-        <translation type="unfinished"/>
+        <translation>サイズ：</translation>
     </message>
     <message>
         <source>Local Path:</source>
@@ -2246,11 +2270,11 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     </message>
     <message>
         <source>Status:</source>
-        <translation type="unfinished"/>
+        <translation>状態：</translation>
     </message>
     <message>
         <source>RepoStatus</source>
-        <translation type="unfinished"/>
+        <translation>レポステータス</translation>
     </message>
     <message>
         <source>Name:</source>
@@ -2258,7 +2282,7 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     </message>
     <message>
         <source>Sync Interval:</source>
-        <translation type="unfinished"/>
+        <translation>同期間隔：</translation>
     </message>
     <message>
         <source>Close</source>
@@ -2277,80 +2301,80 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     </message>
     <message>
         <source>This library has not been downloaded</source>
-        <translation type="unfinished"/>
+        <translation>このライブラリはダウンロードされていません</translation>
     </message>
 </context>
 <context>
     <name>RepoService</name>
     <message>
         <source>Unable to open file &quot;%1&quot; from nonexistent library &quot;%2&quot;</source>
-        <translation type="unfinished"/>
+        <translation>存在しないライブラリ &quot;％2&quot;からファイル &quot;％1&quot;を開くことができません </translation>
     </message>
 </context>
 <context>
     <name>RepoTreeModel</name>
     <message>
         <source>Recently Updated</source>
-        <translation type="unfinished"/>
+        <translation>最新のアップデート</translation>
     </message>
     <message>
         <source>My Libraries</source>
-        <translation type="unfinished"/>
+        <translation>私の図書館</translation>
     </message>
     <message>
         <source>Sub Libraries</source>
-        <translation type="unfinished"/>
+        <translation>サブライブラリ</translation>
     </message>
     <message>
         <source>Shared with me</source>
-        <translation type="unfinished"/>
+        <translation>私と共有</translation>
     </message>
     <message>
         <source>Shared with all</source>
-        <translation type="unfinished"/>
+        <translation>すべてと共有</translation>
     </message>
     <message>
         <source>Shared with groups</source>
-        <translation type="unfinished"/>
+        <translation>グループと共有</translation>
     </message>
     <message>
         <source>Synced Libraries</source>
-        <translation type="unfinished"/>
+        <translation>同期ライブラリ</translation>
     </message>
     <message>
         <source>sync initializing</source>
-        <translation type="unfinished"/>
+        <translation>同期の初期化</translation>
     </message>
 </context>
 <context>
     <name>RepoTreeView</name>
     <message>
         <source>Disable auto sync</source>
-        <translation type="unfinished"/>
+        <translation>自動同期を無効にする</translation>
     </message>
     <message>
         <source>Enable auto sync</source>
-        <translation type="unfinished"/>
+        <translation>自動同期を有効にする</translation>
     </message>
     <message>
         <source>Show &amp;details</source>
-        <translation type="unfinished"/>
+        <translation>詳細を表示 (&amp;D)</translation>
     </message>
     <message>
         <source>Show details of this library</source>
-        <translation type="unfinished"/>
+        <translation>このライブラリの詳細を表示する</translation>
     </message>
     <message>
         <source>&amp;Sync this library</source>
-        <translation type="unfinished"/>
+        <translation>このライブラリを同期 (&amp;s)</translation>
     </message>
     <message>
         <source>Sync this library</source>
-        <translation type="unfinished"/>
+        <translation>ライブラリを同期</translation>
     </message>
     <message>
         <source>Recently Updated</source>
-        <translation type="unfinished"/>
+        <translation>最新のアップデート</translation>
     </message>
     <message>
         <source>Sync &amp;now</source>
@@ -2358,7 +2382,7 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     </message>
     <message>
         <source>Sync this library immediately</source>
-        <translation type="unfinished"/>
+        <translation>このライブラリをすぐに同期する</translation>
     </message>
     <message>
         <source>&amp;Cancel download</source>
@@ -2370,103 +2394,103 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     </message>
     <message>
         <source>&amp;Open folder</source>
-        <translation type="unfinished"/>
+        <translation>開いたフォルダ (&amp;O)</translation>
     </message>
     <message>
         <source>open local folder</source>
-        <translation type="unfinished"/>
+        <translation>ローカルフォルダを開く</translation>
     </message>
     <message>
         <source>&amp;Open local folder</source>
-        <translation type="unfinished"/>
+        <translation>ローカルフォルダを開く (&amp;O)</translation>
     </message>
     <message>
         <source>&amp;Unsync</source>
-        <translation type="unfinished"/>
+        <translation>非同期 (&amp;U)</translation>
     </message>
     <message>
         <source>unsync this library</source>
-        <translation type="unfinished"/>
+        <translation>ライブラリの同期を解除します</translation>
     </message>
     <message>
         <source>&amp;View on cloud</source>
-        <translation type="unfinished"/>
+        <translation>クラウドで表示(&amp;V)</translation>
     </message>
     <message>
         <source>view this library on seahub</source>
-        <translation type="unfinished"/>
+        <translation>seahubでこのライブラリを表示する</translation>
     </message>
     <message>
         <source>Share to user</source>
-        <translation type="unfinished"/>
+        <translation>ユーザーに共有</translation>
     </message>
     <message>
         <source>Share this library to a user</source>
-        <translation type="unfinished"/>
+        <translation>ライブラリをユーザーに共有する</translation>
     </message>
     <message>
         <source>Share to group</source>
-        <translation type="unfinished"/>
+        <translation>グループに共有</translation>
     </message>
     <message>
         <source>Share this library to a group</source>
-        <translation type="unfinished"/>
+        <translation>ライブラリをグループに共有する</translation>
     </message>
     <message>
         <source>&amp;Open cloud file browser</source>
-        <translation type="unfinished"/>
+        <translation>クラウドファイルブラウザを開く (&amp;O)</translation>
     </message>
     <message>
         <source>open this library in embedded Cloud File Browser</source>
-        <translation type="unfinished"/>
+        <translation>このライブラリを埋め込みクラウドファイルブラウザで開きます</translation>
     </message>
     <message>
         <source>&amp;Leave share</source>
-        <translation type="unfinished"/>
+        <translation>シェアを残す(&amp;L)</translation>
     </message>
     <message>
         <source>leave share</source>
-        <translation type="unfinished"/>
+        <translation>シェアを残す</translation>
     </message>
     <message>
         <source>&amp;Resync this library</source>
-        <translation type="unfinished"/>
+        <translation>このライブラリを再同期(&amp;R)</translation>
     </message>
     <message>
         <source>unsync and resync this library</source>
-        <translation type="unfinished"/>
+        <translation>このライブラリの同期を解除して再同期します</translation>
     </message>
     <message>
         <source>Set sync &amp;Interval</source>
-        <translation type="unfinished"/>
+        <translation>同期間隔を設定 (&amp;I)</translation>
     </message>
     <message>
         <source>set sync interval for this library</source>
-        <translation type="unfinished"/>
+        <translation>このライブラリの同期間隔を設定します</translation>
     </message>
     <message>
         <source>Are you sure to unsync the library &quot;%1&quot;?</source>
-        <translation type="unfinished"/>
+        <translation>ライブラリ &quot;%1&quot;の同期を解除してもよろしいですか？</translation>
     </message>
     <message>
         <source>Are you sure to resync the library &quot;%1&quot;?</source>
-        <translation type="unfinished"/>
+        <translation>ライブラリ &quot;％1&quot;を再同期してもよろしいですか？</translation>
     </message>
     <message>
         <source>Are you sure to overwrite the file &quot;%1&quot;</source>
-        <translation type="unfinished"/>
+        <translation>ファイル &quot;％1&quot;を上書きしてもよろしいですか</translation>
     </message>
     <message>
         <source>Failed to unsync library &quot;%1&quot;</source>
-        <translation type="unfinished"/>
+        <translation>ライブラリ &quot;％1&quot;の同期を解除できませんでした</translation>
     </message>
     <message>
         <source>Are you sure you want to leave the share &quot;%1&quot;?</source>
-        <translation type="unfinished"/>
+        <translation>共有「％1」を残してもよろしいですか？</translation>
     </message>
     <message>
         <source>Leaving share failed</source>
-        <translation type="unfinished"/>
+        <translation>シェアを離れることができませんでした</translation>
     </message>
     <message>
         <source>Failed to cancel this task:
@@ -2482,111 +2506,111 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     </message>
     <message>
         <source>You do not have permission to upload to this folder</source>
-        <translation type="unfinished"/>
+        <translation>このフォルダにアップロードする権限がありません</translation>
     </message>
     <message>
         <source>Unable to overwrite file &quot;%1&quot; with itself</source>
-        <translation type="unfinished"/>
+        <translation>ファイル &quot;％1&quot;をそれ自体で上書きできません</translation>
     </message>
     <message>
         <source>Unable to delete file &quot;%1&quot;</source>
-        <translation type="unfinished"/>
+        <translation>ファイル &quot;％1&quot;を削除できません</translation>
     </message>
     <message>
         <source>Failed to upload file: %1</source>
-        <translation type="unfinished"/>
+        <translation>ファイルのアップロードに失敗しました：％1</translation>
     </message>
     <message>
         <source>Sync Interval (In seconds):</source>
-        <translation type="unfinished"/>
+        <translation>同期間隔（秒単位）：</translation>
     </message>
     <message>
         <source>Set Sync Internval For Library &quot;%1&quot;</source>
-        <translation type="unfinished"/>
+        <translation>ライブラリ &quot;％1&quot;の同期間隔を設定します</translation>
     </message>
 </context>
 <context>
     <name>ReposTab</name>
     <message>
         <source>Search libraries</source>
-        <translation type="unfinished"/>
+        <translation>ライブラリを検索</translation>
     </message>
     <message>
         <source>retry</source>
-        <translation type="unfinished"/>
+        <translation>再実行</translation>
     </message>
     <message>
         <source>Failed to get libraries information&lt;br/&gt;Please %1</source>
-        <translation type="unfinished"/>
+        <translation>ライブラリ情報の取得に失敗しました&lt;br/&gt;お願いします％1 </translation>
     </message>
 </context>
 <context>
     <name>SeafileApiClient</name>
     <message>
         <source>&lt;b&gt;Warning:&lt;/b&gt; The ssl certificate of this server is not trusted, proceed anyway?</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;警告：&lt;/b&gt;このサーバーのSSL証明書は信頼されていません、とにかく続行しますか？ </translation>
     </message>
 </context>
 <context>
     <name>SeafileApplet</name>
     <message>
         <source>Failed to initialize log: %s</source>
-        <translation type="unfinished"/>
+        <translation>ログの初期化に失敗しました：%s</translation>
     </message>
     <message>
         <source>OK</source>
-        <translation type="unfinished"/>
+        <translation>よし</translation>
     </message>
     <message>
         <source>Yes</source>
-        <translation type="unfinished"/>
+        <translation>はい</translation>
     </message>
     <message>
         <source>No</source>
-        <translation type="unfinished"/>
+        <translation>いいえ</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation type="unfinished"/>
+        <translation>キャンセル</translation>
     </message>
     <message>
         <source>failed to save client id</source>
-        <translation type="unfinished"/>
+        <translation>クライアントIDの保存に失敗しました</translation>
     </message>
     <message>
         <source>failed to access %1</source>
-        <translation type="unfinished"/>
+        <translation>%1 へのアクセスに失敗しました</translation>
     </message>
     <message>
         <source>incorrect client id</source>
-        <translation type="unfinished"/>
+        <translation>不正なクライアントID</translation>
     </message>
     <message>
         <source>failed to read %1</source>
-        <translation type="unfinished"/>
+        <translation>%1の読み取りに失敗しました</translation>
     </message>
 </context>
 <context>
     <name>SeafileLinkDialog</name>
     <message>
         <source>%1 Internal Link</source>
-        <translation type="unfinished"/>
+        <translation>%1 内部リンク</translation>
     </message>
     <message>
         <source>Copy to clipboard</source>
-        <translation type="unfinished"/>
+        <translation>クリップボードにコピー</translation>
     </message>
     <message>
         <source>OK</source>
-        <translation type="unfinished"/>
+        <translation>よし</translation>
     </message>
     <message>
         <source>%1 Internal Link:</source>
-        <translation type="unfinished"/>
+        <translation>％1内部リンク：</translation>
     </message>
     <message>
         <source>%1 Desktop Access Link:</source>
-        <translation type="unfinished"/>
+        <translation>％1デスクトップアクセスリンク：</translation>
     </message>
 </context>
 <context>
@@ -2597,155 +2621,155 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     </message>
     <message>
         <source>internal error: failed to connect to daemon</source>
-        <translation type="unfinished"/>
+        <translation>内部エラー：デーモンへの接続に失敗しました</translation>
     </message>
 </context>
 <context>
     <name>SeafileTrayIcon</name>
     <message>
         <source>Disable auto sync</source>
-        <translation type="unfinished"/>
+        <translation>自動同期を無効にする</translation>
     </message>
     <message>
         <source>Enable auto sync</source>
-        <translation type="unfinished"/>
+        <translation>自動同期を有効にする </translation>
     </message>
     <message>
         <source>&amp;Quit</source>
-        <translation type="unfinished"/>
+        <translation>終了(&amp;Q)</translation>
     </message>
     <message>
         <source>Show main window</source>
-        <translation type="unfinished"/>
+        <translation>メインウィンドウを表示</translation>
     </message>
     <message>
         <source>Settings</source>
-        <translation type="unfinished"/>
+        <translation>設定</translation>
     </message>
     <message>
         <source>Open %1 &amp;folder</source>
-        <translation type="unfinished"/>
+        <translation>%1フォルダを開く(&amp;F)</translation>
     </message>
     <message>
         <source>open %1 folder</source>
-        <translation type="unfinished"/>
+        <translation>%1フォルダを開く</translation>
     </message>
     <message>
         <source>Open &amp;logs folder</source>
-        <translation type="unfinished"/>
+        <translation>ログフォルダを開く (&amp;L)</translation>
     </message>
     <message>
         <source>Show file sync errors</source>
-        <translation type="unfinished"/>
+        <translation>ファイル同期エラーを表示する</translation>
     </message>
     <message>
         <source>&amp;About</source>
-        <translation type="unfinished"/>
+        <translation>アバウト (&amp;A)</translation>
     </message>
     <message>
         <source>Show the application&apos;s About box</source>
-        <translation type="unfinished"/>
+        <translation>アプリケーションのバージョン情報ボックスを表示する </translation>
     </message>
     <message>
         <source>&amp;Online help</source>
-        <translation type="unfinished"/>
+        <translation>オンラインヘルプ (&amp;O)</translation>
     </message>
     <message>
         <source>File</source>
-        <translation type="unfinished"/>
+        <translation>ファイル</translation>
     </message>
     <message>
         <source>auto sync is disabled</source>
-        <translation type="unfinished"/>
+        <translation>自動同期が無効になっています </translation>
     </message>
     <message>
         <source>Uploading</source>
-        <translation type="unfinished"/>
+        <translation>アップロード中</translation>
     </message>
     <message>
         <source>Downloading</source>
-        <translation type="unfinished"/>
+        <translation>ダウンロード中</translation>
     </message>
     <message>
         <source>open %1 log folder</source>
-        <translation type="unfinished"/>
+        <translation>%1ログフォルダを開く</translation>
     </message>
     <message>
         <source>open %1 online help</source>
-        <translation type="unfinished"/>
+        <translation>％1オンラインヘルプを開く</translation>
     </message>
     <message>
         <source>some servers not connected</source>
-        <translation type="unfinished"/>
+        <translation>一部のサーバーが接続されていません</translation>
     </message>
     <message>
         <source>Upload log files</source>
-        <translation type="unfinished"/>
+        <translation>ログファイルをアップロードする</translation>
     </message>
     <message>
         <source>upload %1 log files</source>
-        <translation type="unfinished"/>
+        <translation>％1ログファイルをアップロードする</translation>
     </message>
     <message>
         <source>Please login first</source>
-        <translation type="unfinished"/>
+        <translation>最初にログインしてください</translation>
     </message>
     <message>
         <source>Repair explorer extension</source>
-        <translation type="unfinished"/>
+        <translation>エクスプローラー拡張機能を修復します</translation>
     </message>
     <message>
         <source>Successfully fixed sync status icons for Explorer</source>
-        <translation type="unfinished"/>
+        <translation>エクスプローラの同期ステータスアイコンが正常に修正されました </translation>
     </message>
     <message>
         <source>Faild to fix sync status icons for Explorer</source>
-        <translation type="unfinished"/>
+        <translation>エクスプローラの同期ステータスアイコンの修正に失敗しました </translation>
     </message>
     <message>
         <source>have some sync error</source>
-        <translation type="unfinished"/>
+        <translation>同期エラーがあります</translation>
     </message>
 </context>
 <context>
     <name>SearchResultListView</name>
     <message>
         <source>&amp;Show in folder</source>
-        <translation type="unfinished"/>
+        <translation>フォルダに表示(&amp;S)</translation>
     </message>
     <message>
         <source>Show in folder</source>
-        <translation type="unfinished"/>
+        <translation>フォルダに表示</translation>
     </message>
 </context>
 <context>
     <name>SearchTab</name>
     <message>
         <source>Search files</source>
-        <translation type="unfinished"/>
+        <translation>ファイル検索</translation>
     </message>
     <message>
         <source>retry</source>
-        <translation type="unfinished"/>
+        <translation>再実行</translation>
     </message>
     <message>
         <source>Failed to search&lt;br/&gt;Please %1</source>
-        <translation type="unfinished"/>
+        <translation>検索に失敗しました&lt;br/&gt;お願いします％1</translation>
     </message>
 </context>
 <context>
     <name>ServerStatusDialog</name>
     <message>
         <source>Servers connection status</source>
-        <translation type="unfinished"/>
+        <translation>サーバーの接続ステータス</translation>
     </message>
     <message>
         <source>connected</source>
-        <translation type="unfinished"/>
+        <translation>接続済み</translation>
     </message>
     <message>
         <source>disconnected</source>
-        <translation type="unfinished"/>
+        <translation>切断されました</translation>
     </message>
     <message>
         <source>Dialog</source>
@@ -2795,15 +2819,15 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     <name>SettingsDialog</name>
     <message>
         <source>Settings</source>
-        <translation type="unfinished"/>
+        <translation>設定</translation>
     </message>
     <message>
         <source>Auto start %1 after login</source>
-        <translation type="unfinished"/>
+        <translation>ログイン後に％1を自動開始</translation>
     </message>
     <message>
         <source>Hide %1 Icon from the dock</source>
-        <translation type="unfinished"/>
+        <translation>ドックから％1アイコンを非表示にする</translation>
     </message>
     <message>
         <source>None</source>
@@ -2811,35 +2835,35 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     </message>
     <message>
         <source>HTTP Proxy</source>
-        <translation type="unfinished"/>
+        <translation>HTTPプロキシ</translation>
     </message>
     <message>
         <source>Socks5 Proxy</source>
-        <translation type="unfinished"/>
+        <translation>Socks5 プロキシ</translation>
     </message>
     <message>
         <source>System Proxy</source>
-        <translation type="unfinished"/>
+        <translation>システムプロキシ</translation>
     </message>
     <message>
         <source>You have changed languange. Restart to apply it?</source>
-        <translation type="unfinished"/>
+        <translation>言語を変更しました。 再起動して適用しますか？</translation>
     </message>
     <message>
         <source>The proxy host address can&apos;t be empty</source>
-        <translation type="unfinished"/>
+        <translation>プロキシホストアドレスを空にすることはできません</translation>
     </message>
     <message>
         <source>The proxy port is incorrect</source>
-        <translation type="unfinished"/>
+        <translation>プロキシポートが正しくありません</translation>
     </message>
     <message>
         <source>Proxy username can&apos;t be empty</source>
-        <translation type="unfinished"/>
+        <translation>プロキシユーザー名を空にすることはできません</translation>
     </message>
     <message>
         <source>Proxy password can&apos;t be empty</source>
-        <translation type="unfinished"/>
+        <translation>プロキシパスワードを空にすることはできません</translation>
     </message>
     <message>
         <source>Dialog</source>
@@ -2847,87 +2871,87 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     </message>
     <message>
         <source>Hide main window when started</source>
-        <translation type="unfinished"/>
+        <translation>開始時にメインウィンドウを非表示にする</translation>
     </message>
     <message>
         <source>Notify when libraries are synchronized</source>
-        <translation type="unfinished"/>
+        <translation>ライブラリが同期されたときに通知する</translation>
     </message>
     <message>
         <source>Enable sync temporary files of MSOffice/Libreoffice</source>
-        <translation type="unfinished"/>
+        <translation>MSOffice / Libreofficeの一時ファイルの同期を有効にする </translation>
     </message>
     <message>
         <source>Download speed limit (KB/s):</source>
-        <translation type="unfinished"/>
+        <translation>ダウンロード速度制限（KB /秒）：</translation>
     </message>
     <message>
         <source>Upload speed limit (KB/s):</source>
-        <translation type="unfinished"/>
+        <translation>アップロード速度制限（KB /秒）：</translation>
     </message>
     <message>
         <source>Basic</source>
-        <translation type="unfinished"/>
+        <translation>基本</translation>
     </message>
     <message>
         <source>Do not automatically unsync a library</source>
-        <translation type="unfinished"/>
+        <translation>ライブラリを自動的に同期解除しないでください</translation>
     </message>
     <message>
         <source>Do not automatically unsync a library when its local directory is removed or unaccessible for other reasons.</source>
-        <translation type="unfinished"/>
+        <translation>ローカルディレクトリが削除されたとき、または他の理由でアクセスできなくなったときに、ライブラリの同期を自動的に解除しないでください。 </translation>
     </message>
     <message>
         <source>Do not unsync a library when not found on server</source>
-        <translation type="unfinished"/>
+        <translation>サーバー上に見つからない場合は、ライブラリの同期を解除しないでください</translation>
     </message>
     <message>
         <source>Do not automatically unsync a library when it&apos;s not found on server</source>
-        <translation type="unfinished"/>
+        <translation>ライブラリがサーバー上に見つからない場合、ライブラリの同期を自動的に解除しないでください</translation>
     </message>
     <message>
         <source>Enable FinderSync Extension</source>
-        <translation type="unfinished"/>
+        <translation>ファインダ同期拡張機能を有効にする</translation>
     </message>
     <message>
         <source>Enable Explorer Extension</source>
-        <translation type="unfinished"/>
+        <translation>エクスプローラ拡張機能を有効にする </translation>
     </message>
     <message>
         <source>Check for updates automatically</source>
-        <translation type="unfinished"/>
+        <translation>更新を自動的に確認する</translation>
     </message>
     <message>
         <source>Do not verify server certificate in HTTPS syncing</source>
-        <translation type="unfinished"/>
+        <translation>HTTPS同期でサーバー証明書を検証しない</translation>
     </message>
     <message>
         <source>Enable syncing with an existing folder with a different name</source>
-        <translation type="unfinished"/>
+        <translation>別の名前の既存のフォルダーとの同期を有効にする</translation>
     </message>
     <message>
         <source>Advanced</source>
-        <translation type="unfinished"/>
+        <translation>詳細</translation>
     </message>
     <message>
         <source>Language (need restart)</source>
-        <translation type="unfinished"/>
+        <translation>言語（再起動が必要）</translation>
     </message>
     <message>
         <source>Language</source>
-        <translation type="unfinished"/>
+        <translation>言語</translation>
     </message>
     <message>
         <source>Proxy Type:</source>
-        <translation type="unfinished"/>
+        <translation>プロキシタイプ：</translation>
     </message>
     <message>
         <source>Host:</source>
-        <translation type="unfinished"/>
+        <translation>ホスト：</translation>
     </message>
     <message>
         <source>Port:</source>
-        <translation type="unfinished"/>
+        <translation>ポート：</translation>
     </message>
     <message>
         <source>0</source>
@@ -2947,7 +2971,7 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     </message>
     <message>
         <source>Network</source>
-        <translation type="unfinished"/>
+        <translation>ネットワーク</translation>
     </message>
     <message>
         <source>OK</source>
@@ -2962,80 +2986,84 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     <name>SharedItemDelegate</name>
     <message>
         <source>Read Write</source>
-        <translation type="unfinished"/>
+        <translation>読み書き</translation>
     </message>
     <message>
         <source>Read Only</source>
-        <translation type="unfinished"/>
+        <translation>読み取り専用</translation>
     </message>
     <message>
         <source>Remove Share</source>
-        <translation type="unfinished"/>
+        <translation>リムーブシェア</translation>
     </message>
 </context>
 <context>
     <name>SharedItemsTableModel</name>
     <message>
         <source>Click to edit</source>
-        <translation type="unfinished"/>
+        <translation>クリックして編集する</translation>
     </message>
     <message>
         <source>Created by %1</source>
-        <translation type="unfinished"/>
+        <translation>％1によって作成されました</translation>
     </message>
     <message>
         <source>Read Write</source>
-        <translation type="unfinished"/>
+        <translation>読み書き</translation>
     </message>
     <message>
         <source>Read Only</source>
-        <translation type="unfinished"/>
+        <translation>読み取り専用</translation>
     </message>
     <message>
         <source>Group</source>
-        <translation type="unfinished"/>
+        <translation>グループ</translation>
     </message>
     <message>
         <source>User</source>
-        <translation type="unfinished"/>
+        <translation>ユーザー</translation>
     </message>
     <message>
         <source>Permission</source>
-        <translation type="unfinished"/>
+        <translation>許可</translation>
     </message>
     <message>
         <source>The previous operation is still in progres</source>
-        <translation type="unfinished"/>
+        <translation>前の操作はまだ進行中です</translation>
     </message>
 </context>
 <context>
     <name>SharedLinkDialog</name>
     <message>
         <source>Share Link</source>
-        <translation type="unfinished"/>
+        <translation>共有リンク</translation>
     </message>
     <message>
         <source>Share link:</source>
-        <translation type="unfinished"/>
+        <translation>共有リンク</translation>
     </message>
     <message>
         <source>Direct Download</source>
-        <translation type="unfinished"/>
+        <translation>直接ダウンロード</translation>
     </message>
     <message>
         <source>Copy to clipboard</source>
+        <translation>クリップボードにコピー</translation>
+    </message>
+    <message>
+        <source>Password(At least 8 characters)</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <source>OK</source>
+        <source>Show password</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <source>Upload Link</source>
+        <source>Expire days</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <source>Upload link:</source>
+        <source>Generate link</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -3043,19 +3071,19 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     <name>SslConfirmDialog</name>
     <message>
         <source>Untrusted Connection</source>
-        <translation type="unfinished"/>
+        <translation>信頼できない接続</translation>
     </message>
     <message>
         <source>%1 uses an invalid security certificate. The connection may be insecure. Do you want to continue?</source>
-        <translation type="unfinished"/>
+        <translation>％1は無効なセキュリティ証明書を使用しています。接続が安全でない可能性があります。続行しますか？ </translation>
     </message>
     <message>
         <source>Current RSA key fingerprint is %1</source>
-        <translation type="unfinished"/>
+        <translation>現在のRSAキーの指紋は %1 です</translation>
     </message>
     <message>
         <source>Previous RSA key fingerprint is %1</source>
-        <translation type="unfinished"/>
+        <translation>以前のRSAキーの指紋は ％%1 です</translation>
     </message>
     <message>
         <source>Dialog</source>
@@ -3063,7 +3091,7 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     </message>
     <message>
         <source>Remember my choice</source>
-        <translation type="unfinished"/>
+        <translation>私の選択を覚えといてください</translation>
     </message>
     <message>
         <source>Yes</source>
@@ -3078,56 +3106,56 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     <name>StarredFilesListView</name>
     <message>
         <source>&amp;Open</source>
-        <translation type="unfinished"/>
+        <translation>開く(&amp;O)</translation>
     </message>
     <message>
         <source>Open this file</source>
-        <translation type="unfinished"/>
+        <translation>このファイルを開く</translation>
     </message>
     <message>
         <source>view on &amp;Web</source>
-        <translation type="unfinished"/>
+        <translation>ウェブで表示(&amp;W)</translation>
     </message>
     <message>
         <source>view this file on website</source>
-        <translation type="unfinished"/>
+        <translation>ウェブサイトでこのファイルを見る</translation>
     </message>
 </context>
 <context>
     <name>StarredFilesTab</name>
     <message>
         <source>retry</source>
-        <translation type="unfinished"/>
+        <translation>再実行</translation>
     </message>
     <message>
         <source>Failed to get starred files information&lt;br/&gt;Please %1</source>
-        <translation type="unfinished"/>
+        <translation>スター付きファイル情報の取得に失敗しました&lt;br/&gt;お願いします％1 </translation>
     </message>
     <message>
         <source>You have no starred files yet.</source>
-        <translation type="unfinished"/>
+        <translation>スター付きファイルはまだありません。</translation>
     </message>
 </context>
 <context>
     <name>SyncErrorsDialog</name>
     <message>
         <source>File Sync Errors</source>
-        <translation type="unfinished"/>
+        <translation>ファイル同期エラー</translation>
     </message>
     <message>
         <source>No sync errors.</source>
-        <translation type="unfinished"/>
+        <translation>同期エラーはありません</translation>
     </message>
 </context>
 <context>
     <name>SyncErrorsTableModel</name>
     <message>
         <source>Double click to open the library</source>
-        <translation type="unfinished"/>
+        <translation>ダブルクリックしてライブラリを開きます</translation>
     </message>
     <message>
         <source>Library</source>
-        <translation type="unfinished"/>
+        <translation>ライブラリ</translation>
     </message>
     <message>
         <source>Path</source>
@@ -3139,68 +3167,68 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     </message>
     <message>
         <source>Time</source>
-        <translation type="unfinished"/>
+        <translation>時間</translation>
     </message>
 </context>
 <context>
     <name>SyncErrorsTableView</name>
     <message>
         <source>Delete file sync error failed</source>
-        <translation type="unfinished"/>
+        <translation>ファイル同期エラーの削除に失敗しました</translation>
     </message>
     <message>
         <source>delete</source>
-        <translation type="unfinished"/>
+        <translation>削除</translation>
     </message>
 </context>
 <context>
     <name>TwoFactorDialog</name>
     <message>
         <source>Enter the two factor authentication token</source>
-        <translation type="unfinished"/>
+        <translation>二要素認証トークンを入力します</translation>
     </message>
     <message>
         <source>Two Factor Authentication</source>
-        <translation type="unfinished"/>
+        <translation>二要素認証</translation>
     </message>
     <message>
         <source>Please enter the two factor authentication token</source>
-        <translation type="unfinished"/>
+        <translation>二要素認証トークンを入力してください</translation>
     </message>
     <message>
         <source>Dialog</source>
-        <translation type="unfinished"/>
+        <translation>ダイアログ</translation>
     </message>
     <message>
         <source>mText</source>
-        <translation type="unfinished"/>
+        <translation>キスト </translation>
     </message>
     <message>
         <source>Remember this device</source>
-        <translation type="unfinished"/>
+        <translation>このデバイスを覚えておいてください</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation type="unfinished"/>
+        <translation>キャンセル</translation>
     </message>
     <message>
         <source>OK</source>
-        <translation type="unfinished"/>
+        <translation>OK</translation>
     </message>
 </context>
 <context>
     <name>UninstallHelperDialog</name>
     <message>
         <source>Uninstall %1</source>
-        <translation type="unfinished"/>
+        <translation>アンインストール %1</translation>
     </message>
     <message>
         <source>Do you want to remove the %1 account information?</source>
-        <translation type="unfinished"/>
+        <translation>％1アカウント情報を削除しますか？</translation>
     </message>
     <message>
         <source>Removing account information...</source>
-        <translation type="unfinished"/>
+        <translation>アカウント情報を削除しています... </translation>
     </message>
     <message>
         <source>Dialog</source>
@@ -3208,7 +3236,7 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     </message>
     <message>
         <source>text</source>
-        <translation type="unfinished"/>
+        <translation>テキスト</translation>
     </message>
     <message>
         <source>Yes</source>
@@ -3217,6 +3245,25 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     <message>
         <source>No</source>
         <translation>いいえ</translation>
+    </message>
+</context>
+<context>
+    <name>UploadLinkDialog</name>
+    <message>
+        <source>Upload Link</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Upload link:</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Copy to clipboard</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>OK</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 </TS>

@@ -1577,6 +1577,10 @@ File path contains invalid characters. It is not synced to this computer.</sourc
         <source>Folder for library %1 is removed or moved. The library is unsynced.</source>
         <translation>资料库 %1 的文件夹被移动或者删除。这个资料库未同步。</translation>
     </message>
+    <message>
+        <source>The file path %1 contains symbols that are not supported by the Windows system.</source>
+        <translation>文件路径 %1 包含 Windows 系统不支持的符号。</translation>
+    </message>
 </context>
 <context>
     <name>PrivateShareDialog</name>
@@ -2190,6 +2194,10 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     <message>
         <source>failed to open sync error id database</source>
         <translation>获取同步错误标识数据库失败</translation>
+    </message>
+    <message>
+        <source>The file path contains symbols that are not supported by the Windows system</source>
+        <translation>文件路径中包含 Windows 系统不支持的符号</translation>
     </message>
 </context>
 <context>
@@ -3034,16 +3042,20 @@ File path contains invalid characters. It is not synced to this computer.</sourc
         <translation>复制至剪贴板</translation>
     </message>
     <message>
-        <source>OK</source>
-        <translation>确认</translation>
+        <source>Password(At least 8 characters)</source>
+        <translation>密码（至少 8 个字符）</translation>
     </message>
     <message>
-        <source>Upload Link</source>
-        <translation>上传链接</translation>
+        <source>Show password</source>
+        <translation>显示密码</translation>
     </message>
     <message>
-        <source>Upload link:</source>
-        <translation>上传链接：</translation>
+        <source>Expire days</source>
+        <translation>过期天数</translation>
+    </message>
+    <message>
+        <source>Generate link</source>
+        <translation>生成链接</translation>
     </message>
 </context>
 <context>
@@ -3224,6 +3236,25 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     <message>
         <source>No</source>
         <translation>否</translation>
+    </message>
+</context>
+<context>
+    <name>UploadLinkDialog</name>
+    <message>
+        <source>Upload Link</source>
+        <translation>上传链接</translation>
+    </message>
+    <message>
+        <source>Upload link:</source>
+        <translation>上传链接：</translation>
+    </message>
+    <message>
+        <source>Copy to clipboard</source>
+        <translation>拷贝到粘贴板</translation>
+    </message>
+    <message>
+        <source>OK</source>
+        <translation>确定</translation>
     </message>
 </context>
 </TS>

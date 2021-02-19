@@ -6,13 +6,9 @@
 #include <QObject>
 #include <QMutex>
 
-extern "C" {
-
 struct _GList;
 // Can't forward-declare type SearpcClient here because it is an anonymous typedef struct
 #include <searpc-client.h>
-
-}
 
 // Here we can't forward-declare type json_t because it is an anonymous typedef
 // struct, and unlike libsearpc we have no way to rewrite its definition to give

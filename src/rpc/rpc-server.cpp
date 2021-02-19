@@ -1,9 +1,9 @@
-extern "C" {
-
 #include <searpc.h>
 #include <searpc-client.h>
 #include <searpc-server.h>
 #include <searpc-named-pipe-transport.h>
+
+extern "C" {
 
 #include "searpc-signature.h"
 #include "searpc-marshal.h"

@@ -1,3 +1,7 @@
+seafile-gui (8.0.2) unstable; urgency=low
+
+  * new upstream release
+ -- Jonathan Xu <jonathan.xu@seafile.com>  Fri, 19 Feb 2021 13:20:52 +0800
 seafile-gui (8.0.1) unstable; urgency=low
 
   * new upstream release

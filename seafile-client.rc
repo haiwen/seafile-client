@@ -71,8 +71,8 @@ IDI_ICON1               ICON                    "seafile.ico"
 //
 
 VS_VERSION_INFO VERSIONINFO
- FILEVERSION 8,0,1,0
- PRODUCTVERSION 8,0,1,0
+ FILEVERSION 8,0,2,0
+ PRODUCTVERSION 8,0,2,0
  FILEFLAGSMASK 0x3fL
 #ifdef _DEBUG
  FILEFLAGS 0x1L
@@ -89,12 +89,12 @@ BEGIN
         BEGIN
             VALUE "CompanyName", "HaiWenHuZhi ltd."
             VALUE "FileDescription", "Seafile Client"
-            VALUE "FileVersion", "8.0.1.0"
+            VALUE "FileVersion", "8.0.2.0"
             VALUE "InternalName", "seafile-applet.exe"
             VALUE "LegalCopyright", "Copyright (C) 2020"
             VALUE "OriginalFilename", "seafile-applet.exe"
             VALUE "ProductName", "Seafile Client"
-            VALUE "ProductVersion", "8.0.1.0"
+            VALUE "ProductVersion", "8.0.2.0"
         END
     END
     BLOCK "VarFileInfo"

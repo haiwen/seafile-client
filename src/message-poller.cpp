@@ -181,6 +181,9 @@ void MessagePoller::processNotification(const SyncNotification& notification)
             msg = tr("The file path %1 contains symbols that are not supported by the Windows system.").arg(path);
             break;
 #endif
+        case SYNC_ERROR_ID_LIBRARY_TOO_LARGE:
+            msg = tr("Library is too large to sync.");
+            break;
         default:
             qWarning("Unknown sync error id %d", err_id);
             json_decref(object);

@@ -104,6 +104,9 @@ QString translateSyncErrorCode(const int error_code)
             error_str = QObject::tr("The file path contains symbols that are not supported by the Windows system");
             break;
 #endif
+        case SYNC_ERROR_ID_LIBRARY_TOO_LARGE:
+            error_str = QObject::tr("Library is too large to sync.");
+            break;
         default:
             qWarning("Unknown sync error");
     }

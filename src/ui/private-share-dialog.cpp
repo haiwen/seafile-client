@@ -2,6 +2,7 @@
 #include <QCompleter>
 #include <QLineEdit>
 #include <QPainter>
+#include <QPainterPath>
 #include <QResizeEvent>
 #include <QStringList>
 #include <QStringListModel>

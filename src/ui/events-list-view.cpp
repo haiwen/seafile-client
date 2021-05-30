@@ -1,10 +1,10 @@
 #include <QPainter>
+#include <QPainterPath>
 #include <QApplication>
 #include <QPixmap>
 #include <QToolTip>
 #include <QLayout>
 #include <QDebug>
-
 #include "seafile-applet.h"
 #include "main-window.h"
 #include "events-service.h"

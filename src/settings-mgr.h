@@ -108,6 +108,11 @@ public:
     void setFinderSyncExtension(bool enabled);
 #endif // HAVE_FINDER_SYNC_SUPPORT
 
+#if defined(Q_OS_LINUX)
+    bool getHideWindowsIncompatibilityPathMsg();
+    void setHideWindowsIncompatibilityPathMsg(bool enabled);
+#endif
+
 #ifdef Q_OS_WIN32
     void setShellExtensionEnabled(bool enabled);
     bool shellExtensionEnabled() const { return shell_ext_enabled_; }

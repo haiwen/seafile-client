@@ -87,6 +87,10 @@ void SettingsDialog::updateSettings()
     if(mFinderSyncCheckBox->isEnabled())
         mgr->setFinderSyncExtension(mFinderSyncCheckBox->checkState() == Qt::Checked);
 #endif
+#if defined(Q_OS_LINUX)
+    mgr -> setHideWindowsIncompatibilityPathMsg(mHideWindowsIncompatibilityCheckBox->checkState() == Qt::Checked);
+#endif
+
 #ifdef Q_OS_WIN32
     mgr->setShellExtensionEnabled(mShellExtCheckBox->checkState() == Qt::Checked);
 #endif
@@ -162,6 +166,13 @@ void SettingsDialog::showEvent(QShowEvent *event)
     }
 #else
     mFinderSyncCheckBox->hide();
+#endif
+
+#if defined(Q_OS_LINUX)
+    state = mgr->getHideWindowsIncompatibilityPathMsg() ? Qt::Checked : Qt::Unchecked;
+    mHideWindowsIncompatibilityCheckBox->setCheckState(state);
+#else
+    mHideWindowsIncompatibilityCheckBox->hide();
 #endif
 
 #if defined(Q_OS_WIN32)

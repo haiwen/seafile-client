@@ -44,7 +44,7 @@ const char *kFinderSync = "finderSync";
 const char *kLastShibUrl = "lastShiburl";
 #endif // HAVE_SHIBBOLETH_SUPPORT
 
-#if defined(Q_OS_LINUX)
+#if defined(Q_OS_LINUX) || defined(Q_OS_MAC)
 const char * kSetHideWindowsIncompatibilityPathMsg = "setHideWindowsIncompatibilityPathMsg";
 #endif
 
@@ -653,7 +653,7 @@ void SettingsManager::setFinderSyncExtension(bool enabled)
 }
 #endif // HAVE_FINDER_SYNC_SUPPORT
 
-#if defined(Q_OS_LINUX)
+#if defined(Q_OS_LINUX) || defined(Q_OS_MAC)
 bool SettingsManager::getHideWindowsIncompatibilityPathMsg()
 {
     QSettings settings;

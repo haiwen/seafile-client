@@ -178,7 +178,7 @@ void MessagePoller::processNotification(const SyncNotification& notification)
             break;
 #if !defined(Q_OS_WIN32)
         case SYNC_ERROR_ID_INVALID_PATH_ON_WINDOWS:
-#if defined(Q_OS_LINUX)
+#if defined(Q_OS_LINUX) || defined(Q_OS_MAC)
         if (seafApplet->settingsManager()->getHideWindowsIncompatibilityPathMsg()) {
             return;
         }

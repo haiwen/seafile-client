@@ -74,6 +74,13 @@
         </widget>
        </item>
        <item>
+        <widget class="QCheckBox" name="mHideWindowsIncompatibilityCheckBox">
+         <property name="text">
+          <string>Hide Windows incompatibility paths Message</string>
+         </property>
+        </widget>
+       </item>
+       <item>
         <widget class="QCheckBox" name="mCheckLatestVersionBox">
          <property name="text">
           <string>Check for updates automatically</string>

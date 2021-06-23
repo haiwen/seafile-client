@@ -44,6 +44,10 @@ const char *kFinderSync = "finderSync";
 const char *kLastShibUrl = "lastShiburl";
 #endif // HAVE_SHIBBOLETH_SUPPORT
 
+#if defined(Q_OS_LINUX) || defined(Q_OS_MAC)
+const char * kSetHideWindowsIncompatibilityPathMsg = "setHideWindowsIncompatibilityPathMsg";
+#endif
+
 const char *kUseProxy = "use_proxy";
 const char *kUseSystemProxy = "use_system_proxy";
 const char *kProxyType = "proxy_type";
@@ -648,6 +652,29 @@ void SettingsManager::setFinderSyncExtension(bool enabled)
     }
 }
 #endif // HAVE_FINDER_SYNC_SUPPORT
+
+#if defined(Q_OS_LINUX) || defined(Q_OS_MAC)
+bool SettingsManager::getHideWindowsIncompatibilityPathMsg()
+{
+    QSettings settings;
+    bool enabled;
+
+    settings.beginGroup(kSettingsGroup);
+    enabled = settings.value(kSetHideWindowsIncompatibilityPathMsg, true).toBool();
+    settings.endGroup();
+
+    return enabled;
+}
+
+void SettingsManager::setHideWindowsIncompatibilityPathMsg(bool enabled)
+{
+    QSettings settings;
+
+    settings.beginGroup(kSettingsGroup);
+    settings.setValue(kSetHideWindowsIncompatibilityPathMsg, enabled);
+    settings.endGroup();
+}
+#endif
 
 #ifdef Q_OS_WIN32
 void SettingsManager::setShellExtensionEnabled(bool enabled)

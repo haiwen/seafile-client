@@ -1581,6 +1581,10 @@ File path contains invalid characters. It is not synced to this computer.</sourc
         <source>The file path %1 contains symbols that are not supported by the Windows system.</source>
         <translation>文件路径 %1 包含 Windows 系统不支持的符号。</translation>
     </message>
+    <message>
+        <source>Library is too large to sync.</source>
+        <translation>资料库太大不能同步。</translation>
+    </message>
 </context>
 <context>
     <name>PrivateShareDialog</name>
@@ -2198,6 +2202,10 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     <message>
         <source>The file path contains symbols that are not supported by the Windows system</source>
         <translation>文件路径中包含 Windows 系统不支持的符号</translation>
+    </message>
+    <message>
+        <source>Library is too large to sync.</source>
+        <translation>资料库太大不能同步。</translation>
     </message>
 </context>
 <context>
@@ -2971,6 +2979,10 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     <message>
         <source>Cancel</source>
         <translation>取消</translation>
+    </message>
+    <message>
+        <source>Hide Windows incompatibility paths Message</source>
+        <translation>隐藏 Windows 不兼容路径的消息通知</translation>
     </message>
 </context>
 <context>

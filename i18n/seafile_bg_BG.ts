@@ -15,30 +15,30 @@
     </message>
     <message>
         <source>About</source>
-        <translation type="unfinished"/>
+        <translation>Относно</translation>
     </message>
     <message>
         <source>Check For Updates</source>
-        <translation type="unfinished"/>
+        <translation>Проверка за актуализации</translation>
     </message>
     <message>
         <source>OK</source>
-        <translation type="unfinished"/>
+        <translation>ОК</translation>
     </message>
 </context>
 <context>
     <name>AccountManager</name>
     <message>
         <source>failed to open account database</source>
-        <translation type="unfinished"/>
+        <translation>Неуспешен опит за отваряне на базата данни</translation>
     </message>
     <message>
         <source>Authorization expired, please re-login</source>
-        <translation type="unfinished"/>
+        <translation>Оторизацията изтече, моля влезте отново</translation>
     </message>
     <message>
         <source>Failed to remove local repos sync token: %1</source>
-        <translation type="unfinished"/>
+        <translation>Неуспешно премахване на токен за синхронизация на локални репозитории %1</translation>
     </message>
     <message>
         <source>Failed to get repo sync information from server: %1</source>
@@ -77,19 +77,19 @@
     </message>
     <message>
         <source>Server Address</source>
-        <translation type="unfinished"/>
+        <translation>Адрес на сървъра</translation>
     </message>
     <message>
         <source>Email</source>
-        <translation type="unfinished"/>
+        <translation>Имейл адрес</translation>
     </message>
     <message>
         <source>OK</source>
-        <translation type="unfinished"/>
+        <translation>ОК</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation type="unfinished"/>
+        <translation>Отмяна</translation>
     </message>
 </context>
 <context>
@@ -1562,6 +1562,10 @@ File path contains invalid characters. It is not synced to this computer.</sourc
         <source>The file path %1 contains symbols that are not supported by the Windows system.</source>
         <translation type="unfinished"/>
     </message>
+    <message>
+        <source>Library is too large to sync.</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>PrivateShareDialog</name>
@@ -2180,6 +2184,10 @@ File path contains invalid characters. It is not synced to this computer.</sourc
         <source>The file path contains symbols that are not supported by the Windows system</source>
         <translation type="unfinished"/>
     </message>
+    <message>
+        <source>Library is too large to sync.</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>ReliablePostFileTask</name>
@@ -2718,7 +2726,7 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     <name>SearchTab</name>
     <message>
         <source>Search files</source>
-        <translation type="unfinished"/>
+        <translation>Търсене на файлове</translation>
     </message>
     <message>
         <source>retry</source>
@@ -2951,6 +2959,10 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     </message>
     <message>
         <source>Cancel</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Hide Windows incompatibility paths Message</source>
         <translation type="unfinished"/>
     </message>
 </context>

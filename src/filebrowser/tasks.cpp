@@ -865,5 +865,7 @@ void FileServerTask::setHttpError(int code)
         // multipart upload request.
         // See https://github.com/haiwen/seafile-server/blob/v6.0.7-server/server/http-status-codes.h#L10
         error_string_ = tr("The storage quota has been used up");
+    } else if (code == 442 ) {
+        error_string_ = tr("The uploaded file exceeds the size limit");
     }
 }

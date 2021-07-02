@@ -55,6 +55,7 @@ const char *kProxyAddr = "proxy_addr";
 const char *kProxyPort = "proxy_port";
 const char *kProxyUsername = "proxy_username";
 const char *kProxyPassword = "proxy_password";
+const char *kHideWindowsIncompatiblePathNotification = "hide_windows_incompatible_path_notification";
 
 const int kCheckSystemProxyIntervalMSecs = 5 * 1000;
 
@@ -656,23 +657,16 @@ void SettingsManager::setFinderSyncExtension(bool enabled)
 #if defined(Q_OS_LINUX) || defined(Q_OS_MAC)
 bool SettingsManager::getHideWindowsIncompatibilityPathMsg()
 {
-    QSettings settings;
-    bool enabled;
-
-    settings.beginGroup(kSettingsGroup);
-    enabled = settings.value(kSetHideWindowsIncompatibilityPathMsg, true).toBool();
-    settings.endGroup();
-
-    return enabled;
+    QString str;
+    seafApplet->rpcClient()->seafileGetConfig(kHideWindowsIncompatiblePathNotification, &str);
+    return str == "true";
 }
 
 void SettingsManager::setHideWindowsIncompatibilityPathMsg(bool enabled)
 {
-    QSettings settings;
-
-    settings.beginGroup(kSettingsGroup);
-    settings.setValue(kSetHideWindowsIncompatibilityPathMsg, enabled);
-    settings.endGroup();
+    QString set_value = enabled == true ? "true" : "false";
+    seafApplet->rpcClient()->seafileSetConfig(kHideWindowsIncompatiblePathNotification, set_value);
+    return;
 }
 #endif
 

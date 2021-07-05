@@ -275,7 +275,11 @@ void ReliablePostFileTask::onPostFileTaskFinished(bool result)
         if (result) {
             emit finished(true);
         } else {
-            handlePostFileTaskFailure();
+            if ( http_error_code_ == 442 ) {
+                emit finished(false);
+            } else {
+                handlePostFileTaskFailure();
+            }
         }
         return;
     }
@@ -284,7 +288,11 @@ void ReliablePostFileTask::onPostFileTaskFinished(bool result)
 
     // Resumable upload
     if (!result) {
-        handlePostFileTaskFailure();
+        if ( http_error_code_ == 442 ) {
+            emit finished(false);
+        } else {
+            handlePostFileTaskFailure();
+        }
         return;
     }
 

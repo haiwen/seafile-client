@@ -1668,6 +1668,9 @@ void FileBrowserDialog::onSearchSuccess(const std::vector<FileSearchResult>& res
 void FileBrowserDialog::onSearchFailed(const ApiError& error)
 {
     stack_->setCurrentIndex(INDEX_LOADING_FAILED_VIEW);
+    if (search_bar_->text().length() == 0) {
+        onRefresh();
+    }
 }
 
 

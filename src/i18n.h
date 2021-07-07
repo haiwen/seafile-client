@@ -22,9 +22,15 @@ public:
         QStringList languages;
         Q_FOREACH(const QLocale& locale, getInstalledLocales())
         {
+            QString chinese_type = QLocale::countryToString(locale.country());
+            if (chinese_type == "China") {
+                chinese_type = QString("Simplified");
+            } else if (chinese_type == "Taiwan") {
+                chinese_type = QString("Traditional");
+            }
             languages.push_back(
                 QString("%1 - %2").arg(QLocale::languageToString(locale.language()))
-                                  .arg(QLocale::countryToString(locale.country())));
+                                  .arg(chinese_type));
         }
         languages.front() = "-- System --";
         return languages;

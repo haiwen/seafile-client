@@ -135,6 +135,7 @@ QString EventDetailsFileItem::etype_desc() const
       case DIR_DELETED:
         return QObject::tr("Deleted");
     };
+    return QString();
 }
 
 QIcon EventDetailsFileItem::etype_icon() const
@@ -153,6 +154,7 @@ QIcon EventDetailsFileItem::etype_icon() const
       case DIR_DELETED:
         return awesome->icon(icon_minus, QColor("#BD2C00"));
     };
+    return QIcon();
 }
 
 const char* EventDetailsFileItem::etype_color() const
@@ -171,6 +173,7 @@ const char* EventDetailsFileItem::etype_color() const
       case DIR_DELETED:
         return "#BD2C00";
     };
+    return "";
 }
 
 bool EventDetailsFileItem::isFileOpenable() const

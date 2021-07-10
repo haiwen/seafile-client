@@ -110,7 +110,7 @@ void SettingsDialog::updateSettings()
         I18NHelper::getInstance()->setPreferredLanguage(mLanguageComboBox->currentIndex());
     }
 
-    if (language_changed && seafApplet->yesOrNoBox(tr("You have changed languange. Restart to apply it?"), this, true))
+    if (language_changed && seafApplet->yesOrNoBox(tr("You have changed language. Restart to apply it?"), this, true))
         seafApplet->restartApp();
 
     // if (proxy_changed && seafApplet->yesOrNoBox(tr("You have changed proxy settings. Restart to apply it?"), this, true))

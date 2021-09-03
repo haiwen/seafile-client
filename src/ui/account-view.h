@@ -34,6 +34,7 @@ private slots:
     void updateAvatar();
     void toggleAccount();
     void visitServerInBrowser(const QString& link);
+    void slotShowSettingsDialog();
 
 private:
     Q_DISABLE_COPY(AccountView)

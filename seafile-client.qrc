@@ -215,6 +215,10 @@
     <file>images/toolbar/file@2x.png</file>
     <file>images/toolbar/file-gray.png</file>
     <file>images/toolbar/file-gray@2x.png</file>
+    <file>images/toolbar/settings.png</file>
+    <file>images/toolbar/settings@2x.png</file>
+    <file>images/toolbar/settings-orange.png</file>
+    <file>images/toolbar/settings-orange@2x.png</file>
     <file>images/toolbar/refresh-gray.png</file>
     <file>images/toolbar/refresh-gray@2x.png</file>
     <file>images/toolbar/refresh.png</file>

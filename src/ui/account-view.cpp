@@ -32,6 +32,7 @@
 #include "repo-service.h"
 
 #include "account-view.h"
+#include "settings-dialog.h"
 namespace {
 
 } // namespace
@@ -65,6 +66,8 @@ AccountView::AccountView(QWidget *parent)
     // automatically.
     mRefreshLabel->setPixmap(QIcon(":/images/toolbar/refresh-new.png").pixmap(20));
     mRefreshLabel->installEventFilter(this);
+    mSettingsPushButton->setIcon(QIcon(":/images/toolbar/settings.png"));
+    connect(mSettingsPushButton, &QPushButton::clicked, this, &AccountView::slotShowSettingsDialog);
 }
 
 void AccountView::showAddAccountDialog()
@@ -364,4 +367,11 @@ void AccountView::toggleAccount()
 void AccountView::visitServerInBrowser(const QString& link)
 {
     AutoLoginService::instance()->startAutoLogin("/");
+}
+
+void AccountView::slotShowSettingsDialog()
+{
+    seafApplet->settingsDialog()->show();
+    seafApplet->settingsDialog()->raise();
+    seafApplet->settingsDialog()->activateWindow();
 }

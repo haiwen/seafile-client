@@ -85,6 +85,26 @@
     </spacer>
    </item>
    <item>
+    <widget class="QPushButton" name="mSettingsPushButton">
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <spacer name="horizontalSpacer">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>200</width>
+       <height>20</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
+   <item>
     <widget class="QLabel" name="mRefreshLabel">
      <property name="text">
       <string notr="true">RefreshIcon</string>

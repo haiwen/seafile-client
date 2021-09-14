@@ -988,6 +988,10 @@ n&apos;a pu être envoyé.</translation>
         <source>The storage quota has been used up</source>
         <translation>Le quota de stockage a été atteint</translation>
     </message>
+    <message>
+        <source>The uploaded file exceeds the size limit</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>FileTableModel</name>
@@ -1586,6 +1590,10 @@ Le nom de fichier contient des caractères invalides. Il n&apos;est pas synchron
     </message>
     <message>
         <source>The file path %1 contains symbols that are not supported by the Windows system.</source>
+        <translation>Le chemin du fichier %1 contient des symboles qui ne sont pas supportés par le système Windows.</translation>
+    </message>
+    <message>
+        <source>Library is too large to sync.</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -2204,6 +2212,10 @@ Le nom de fichier contient des caractères invalides. Il n&apos;est pas synchron
     </message>
     <message>
         <source>The file path contains symbols that are not supported by the Windows system</source>
+        <translation>Le chemin du fichier contient des symboles qui ne sont pas supportés par le système Windows.</translation>
+    </message>
+    <message>
+        <source>Library is too large to sync.</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -2981,6 +2993,10 @@ Le nom de fichier contient des caractères invalides. Il n&apos;est pas synchron
         <source>Cancel</source>
         <translation>Annuler</translation>
     </message>
+    <message>
+        <source>Hide Windows incompatibility paths Message</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>SharedItemDelegate</name>
@@ -3052,19 +3068,19 @@ Le nom de fichier contient des caractères invalides. Il n&apos;est pas synchron
     </message>
     <message>
         <source>Password(At least 8 characters)</source>
-        <translation type="unfinished"/>
+        <translation>Mot de passe (au moins 8 caractères)</translation>
     </message>
     <message>
         <source>Show password</source>
-        <translation type="unfinished"/>
+        <translation>Montrer le mot de passe</translation>
     </message>
     <message>
         <source>Expire days</source>
-        <translation type="unfinished"/>
+        <translation>Jours restant</translation>
     </message>
     <message>
         <source>Generate link</source>
-        <translation type="unfinished"/>
+        <translation>Générer un lien</translation>
     </message>
 </context>
 <context>
@@ -3251,19 +3267,19 @@ Le nom de fichier contient des caractères invalides. Il n&apos;est pas synchron
     <name>UploadLinkDialog</name>
     <message>
         <source>Upload Link</source>
-        <translation type="unfinished"/>
+        <translation>Lien d&apos;envoi</translation>
     </message>
     <message>
         <source>Upload link:</source>
-        <translation type="unfinished"/>
+        <translation>Lien d&apos;envoi :</translation>
     </message>
     <message>
         <source>Copy to clipboard</source>
-        <translation type="unfinished"/>
+        <translation>Copier dans le presse-papiers</translation>
     </message>
     <message>
         <source>OK</source>
-        <translation type="unfinished"/>
+        <translation>Ok</translation>
     </message>
 </context>
 </TS>

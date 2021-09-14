@@ -988,6 +988,10 @@ falló la subida.</translation>
         <source>The storage quota has been used up</source>
         <translation>El espacio de almacenamiento ha sido utilizado en su totalidad</translation>
     </message>
+    <message>
+        <source>The uploaded file exceeds the size limit</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>FileTableModel</name>
@@ -1587,7 +1591,11 @@ La ruta al archivo contiene caracteres invalidos. No se sincroniza a esta comput
     </message>
     <message>
         <source>The file path %1 contains symbols that are not supported by the Windows system.</source>
-        <translation type="unfinished"/>
+        <translation>La ruta al archivo %1 contiene símbolos no soportados por el sistema Windows.</translation>
+    </message>
+    <message>
+        <source>Library is too large to sync.</source>
+        <translation>La biblioteca es de masiado grande para sincronizar.</translation>
     </message>
 </context>
 <context>
@@ -2205,7 +2213,11 @@ La ruta al archivo contiene caracteres invalidos. No se sincroniza a esta comput
     </message>
     <message>
         <source>The file path contains symbols that are not supported by the Windows system</source>
-        <translation type="unfinished"/>
+        <translation>La ruta al archivo contiene símbolos no soportados por el sistema Windows.</translation>
+    </message>
+    <message>
+        <source>Library is too large to sync.</source>
+        <translation>La biblioteca es de masiado grande para sincronizar.</translation>
     </message>
 </context>
 <context>
@@ -2982,6 +2994,10 @@ La ruta al archivo contiene caracteres invalidos. No se sincroniza a esta comput
         <source>Cancel</source>
         <translation>Cancelar</translation>
     </message>
+    <message>
+        <source>Hide Windows incompatibility paths Message</source>
+        <translation>Ocultar mensaje de WIndows sobre incompatibilidad de rutas</translation>
+    </message>
 </context>
 <context>
     <name>SharedItemDelegate</name>
@@ -3053,19 +3069,19 @@ La ruta al archivo contiene caracteres invalidos. No se sincroniza a esta comput
     </message>
     <message>
         <source>Password(At least 8 characters)</source>
-        <translation type="unfinished"/>
+        <translation>Contraseña (Al menos 8 caracteres)</translation>
     </message>
     <message>
         <source>Show password</source>
-        <translation type="unfinished"/>
+        <translation>Mostrar contraseña</translation>
     </message>
     <message>
         <source>Expire days</source>
-        <translation type="unfinished"/>
+        <translation>Días de vencimiento</translation>
     </message>
     <message>
         <source>Generate link</source>
-        <translation type="unfinished"/>
+        <translation>Generar enlace</translation>
     </message>
 </context>
 <context>
@@ -3252,19 +3268,19 @@ La ruta al archivo contiene caracteres invalidos. No se sincroniza a esta comput
     <name>UploadLinkDialog</name>
     <message>
         <source>Upload Link</source>
-        <translation type="unfinished"/>
+        <translation>Enlace de Subida</translation>
     </message>
     <message>
         <source>Upload link:</source>
-        <translation type="unfinished"/>
+        <translation>Enlace de subida:</translation>
     </message>
     <message>
         <source>Copy to clipboard</source>
-        <translation type="unfinished"/>
+        <translation>Copiar al portapapeles</translation>
     </message>
     <message>
         <source>OK</source>
-        <translation type="unfinished"/>
+        <translation>OK</translation>
     </message>
 </context>
 </TS>

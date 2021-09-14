@@ -132,7 +132,7 @@
     </message>
     <message>
         <source>Add an account</source>
-        <translation>Ein Konto hinzufügen</translation>
+        <translation>Konto hinzufügen</translation>
     </message>
     <message>
         <source>Logout</source>
@@ -183,13 +183,13 @@
     <message>
         <source>File &quot;%1&quot;
 uploaded successfully.</source>
-        <translation>Datei „%1“
-erfolgreich hochgeladen.</translation>
+        <translation>Die Datei „%1“
+wurde hochgeladen.</translation>
     </message>
     <message>
         <source>File &quot;%1&quot;
 failed to upload.</source>
-        <translation>Datei „%1“
+        <translation>Die Datei „%1“
 wurde nicht hochgeladen.</translation>
     </message>
     <message>
@@ -202,11 +202,11 @@ wurde nicht hochgeladen.</translation>
     </message>
     <message>
         <source>File does not exist</source>
-        <translation>Datei ist nicht vorhanden</translation>
+        <translation>Die Datei existiert nicht.</translation>
     </message>
     <message>
         <source>The file is locked by %1, please try again later</source>
-        <translation>Die Datei ist von %1 gesperrt, bitte versuchen Sie es später noch einmal</translation>
+        <translation>Die Datei ist von %1 gesperrt. Versuchen Sie es später noch einmal.</translation>
     </message>
     <message>
         <source>Upload Failure: %1</source>
@@ -217,7 +217,7 @@ wurde nicht hochgeladen.</translation>
     <name>AvatarService</name>
     <message>
         <source>Failed to create avatars folder</source>
-        <translation>Avatarordner konnte nicht erstellt werden</translation>
+        <translation>Die Erstellung des Avatarordners ist fehlgeschlagen.</translation>
     </message>
 </context>
 <context>
@@ -336,7 +336,7 @@ wurde nicht hochgeladen.</translation>
     </message>
     <message>
         <source>Please Choose a folder to sync</source>
-        <translation>Bitte einen Ordner zum Synchronisieren auswählen</translation>
+        <translation>Ordner zum Synchronisieren auswählen</translation>
     </message>
     <message>
         <source>no server connected</source>
@@ -418,7 +418,7 @@ wurde nicht hochgeladen.</translation>
     <name>CreateRepoDialog</name>
     <message>
         <source>Create a library</source>
-        <translation>Eine Bibliothek erstellen</translation>
+        <translation>Bibliothek erstellen</translation>
     </message>
     <message>
         <source>Please choose a directory</source>
@@ -438,19 +438,19 @@ wurde nicht hochgeladen.</translation>
     </message>
     <message>
         <source>The folder %1 does not exist</source>
-        <translation>Der Ordner %1 ist nicht vorhanden</translation>
+        <translation>Der Ordner %1 existiert nicht.</translation>
     </message>
     <message>
         <source>Please enter the name</source>
-        <translation>Bitte geben Sie den Namen ein</translation>
+        <translation>Geben Sie den Namen ein</translation>
     </message>
     <message>
         <source>Please enter the password</source>
-        <translation>Bitte geben Sie das Passwort ein</translation>
+        <translation>Geben Sie das Passwort ein</translation>
     </message>
     <message>
         <source>Passwords don&apos;t match</source>
-        <translation>Passwörter sind nicht identisch</translation>
+        <translation>Die Passwörter sind nicht identisch.</translation>
     </message>
     <message>
         <source>Unknown error</source>
@@ -538,7 +538,7 @@ wurde nicht hochgeladen.</translation>
     <name>DownloadRepoDialog</name>
     <message>
         <source>Please enter the password</source>
-        <translation>Bitte geben Sie das Passwort ein</translation>
+        <translation>Geben Sie das Passwort ein</translation>
     </message>
     <message>
         <source>Sync library &quot;%1&quot;</source>
@@ -574,7 +574,7 @@ wurde nicht hochgeladen.</translation>
     </message>
     <message>
         <source>The folder does not exist</source>
-        <translation>Der Ordner ist nicht vorhanden</translation>
+        <translation>Der Ordner existiert nicht.</translation>
     </message>
     <message>
         <source>Please choose the folder to sync.</source>
@@ -806,15 +806,15 @@ Bitte %1</translation>
     </message>
     <message>
         <source>Rename failed</source>
-        <translation>Umbenennen fehlgeschlagen</translation>
+        <translation>Das Umbenennen ist fehlgeschlagen.</translation>
     </message>
     <message>
         <source>Remove failed</source>
-        <translation>Entfernen fehlgeschlagen</translation>
+        <translation>Das Entfernen ist fehlgeschlagen.</translation>
     </message>
     <message>
         <source>Share failed</source>
-        <translation>Freigeben fehlgeschlagen</translation>
+        <translation>Die Erstellung der Freigabe ist fehlgeschlagen.</translation>
     </message>
     <message>
         <source>Cannot paste files from the same folder</source>
@@ -826,31 +826,31 @@ Bitte %1</translation>
     </message>
     <message>
         <source>Copy failed</source>
-        <translation>Kopieren fehlgeschlagen</translation>
+        <translation>Das Kopieren ist fehlgeschlagen.</translation>
     </message>
     <message>
         <source>Move failed</source>
-        <translation>Verschieben fehlgeschlagen</translation>
+        <translation>Das Verschieben ist fehlgeschlagen.</translation>
     </message>
     <message>
         <source>Create library failed!</source>
-        <translation>Das Erstellen der Bibliothek ist fehlgeschlagen!</translation>
+        <translation>Das Erstellen der Bibliothek ist fehlgeschlagen.</translation>
     </message>
     <message>
         <source>You do not have permission to upload to this folder</source>
-        <translation>Sie haben keine ausreichenden Rechte zum Hochladen in diesen Ordner</translation>
+        <translation>Sie haben keine ausreichenden Rechte zum Hochladen in diesen Ordner.</translation>
     </message>
     <message>
         <source>Authorization expired</source>
-        <translation>Legitimierung abgelaufen</translation>
+        <translation>Die Legitimierung ist abgelaufen.</translation>
     </message>
     <message>
         <source>Permission Error!</source>
-        <translation>Keine ausreichenden Rechte!</translation>
+        <translation>Keine ausreichenden Rechte.</translation>
     </message>
     <message>
         <source>Library/Folder not found.</source>
-        <translation>Bibliothek oder Ordner nicht gefunden</translation>
+        <translation>Die Bibliothek oder Ordner wurde nicht gefunden.</translation>
     </message>
     <message>
         <source>Failed to upload file %1: %2</source>
@@ -858,11 +858,11 @@ Bitte %1</translation>
     </message>
     <message>
         <source>Unable to create cache folder</source>
-        <translation>Cache-Ordner konnte nicht erstellt werden</translation>
+        <translation>Der Caching-Ordner konnte nicht erstellt werden.</translation>
     </message>
     <message>
         <source>Unable to open cache folder</source>
-        <translation>Cache-Ordner konnte nicht geöffnet werden</translation>
+        <translation>Der Cacheing-Ordner konnte nicht geöffnet werden.</translation>
     </message>
     <message>
         <source>Search files</source>
@@ -870,7 +870,7 @@ Bitte %1</translation>
     </message>
     <message>
         <source>Failed to get link</source>
-        <translation>Fehler beim Ermitteln des Links</translation>
+        <translation>Das Erstellen des Links ist fehlgeschlagen.</translation>
     </message>
     <message>
         <source>Failed to get upload link information for file &quot;%1&quot;</source>
@@ -909,7 +909,7 @@ Bitte %1</translation>
     </message>
     <message>
         <source>Failed to upload file &quot;%1&quot;, do you want to retry?</source>
-        <translation>Fehler beim Hochladen der Datei „%1“. Möchten Sie den Versuch wiederholen?</translation>
+        <translation>Der Upload der Datei „%1“ ist fehlgeschlagen. Möchten Sie den Versuch wiederholen?</translation>
     </message>
     <message>
         <source>Retry</source>
@@ -986,6 +986,10 @@ Bitte %1</translation>
     <message>
         <source>The storage quota has been used up</source>
         <translation>Speicherplatz ist verbraucht</translation>
+    </message>
+    <message>
+        <source>The uploaded file exceeds the size limit</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -1143,15 +1147,15 @@ Bitte %1</translation>
     </message>
     <message>
         <source>Failed to write file to disk</source>
-        <translation>Konnte Dateien nicht auf Laufwerk schreiben</translation>
+        <translation>Das Schreiben der Dateien auf den Datenträger ist fehlgeschlagen.</translation>
     </message>
     <message>
         <source>Failed to remove the older version of the downloaded file</source>
-        <translation>Fehler beim Entfernen der älteren Version der heruntergeladenen Datei</translation>
+        <translation>Das Entfernen der älteren Version der heruntergeladenen Datei ist fehlgeschlagen.</translation>
     </message>
     <message>
         <source>Failed to move file</source>
-        <translation>Konnte Datei nicht verschieben</translation>
+        <translation>Das Verschieben der Datei ist fehlgeschlagen.</translation>
     </message>
 </context>
 <context>
@@ -1174,7 +1178,7 @@ Bitte %1</translation>
     </message>
     <message>
         <source>The folder %1 does not exist</source>
-        <translation>Der Ordner %1 ist nicht vorhanden</translation>
+        <translation>Der Ordner %1 existiert nicht.</translation>
     </message>
     <message>
         <source>Dialog</source>
@@ -1397,11 +1401,11 @@ Möchten Sie Ihre Standardbibliothek herunterladen?</translation>
     </message>
     <message>
         <source>Please enter the username</source>
-        <translation>Bitte geben Sie den Benutzernamen ein</translation>
+        <translation>Geben Sie den Benutzernamen ein</translation>
     </message>
     <message>
         <source>Please enter the computer name</source>
-        <translation>Bitte geben Sie den Rechnernamen ein</translation>
+        <translation>Geben Sie den Rechnernamen ein</translation>
     </message>
     <message>
         <source>%1 Server Address</source>
@@ -1409,7 +1413,7 @@ Möchten Sie Ihre Standardbibliothek herunterladen?</translation>
     </message>
     <message>
         <source>Server address must not be empty</source>
-        <translation>Bitte geben Sie die Serveradresse ein</translation>
+        <translation>Geben Sie die Serveradresse ein</translation>
     </message>
     <message>
         <source>%1 is not a valid server address. It has to start with &apos;https://&apos;</source>
@@ -1417,15 +1421,15 @@ Möchten Sie Ihre Standardbibliothek herunterladen?</translation>
     </message>
     <message>
         <source>Please enter the password</source>
-        <translation>Bitte geben Sie das Passwort ein</translation>
+        <translation>Geben Sie das Passwort ein</translation>
     </message>
     <message>
         <source>Incorrect email or password</source>
-        <translation>E-Mail-Adresse oder Passwort sind ungültig</translation>
+        <translation>Die E-Mail-Adresse oder das Passwort sind ungültig.</translation>
     </message>
     <message>
         <source>Logging in too frequently, please wait a minute</source>
-        <translation>Zu viele Anmeldeversuche, bitte warten Sie eine Minute</translation>
+        <translation>Zu viele Anmeldeversuche, warten Sie eine Minute.</translation>
     </message>
     <message>
         <source>Internal Server Error</source>
@@ -1586,7 +1590,11 @@ Die Ordnerstruktur enthält ungültige Zeichen. Synchronisieren mit diesem Compu
     </message>
     <message>
         <source>The file path %1 contains symbols that are not supported by the Windows system.</source>
-        <translation type="unfinished"/>
+        <translation>Der Dateipfad %1 enthält Zeichen, die von Windows nicht unterstützt werden.</translation>
+    </message>
+    <message>
+        <source>Library is too large to sync.</source>
+        <translation>Die Bibliothek ist für die Synchronisation zu groß.</translation>
     </message>
 </context>
 <context>
@@ -1625,15 +1633,15 @@ Die Ordnerstruktur enthält ungültige Zeichen. Synchronisieren mit diesem Compu
     </message>
     <message>
         <source>Please enter the username</source>
-        <translation>Bitte geben Sie den Benutzernamen ein</translation>
+        <translation>Geben Sie den Benutzernamen ein</translation>
     </message>
     <message>
         <source>Please enter the group name</source>
-        <translation>Bitte geben Sie den Gruppennamen ein</translation>
+        <translation>Geben Sie den Gruppennamen ein</translation>
     </message>
     <message>
         <source>No such group &quot;%1&quot;</source>
-        <translation>Keine Gruppe gefunden mit Namen %1</translation>
+        <translation>Es wurde keine Gruppe mit Namen %1 gefunden.</translation>
     </message>
     <message>
         <source>Already shared to group %1</source>
@@ -1700,11 +1708,11 @@ Die Ordnerstruktur enthält ungültige Zeichen. Synchronisieren mit diesem Compu
     </message>
     <message>
         <source>sync merging</source>
-        <translation>Zusammenfügen der Synchronisierung</translation>
+        <translation>Zusammenfügen der Synchronisation</translation>
     </message>
     <message>
         <source>waiting for sync</source>
-        <translation>auf Synchronisieren warten</translation>
+        <translation>auf Synchronisation warten</translation>
     </message>
     <message>
         <source>server not connected</source>
@@ -1716,7 +1724,7 @@ Die Ordnerstruktur enthält ungültige Zeichen. Synchronisieren mit diesem Compu
     </message>
     <message>
         <source>auto sync is turned off</source>
-        <translation>Synchronisieren ist angehalten</translation>
+        <translation>Synchronisation ist angehalten</translation>
     </message>
     <message>
         <source>unknown</source>
@@ -1776,11 +1784,11 @@ Die Ordnerstruktur enthält ungültige Zeichen. Synchronisieren mit diesem Compu
     </message>
     <message>
         <source>Library deleted on server</source>
-        <translation>Bibliothek auf dem Server ist gelöscht</translation>
+        <translation>Die Bibliothek auf dem Server wurde gelöscht.</translation>
     </message>
     <message>
         <source>Library damaged on server</source>
-        <translation>Bibliothek auf dem Server ist beschädigt</translation>
+        <translation>Die Bibliothek auf dem Server ist beschädigt.</translation>
     </message>
     <message>
         <source>The storage quota has been used up</source>
@@ -1848,7 +1856,7 @@ Die Ordnerstruktur enthält ungültige Zeichen. Synchronisieren mit diesem Compu
     </message>
     <message>
         <source>File &quot;%1&quot; doesn&apos;t exist in &quot;%2&quot;</source>
-        <translation>Datei „%1“ fehlt in „%2“</translation>
+        <translation>Die Datei „%1“ fehlt in „%2“.</translation>
     </message>
     <message>
         <source>%1 couldn&apos;t find an application to open file %2</source>
@@ -1936,7 +1944,7 @@ Die Ordnerstruktur enthält ungültige Zeichen. Synchronisieren mit diesem Compu
     </message>
     <message>
         <source>Reverted file &quot;%1&quot; to status at %2.</source>
-        <translation>Datei „%1“ zurückgesetzt auf den Status von %2.</translation>
+        <translation>Die Datei „%1“ wurde auf den Status von %2 zurückgesetzt.</translation>
     </message>
     <message>
         <source>Recovered deleted directory</source>
@@ -2204,14 +2212,18 @@ Die Ordnerstruktur enthält ungültige Zeichen. Synchronisieren mit diesem Compu
     </message>
     <message>
         <source>The file path contains symbols that are not supported by the Windows system</source>
-        <translation type="unfinished"/>
+        <translation>Der Dateipfad enthält Zeichen, die von Windows nicht unterstützt werden.</translation>
+    </message>
+    <message>
+        <source>Library is too large to sync.</source>
+        <translation>Die Bibliothek ist für die Synchronisation zu groß.</translation>
     </message>
 </context>
 <context>
     <name>ReliablePostFileTask</name>
     <message>
         <source>File does not exist</source>
-        <translation>Datei ist nicht vorhanden</translation>
+        <translation>Die Datei existiert nicht.</translation>
     </message>
 </context>
 <context>
@@ -2981,6 +2993,10 @@ Die Ordnerstruktur enthält ungültige Zeichen. Synchronisieren mit diesem Compu
         <source>Cancel</source>
         <translation>Abbrechen</translation>
     </message>
+    <message>
+        <source>Hide Windows incompatibility paths Message</source>
+        <translation>Hinweis auf nicht kompatible Windows-Pfade ausblenden</translation>
+    </message>
 </context>
 <context>
     <name>SharedItemDelegate</name>
@@ -3052,19 +3068,19 @@ Die Ordnerstruktur enthält ungültige Zeichen. Synchronisieren mit diesem Compu
     </message>
     <message>
         <source>Password(At least 8 characters)</source>
-        <translation type="unfinished"/>
+        <translation>Passwort (mindestens 8 Zeichen)</translation>
     </message>
     <message>
         <source>Show password</source>
-        <translation type="unfinished"/>
+        <translation>Passwort anzeigen</translation>
     </message>
     <message>
         <source>Expire days</source>
-        <translation type="unfinished"/>
+        <translation>Tage bis Ablauf</translation>
     </message>
     <message>
         <source>Generate link</source>
-        <translation type="unfinished"/>
+        <translation>Link erstellen</translation>
     </message>
 </context>
 <context>
@@ -3251,19 +3267,19 @@ Die Ordnerstruktur enthält ungültige Zeichen. Synchronisieren mit diesem Compu
     <name>UploadLinkDialog</name>
     <message>
         <source>Upload Link</source>
-        <translation type="unfinished"/>
+        <translation>Upload-Link</translation>
     </message>
     <message>
         <source>Upload link:</source>
-        <translation type="unfinished"/>
+        <translation>Upload-Link:</translation>
     </message>
     <message>
         <source>Copy to clipboard</source>
-        <translation type="unfinished"/>
+        <translation>In Zwischenablage kopieren</translation>
     </message>
     <message>
         <source>OK</source>
-        <translation type="unfinished"/>
+        <translation>OK</translation>
     </message>
 </context>
 </TS>

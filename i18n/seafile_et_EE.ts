@@ -978,6 +978,10 @@ failed to upload.</source>
         <source>The storage quota has been used up</source>
         <translation type="unfinished"/>
     </message>
+    <message>
+        <source>The uploaded file exceeds the size limit</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>FileTableModel</name>

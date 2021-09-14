@@ -19,6 +19,7 @@
 #ifdef HAVE_SHIBBOLETH_SUPPORT
 #include "shib/shib-login-dialog.h"
 #endif // HAVE_SHIBBOLETH_SUPPORT
+#include "ui/sso-dialog.h"
 
 namespace {
 
@@ -112,8 +113,17 @@ LoginDialog::LoginDialog(QWidget *parent) : QDialog(parent)
 #ifdef HAVE_SHIBBOLETH_SUPPORT
     setupShibLoginLink();
 #else
-    mShibLoginLink->hide();
+ //  mShibLoginLink->hide();
+    setupNewShibLoginLink();
 #endif
+}
+
+void LoginDialog::setupNewShibLoginLink()
+{
+    QString txt = QString("<a style=\"color:#777\" href=\"#\">%1</a>").arg(tr("Single Sign On"));
+    mShibLoginLink->setText(txt);
+    connect(mShibLoginLink, SIGNAL(linkActivated(const QString&)),
+            this, SLOT(loginWithNewShib()));
 }
 
 #ifdef HAVE_SHIBBOLETH_SUPPORT
@@ -447,3 +457,13 @@ void LoginDialog::loginWithShib()
     }
 }
 #endif // HAVE_SHIBBOLETH_SUPPORT
+
+void LoginDialog::loginWithNewShib()
+{
+
+   SSODialog sso_dialog;
+   if (sso_dialog.exec() == QDialog::Accepted) {
+       accept();
+   }
+}
+

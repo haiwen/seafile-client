@@ -237,6 +237,7 @@ SET(moc_headers
   src/api/requests.h
   src/rpc/rpc-client.h
   src/rpc/rpc-server.h
+  src/ui/sso-dialog.h
   src/ui/main-window.h
   src/ui/init-seafile-dialog.h
   src/ui/login-dialog.h
@@ -313,6 +314,7 @@ ENDIF()
 SET(ui_files
   ui/about-dialog.ui
   ui/login-dialog.ui
+  ui/sso-dialog.ui
   ui/account-settings-dialog.ui
   ui/create-repo-dialog.ui
   ui/repo-detail-dialog.ui
@@ -426,6 +428,7 @@ SET(seafile_client_sources
   src/rpc/local-repo.cpp
   src/rpc/clone-task.cpp
   src/rpc/sync-error.cpp
+  src/ui/sso-dialog.cpp
   src/ui/about-dialog.cpp
   src/ui/main-window.cpp
   src/ui/init-seafile-dialog.cpp

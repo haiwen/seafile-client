@@ -33,6 +33,7 @@ private slots:
 #ifdef HAVE_SHIBBOLETH_SUPPORT
     void loginWithShib();
 #endif // HAVE_SHIBBOLETH_SUPPORT
+    void loginWithNewShib();
     void onFetchAccountInfoSuccess(const AccountInfo& info);
     void onFetchAccountInfoFailed(const ApiError&);
 
@@ -44,7 +45,7 @@ private:
         LOGIN_SHIB
     };
 
-    void setupShibLoginLink();
+    void setupNewShibLoginLink();
     bool validateInputs();
     void disableInputs();
     void enableInputs();

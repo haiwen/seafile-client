@@ -43,6 +43,7 @@ const char *kFinderSync = "finderSync";
 #ifdef HAVE_SHIBBOLETH_SUPPORT
 const char *kLastShibUrl = "lastShiburl";
 #endif // HAVE_SHIBBOLETH_SUPPORT
+const char *kLastSSOUrl = "lastSSOurl";
 
 #if defined(Q_OS_LINUX) || defined(Q_OS_MAC)
 const char * kSetHideWindowsIncompatibilityPathMsg = "setHideWindowsIncompatibilityPathMsg";
@@ -619,6 +620,14 @@ void SettingsManager::setLastShibUrl(const QString &url)
     settings.endGroup();
 }
 #endif // HAVE_SHIBBOLETH_SUPPORT
+
+void SettingsManager::setLastSSOUrl(const QString &url)
+{
+    QSettings settings;
+    settings.beginGroup(kSettingsGroup);
+    settings.setValue(kLastSSOUrl, url);
+    settings.endGroup();
+}
 
 #ifdef HAVE_FINDER_SYNC_SUPPORT
 bool SettingsManager::getFinderSyncExtension() const

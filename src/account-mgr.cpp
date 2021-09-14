@@ -17,6 +17,7 @@
 #include "rpc/local-repo.h"
 #include "account-info-service.h"
 #include "ui/login-dialog.h"
+#include "ui/sso-dialog.h"
 #include "shib/shib-login-dialog.h"
 #include "settings-mgr.h"
 
@@ -706,6 +707,12 @@ void AccountManager::reloginAccount(const Account &account_in)
     const Account account(account_in);
 
     do {
+    if (account.isAtLeastVersion(9, 0, 0))
+    {
+        SSODialog sso_dialog;
+        accepted = sso_dialog.exec() == QDialog::Accepted;
+
+    } else {
 #ifdef HAVE_SHIBBOLETH_SUPPORT
         if (account.isShibboleth) {
             ShibLoginDialog shib_dialog(
@@ -714,6 +721,7 @@ void AccountManager::reloginAccount(const Account &account_in)
             break;
         }
 #endif // HAVE_SHIBBOLETH_SUPPORT
+    }
         LoginDialog dialog;
         dialog.initFromAccount(account);
         accepted = dialog.exec() == QDialog::Accepted;

@@ -982,6 +982,10 @@ failed to upload.</source>
         <source>The storage quota has been used up</source>
         <translation type="unfinished"/>
     </message>
+    <message>
+        <source>The uploaded file exceeds the size limit</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>FileTableModel</name>
@@ -1565,6 +1569,10 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     </message>
     <message>
         <source>The file path %1 contains symbols that are not supported by the Windows system.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Library is too large to sync.</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -2183,6 +2191,10 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     </message>
     <message>
         <source>The file path contains symbols that are not supported by the Windows system</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Library is too large to sync.</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -2957,6 +2969,10 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     <message>
         <source>Cancel</source>
         <translation>Atcelt</translation>
+    </message>
+    <message>
+        <source>Hide Windows incompatibility paths Message</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>

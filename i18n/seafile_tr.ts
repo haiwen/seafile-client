@@ -3,11 +3,11 @@
     <name>AboutDialog</name>
     <message>
         <source>About %1</source>
-        <translation type="unfinished"/>
+        <translation>Hakkında %1</translation>
     </message>
     <message>
         <source>&lt;h2&gt;%1 Client %2&lt;/h2&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;h2&gt;%1 İstemci %2&lt;/h2&gt;</translation>
     </message>
     <message>
         <source>&lt;h5&gt; REV %1 &lt;/h5&gt;</source>
@@ -15,15 +15,15 @@
     </message>
     <message>
         <source>About</source>
-        <translation type="unfinished"/>
+        <translation>Hakkında</translation>
     </message>
     <message>
         <source>Check For Updates</source>
-        <translation type="unfinished"/>
+        <translation>Güncellemeleri Kontrol Et</translation>
     </message>
     <message>
         <source>OK</source>
-        <translation type="unfinished"/>
+        <translation>Tamam</translation>
     </message>
 </context>
 <context>
@@ -38,11 +38,11 @@
     </message>
     <message>
         <source>Failed to remove local repos sync token: %1</source>
-        <translation type="unfinished"/>
+        <translation>Yerel depoların senkronizasyon repolarını kaldırma başarısız: %1</translation>
     </message>
     <message>
         <source>Failed to get repo sync information from server: %1</source>
-        <translation type="unfinished"/>
+        <translation>Sunucudan repo senkronizasyon bilgisi alınamadı: %1</translation>
     </message>
 </context>
 <context>
@@ -163,7 +163,7 @@
     <name>ActivitiesTab</name>
     <message>
         <source>File Activities are only supported in %1 Server Professional Edition.</source>
-        <translation type="unfinished"/>
+        <translation>Dosya aktiviteleri sadece %1 Server Professional Edition&apos;da destekleniyor.</translation>
     </message>
     <message>
         <source>retry</source>
@@ -194,15 +194,15 @@ yüklenemedi.</translation>
     </message>
     <message>
         <source>Permission Error!</source>
-        <translation type="unfinished"/>
+        <translation>İzin Hatası!</translation>
     </message>
     <message>
         <source>Authorization expired</source>
-        <translation type="unfinished"/>
+        <translation>Yetkilendirmenin süresi doldu</translation>
     </message>
     <message>
         <source>File does not exist</source>
-        <translation type="unfinished"/>
+        <translation>Dosya yok</translation>
     </message>
     <message>
         <source>The file is locked by %1, please try again later</source>
@@ -210,7 +210,7 @@ yüklenemedi.</translation>
     </message>
     <message>
         <source>Upload Failure: %1</source>
-        <translation type="unfinished"/>
+        <translation>Yükleme Hatası: %1</translation>
     </message>
 </context>
 <context>
@@ -228,7 +228,7 @@ yüklenemedi.</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation type="unfinished"/>
+        <translation>İptal et</translation>
     </message>
 </context>
 <context>
@@ -431,7 +431,7 @@ yüklenemedi.</translation>
     </message>
     <message>
         <source>Failed to generate encryption key for this library</source>
-        <translation type="unfinished"/>
+        <translation>Bu kütüphane için şifreleme anahtarı oluşturulamadı</translation>
     </message>
     <message>
         <source>Please choose the directory to sync</source>
@@ -989,6 +989,10 @@ yüklenemedi.</translation>
         <source>The storage quota has been used up</source>
         <translation type="unfinished"/>
     </message>
+    <message>
+        <source>The uploaded file exceeds the size limit</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>FileTableModel</name>
@@ -1269,7 +1273,7 @@ Görüntülemek için &quot;Aç&quot; düğmesine basabilirsiniz.</translation>
     </message>
     <message>
         <source>Dialog</source>
-        <translation>Dialog</translation>
+        <translation>Diyalog</translation>
     </message>
     <message>
         <source>%1 organizes files by libraries. 
@@ -1440,7 +1444,7 @@ Do you like to download your default library?</source>
     </message>
     <message>
         <source>Dialog</source>
-        <translation>Dialog</translation>
+        <translation>Diyalog</translation>
     </message>
     <message>
         <source>logo</source>
@@ -1579,6 +1583,10 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     </message>
     <message>
         <source>The file path %1 contains symbols that are not supported by the Windows system.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Library is too large to sync.</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -2199,6 +2207,10 @@ File path contains invalid characters. It is not synced to this computer.</sourc
         <source>The file path contains symbols that are not supported by the Windows system</source>
         <translation type="unfinished"/>
     </message>
+    <message>
+        <source>Library is too large to sync.</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>ReliablePostFileTask</name>
@@ -2227,7 +2239,7 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     </message>
     <message>
         <source>Dialog</source>
-        <translation>Dialog</translation>
+        <translation>Diyalog</translation>
     </message>
     <message>
         <source>RepoIcon</source>
@@ -2766,7 +2778,7 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     </message>
     <message>
         <source>Dialog</source>
-        <translation>Dialog</translation>
+        <translation>Diyalog</translation>
     </message>
     <message>
         <source>Close</source>
@@ -2797,7 +2809,7 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     </message>
     <message>
         <source>Dialog</source>
-        <translation>Dialog</translation>
+        <translation>Diyalog</translation>
     </message>
     <message>
         <source>OK</source>
@@ -2860,7 +2872,7 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     </message>
     <message>
         <source>Dialog</source>
-        <translation>Dialog</translation>
+        <translation>Diyalog</translation>
     </message>
     <message>
         <source>Hide main window when started</source>
@@ -2973,6 +2985,10 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     <message>
         <source>Cancel</source>
         <translation>İptal et</translation>
+    </message>
+    <message>
+        <source>Hide Windows incompatibility paths Message</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -3225,7 +3241,7 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     </message>
     <message>
         <source>Dialog</source>
-        <translation>Dialog</translation>
+        <translation>Diyalog</translation>
     </message>
     <message>
         <source>text</source>

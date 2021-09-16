@@ -983,6 +983,10 @@ failed to upload.</source>
         <source>The storage quota has been used up</source>
         <translation>该用户的空间已经用完</translation>
     </message>
+    <message>
+        <source>The uploaded file exceeds the size limit</source>
+        <translation>上传的文件大小超出了限制</translation>
+    </message>
 </context>
 <context>
     <name>FileTableModel</name>

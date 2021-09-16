@@ -989,6 +989,10 @@ failed to upload.</source>
         <source>The storage quota has been used up</source>
         <translation>Квота хранения была израсходована</translation>
     </message>
+    <message>
+        <source>The uploaded file exceeds the size limit</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>FileTableModel</name>
@@ -1588,7 +1592,11 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     </message>
     <message>
         <source>The file path %1 contains symbols that are not supported by the Windows system.</source>
-        <translation type="unfinished"/>
+        <translation>Путь к файлу %1 содержит символы, не поддерживаемые системой Windows.</translation>
+    </message>
+    <message>
+        <source>Library is too large to sync.</source>
+        <translation>Библиотека слишком велика для синхронизации.</translation>
     </message>
 </context>
 <context>
@@ -2206,7 +2214,11 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     </message>
     <message>
         <source>The file path contains symbols that are not supported by the Windows system</source>
-        <translation type="unfinished"/>
+        <translation>Путь к файлу содержит символы, не поддерживаемые системой Windows.</translation>
+    </message>
+    <message>
+        <source>Library is too large to sync.</source>
+        <translation>Библиотека слишком велика для синхронизации.</translation>
     </message>
 </context>
 <context>
@@ -2981,6 +2993,10 @@ File path contains invalid characters. It is not synced to this computer.</sourc
         <source>Cancel</source>
         <translation>Отмена</translation>
     </message>
+    <message>
+        <source>Hide Windows incompatibility paths Message</source>
+        <translation>Скрыть сообщение Windows о несовместимости путей</translation>
+    </message>
 </context>
 <context>
     <name>SharedItemDelegate</name>
@@ -3052,19 +3068,19 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     </message>
     <message>
         <source>Password(At least 8 characters)</source>
-        <translation type="unfinished"/>
+        <translation>Пароль (Не менее 8 символов)</translation>
     </message>
     <message>
         <source>Show password</source>
-        <translation type="unfinished"/>
+        <translation>Показать пароль</translation>
     </message>
     <message>
         <source>Expire days</source>
-        <translation type="unfinished"/>
+        <translation>Срок действия</translation>
     </message>
     <message>
         <source>Generate link</source>
-        <translation type="unfinished"/>
+        <translation>Создать ссылку</translation>
     </message>
 </context>
 <context>
@@ -3251,19 +3267,19 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     <name>UploadLinkDialog</name>
     <message>
         <source>Upload Link</source>
-        <translation type="unfinished"/>
+        <translation>Ссылка для загрузки</translation>
     </message>
     <message>
         <source>Upload link:</source>
-        <translation type="unfinished"/>
+        <translation>Ссылка для загрузки:</translation>
     </message>
     <message>
         <source>Copy to clipboard</source>
-        <translation type="unfinished"/>
+        <translation>Скопировать в буфер обмена</translation>
     </message>
     <message>
         <source>OK</source>
-        <translation type="unfinished"/>
+        <translation>OK</translation>
     </message>
 </context>
 </TS>

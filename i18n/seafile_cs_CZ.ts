@@ -989,6 +989,10 @@ Prosím %1</translation>
         <source>The storage quota has been used up</source>
         <translation>Kvóta na severu je obsazená</translation>
     </message>
+    <message>
+        <source>The uploaded file exceeds the size limit</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>FileTableModel</name>
@@ -1589,6 +1593,10 @@ Cesta k souboru obsahuje nepovolený znak. Není synchronizovaný do tohoto poč
     </message>
     <message>
         <source>The file path %1 contains symbols that are not supported by the Windows system.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Library is too large to sync.</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -2207,6 +2215,10 @@ Cesta k souboru obsahuje nepovolený znak. Není synchronizovaný do tohoto poč
     </message>
     <message>
         <source>The file path contains symbols that are not supported by the Windows system</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Library is too large to sync.</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -2983,6 +2995,10 @@ Cesta k souboru obsahuje nepovolený znak. Není synchronizovaný do tohoto poč
     <message>
         <source>Cancel</source>
         <translation>Zrušit</translation>
+    </message>
+    <message>
+        <source>Hide Windows incompatibility paths Message</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>

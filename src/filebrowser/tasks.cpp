@@ -779,8 +779,13 @@ void PostFilesTask::onPostTaskFinished(bool success)
         QString file_name = QFileInfo(file_path).fileName();
         failed_path_ = file_name;
 
-        emit oneFileFailed(failed_path_, false);
+        if (http_error_code_ != 442) {
+            emit oneFileFailed(failed_path_, false);
+        } else {
+            emit finished(false);
+        }
         return;
+
     } else {
         error_ = FileNetworkTask::NoError;
         error_string_ = "";

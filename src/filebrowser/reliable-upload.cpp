@@ -260,26 +260,27 @@ void ReliablePostFileTask::continueWithFailedFile(bool retry, const QString& lin
 void ReliablePostFileTask::onPostFileTaskFinished(bool result)
 {
     // First check if we should retry on failure
+    http_error_code_ = task_->httpErrorCode();
+    error_string_ = task_->errorString();
+    error_ = task_->error();
+
+    if (http_error_code_ == 442) {
+        emit finished(false);
+        return;
+    }
     if (!result) {
         if (task_->error() == FileNetworkTask::ApiRequestError && maybeRetry()) {
             return;
         }
     }
 
-    http_error_code_ = task_->httpErrorCode();
-    error_string_ = task_->errorString();
-    error_ = task_->error();
 
     if (!useResumableUpload()) {
         // Simple upload
         if (result) {
             emit finished(true);
         } else {
-            if ( http_error_code_ == 442 ) {
-                emit finished(false);
-            } else {
-                handlePostFileTaskFailure();
-            }
+            handlePostFileTaskFailure();
         }
         return;
     }
@@ -288,11 +289,7 @@ void ReliablePostFileTask::onPostFileTaskFinished(bool result)
 
     // Resumable upload
     if (!result) {
-        if ( http_error_code_ == 442 ) {
-            emit finished(false);
-        } else {
-            handlePostFileTaskFailure();
-        }
+        handlePostFileTaskFailure();
         return;
     }
 

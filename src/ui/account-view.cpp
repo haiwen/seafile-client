@@ -66,7 +66,6 @@ AccountView::AccountView(QWidget *parent)
     // automatically.
     mRefreshLabel->setPixmap(QIcon(":/images/toolbar/refresh-new.png").pixmap(20));
     mRefreshLabel->installEventFilter(this);
-    mSettingsPushButton->setIcon(QIcon(":/images/toolbar/settings.png"));
     connect(mSettingsPushButton, &QPushButton::clicked, this, &AccountView::slotShowSettingsDialog);
 }
 

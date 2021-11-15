@@ -712,12 +712,16 @@ SeafileTabWidget QToolButton:hover {
 AccountView QPushButton#mSettingsPushButton {
     border: 0;
     border-radius: 0;
-    icon-size: 20px;
+    width: 20px;
+    height:20px;
+    image: url(:/images/toolbar/settings.png);
 }
 
 AccountView QPushButton:hover#mSettingsPushButton {
     border: 0;
     border-radius: 0;
-    icon-size: 20px;
-    icon: url(:/images/toolbar/settings-orange.png);
+    width: 20px;
+    height:20px;
+    image: url(:/images/toolbar/settings-orange.png);
 }
+

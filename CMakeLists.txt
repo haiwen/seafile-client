@@ -752,6 +752,11 @@ install(DIRECTORY
 )
 
 install(FILES
+  ${CMAKE_SOURCE_DIR}/data/seafile.metainfo.xml
+  DESTINATION share/metainfo
+)
+
+install(FILES
   ${CMAKE_SOURCE_DIR}/data/seafile.desktop
   DESTINATION share/applications
 )

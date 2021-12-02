@@ -2688,6 +2688,10 @@ File path contains invalid characters. It is not synced to this computer.</sourc
         <source>have some sync error</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Toggle tray icon color</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>SearchResultListView</name>

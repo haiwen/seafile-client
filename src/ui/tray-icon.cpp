@@ -190,6 +190,12 @@ void SeafileTrayIcon::createActions()
     shellext_fix_action_ = new QAction(tr("Repair explorer extension"), this);
     connect(shellext_fix_action_, SIGNAL(triggered()), this, SLOT(shellExtFix()));
 #endif
+
+#if defined(Q_OS_MACOS)
+    toggle_tray_icon_color_ = new QAction(tr("Toggle tray icon color"), this);
+    connect(toggle_tray_icon_color_, SIGNAL(triggered()), this, SLOT(toggleTrayIconColor()));
+#endif
+
     open_log_directory_action_ = new QAction(tr("Open &logs folder"), this);
     open_log_directory_action_->setStatusTip(tr("open %1 log folder").arg(getBrand()));
     connect(open_log_directory_action_, SIGNAL(triggered()), this, SLOT(openLogDirectory()));
@@ -225,6 +231,9 @@ void SeafileTrayIcon::createContextMenu()
     context_menu_->addAction(open_log_directory_action_);
  #if defined(Q_OS_WIN32)
     context_menu_->addAction(shellext_fix_action_);
+ #endif
+ #if defined(Q_OS_MACOS)
+    context_menu_->addAction(toggle_tray_icon_color_);
  #endif
     context_menu_->addSeparator();
     //context_menu_->addAction(upload_log_directory_action_);
@@ -457,10 +466,16 @@ QIcon SeafileTrayIcon::stateToIcon(TrayState state)
     }
     return getIcon(icon_name);
 #elif defined(Q_OS_MAC)
-    bool isDarkMode = utils::mac::is_darkmode();
-    // filename = icon_name + ?white + .png
-    QString icon_name;
+    bool isTrayIconDark = false;
 
+    if (seafApplet != nullptr) {
+        SettingsManager* settingsManager = seafApplet->settingsManager();
+        if (settingsManager != nullptr) {
+            isTrayIconDark = settingsManager->isTrayIconDark();
+        }
+    }
+
+    QString icon_name;
     switch (state) {
     case STATE_DAEMON_UP:
         icon_name = ":/images/mac/daemon_up";
@@ -484,7 +499,7 @@ QIcon SeafileTrayIcon::stateToIcon(TrayState state)
         icon_name = ":/images/mac/notification";
         break;
     }
-    return getIcon(icon_name + (isDarkMode ? "_white" : "") + ".png");
+    return getIcon(icon_name + (isTrayIconDark ? "" : "_white") + ".png");
 #else
     QString icon_name;
     switch (state) {
@@ -580,6 +595,14 @@ void SeafileTrayIcon::shellExtFix()
         qWarning("faild to fix sync status icons for explorer");
     }
 
+#endif
+}
+
+void SeafileTrayIcon::toggleTrayIconColor()
+{
+#if defined(Q_OS_MACOS)
+    seafApplet->settingsManager()->toggleTrayIconColor();
+    reloadTrayIcon();
 #endif
 }
 

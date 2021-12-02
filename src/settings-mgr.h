@@ -97,6 +97,11 @@ public:
     bool isEnableSyncingWithExistingFolder() const;
     void setEnableSyncingWithExistingFolder(bool enabled);
 
+#if defined(Q_OS_MACOS)
+    void toggleTrayIconColor();
+    bool isTrayIconDark();
+#endif
+
 #ifdef HAVE_SHIBBOLETH_SUPPORT
     QString getLastShibUrl();
     void setLastShibUrl(const QString& url);

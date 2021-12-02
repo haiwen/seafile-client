@@ -30,6 +30,9 @@ namespace
 const char *kHideMainWindowWhenStarted = "hideMainWindowWhenStarted";
 const char *kHideDockIcon = "hideDockIcon";
 const char *kEnableSyncingWithExistingFolder = "syncingWithExistingFolder";
+#if defined(Q_OS_MACOS)
+const char *kTrayIconDark = "trayIconDark";
+#endif
 const char *kBehaviorGroup = "Behavior";
 
 // const char *kDefaultLibraryAlreadySetup = "defaultLibraryAlreadySetup";
@@ -573,6 +576,25 @@ void SettingsManager::setEnableSyncingWithExistingFolder(bool enabled)
     settings.setValue(kEnableSyncingWithExistingFolder, enabled);
     settings.endGroup();
 }
+
+#if defined(Q_OS_MACOS)
+void SettingsManager::toggleTrayIconColor()
+{
+    QSettings settings;
+    settings.beginGroup(kBehaviorGroup);
+    // dark should be false by default
+    settings.setValue(kTrayIconDark, !settings.value(kTrayIconDark, false).toBool());
+    settings.endGroup();
+}
+
+bool SettingsManager::isTrayIconDark(){
+    QSettings settings;
+    settings.beginGroup(kBehaviorGroup);
+    bool dark = settings.value(kTrayIconDark, false).toBool();
+    settings.endGroup();
+    return dark;
+}
+#endif
 
 QString SettingsManager::getComputerName()
 {

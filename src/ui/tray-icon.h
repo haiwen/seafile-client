@@ -74,6 +74,7 @@ private slots:
     void openSeafileFolder();
     void openLogDirectory();
     void shellExtFix();
+    void toggleTrayIconColor();
     void uploadLogDirectory();
     void about();
     void checkTrayIconMessageQueue();
@@ -109,6 +110,7 @@ private:
     QAction *open_seafile_folder_action_;
     QAction *open_log_directory_action_;
     QAction *shellext_fix_action_;
+    QAction *toggle_tray_icon_color_;
     QAction *upload_log_directory_action_;
     QAction *show_sync_errors_action_;
 

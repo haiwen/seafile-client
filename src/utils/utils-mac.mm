@@ -104,48 +104,7 @@ bool isOSXLionOrGreater()
 }
 
 } // namespace mac
-} // namesapce utils
-
-// ****************************************************************************
-// darkmode related
-// ****************************************************************************
-@interface DarkmodeHelper : NSObject
-- (void)getDarkMode;
-@end
-
-static bool darkMode = false;
-static DarkModeChangedCallback *darkModeWatcher = NULL;
-@implementation DarkmodeHelper
-- (id) init {
-    self = [super init];
-
-    // darkmode is available version >= 10.10
-    if (utils::mac::isOSXYosemiteOrGreater()) {
-        [self getDarkMode];
-
-        [[NSDistributedNotificationCenter defaultCenter] addObserver:self
-        selector:@selector(darkModeChanged:)
-        name:@"AppleInterfaceThemeChangedNotification" object:nil];
-    }
-    return self;
-}
-
-- (void)darkModeChanged:(NSNotification *)aNotification
-{
-    bool oldDarkMode = darkMode;
-    [self getDarkMode];
-
-    if (oldDarkMode != darkMode && darkModeWatcher) {
-        darkModeWatcher(darkMode);
-    }
-}
-
-- (void)getDarkMode {
-    NSDictionary *dict = [[NSUserDefaults standardUserDefaults] persistentDomainForName:NSGlobalDomain];
-    id style = [dict objectForKey:@"AppleInterfaceStyle"];
-    darkMode = ( style && [style isKindOfClass:[NSString class]] && NSOrderedSame == [style caseInsensitiveCompare:@"dark"]);
-}
-@end
+} // namespace utils
 
 // ****************************************************************************
 // others
@@ -318,17 +277,6 @@ void set_auto_start(bool enabled)
         CFRelease(currentLoginItems);
         CFRelease(loginItems);
     }
-}
-
-bool is_darkmode() {
-    static DarkmodeHelper *helper = nil;
-    if (!helper) {
-        helper = [[DarkmodeHelper alloc] init];
-    }
-    return darkMode;
-}
-void set_darkmode_watcher(DarkModeChangedCallback *cb) {
-    darkModeWatcher = cb;
 }
 
 void copyTextToPasteboard(const QString &text) {

@@ -61,11 +61,6 @@ const int kMessageDisplayTimeMSecs = 5000;
 const QString kShellExtFixExecutableName = "shellext-fix.exe";
 const QString kShellFixLogName = "shellext-fix.log";
 #endif
-#ifdef Q_OS_MAC
-void darkmodeWatcher(bool /*new Value*/) {
-    seafApplet->trayIcon()->reloadTrayIcon();
-}
-#endif
 
 QString folderToShow(const CommitDetails& details, const QString& worktree)
 {
@@ -158,9 +153,6 @@ void SeafileTrayIcon::start()
 {
     show();
     refresh_timer_->start(kRefreshInterval);
-#if defined(Q_OS_MAC)
-    utils::mac::set_darkmode_watcher(&darkmodeWatcher);
-#endif
     sync_errors_dialog_ = new SyncErrorsDialog;
     sync_errors_dialog_->updateErrors();
 }

@@ -6,7 +6,8 @@
 #include <QSortFilterProxyModel>
 #include <QModelIndex>
 
-class ServerRepo;
+#include "api/server-repo.h"
+
 class RepoItem;
 class RepoCategoryItem;
 class QTimer;

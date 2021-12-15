@@ -2,6 +2,7 @@
 #include <QDir>
 #include <QFileInfo>
 #include <QDateTime>
+#include <QStringList>
 #include <QTimer>
 #include <QThreadPool>
 

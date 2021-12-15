@@ -6,9 +6,8 @@
 #include <QTimer>
 
 #include "api/api-request.h"
-#include "seaf-dirent.h"
+#include "filebrowser/seaf-dirent.h"
 
-class SeafDirent;
 class Account;
 class QDir;
 

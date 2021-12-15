@@ -8,6 +8,8 @@
 #include "api/server-repo.h"
 #include "file-browser-search-tab.h"
 #include "ui/search-bar.h"
+#include "api/requests.h"
+#include "filebrowser/seaf-dirent.h"
 
 class QToolBar;
 class QToolButton;
@@ -24,7 +26,6 @@ class QHBoxLayout;
 class ApiError;
 class FileTableView;
 class FileTableModel;
-class SeafDirent;
 class GetDirentsRequest;
 class FileBrowserCache;
 class DataManager;
@@ -37,7 +38,6 @@ class FileBrowserSearchItemDelegate;
 class FileBrowserSearchView;
 class FileBrowserSearchModel;
 struct FileSearchResult;
-class FileSearchRequest;
 
 /**
  * This dialog is used when the user clicks on a repo not synced yet.

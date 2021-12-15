@@ -18,7 +18,7 @@
 #include "utils/utils.h"
 #include "account-mgr.h"
 
-#include "requests.h"
+#include "api/requests.h"
 
 namespace
 {
@@ -815,8 +815,12 @@ void GetRepoTokensRequest::batchSuccess()
     const QMap<QString, QString>& tokens = batch_req_->repoTokens();
 
     // printf ("one batch finished, offset = %d, count = %d\n", batch_offset_, tokens.size());
+    QMap<QString, QString>::const_iterator it = tokens.begin();
+    while(it != tokens.end()) {
+        repo_tokens_.insert(it.key(), it.value());
+        it++;
+    }
 
-    repo_tokens_.unite(tokens);
     batch_offset_ += batch_req_->repoIds().size();
     doNextBatch();
 }

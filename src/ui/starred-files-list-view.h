@@ -2,6 +2,7 @@
 #define SEAFILE_CLIENT_UI_STARRED_FILES_LIST_VIEW_H
 
 #include <QListView>
+#include "api/starred-file.h"
 
 class QAction;
 class QContextMenuEvent;
@@ -10,7 +11,6 @@ class QModelIndex;
 class QStandardItem;
 
 class StarredFileItem;
-class StarredItem;
 
 class StarredFilesListView : public QListView {
     Q_OBJECT

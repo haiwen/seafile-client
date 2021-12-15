@@ -8,7 +8,11 @@
 namespace {
 
 void initCommonFields(SeafDirent *dirent) {
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 8, 0))
+    dirent->mtime = QDateTime::currentDateTime().toSecsSinceEpoch();
+#else
     dirent->mtime = QDateTime::currentDateTime().toTime_t();
+#endif
     dirent->readonly = false;
     dirent->is_locked = false;
     dirent->locked_by_me = false;

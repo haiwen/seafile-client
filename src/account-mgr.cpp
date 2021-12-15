@@ -6,6 +6,7 @@
 
 #include <QDateTime>
 #include <QMutexLocker>
+#include <QStringList>
 
 #include "account-mgr.h"
 #include "configurator.h"

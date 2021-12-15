@@ -1,6 +1,11 @@
 #include <QTimer>
 #include <QHash>
 #include <QDebug>
+#if (QT_VERSION >= QT_VERSION_CHECK(6,0,0))
+#include <QRegularExpression>
+#else
+#include <QRegExp>
+#endif
 #include <algorithm>            // std::sort
 
 #include "api/server-repo.h"
@@ -29,11 +34,11 @@ bool compareRepoByTimestamp(const ServerRepo& a, const ServerRepo& b)
     return a.mtime > b.mtime;
 }
 
-QRegExp makeFilterRegExp(const QString& text)
+QRegularExpression makeFilterRegExp(const QString& text)
 {
 #if (QT_VERSION >= QT_VERSION_CHECK(5, 15, 0))
-    return QRegExp(text.split(" ", Qt::SkipEmptyParts).join(".*"),
-                   Qt::CaseInsensitive);
+    return QRegularExpression(text.split(" ", Qt::SkipEmptyParts).join(".*"),
+                   QRegularExpression::CaseInsensitiveOption);
 #else
     return QRegExp(text.split(" ", QString::SkipEmptyParts).join(".*"),
                    Qt::CaseInsensitive);
@@ -497,7 +502,7 @@ void RepoTreeModel::onFilterTextChanged(const QString& text)
     QStandardItem *root = invisibleRootItem();
     int row, n;
     n = root->rowCount();
-    QRegExp re = makeFilterRegExp(text);
+    QRegularExpression re = makeFilterRegExp(text);
     for (row = 0; row < n; row++) {
         RepoCategoryItem *category = (RepoCategoryItem *)root->child(row);
         if (category->isGroupsRoot()) {
@@ -561,7 +566,11 @@ void RepoFilterProxyModel::setFilterText(const QString& text)
 {
     has_filter_ = !text.isEmpty();
     invalidate();
+#if (QT_VERSION >= QT_VERSION_CHECK(6, 0, 0))
+    setFilterRegularExpression(makeFilterRegExp(text));
+#else
     setFilterRegExp(makeFilterRegExp(text));
+#endif
 }
 
 // void RepoFilterProxyModel::sort()

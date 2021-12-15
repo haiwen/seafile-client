@@ -7,11 +7,11 @@
 
 #include "api/server-repo.h"
 #include "account.h"
+#include "filebrowser/seaf-dirent.h"
 #include "filebrowser/file-browser-dialog.h"
 
 class ApiError;
 class DataManager;
-class SeafDirent;
 
 // When the user drag'n'drop a file into to a repo and the repo is readonly, we
 // need to check the user's directory-level permission for the repo's root

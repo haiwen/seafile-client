@@ -3,7 +3,6 @@
 #include <QLabel>
 #include <QPaintEvent>
 #include <QStylePainter>
-#include <QStyleOptionTabV3>
 #include <QPixmap>
 #include <QIcon>
 #include <QStackedLayout>

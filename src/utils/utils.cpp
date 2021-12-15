@@ -13,7 +13,8 @@
 #include <cstring>
 #include <QObject>
 #include <QApplication>
-#include <QDesktopWidget>
+#include <QStandardPaths>
+#include <QRegExp>
 #include <QString>
 #include <QSettings>
 #include <QProcess>
@@ -689,8 +690,8 @@ QString dumpCipher(const QSslCipher &cipher)
     s += "Key Exchange:    " + cipher.keyExchangeMethod() + "\n";
     s += "Cipher Name:     " + cipher.name() + "\n";
     s += "Protocol:        " +  cipher.protocolString() + "\n";
-    s += "Supported Bits:  " + QString(cipher.supportedBits()) + "\n";
-    s += "Used Bits:       " + QString(cipher.usedBits()) + "\n";
+    s += "Supported Bits:  " + QString::number(cipher.supportedBits()) + "\n";
+    s += "Used Bits:       " + QString::number(cipher.usedBits()) + "\n";
     return s;
 }
 

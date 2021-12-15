@@ -181,7 +181,11 @@ int get_seafile_data_dir(const QString& ccnet_dir, QString *ret)
     }
 
     QTextStream input(&seafile_ini);
+#if (QT_VERSION >= QT_VERSION_CHECK(6, 0, 0))
+    input.setEncoding(QStringConverter::Utf8);
+#else
     input.setCodec("UTF-8");
+#endif
 
     if (input.atEnd()) {
         return -1;

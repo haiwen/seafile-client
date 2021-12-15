@@ -341,7 +341,12 @@ QVariant SyncErrorsTableModel::data(const QModelIndex & index, int role) const
     int column = index.column();
 
     if (role == Qt::TextAlignmentRole)
-        return Qt::AlignLeft + Qt::AlignVCenter;
+
+#if(QT_VERSION >= QT_VERSION_CHECK(6, 0, 0))
+    return static_cast<Qt::Alignment::Int>(Qt::AlignLeft | Qt::AlignVCenter);
+#else
+    return Qt::AlignLeft + Qt::AlignVCenter;
+#endif
 
     if (role == Qt::ToolTipRole)
         return tr("Double click to open the library");
@@ -396,7 +401,11 @@ QVariant SyncErrorsTableModel::headerData(int section,
     }
 
     if (role == Qt::TextAlignmentRole)
-        return Qt::AlignLeft + Qt::AlignVCenter;
+#if(QT_VERSION >= QT_VERSION_CHECK(6, 0, 0))
+    return static_cast<Qt::Alignment::Int>(Qt::AlignLeft | Qt::AlignVCenter);
+#else
+    return Qt::AlignLeft + Qt::AlignVCenter;
+#endif
 
     if (role != Qt::DisplayRole)
         return QVariant();

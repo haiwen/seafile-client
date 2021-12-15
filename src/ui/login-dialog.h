@@ -7,13 +7,13 @@
 #include <QUrl>
 #include <QString>
 #include <QNetworkReply>
+#include <QSslError>
 
 #include "two-factor-dialog.h"
 
 class Account;
 class LoginRequest;
 class QNetworkReply;
-class QSslError;
 class ApiError;
 class FetchAccountInfoRequest;
 class AccountInfo;

@@ -1,7 +1,6 @@
 #include "file-browser-manager.h"
 
 #include <QApplication>
-#include <QDesktopWidget>
 #include <QScreen>
 
 #include "seafile-applet.h"

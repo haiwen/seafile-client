@@ -4,6 +4,8 @@
 #include <QObject>
 #include <QUrl>
 #include <QMutex>
+#include <QStringList>
+#include <QSslError>
 
 #include "api/server-repo.h"
 #include "account.h"
@@ -14,7 +16,6 @@ class QFile;
 class QNetworkAccessManager;
 class QNetworkReply;
 class QThread;
-class QSslError;
 class QNetworkRequest;
 
 class FileServerTask;

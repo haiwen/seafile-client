@@ -62,10 +62,8 @@ ENDIF()
 MESSAGE("Build type: ${CMAKE_BUILD_TYPE}")
 
 ## build in PIC mode
-IF (NOT WIN32)
-    SET(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fPIC")
-    SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fPIC")
-ENDIF()
+SET(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fPIC")
+SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fPIC")
 
 ## Setup warnings ouput if enabled
 ## but don't warning on unsupported warnings
@@ -91,26 +89,7 @@ elseif(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
   endif()
 endif()
 
-IF (WIN32)
-    CONFIGURE_FILE(
-      ${CMAKE_SOURCE_DIR}/seafile-applet.rc.in
-      ${CMAKE_BINARY_DIR}/seafile-applet.rc
-    )
-    SET(EXTRA_LIBS ${EXTRA_LIBS} psapi ws2_32 shlwapi mpr crypt32)
-    SET(EXTRA_SOURCES ${EXTRA_SOURCES} ${CMAKE_BINARY_DIR}/seafile-applet.rc)
-    IF (${CMAKE_BUILD_TYPE} MATCHES Release)
-      SET(GUI_TYPE WIN32)
-    ENDIF()
-    SET(platform_specific_moc_headers ${platform_specific_moc_headers} src/ext-handler.h)
-    SET(platform_specific_sources ${platform_specific_sources} src/ext-handler.cpp)
-    IF (BUILD_SPARKLE_SUPPORT)
-      IF(NOT EXISTS "${CMAKE_SOURCE_DIR}/WinSparkle.lib")
-        message(FATAL_ERROR "File ${CMAKE_SOURCE_DIR}/WinSparkle.lib not found in current directory. Please setup winsparkle correctly." )
-      ENDIF()
-      SET(SPARKLE_LIBS ${CMAKE_SOURCE_DIR}/WinSparkle.lib)
-    ENDIF()
-
-ELSEIF (LINUX)
+IF (LINUX)
     INCLUDE_DIRECTORIES(${QT_QTDBUS_INCLUDE_DIR})
     LINK_DIRECTORIES(${QT_QTDBUS_LIBRARIES})
     SET(EXTRA_LIBS ${EXTRA_LIBS} ${QT_QTDBUS_LIBRARIES})
@@ -154,13 +133,6 @@ ENDIF()
 ####################
 ###### BEGIN: QT configuration
 ####################
-# SET(QT_VERSION_MAJOR 5)
-
-# Qt 5.6.0 removes QtWebKit, we need to use QtWebEnigne. First we detect the
-# current qt version, then use proper name based on the version. However we
-# have to keep using QtWebKit on windows because QtWebEngine can't be
-# compiled in msys2/mingw (QtWebEnigne is based on chrome, which has to be
-# compiled with MSVC.)
 FIND_PROGRAM(qmake_executable NAMES qmake qmake.exe)
 EXECUTE_PROCESS(COMMAND
     bash -c "${qmake_executable} --version | grep -iE '^using qt version [0-9.]+' | awk '{print $4}'"
@@ -209,23 +181,13 @@ ELSE()
     FIND_PACKAGE(Qt5 REQUIRED ${USE_QT_LIBRARIES})
 ENDIF()
 SET(QT_LUPDATE_EXECUTABLE ${Qt5_LUPDATE_EXECUTABLE})
-# from QT 5.4.0 Changelog
-# The Qt binary packages are now configured with C++11 enabled.
-# this requires your gcc compiler newer than 4.8.1 or clang newer than 3.3
-
-if (CYGWIN OR MINGW)
-    IF(QT_VERSION_MAJOR EQUAL 6)
-        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=gnu++17")
-    ELSE()
-        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=gnu++11")
-    ENDIF()
-else()
-    IF(QT_VERSION_MAJOR EQUAL 6)
-        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++17")
-    ELSE()
-        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
-    ENDIF()
-endif()
+# From QT 6 Changelog
+# The Qt binary packages are now configured with C++17 enabled.
+IF(QT_VERSION_MAJOR EQUAL 6)
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++17")
+ELSE()
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
+ENDIF()
 
 # for OS X, we requires libc++ instead
 if (APPLE)
@@ -404,11 +366,11 @@ ENDIF()
 ###### BEGIN: pthread support is required explicitly on linux
 ####################
 
-IF(NOT WIN32 AND NOT APPLE)
+IF(NOT APPLE)
   SET(CMAKE_THREAD_PREFER_PTHREAD ON)
   INCLUDE(FindThreads)
   LINK_LIBRARIES(${CMAKE_THREAD_LIBS_INIT})
-ENDIF(NOT WIN32 AND NOT APPLE)
+ENDIF(NOT APPLE)
 
 ####################
 ###### BEGIN: other libraries configuration
@@ -639,13 +601,7 @@ LIST(APPEND utils_sources
     src/utils/stl.cpp
     src/utils/seafile-error.cpp
     )
-IF (WIN32)
-    LIST(APPEND utils_sources
-        src/utils/process-win.cpp
-        src/utils/registry.cpp
-        src/utils/utils-win.cpp
-        )
-ELSEIF (${CMAKE_SYSTEM_NAME} MATCHES "Linux" OR ${CMAKE_SYSTEM_NAME} MATCHES "BSD")
+IF (${CMAKE_SYSTEM_NAME} MATCHES "Linux" OR ${CMAKE_SYSTEM_NAME} MATCHES "BSD")
     LIST(APPEND utils_sources
         src/utils/process-linux.cpp
         )
@@ -774,34 +730,9 @@ ENDIF()
 ##################
 
 ####################
-###### begin: crash reporter
-####################
-
-# if you haven't installed it, please visit
-# https://code.google.com/p/google-breakpad/ to get a copy of it
-# or run the script build_breakpad.sh under the scripts directory
-
-## set up our crash reporter: breakpad
-
-IF (WIN32)
-FIND_LIBRARY(BREAKPAD_LIBRARY breakpad)
-FIND_LIBRARY(BREAKPAD_CLIENT_LIBRARY breakpad_client)
-MESSAGE(STATUS "Found library: ${BREAKPAD_LIBRARY}")
-MESSAGE(STATUS "Found library: ${BREAKPAD_CLIENT_LIBRARY}")
-SET(seafile_client_sources ${seafile_client_sources} src/crash-handler.cpp)
-ADD_DEFINITIONS(-DSEAFILE_CLIENT_HAS_CRASH_REPORTER)
-SET(EXTRA_LIBS ${EXTRA_LIBS} ${BREAKPAD_LIBRARY} ${BREAKPAD_CLIENT_LIBRARY})
-ENDIF()
-
-####################
-###### end: crash reporter
-####################
-
-####################
 ###### start: freedesktop files
 ####################
 
-if(NOT WIN32)
 install(DIRECTORY
   ${CMAKE_SOURCE_DIR}/data/icons/16x16
   ${CMAKE_SOURCE_DIR}/data/icons/22x22
@@ -822,8 +753,6 @@ install(FILES
   ${CMAKE_SOURCE_DIR}/data/icons/128x128/apps/seafile.png
   DESTINATION share/pixmaps
 )
-
-endif()
 
 ####################
 ###### end: freedesktop files

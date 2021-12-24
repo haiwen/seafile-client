@@ -32,8 +32,6 @@ void copyTextToPasteboard(const QString &text);
 bool is_darkmode();
 void set_darkmode_watcher(DarkModeChangedCallback *cb);
 
-QString fix_file_id_url(const QString &path);
-
 QString mainBundlePath();
 
 // load the missing part of ca certificates

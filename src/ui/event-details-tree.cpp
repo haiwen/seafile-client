@@ -1,11 +1,7 @@
 #include <QtGlobal>
 #include <QFileInfo>
 
-#if (QT_VERSION >= QT_VERSION_CHECK(5, 0, 0))
 #include <QtWidgets>
-#else
-#include <QtGui>
-#endif
 #include "QtAwesome.h"
 
 #include "utils/file-utils.h"
@@ -61,13 +57,9 @@ void EventDetailsFileItemDelegate::paint(QPainter *painter,
     const int height = option.rect.height();
     // get the device pixel radio from current painter device
     int scale_factor = 1;
-#if (QT_VERSION >= QT_VERSION_CHECK(5, 0, 0))
     scale_factor = globalDevicePixelRatio();
-#endif // QT5
     QPixmap icon(item->etype_icon().pixmap(QSize(kFileIconHeight, kFileIconHeight) * scale_factor).scaledToHeight(kFileIconHeight * scale_factor));
-#if (QT_VERSION >= QT_VERSION_CHECK(5, 0, 0))
     icon.setDevicePixelRatio(scale_factor);
-#endif // QT5
     //
     // draw status-icon
     //

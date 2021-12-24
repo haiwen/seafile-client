@@ -520,11 +520,7 @@ SharedItemsHeadView::SharedItemsHeadView(QWidget* parent)
     setCascadingSectionResizes(true);
     setHighlightSections(false);
     setDefaultAlignment(Qt::AlignLeft | Qt::AlignVCenter);
-#if (QT_VERSION >= QT_VERSION_CHECK(5, 0, 0))
     setSectionResizeMode(QHeaderView::ResizeToContents);
-#else
-    setResizeMode(QHeaderView::ResizeToContents);
-#endif
 }
 
 QSize SharedItemsHeadView::sectionSizeFromContents(int index) const

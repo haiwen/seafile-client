@@ -36,13 +36,8 @@ bool compareRepoByTimestamp(const ServerRepo& a, const ServerRepo& b)
 
 QRegularExpression makeFilterRegExp(const QString& text)
 {
-#if (QT_VERSION >= QT_VERSION_CHECK(5, 15, 0))
     return QRegularExpression(text.split(" ", Qt::SkipEmptyParts).join(".*"),
                    QRegularExpression::CaseInsensitiveOption);
-#else
-    return QRegExp(text.split(" ", QString::SkipEmptyParts).join(".*"),
-                   Qt::CaseInsensitive);
-#endif
 }
 
 

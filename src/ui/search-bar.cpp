@@ -16,10 +16,7 @@ SearchBar::SearchBar(QWidget *parent)
 {
     setObjectName("mSearchBar");
 
-    // This property was introduced in Qt 5.2.
-#if (QT_VERSION >= QT_VERSION_CHECK(5, 2, 0))
     setClearButtonEnabled(false);
-#endif
 #ifdef Q_OS_MAC
     setAttribute(Qt::WA_MacShowFocusRect, 0);
 #endif

@@ -1,10 +1,6 @@
 #include <QtGlobal>
 
-#if (QT_VERSION >= QT_VERSION_CHECK(5, 0, 0))
 #include <QtWidgets>
-#else
-#include <QtGui>
-#endif
 #include <QHeaderView>
 #include <QDesktopServices>
 #include <QEvent>
@@ -137,12 +133,8 @@ void RepoTreeView::loadExpandedCategries()
     QString key = QString(kRepoTreeViewSettingsExpandedCategories) + "-" + account.getSignature();
     if (settings.contains(key)) {
         QString cats = settings.value(key, "").toString();
-#if (QT_VERSION >= QT_VERSION_CHECK(5, 14, 0))
         QStringList cats_list = cats.split("\t", Qt::SkipEmptyParts);
         expanded_categroies_ = QSet<QString>(cats_list.begin(), cats_list.end());
-#else
-        expanded_categroies_ = QSet<QString>::fromList(cats.split("\t", QString::SkipEmptyParts));
-#endif
     } else {
         // Expand "recent updated" on first use
         expanded_categroies_.insert(tr("Recently Updated"));
@@ -741,11 +733,7 @@ void RepoTreeView::saveExpandedCategries()
         return;
     }
     QSettings settings;
-#if (QT_VERSION >= QT_VERSION_CHECK(5, 14, 0))
     QStringList cats = expanded_categroies_.values();
-#else
-    QStringList cats = expanded_categroies_.toList();
-#endif
     settings.beginGroup(kRepoTreeViewSettingsGroup);
     QString key = QString(kRepoTreeViewSettingsExpandedCategories) + "-" + account.getSignature();
     settings.setValue(key, cats.join("\t"));
@@ -882,10 +870,6 @@ void RepoTreeView::dropEvent(QDropEvent *event)
 
     const QUrl url = event->mimeData()->urls().at(0);
     QString local_path = url.toLocalFile();
-#if defined(Q_OS_MAC) && (QT_VERSION <= QT_VERSION_CHECK(5, 4, 0))
-        local_path = utils::mac::fix_file_id_url(local_path);
-#endif
-
     if (repo.readonly) {
         // Do not call the `show` method of the dialog. It would show itself if
         // the task doens't finish within 4 seconds.
@@ -980,10 +964,6 @@ void RepoTreeView::dragEnterEvent(QDragEnterEvent *event)
         if (url.scheme() == "file") {
 
             QString file_name = url.toLocalFile();
-#if defined(Q_OS_MAC) && (QT_VERSION <= QT_VERSION_CHECK(5, 4, 0))
-            file_name = utils::mac::fix_file_id_url(file_name);
-#endif
-
             if (QFileInfo(file_name).isFile()) {
                 event->setDropAction(Qt::CopyAction);
                 event->accept();

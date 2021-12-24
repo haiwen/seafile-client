@@ -23,9 +23,7 @@
 #include <jansson.h>
 #include <QGuiApplication>
 #include <QScreen>
-#if (QT_VERSION >= QT_VERSION_CHECK(5, 0, 0))
 #include <QUrlQuery>
-#endif
 
 #include "utils/utils-mac.h"
 #include "utils/utils-win.h"
@@ -116,12 +114,9 @@ QString defaultCcnetDir() {
 }
 
 QString defaultDownloadDir() {
-#if (QT_VERSION >= QT_VERSION_CHECK(5, 0, 0))
     static QStringList list = QStandardPaths::standardLocations(QStandardPaths::DownloadLocation);
     if (!list.empty())
         return list.front();
-#endif
-    // qt4 don't have QStandardPaths, use glib's as fallback
     return QString::fromUtf8(g_get_user_special_dir(G_USER_DIRECTORY_DOWNLOAD));
 }
 
@@ -701,34 +696,7 @@ QString dumpCertificate(const QSslCertificate &cert)
       return "\n-\n";
 
     QString s = "\n";
-#if (QT_VERSION >= QT_VERSION_CHECK(5, 0, 0))
     s += cert.toText();
-#else
-    QString s_none = QObject::tr("<Not Part of Certificate>");
-    #define CERTIFICATE_STR(x) ( ((x) == "" ) ? s_none : (x) )
-
-    s += "Certificate:\n";
-    s += "\nIssued To:\n";
-    s += "CommonName(CN):             " + CERTIFICATE_STR(cert.subjectInfo(QSslCertificate::CommonName)) + "\n";
-    s += "Organization(O):            " + CERTIFICATE_STR(cert.subjectInfo(QSslCertificate::Organization)) + "\n";
-    s += "OrganizationalUnitName(OU): " + CERTIFICATE_STR(cert.subjectInfo(QSslCertificate::OrganizationalUnitName)) + "\n";
-    s += "Serial Number:              " + dumpHexPresentation(cert.serialNumber()) + "\n";
-
-    s += "\nIssued By:\n";
-    s += "CommonName(CN):             " + CERTIFICATE_STR(cert.issuerInfo(QSslCertificate::CommonName)) + "\n";
-    s += "Organization(O):            " + CERTIFICATE_STR(cert.issuerInfo(QSslCertificate::Organization)) + "\n";
-    s += "OrganizationalUnitName(OU): " + CERTIFICATE_STR(cert.issuerInfo(QSslCertificate::OrganizationalUnitName)) + "\n";
-
-    s += "\nPeriod Of Validity\n";
-    s += "Begins On:    " + cert.effectiveDate().toString() + "\n";
-    s += "Expires On:   " + cert.expiryDate().toString() + "\n";
-    s += "IsValid:      " + (cert.isValid() ? QString("Yes") : QString("No")) + "\n";
-
-    s += "\nFingerprints\n";
-    s += "SHA1 Fingerprint:\n" + dumpCertificateFingerprint(cert, QCryptographicHash::Sha1) + "\n";
-    s += "MD5 Fingerprint:\n" + dumpCertificateFingerprint(cert, QCryptographicHash::Md5) + "\n";
-#endif
-
     s += "\n\n";
     s += cert.toPem();
 
@@ -771,7 +739,6 @@ QUrl includeQueryParams(const QUrl& url,
                         const QHash<QString, QString>& params)
 {
     QUrl u(url);
-#if (QT_VERSION >= QT_VERSION_CHECK(5, 0, 0))
     QUrlQuery query;
     Q_FOREACH (const QString& key, params.keys()) {
         QString value = params[key];
@@ -779,19 +746,11 @@ QUrl includeQueryParams(const QUrl& url,
                            QUrl::toPercentEncoding(value));
     }
     u.setQuery(query);
-#else
-    Q_FOREACH (const QString& key, params.keys()) {
-        QString value = params[key];
-        u.addEncodedQueryItem(QUrl::toPercentEncoding(key),
-                              QUrl::toPercentEncoding(value));
-    }
-#endif
     return u;
 }
 
 QByteArray buildFormData(const QHash<QString, QString>& params)
 {
-#if (QT_VERSION >= QT_VERSION_CHECK(5, 0, 0))
     QUrlQuery query;
     Q_FOREACH (const QString& key, params.keys()) {
         QString value = params[key];
@@ -800,15 +759,6 @@ QByteArray buildFormData(const QHash<QString, QString>& params)
 
     }
     return query.query(QUrl::FullyEncoded).toUtf8();
-#else
-    QUrl u;
-    Q_FOREACH (const QString& key, params.keys()) {
-        QString value = params[key];
-        u.addEncodedQueryItem(QUrl::toPercentEncoding(key),
-                              QUrl::toPercentEncoding(value));
-    }
-    return u.encodedQuery();
-#endif
 }
 
 int digitalCompare(const QString &left, const QString &right)
@@ -874,15 +824,10 @@ bool shouldUseFramelessWindow()
 
 const QRect getScreenSize(int index) {
     QRect screen;
-#if (QT_VERSION >= QT_VERSION_CHECK(5, 11, 0))
     if (!QGuiApplication::screens().empty()) {
         screen = QGuiApplication::screens().at(index)->geometry();
         return screen;
     } else {
         return QRect();
     }
-#else
-    screen = QApplication::desktop()->screenGeometry();
-    return screen;
-#endif
 }

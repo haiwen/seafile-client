@@ -20,12 +20,6 @@
 #include "api/requests.h"
 #include "user-name-completer.h"
 
-#if (QT_VERSION < QT_VERSION_CHECK(5, 0, 0))
-// only available in qt 5.0+
-#define Q_DECL_OVERRIDE
-#endif
-
-
 class QResizeEvent;
 
 class SharedItemsTableView;

@@ -315,9 +315,6 @@ bool CloudView::eventFilter(QObject* obj, QEvent* event)
                 const QUrl url = ev->mimeData()->urls().at(0);
                 if (url.scheme() == "file") {
                     QString path = url.toLocalFile();
-#if defined(Q_OS_MAC) && (QT_VERSION <= QT_VERSION_CHECK(5, 4, 0))
-                    path = utils::mac::fix_file_id_url(path);
-#endif
                     if (QFileInfo(path).isDir()) {
                         QString style =
                             QString("QFrame#mDropInner {border: 1.5px dashed %1;}")
@@ -333,9 +330,6 @@ bool CloudView::eventFilter(QObject* obj, QEvent* event)
             QDropEvent* ev = (QDropEvent*)event;
             const QUrl url = ev->mimeData()->urls().at(0);
             QString path = url.toLocalFile();
-#if defined(Q_OS_MAC) && (QT_VERSION <= QT_VERSION_CHECK(5, 4, 0))
-            path = utils::mac::fix_file_id_url(path);
-#endif
             ev->setDropAction(Qt::CopyAction);
             ev->accept();
             QString style =

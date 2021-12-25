@@ -320,7 +320,7 @@ static constexpr double kGetFileStatusInterval = 2.0; // seconds
     file_status_.emplace(file_path, PathStatus::SYNC_STATUS_NONE);
     setBadgeIdentifierFor(file_path, PathStatus::SYNC_STATUS_NONE);
     dispatch_async(self.client_command_queue_, ^{
-      client_->doGetFileStatus(repo_id.c_str(), relative_path.c_str());
+        client_->doGetFileStatus(repo_id.c_str(), relative_path.c_str());
     });
 }
 

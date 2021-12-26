@@ -142,6 +142,7 @@ ELSEIF (APPLE)
 ENDIF()
 
 IF(APPLE)
+    SET(GUI_TYPE MACOSX_BUNDLE)
     ADD_DEFINITIONS(-DHAVE_FINDER_SYNC_SUPPORT)
     SET(platform_specific_moc_headers ${platform_specific_moc_headers} src/finder-sync/finder-sync-host.h)
     SET(platform_specific_sources ${platform_specific_sources}
@@ -805,9 +806,9 @@ ENDIF()
 IF(CMAKE_GENERATOR STREQUAL Xcode)
   ADD_DEFINITIONS(-DXCODE_APP)
   SET_TARGET_PROPERTIES(seafile-applet PROPERTIES
-    MACOSX_BUNDLE true
     MACOSX_BUNDLE_INFO_PLIST ${CMAKE_CURRENT_SOURCE_DIR}/Info.plist
   )
+  SET(TARGET_EXE ${CMAKE_CURRENT_BINARY_DIR}/seafile-applet.app/Contents/MacOS/seafile-applet)
   FIND_PROGRAM(seaf-daemon seaf-daemon)
   SET(RESOURCES_DIR ${CMAKE_CURRENT_BINARY_DIR}/\${CONFIGURATION}/seafile-applet.app/Contents/Resources)
   ADD_CUSTOM_COMMAND(TARGET seafile-applet

@@ -8,12 +8,16 @@ num_cpus=cpu_count()
 def get_dependencies_by_otool(path):
     if path.endswith('.app') and os.path.isdir(path):
         path = os.path.join(path, 'Contents', 'MacOS', os.path.basename(path))
-    lines = check_string_output(['otool', '-L', path]).split('\n')[1:]
+    lines = check_string_output(['otool', '-L', path]).split('\n')
+    striped_lines = []
+    for line in lines:
+        if 'architecture' not in line and ':' not in line:
+            striped_lines.append(line.strip())
     outputs = []
     if path.endswith('.dylib'):
         outputs.append(path);
 
-    for line in lines:
+    for line in striped_lines:
         name = line.split('(')[0].strip()
         if name.startswith('@executable_path/'):
             name = os.path.join(path, name[len('@executable_path/'):])
@@ -30,7 +34,7 @@ def get_dependencies_by_otool(path):
             continue
         # if file not found
         if not os.path.exists(name):
-            raise IOError('broken dependency: file %s not found' % name)
+            raise IOError('broken dependency: file "%s" not found' % name)
         outputs.append(os.path.normpath(name))
 
     return outputs

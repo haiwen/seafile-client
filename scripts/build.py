@@ -18,7 +18,6 @@ def postbuild_copy_libraries_posix():
     lib_path = os.path.join(target, 'lib')
     bin_path = os.path.join(target, 'bin')
     binaries = [os.path.join(bin_path, target),
-                os.path.join(bin_path, 'ccnet'),
                 os.path.join(bin_path, 'seaf-daemon')]
     libs = []
     for binrary in binaries:
@@ -33,7 +32,6 @@ def postbuild_copy_libraries_xcode():
     resources_path = os.path.join(target + '.app', 'Contents', 'Resources')
     macos_path = os.path.join(target + '.app', 'Contents', 'MacOS')
     binaries = [os.path.join(macos_path, target),
-                os.path.join(resources_path, 'ccnet'),
                 os.path.join(resources_path, 'seaf-daemon')]
     libs = []
     for binrary in binaries:
@@ -61,7 +59,6 @@ def postbuild_install_name_tool():
     resources_path = os.path.join(target + '.app', 'Contents', 'Resources')
     macos_path = os.path.join(target + '.app', 'Contents', 'MacOS')
     binaries = [os.path.join(macos_path, target),
-                os.path.join(resources_path, 'ccnet'),
                 os.path.join(resources_path, 'seaf-daemon')]
     for binary in binaries:
         build_helper.write_output(['install_name_tool', '-add_rpath', '@executable_path/../Frameworks', binary])
@@ -112,13 +109,13 @@ def execute_buildscript(generator = 'xcode'):
         shutil.copytree(os.path.join(configuration, target+ '.app'), target + '.app')
 
 
-def generate_buildscript(generator = 'xcode', os_min = '10.7', with_shibboleth = False):
+def generate_buildscript(generator = 'xcode', os_min = '10.9', with_shibboleth = False):
     print 'generating build scripts...'
     if not os.path.exists('CMakeLists.txt'):
         print 'Please execute this frome the top dir of the source'
         sys.exit(-1)
     cmake_args = ['cmake', '.', '-DCMAKE_BUILD_TYPE=' + configuration]
-    cmake_args.append('-DCMAKE_OSX_DEPLOYMENT_TARGET=' + os_min);
+    cmake_args.append('-DCMAKE_OSX_DEPLOYMENT_TARGET=' + os_min)
     if with_shibboleth:
         cmake_args.append('-DBUILD_SHIBBOLETH_SUPPORT=ON')
     else:
@@ -149,7 +146,7 @@ if __name__ == '__main__':
 
     parser = argparse.ArgumentParser(description='Script to build Seafile Client and package it')
     parser.add_argument('--build_type', '-t', help='build type', default='Release')
-    parser.add_argument('--os_min', '-m', help='osx deploy version', default='10.7')
+    parser.add_argument('--os_min', '-m', help='osx deploy version', default='10.9')
     parser.add_argument('--with_shibboleth', help='build with shibboleth support', action='store_true')
     parser.add_argument('--output', '-o', help='output file', default='-')
     parser.add_argument('--clean', '-c', help='clean forcely', action='store_true')

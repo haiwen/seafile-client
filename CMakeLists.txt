@@ -9,6 +9,9 @@ ADD_DEFINITIONS(-DSEAFILE_CLIENT_VERSION=${PROJECT_VERSION})
 ADD_DEFINITIONS(-DGLIB_VERSION_MIN_REQUIRED=GLIB_VERSION_2_26)
 INCLUDE(FindPkgConfig)
 
+## Export build compilation database
+set(CMAKE_EXPORT_COMPILE_COMMANDS 1)
+
 ## Build crash repoter on release build as default
 IF (NOT (${CMAKE_BUILD_TYPE} MATCHES Release))
   SET(CMAKE_BUILD_TYPE Debug)

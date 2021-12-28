@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-import sys, os, shutil
+import sys, os, shutil, platform
 import build_helper
 import argparse
 
@@ -10,6 +10,7 @@ qtdir = '/usr/local'
 codesign_identity = os.getenv('CODESIGN_IDENTITY')
 if not codesign_identity:
   codesign_identity = '-'
+osx_archs = 'arm64;x86_64'
 
 def postbuild_copy_libraries():
     print 'copying dependent libraries...'
@@ -130,6 +131,8 @@ def generate_buildscript(generator = 'xcode', os_min = '10.14', with_shibboleth 
         sys.exit(-1)
     cmake_args = ['cmake', '.', '-DCMAKE_BUILD_TYPE=' + configuration]
     cmake_args.append('-DCMAKE_OSX_DEPLOYMENT_TARGET=' + os_min)
+    if platform.machine() == 'arm64':
+        cmake_args.append('-DCMAKE_OSX_ARCHITECTURES=%s' % osx_archs)
     if with_shibboleth:
         cmake_args.append('-DBUILD_SHIBBOLETH_SUPPORT=ON')
     else:

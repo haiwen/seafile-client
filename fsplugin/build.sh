@@ -20,7 +20,7 @@ if [ a"$1" != "adebug" ]; then
   rm -rf CMakeCache.txt CMakeFiles
   CONFIG=Release
 fi
-cmake -GXcode -DCMAKE_BUILD_TYPE="$CONFIG" .
+cmake -GXcode -DCMAKE_BUILD_TYPE="$CONFIG" -DCMAKE_OSX_ARCHITECTURES='arm64;x86_64' .
 xcodebuild clean
 xcodebuild -jobs "$(sysctl -n hw.ncpu)" -configuration "$CONFIG"
 popd

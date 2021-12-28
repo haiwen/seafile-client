@@ -32,6 +32,7 @@ static inline QString pluginPath() {
 #endif
 }
 
+#ifdef XCODE_APP
 /// \brief list all installed plugins
 static bool installedPluginPath(QString *path) {
     QStringList arguments {"-m", "-v", "-i", kFinderSyncBundleIdentifier};
@@ -50,6 +51,7 @@ static bool installedPluginPath(QString *path) {
 
     return true;
 }
+#endif
 
 bool FinderSyncExtensionHelper::isInstalled() {
     QString output;

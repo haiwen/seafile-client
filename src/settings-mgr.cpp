@@ -44,10 +44,6 @@ const char *kFinderSync = "finderSync";
 const char *kLastShibUrl = "lastShiburl";
 #endif // HAVE_SHIBBOLETH_SUPPORT
 
-#if defined(Q_OS_LINUX) || defined(Q_OS_MAC)
-const char * kSetHideWindowsIncompatibilityPathMsg = "setHideWindowsIncompatibilityPathMsg";
-#endif
-
 const char *kUseProxy = "use_proxy";
 const char *kUseSystemProxy = "use_system_proxy";
 const char *kProxyType = "proxy_type";
@@ -102,7 +98,7 @@ bool getSystemProxyForUrl(const QUrl &url, QNetworkProxy *proxy)
 }
 
 
-} // namespace
+} // anonymous namespace
 
 
 SettingsManager::SettingsManager()

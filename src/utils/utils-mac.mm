@@ -203,6 +203,8 @@ QString fix_file_id_url(const QString &path) {
 
 // original idea come from growl framework
 // http://growl.info/about
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
 bool get_auto_start()
 {
     NSURL *itemURL = [[NSBundle mainBundle] bundleURL];
@@ -319,6 +321,7 @@ void set_auto_start(bool enabled)
         CFRelease(loginItems);
     }
 }
+#pragma clang diagnostic pop
 
 bool is_darkmode() {
     static DarkmodeHelper *helper = nil;
@@ -335,7 +338,7 @@ void copyTextToPasteboard(const QString &text) {
     NSString *text_data = [NSString stringWithUTF8String:text.toUtf8().data()];
     NSPasteboard *paste_board = [NSPasteboard generalPasteboard];
     [paste_board clearContents];
-    [paste_board declareTypes:[NSArray arrayWithObjects:NSStringPboardType, nil] owner:nil];
+    [paste_board declareTypes:[NSArray arrayWithObjects:NSPasteboardTypeString, nil] owner:nil];
     [paste_board writeObjects:@[text_data]];
 }
 

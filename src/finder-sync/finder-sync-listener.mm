@@ -1,7 +1,11 @@
 #include "finder-sync/finder-sync-host.h"
 #include "finder-sync/finder-sync-listener.h"
 
-#include <libkern/OSAtomic.h>
+/* Mentioned in OSAtomic.h https://opensource.apple.com/source/libplatform/libplatform-125/include/libkern/OSAtomicDeprecated.h.auto.html
+ * These are deprecated legacy interfaces for atomic operations.
+ * The C11 interfaces in <stdatomic.h> resp. C++11 interfaces in <atomic>
+ * should be used instead. */
+#include <atomic>
 #include <mach/mach.h>
 #include <servers/bootstrap.h>
 #import <Cocoa/Cocoa.h>
@@ -74,8 +78,7 @@ static constexpr uint32_t kFinderSyncProtocolVersion = 0x00000004;
 
 // listener related
 static NSThread *finder_sync_listener_thread_ = nil;
-// atomic value
-static volatile int32_t finder_sync_started_ = 0;
+static std::atomic_int32_t finder_sync_started_;
 static FinderSyncListener *finder_sync_listener_ = nil;
 
 static std::unique_ptr<FinderSyncHost, QtLaterDeleter> finder_sync_host_;
@@ -210,6 +213,8 @@ static void handleGetWatchSet(mach_msg_command_rcv_t* msg) {
     self.listenerPort =
         [NSMachPort portWithMachPort:port
                              options:NSMachPortDeallocateReceiveRight];
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
     if (![[NSMachBootstrapServer sharedInstance]
             registerPort:self.listenerPort
                     name:kFinderSyncMachPort]) {
@@ -217,6 +222,7 @@ static void handleGetWatchSet(mach_msg_command_rcv_t* msg) {
                  mach_error_string(kr));
         goto done;
     }
+#pragma clang diagnostic pop
 
     qDebug("[FinderSync] listen port registered");
 
@@ -227,7 +233,7 @@ static void handleGetWatchSet(mach_msg_command_rcv_t* msg) {
     qDebug("[FinderSync] listen port source added");
 
     // Run Loop
-    while (finder_sync_started_)
+    while (finder_sync_started_.load())
         [runLoop runMode:NSDefaultRunLoopMode
               beforeDate:[NSDate distantFuture]];
 
@@ -361,10 +367,10 @@ done:
 @end
 
 void finderSyncListenerStart() {
-    if (!OSAtomicAdd32Barrier(0, &finder_sync_started_)) {
+    if (!finder_sync_started_.load()) {
         // this value is used in different threads
         // keep it in atomic and guarenteed by barrier for safety
-        OSAtomicIncrement32Barrier(&finder_sync_started_);
+        finder_sync_started_.fetch_add(1);
 
         dispatch_async(dispatch_get_main_queue(), ^{
             finder_sync_host_.reset(new FinderSyncHost);
@@ -379,10 +385,10 @@ void finderSyncListenerStart() {
 }
 
 void finderSyncListenerStop() {
-    if (OSAtomicAdd32Barrier(0, &finder_sync_started_)) {
+    if (finder_sync_started_.load()) {
         // this value is used in different threads
         // keep it in atomic and guarenteed by barrier for safety
-        OSAtomicDecrement32Barrier(&finder_sync_started_);
+        finder_sync_started_.fetch_sub(1);
 
         // tell finder_sync_listener_ to exit
         [finder_sync_listener_ performSelector:@selector(stop)

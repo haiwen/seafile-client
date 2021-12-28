@@ -10,6 +10,9 @@
 #include <QMessageBox>
 #include <QTimer>
 #include <QHostInfo>
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+#include <QStringConverter>
+#endif
 
 #include <errno.h>
 #include <glib.h>
@@ -773,7 +776,13 @@ QString SeafileApplet::getUniqueClientId()
     }
 
     QTextStream input(&id_file);
+    /* The class QTextCodec was removed from Qt 6 and was replaced by the new
+     * class QStringConverter */
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+    input.setEncoding(QStringConverter::Utf8);
+#else
     input.setCodec("UTF-8");
+#endif
 
     if (input.atEnd()) {
         errorAndExit(tr("incorrect client id"));

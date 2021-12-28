@@ -3,7 +3,6 @@
 #include <QLabel>
 #include <QPaintEvent>
 #include <QStylePainter>
-#include <QStyleOptionTabV3>
 #include <QPixmap>
 #include <QIcon>
 #include <QStackedLayout>
@@ -51,9 +50,6 @@ void SeafileTabBar::paintEvent(QPaintEvent *event)
     for (int index = 0, total = count(); index < total; index++) {
         QRect rect = tabRect(index);
         rect.adjust(0, 0, 0, 12);
-
-        // QStyleOptionTabV3 tab;
-        // initStyleOption(&tab, index);
 
         // Draw the tab background
         painter.fillRect(rect, QColor(kTabsBackgroundColor));

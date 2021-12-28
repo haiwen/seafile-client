@@ -13,7 +13,6 @@
 #include <cstring>
 #include <QObject>
 #include <QApplication>
-#include <QDesktopWidget>
 #include <QString>
 #include <QSettings>
 #include <QProcess>
@@ -25,6 +24,7 @@
 #if (QT_VERSION >= QT_VERSION_CHECK(5, 0, 0))
 #include <QUrlQuery>
 #endif
+#include <QStandardPaths>
 
 #include "utils/utils-mac.h"
 #include "utils/utils-win.h"
@@ -43,6 +43,11 @@
 #include <QCryptographicHash>
 #include <QSslCipher>
 #include <QSslCertificate>
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+#  include <QtCore5Compat/QRegExp>
+#else
+#  include <QRegExp>
+#endif
 
 #include "seafile-applet.h"
 #include "rpc/rpc-client.h"
@@ -689,8 +694,8 @@ QString dumpCipher(const QSslCipher &cipher)
     s += "Key Exchange:    " + cipher.keyExchangeMethod() + "\n";
     s += "Cipher Name:     " + cipher.name() + "\n";
     s += "Protocol:        " +  cipher.protocolString() + "\n";
-    s += "Supported Bits:  " + QString(cipher.supportedBits()) + "\n";
-    s += "Used Bits:       " + QString(cipher.usedBits()) + "\n";
+    s += "Supported Bits:  " + QString((QChar)cipher.supportedBits()) + "\n";
+    s += "Used Bits:       " + QString((QChar)cipher.usedBits()) + "\n";
     return s;
 }
 

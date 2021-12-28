@@ -863,7 +863,7 @@ void FileBrowserDialog::uploadMultipleFile(const QStringList& names,
     QString local_path;
     QStringList fnames;
     Q_FOREACH(const QString &name, names) {
-        const QFileInfo file = name;
+        const QFileInfo file(name);
         if (file.isDir()) {
             // a dir
             uploadOrUpdateFile(name);
@@ -1053,7 +1053,7 @@ void FileBrowserDialog::onUploadFinished(bool success)
 
     // add the items to tableview
     Q_FOREACH(const QString &name, names) {
-        const QFileInfo file = QDir(local_path).filePath(name);
+        const QFileInfo file(QDir(local_path).filePath(name));
         const SeafDirent dirent = SeafDirent::file(name, static_cast<quint64>(file.size()));
         if (task->useUpload())
             table_model_->appendItem(dirent);

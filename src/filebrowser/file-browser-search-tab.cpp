@@ -361,7 +361,7 @@ QVariant FileBrowserSearchModel::headerData(int section,
     }
 
     if (role == Qt::TextAlignmentRole) {
-        return Qt::AlignLeft + Qt::AlignVCenter;
+        return static_cast<int>(Qt::AlignLeft | Qt::AlignVCenter);
     }
 
     if (role == Qt::DisplayRole) {

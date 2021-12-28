@@ -63,7 +63,6 @@ QString translateTransferRate(int rate)
         }
     }
     else {
-        display_rate = kbps;
         unit = "kB/s";
         display_rate = QString::number(int(kbps));
     }

@@ -24,7 +24,7 @@ IF (UNIX AND NOT APPLE)
 ENDIF()
 
 IF (APPLE AND NOT CMAKE_OSX_DEPLOYMENT_TARGET)
-  SET(CMAKE_OSX_DEPLOYMENT_TARGET "10.9")
+  SET(CMAKE_OSX_DEPLOYMENT_TARGET "10.14")
 ENDIF()
 
 FIND_PROGRAM(git_executable NAMES git git.exe git.cmd)
@@ -158,7 +158,10 @@ ENDIF()
 ####################
 ###### BEGIN: QT configuration
 ####################
-SET(QT_VERSION_MAJOR 5)
+
+# Disable discarded APIs used before QT 5.15
+# see more https://doc.qt.io/qt-6/portingguide.html
+ADD_DEFINITIONS(-DQT_DISABLE_DEPRECATED_BEFORE=0x050F00)
 
 # Qt 5.6.0 removes QtWebKit, we need to use QtWebEnigne. First we detect the
 # current qt version, then use proper name based on the version. However we
@@ -170,7 +173,7 @@ EXECUTE_PROCESS(COMMAND
     bash -c "${qmake_executable} --version | grep -iE '^using qt version [0-9.]+' | awk '{print $4}'"
     OUTPUT_VARIABLE DETECTED_QT_VERSION
     OUTPUT_STRIP_TRAILING_WHITESPACE)
-MESSAGE("qt5 version: ${DETECTED_QT_VERSION}")
+MESSAGE("qt version: ${DETECTED_QT_VERSION}")
 IF(WIN32 OR USE_QT_WEBKIT)
     ADD_DEFINITIONS(-DSEAFILE_USE_WEBKIT)
     SET(WEBKIT_NAME "WebKit")
@@ -194,22 +197,41 @@ IF (${CMAKE_SYSTEM_NAME} MATCHES "Linux")
     SET(USE_QT_LIBRARIES ${USE_QT_LIBRARIES} "DBus")
 ENDIF()
 
-FIND_PACKAGE(Qt5 REQUIRED ${USE_QT_LIBRARIES})
-SET(QT_LUPDATE_EXECUTABLE ${Qt5_LUPDATE_EXECUTABLE})
+# see more https://doc.qt.io/qt-6/cmake-qt5-and-qt6-compatibility.html
+SET(QT_NO_CREATE_VERSIONLESS_FUNCTIONS 1)
+SET(QT_NO_CREATE_VERSIONLESS_TARGETS 1)
+FIND_PACKAGE(QT NAMES Qt6 Qt5 COMPONENTS Core REQUIRED)
+# see more https://www.qt.io/blog/porting-from-qt-5-to-qt-6-using-qt5compat-library
+if (QT_VERSION_MAJOR STREQUAL "6")
+    SET(USE_QT_LIBRARIES ${USE_QT_LIBRARIES} "Core5Compat")
+ENDIF()
+FIND_PACKAGE(Qt${QT_VERSION_MAJOR} COMPONENTS ${USE_QT_LIBRARIES} REQUIRED)
+SET(QT_LUPDATE_EXECUTABLE ${Qt${QT_VERSION_MAJOR}_LUPDATE_EXECUTABLE})
+
+# Qt6 requires a C++17 compiler
+# see more https://cmake.org/cmake/help/latest/prop_tgt/CXX_STANDARD.html
+if (QT_VERSION_MAJOR EQUAL 6)
+    set(CMAKE_CXX_STANDARD 17)
+else()
+    set(CMAKE_CXX_STANDARD 11)
+endif()
+message(STATUS "Build with c++ standard ${CMAKE_CXX_STANDARD}")
+
 # from QT 5.4.0 Changelog
 # The Qt binary packages are now configured with C++11 enabled.
 # this requires your gcc compiler newer than 4.8.1 or clang newer than 3.3
 
 if (CYGWIN OR MINGW)
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=gnu++11")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=gnu++${CMAKE_CXX_STANDARD}")
+elseif (MSVC)
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /std:c++${CMAKE_CXX_STANDARD}")
 else()
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++${CMAKE_CXX_STANDARD}")
 endif()
 
 # for OS X, we requires libc++ instead
 if (APPLE)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -stdlib=libc++")
-    SET(CMAKE_XCODE_ATTRIBUTE_CLANG_CXX_LANGUAGE_STANDARD "c++11")
     SET(CMAKE_XCODE_ATTRIBUTE_CLANG_CXX_LIBRARY "libc++")
 endif()
 
@@ -342,13 +364,23 @@ SET(qrc_files
   third_party/QtAwesome/QtAwesome.qrc
 )
 
-QT5_WRAP_UI(ui_output ${ui_files})
+if (QT_VERSION_MAJOR STREQUAL "6")
+  QT6_WRAP_UI(ui_output ${ui_files})
 
-# meta object compliation(moc)
-QT5_WRAP_CPP(moc_output ${moc_headers})
+  # meta object compliation(moc)
+  QT6_WRAP_CPP(moc_output ${moc_headers})
 
-# resources files
-QT5_ADD_RESOURCES(resources_ouput ${qrc_files})
+  # resources files
+  QT6_ADD_RESOURCES(resources_ouput ${qrc_files})
+else()
+  QT5_WRAP_UI(ui_output ${ui_files})
+
+  # meta object compliation(moc)
+  QT5_WRAP_CPP(moc_output ${moc_headers})
+
+  # resources files
+  QT5_ADD_RESOURCES(resources_ouput ${qrc_files})
+endif()
 
 # MESSAGE("moc output: ${moc_output}")
 # MESSAGE("ui output: ${ui_output}")
@@ -513,7 +545,7 @@ INCLUDE_DIRECTORIES(
 
 FOREACH(USE_QT_LIBRARY ${USE_QT_LIBRARIES})
 INCLUDE_DIRECTORIES(
-${Qt5${USE_QT_LIBRARY}_INCLUDE_DIRS}
+${Qt${QT_VERSION_MAJOR}${USE_QT_LIBRARY}_INCLUDE_DIRS}
 )
 ENDFOREACH()
 
@@ -556,12 +588,21 @@ FUNCTION(ADD_SC_LIBRARY name)
       ""
       "MOC_HEADERS;UI_FILES;DEPENDS;LINK_LIBS"
       ${ARGN})
-    IF(ARG_MOC_HEADERS)
-        QT5_WRAP_CPP(MOC_OUTPUT ${ARG_MOC_HEADERS})
-    ENDIF()
-    IF(ARG_UI_FILES)
-        QT5_WRAP_UI(UI_OUTPUT ${ARG_UI_FILES})
-    ENDIF()
+    if (QT_VERSION_MAJOR STREQUAL "6")
+        IF(ARG_MOC_HEADERS)
+          QT6_WRAP_CPP(MOC_OUTPUT ${ARG_MOC_HEADERS})
+        ENDIF()
+        IF(ARG_UI_FILES)
+          QT6_WRAP_UI(UI_OUTPUT ${ARG_UI_FILES})
+        ENDIF()
+    else()
+        IF(ARG_MOC_HEADERS)
+          QT5_WRAP_CPP(MOC_OUTPUT ${ARG_MOC_HEADERS})
+        ENDIF()
+        IF(ARG_UI_FILES)
+          QT5_WRAP_UI(UI_OUTPUT ${ARG_UI_FILES})
+        ENDIF()
+    endif()
 
     ADD_LIBRARY(${name} STATIC ${ARG_UNPARSED_ARGUMENTS}
       ${MOC_OUTPUT} ${UI_OUTPUT})
@@ -684,7 +725,11 @@ FOREACH(LANGUAGE ${LANGUAGES})
 
 ENDFOREACH(LANGUAGE ${LANGUAGES})
 
-QT5_ADD_TRANSLATION(qm_files ${LANGUAGE_TS_FILES})
+if (QT_VERSION_MAJOR STREQUAL "6")
+  QT6_ADD_TRANSLATION(qm_files ${LANGUAGE_TS_FILES})
+else()
+  QT5_ADD_TRANSLATION(qm_files ${LANGUAGE_TS_FILES})
+endif()
 
 ADD_CUSTOM_TARGET(update-ts DEPENDS ${SEAFILE_TS_TARGETS})
 
@@ -795,14 +840,17 @@ TARGET_LINK_LIBRARIES(seafile-applet
   ${EXTRA_LIBS}
 )
 
-target_link_libraries(seafile-applet Qt5::Core Qt5::Gui Qt5::Widgets Qt5::Network)
+target_link_libraries(seafile-applet Qt${QT_VERSION_MAJOR}::Core Qt${QT_VERSION_MAJOR}::Gui Qt${QT_VERSION_MAJOR}::Widgets Qt${QT_VERSION_MAJOR}::Network)
+if (QT_VERSION_MAJOR STREQUAL "6")
+  target_link_libraries(seafile-applet Qt${QT_VERSION_MAJOR}::Core5Compat)
+endif()
 IF (BUILD_SHIBBOLETH_SUPPORT)
-target_link_libraries(seafile-applet Qt5::${WEBKIT_NAME} Qt5::${WEBKIT_WIDGETS_NAME})
+target_link_libraries(seafile-applet Qt${QT_VERSION_MAJOR}::${WEBKIT_NAME} Qt${QT_VERSION_MAJOR}::${WEBKIT_WIDGETS_NAME})
 ENDIF()
 
 ## QtBus
 IF (${CMAKE_SYSTEM_NAME} MATCHES "Linux" OR ${CMAKE_SYSTEM_NAME} MATCHES "BSD")
-  target_link_libraries(seafile-applet Qt5::DBus)
+  target_link_libraries(seafile-applet Qt${QT_VERSION_MAJOR}::DBus)
 ENDIF()
 
 ### Xcode-related, build as a osx bundle
@@ -835,8 +883,13 @@ ADD_CUSTOM_TARGET(dist
 
 ### Test related
 IF (BUILD_TESTING)
+    FIND_PACKAGE(Qt${QT_VERSION_MAJOR} COMPONENTS Test REQUIRED)
     MACRO(ADD_QTEST testname)
-        QT5_WRAP_CPP(${testname}_MOCHEADER tests/${testname}.h)
+        if (QT_VERSION_MAJOR STREQUAL "6")
+          QT6_WRAP_CPP(${testname}_MOCHEADER tests/${testname}.h)
+        else()
+          QT5_WRAP_CPP(${testname}_MOCHEADER tests/${testname}.h)
+        endif()
 
         SET(${testname}_SRCS tests/${testname}.cpp ${${testname}_MOCHEADER})
 
@@ -848,9 +901,8 @@ IF (BUILD_TESTING)
         SET_TARGET_PROPERTIES(${testname} PROPERTIES
           RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/tests )
 
-        INCLUDE_DIRECTORIES(${Qt5Test_INCLUDE_DIRS})
-
-        QT5_USE_MODULES(${testname} ${USE_QT_LIBRARIES} Test)
+        INCLUDE_DIRECTORIES(${Qt${QT_VERSION_MAJOR}Test_INCLUDE_DIRS})
+        TARGET_LINK_LIBRARIES(${testname} Qt${QT_VERSION_MAJOR}::Core Qt${QT_VERSION_MAJOR}::Gui Qt${QT_VERSION_MAJOR}::Widgets Qt${QT_VERSION_MAJOR}::Network Qt${QT_VERSION_MAJOR}::Test ${OPENSSL_LIBRARIES})
 
         ADD_TEST(${testname} ${CMAKE_CURRENT_BINARY_DIR}/tests/${testname})
 

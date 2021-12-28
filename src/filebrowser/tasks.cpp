@@ -14,7 +14,12 @@
 #include <QTimer>
 #include <QApplication>
 #include <QMutexLocker>
+#include <QtGlobal>
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+#include <QNetworkInformation>
+#else
 #include <QNetworkConfigurationManager>
+#endif
 
 #include "utils/utils.h"
 #include "utils/file-utils.h"
@@ -57,8 +62,14 @@ public:
     QNetworkAccessManager *createQNAM() {
         QNetworkAccessManager *manager = new QNetworkAccessManager;
         NetworkManager::instance()->addWatch(manager);
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+        if (!QNetworkInformation::load(QNetworkInformation::Feature::Reachability)) {
+            qWarning("QNetworkInformation: Failed to load reachability plugin");
+        }
+#else
         manager->setConfiguration(
             QNetworkConfigurationManager().defaultConfiguration());
+#endif
         return manager;
     }
 

@@ -109,7 +109,7 @@ def execute_buildscript(generator = 'xcode'):
         shutil.copytree(os.path.join(configuration, target+ '.app'), target + '.app')
 
 
-def generate_buildscript(generator = 'xcode', os_min = '10.9', with_shibboleth = False):
+def generate_buildscript(generator = 'xcode', os_min = '10.14', with_shibboleth = False):
     print 'generating build scripts...'
     if not os.path.exists('CMakeLists.txt'):
         print 'Please execute this frome the top dir of the source'
@@ -146,7 +146,7 @@ if __name__ == '__main__':
 
     parser = argparse.ArgumentParser(description='Script to build Seafile Client and package it')
     parser.add_argument('--build_type', '-t', help='build type', default='Release')
-    parser.add_argument('--os_min', '-m', help='osx deploy version', default='10.9')
+    parser.add_argument('--os_min', '-m', help='osx deploy version', default='10.14')
     parser.add_argument('--with_shibboleth', help='build with shibboleth support', action='store_true')
     parser.add_argument('--output', '-o', help='output file', default='-')
     parser.add_argument('--clean', '-c', help='clean forcely', action='store_true')

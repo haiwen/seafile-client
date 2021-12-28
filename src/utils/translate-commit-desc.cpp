@@ -3,7 +3,11 @@
 #include <QHash>
 #include <QObject>
 #include <QApplication>
-#include <QRegExp>
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+#  include <QtCore5Compat/QRegExp>
+#else
+#  include <QRegExp>
+#endif
 #include <QStringList>
 
 #include "utils/utils.h"

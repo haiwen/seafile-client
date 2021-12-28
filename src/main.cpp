@@ -62,10 +62,14 @@ void setupFontFix()
 
 void setupHIDPIFix()
 {
-#if QT_VERSION >= QT_VERSION_CHECK(5, 1, 0)
-    // enable builtin retina mode
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 1, 0)) && (QT_VERSION < QT_VERSION_CHECK(6, 0, 0))
+    // Enable builtin retina mode
     // http://blog.qt.digia.com/blog/2013/04/25/retina-display-support-for-mac-os-ios-and-x11/
     // https://qt.gitorious.org/qt/qtbase/source/a3cb057c3d5c9ed2c12fb7542065c3d667be38b7:src/gui/image/qicon.cpp#L1028-1043
+    //
+    // In Qt 6, application attribute Qt::AA_UseHighDpiPixmaps is deprecated.
+    // As shown in the header file "High-DPI pixmaps are always enabled"
+    // see QtCore\qnamespace.h
     qApp->setAttribute(Qt::AA_UseHighDpiPixmaps);
 #endif
 

@@ -4,10 +4,13 @@
 #include <QStack>
 #include <QDialog>
 
-#include "account.h"
+#include "api/starred-file.h"
+#include "api/requests.h"
 #include "api/server-repo.h"
+#include "account.h"
 #include "file-browser-search-tab.h"
 #include "ui/search-bar.h"
+#include "filebrowser/seaf-dirent.h"
 
 class QToolBar;
 class QToolButton;

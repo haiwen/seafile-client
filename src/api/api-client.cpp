@@ -3,7 +3,17 @@
 #include <QSslError>
 #include <QSslConfiguration>
 #include <QSslCertificate>
+#include <QtGlobal>
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+#include <QNetworkInformation>
+#else
 #include <QNetworkConfigurationManager>
+#endif
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+#  include <QtCore5Compat/QRegExp>
+#else
+#  include <QRegExp>
+#endif
 
 #include "seafile-applet.h"
 #include "customization-service.h"
@@ -42,6 +52,16 @@ QNetworkAccessManager *createQNAM() {
     NetworkManager::instance()->addWatch(manager);
     manager->setCache(CustomizationService::instance()->diskCache());
 
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+    // QNetworkConfigurationManager is deprecated in Qt 5.15 and removed in Qt 6
+    // Use QNetworkInformation Class or QHostInfo Class as possible replacements too.
+    // See more at Qt Network in Qt 6 https://www.qt.io/blog/qt-network-in-qt-6
+    // and https://doc-snapshots.qt.io/qt6-dev/qnetworkinformation.html
+    if (!QNetworkInformation::load(QNetworkInformation::Feature::Reachability)) {
+        qWarning("QNetworkInformation: Failed to load reachability plugin");
+    }
+
+#else
     // From: http://www.qtcentre.org/threads/37514-use-of-QNetworkAccessManager-networkAccessible
     //
     // QNetworkAccessManager::networkAccessible is not explicitly set when the
@@ -52,6 +72,7 @@ QNetworkAccessManager *createQNAM() {
     // QNetworkConfigurationManager::NetworkSessionRequired flag is set.
     manager->setConfiguration(
         QNetworkConfigurationManager().defaultConfiguration());
+#endif
     return manager;
 }
 
@@ -305,7 +326,7 @@ bool SeafileApiClient::handleHttpRedirect()
         // XXX: Special case for rename/move file api, which returns 301 on
         // success. We need to distinguish that from a normal 301 redirect.
         // (In contrast, Rename/move dir api returns 200 on success).
-        if (redirect_url.path().contains(QRegExp("/api2/repos/[^/]+/file/"))) {
+        if (QRegExp("/api2/repos/[^/]+/file/").indexIn(redirect_url.path()) != -1) {
             QString old_name = getQueryValue(reply_->url(), "p");
             QString new_name = getQueryValue(redirect_url, "p");
             // Only treat it as a rename file success when old and new are different

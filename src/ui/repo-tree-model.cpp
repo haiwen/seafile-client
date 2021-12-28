@@ -1,6 +1,11 @@
 #include <QTimer>
 #include <QHash>
 #include <QDebug>
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 12, 0))
+#  include <QRegularExpression>
+#else
+#  include <QRegExp>
+#endif
 #include <algorithm>            // std::sort
 
 #include "api/server-repo.h"
@@ -29,16 +34,19 @@ bool compareRepoByTimestamp(const ServerRepo& a, const ServerRepo& b)
     return a.mtime > b.mtime;
 }
 
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 12, 0))
+QRegularExpression makeFilterRegExp(const QString& text)
+{
+    return QRegularExpression(text.split(" ", Qt::SkipEmptyParts).join(".*"),
+                              QRegularExpression::CaseInsensitiveOption);
+}
+#else
 QRegExp makeFilterRegExp(const QString& text)
 {
-#if (QT_VERSION >= QT_VERSION_CHECK(5, 15, 0))
-    return QRegExp(text.split(" ", Qt::SkipEmptyParts).join(".*"),
-                   Qt::CaseInsensitive);
-#else
     return QRegExp(text.split(" ", QString::SkipEmptyParts).join(".*"),
                    Qt::CaseInsensitive);
-#endif
 }
+#endif
 
 
 } // namespace
@@ -497,7 +505,7 @@ void RepoTreeModel::onFilterTextChanged(const QString& text)
     QStandardItem *root = invisibleRootItem();
     int row, n;
     n = root->rowCount();
-    QRegExp re = makeFilterRegExp(text);
+    auto re = makeFilterRegExp(text);
     for (row = 0; row < n; row++) {
         RepoCategoryItem *category = (RepoCategoryItem *)root->child(row);
         if (category->isGroupsRoot()) {
@@ -507,7 +515,11 @@ void RepoTreeModel::onFilterTextChanged(const QString& text)
         total = category->rowCount();
         for (j = 0; j < total; j++) {
             RepoItem *item = (RepoItem *)category->child(j);
-            if (item->repo().name.contains(re)) {
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 12, 0))
+            if (re.match(item->repo().name).isValid()) {
+#else
+            if (re.indexIn(item->repo().name) != -1) {
+#endif
                 matched++;
             }
         }
@@ -561,7 +573,14 @@ void RepoFilterProxyModel::setFilterText(const QString& text)
 {
     has_filter_ = !text.isEmpty();
     invalidate();
+    /* QSortFilterProxyModel::setFilterRegExp has been removed in Qt 6.
+       Instead, QSortFilterProxyModel::setFilterRegularExpression is
+       supported in Qt 5.12 or later. */
+#if QT_VERSION >= QT_VERSION_CHECK(5, 12, 0)
+    setFilterRegularExpression(makeFilterRegExp(text));
+#else
     setFilterRegExp(makeFilterRegExp(text));
+#endif
 }
 
 // void RepoFilterProxyModel::sort()

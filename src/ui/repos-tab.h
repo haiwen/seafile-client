@@ -4,6 +4,7 @@
 #include <QLineEdit>
 
 #include "tab-view.h"
+#include "api/requests.h"
 
 class QTimer;
 class QToolButton;

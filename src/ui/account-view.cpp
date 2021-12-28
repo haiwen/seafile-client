@@ -9,6 +9,7 @@
 #include <QUrl>
 #include <QUrlQuery>
 #include <QThreadPool>
+#include <QtGlobal>
 
 #include "account.h"
 #include "seafile-applet.h"
@@ -293,7 +294,11 @@ bool AccountView::eventFilter(QObject *obj, QEvent *event)
         QRect rect(0, 0, AvatarService::kAvatarSize, AvatarService::kAvatarSize);
         QPainter painter(mAccountBtn);
         painter.setRenderHint(QPainter::Antialiasing);
+        /* This value is obsolete and will be ignored, use the Antialiasing
+         * render hint instead. see qtbase/src/gui/painting/qpainter.h */
+#if QT_VERSION < QT_VERSION_CHECK(5, 15, 0)
         painter.setRenderHint(QPainter::HighQualityAntialiasing);
+#endif
 
         // get the device pixel radio from current painter device
         double scale_factor = globalDevicePixelRatio();
@@ -309,7 +314,11 @@ bool AccountView::eventFilter(QObject *obj, QEvent *event)
         QPainter mask_painter;
         mask_painter.begin(&masked_image);
         mask_painter.setRenderHint(QPainter::Antialiasing);
+        /* This value is obsolete and will be ignored, use the Antialiasing
+         * render hint instead. see qtbase/src/gui/painting/qpainter.h */
+#if QT_VERSION < QT_VERSION_CHECK(5, 15, 0)
         mask_painter.setRenderHint(QPainter::HighQualityAntialiasing);
+#endif
         mask_painter.setCompositionMode(QPainter::CompositionMode_SourceOver);
         mask_painter.setPen(Qt::NoPen);
         mask_painter.setBrush(Qt::white);

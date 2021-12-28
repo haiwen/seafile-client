@@ -33,6 +33,9 @@ extern "C" {
 #include <QMessageBox>
 #include <QIcon>
 #include <QMainWindow>
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+#include <QStringConverter>
+#endif
 
 #include "utils/utils.h"
 #include "settings-mgr.h"
@@ -181,7 +184,13 @@ int get_seafile_data_dir(const QString& ccnet_dir, QString *ret)
     }
 
     QTextStream input(&seafile_ini);
+    /* The class QTextCodec was removed from Qt 6 and was replaced by the new
+     * class QStringConverter */
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+    input.setEncoding(QStringConverter::Utf8);
+#else
     input.setCodec("UTF-8");
+#endif
 
     if (input.atEnd()) {
         return -1;

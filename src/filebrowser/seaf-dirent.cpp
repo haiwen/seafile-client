@@ -1,5 +1,6 @@
 #include <jansson.h>
 #include <QDateTime>
+#include <QtGlobal>
 
 #include "utils/json-utils.h"
 
@@ -8,7 +9,12 @@
 namespace {
 
 void initCommonFields(SeafDirent *dirent) {
+    /* deprecated in Qt 5.11 see more at https://doc.qt.io/archives/qt-5.11/qdatetime-obsolete.html */
+#if QT_VERSION < QT_VERSION_CHECK(5, 11, 0)
     dirent->mtime = QDateTime::currentDateTime().toTime_t();
+#else
+    dirent->mtime = QDateTime::currentSecsSinceEpoch();
+#endif
     dirent->readonly = false;
     dirent->is_locked = false;
     dirent->locked_by_me = false;

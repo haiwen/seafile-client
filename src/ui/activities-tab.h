@@ -5,6 +5,7 @@
 #include <QList>
 
 #include "tab-view.h"
+#include "api/requests.h"
 
 class QSslError;
 class QUrl;

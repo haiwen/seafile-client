@@ -2,6 +2,7 @@
 #define SEAFILE_CLIENT_UI_STARRED_FILES_TAB_H
 
 #include "tab-view.h"
+#include "api/requests.h"
 
 class QTimer;
 class QListWidget;

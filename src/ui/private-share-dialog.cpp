@@ -8,6 +8,7 @@
 #include <QDateTime>
 #include <QScrollBar>
 #include <QPainterPath>
+#include <QtGlobal>
 #include "api/api-error.h"
 #include "api/requests.h"
 #include "private-share-dialog.h"
@@ -1043,7 +1044,11 @@ void SharedItemDelegate::paint(QPainter* painter,
 
         painter->save();
         painter->setRenderHint(QPainter::Antialiasing);
+        /* This value is obsolete and will be ignored, use the Antialiasing
+         * render hint instead. see qtbase/src/gui/painting/qpainter.h */
+#if QT_VERSION < QT_VERSION_CHECK(5, 15, 0)
         painter->setRenderHint(QPainter::HighQualityAntialiasing);
+#endif
         painter->fillPath(path, QBrush(kItemColor));
         painter->restore();
     }

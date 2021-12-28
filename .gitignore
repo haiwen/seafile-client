@@ -57,6 +57,9 @@ qrc_*.cpp
 
 i18n/*.qm
 
+### qtest
+config.tests
+
 ### emacs files
 .emacs*
 .#*

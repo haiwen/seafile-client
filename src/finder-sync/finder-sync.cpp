@@ -3,6 +3,11 @@
 #include <QFileInfo>
 #include <QProcess>
 #include <QDebug>
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+#  include <QtCore5Compat/QStringRef>
+#else
+#  include <QStringRef>
+#endif
 #include "finder-sync/finder-sync.h"
 #include "utils/utils.h"
 #include "utils/utils-mac.h"

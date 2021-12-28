@@ -3,16 +3,17 @@
 #include <QScopedPointer>
 #include <QtNetwork>
 
+#include "api/event.h"
+#include "api/starred-file.h"
+
 #include "account.h"
 
 #include "api-error.h"
 #include "commit-details.h"
-#include "event.h"
 #include "repo-service.h"
 #include "rpc/rpc-client.h"
 #include "seafile-applet.h"
 #include "server-repo.h"
-#include "starred-file.h"
 #include "utils/api-utils.h"
 #include "utils/json-utils.h"
 #include "utils/utils.h"
@@ -812,7 +813,7 @@ void GetRepoTokensRequest::doNextBatch()
 
 void GetRepoTokensRequest::batchSuccess()
 {
-    const QMap<QString, QString>& tokens = batch_req_->repoTokens();
+    QMultiMap<QString, QString> tokens(batch_req_->repoTokens());
 
     // printf ("one batch finished, offset = %d, count = %d\n", batch_offset_, tokens.size());
 

@@ -10,6 +10,8 @@
 #include <QIcon>
 #include <QStackedWidget>
 
+#include "api/starred-file.h"
+
 #include "seafile-applet.h"
 #include "account-mgr.h"
 #include "api/requests.h"

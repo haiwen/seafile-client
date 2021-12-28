@@ -3,17 +3,18 @@
 
 #include <QMap>
 #include <QScopedPointer>
+#include <QStringList>
 #include <vector>
 
 #include "account.h"
 #include "api-request.h"
 #include "contact-share-info.h"
 #include "server-repo.h"
-#include "server-repo.h"
+#include "event.h"
+#include "starred-file.h"
 
 class QNetworkReply;
 class QImage;
-class QStringList;
 
 class ServerRepo;
 class Account;
@@ -482,7 +483,7 @@ public:
 
     virtual void send() Q_DECL_OVERRIDE;
 
-    const QMap<QString, QString>& repoTokens() const
+    const QMultiMap<QString, QString>& repoTokens() const
     {
         return repo_tokens_;
     }

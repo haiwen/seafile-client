@@ -6,6 +6,10 @@ import argparse
 target='seafile-applet'
 num_cpus=str(build_helper.num_cpus)
 configuration = 'Release'
+qtdir = '/usr/local'
+codesign_identity = os.getenv('CODESIGN_IDENTITY')
+if not codesign_identity:
+  codesign_identity = '-'
 
 def postbuild_copy_libraries():
     print 'copying dependent libraries...'
@@ -40,7 +44,9 @@ def postbuild_copy_libraries_xcode():
         os.makedirs(frameworks_path)
     for lib in libs:
         shutil.copyfile(lib, frameworks_path + '/' + os.path.basename(lib))
-    build_helper.write_output(['macdeployqt', target + '.app'])
+    # official macdeployqt is not supported on apple silicon yet
+    # see https://github.com/crystalidea/macdeployqt-universal
+    build_helper.write_output(['macdeployqt', target + '.app', '-verbose=3', '-qtdir=' + qtdir])
 
 def postbuild_fix_rpath():
     print 'fixing rpath...'
@@ -64,9 +70,10 @@ def postbuild_install_name_tool():
         build_helper.write_output(['install_name_tool', '-add_rpath', '@executable_path/../Frameworks', binary])
         deps = build_helper.get_dependencies(binary)
         for dep in deps:
-                build_helper.write_output(['install_name_tool', '-change', dep, '@executable_path/../Frameworks/%s' % os.path.basename(dep), binary])
+            build_helper.write_output(['install_name_tool', '-change', dep, '@executable_path/../Frameworks/%s' % os.path.basename(dep), binary])
         build_helper.write_output(['install_name_tool', '-delete_rpath', '/usr/local/lib', binary])
         build_helper.write_output(['install_name_tool', '-delete_rpath', '/opt/local/lib', binary])
+        build_helper.write_output(['install_name_tool', '-delete_rpath', '/opt/local/libexec/openssl11/lib', binary])
     libs = os.listdir(frameworks_path)
     for lib_name in libs:
         lib = os.path.join(frameworks_path, lib_name)
@@ -76,9 +83,10 @@ def postbuild_install_name_tool():
         build_helper.write_output(['install_name_tool', '-add_rpath', '@loader_path/../Frameworks', lib])
         build_helper.write_output(['install_name_tool', '-delete_rpath', '/usr/local/lib', lib])
         build_helper.write_output(['install_name_tool', '-delete_rpath', '/opt/local/lib', lib])
+        build_helper.write_output(['install_name_tool', '-delete_rpath', '/opt/local/libexec/openssl11/lib', lib])
         deps = build_helper.get_dependencies(lib)
         for dep in deps:
-                build_helper.write_output(['install_name_tool', '-change', dep, '@loader_path/../Frameworks/%s' % os.path.basename(dep), lib])
+            build_helper.write_output(['install_name_tool', '-change', dep, '@loader_path/../Frameworks/%s' % os.path.basename(dep), lib])
 
 def postbuild_patchelf():
     lib_path = os.path.join(target, 'lib')
@@ -95,6 +103,12 @@ def postbuild_patchelf():
         if os.path.isdir(lib):
             continue
         build_helper.write_output(['patchelf', '-set-rpath', '\\\$ORIGIN/../lib', lib])
+
+def postbuild_codesign():
+    print 'fixing codesign...'
+    if sys.platform == 'darwin':
+        build_helper.write_output(['codesign', '--timestamp=none', '--force', '--deep', '--sign', codesign_identity, target + '.app'])
+        build_helper.write_output(['codesign', '-dv', '--deep', '--verbose=4', target + '.app'])
 
 def execute_buildscript(generator = 'xcode'):
     print 'executing build scripts...'
@@ -171,5 +185,6 @@ if __name__ == '__main__':
     execute_buildscript()
     postbuild_copy_libraries()
     postbuild_fix_rpath()
+    postbuild_codesign()
 
     build_helper.close_output()

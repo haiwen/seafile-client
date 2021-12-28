@@ -130,10 +130,6 @@ void EventItemDelegate::paint(QPainter *painter,
     painter->fillRect(option.rect, backBrush);
     painter->restore();
     painter->setRenderHint(QPainter::Antialiasing);
-#if (QT_VERSION <= QT_VERSION_CHECK(5, 15, 0))
-    painter->setRenderHint(QPainter::HighQualityAntialiasing);
-#endif
-
     // get the device pixel radio from current painter device
     double scale_factor = 1;
     scale_factor = globalDevicePixelRatio();
@@ -151,9 +147,6 @@ void EventItemDelegate::paint(QPainter *painter,
     QPainter mask_painter;
     mask_painter.begin(&masked_image);
     mask_painter.setRenderHint(QPainter::Antialiasing);
-#if (QT_VERSION <= QT_VERSION_CHECK(5, 15, 0))
-    mask_painter.setRenderHint(QPainter::HighQualityAntialiasing);
-#endif
     mask_painter.setCompositionMode(QPainter::CompositionMode_SourceOver);
     mask_painter.setPen(Qt::NoPen);
     mask_painter.setBrush(Qt::white);

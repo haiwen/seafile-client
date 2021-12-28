@@ -1039,9 +1039,6 @@ void SharedItemDelegate::paint(QPainter* painter,
 
         painter->save();
         painter->setRenderHint(QPainter::Antialiasing);
-#if (QT_VERSION <= QT_VERSION_CHECK(5, 15, 0))
-        painter->setRenderHint(QPainter::HighQualityAntialiasing);
-#endif
         painter->fillPath(path, QBrush(kItemColor));
         painter->restore();
     }

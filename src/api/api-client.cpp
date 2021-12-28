@@ -4,9 +4,6 @@
 #include <QSslConfiguration>
 #include <QSslCertificate>
 #include <QRegularExpression>
-#if(QT_VERSION <= QT_VERSION_CHECK(5, 13, 0))
-#include <QNetworkConfigurationManager>
-#endif
 
 #include "seafile-applet.h"
 #include "customization-service.h"
@@ -45,18 +42,6 @@ QNetworkAccessManager *createQNAM() {
     NetworkManager::instance()->addWatch(manager);
     manager->setCache(CustomizationService::instance()->diskCache());
 
-    // From: http://www.qtcentre.org/threads/37514-use-of-QNetworkAccessManager-networkAccessible
-    //
-    // QNetworkAccessManager::networkAccessible is not explicitly set when the
-    // QNetworkAccessManager is created. It is only set after the network
-    // session is initialized. The session is initialized automatically when you
-    // make a network request or you can initialize it before hand with
-    // QNetworkAccessManager::setConfiguration() or the
-    // QNetworkConfigurationManager::NetworkSessionRequired flag is set.
-#if(QT_VERSION <= QT_VERSION_CHECK(5, 13, 0))
-   manager->setConfiguration(
-       QNetworkConfigurationManager().defaultConfiguration());
-#endif
     return manager;
 }
 

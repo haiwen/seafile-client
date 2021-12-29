@@ -34,11 +34,19 @@ bool compareRepoByTimestamp(const ServerRepo& a, const ServerRepo& b)
     return a.mtime > b.mtime;
 }
 
+#if (QT_VERSION >= QT_VERSION_CHECK(6,0,0))
 QRegularExpression makeFilterRegExp(const QString& text)
 {
     return QRegularExpression(text.split(" ", Qt::SkipEmptyParts).join(".*"),
                    QRegularExpression::CaseInsensitiveOption);
 }
+#else
+QRegExp makeFilterRegExp(const QString& text)
+{
+    return QRegExp(text.split(" ", Qt::SkipEmptyParts).join(".*"),
+        Qt::CaseInsensitive);
+}
+#endif
 
 
 } // namespace
@@ -497,7 +505,11 @@ void RepoTreeModel::onFilterTextChanged(const QString& text)
     QStandardItem *root = invisibleRootItem();
     int row, n;
     n = root->rowCount();
+#if (QT_VERSION >= QT_VERSION_CHECK(6,0,0))
     QRegularExpression re = makeFilterRegExp(text);
+#else
+    QRegExp re = makeFilterRegExp(text);
+#endif
     for (row = 0; row < n; row++) {
         RepoCategoryItem *category = (RepoCategoryItem *)root->child(row);
         if (category->isGroupsRoot()) {

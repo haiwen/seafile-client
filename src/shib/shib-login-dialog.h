@@ -4,6 +4,7 @@
 #include <QDialog>
 #include <QUrl>
 #include <QNetworkCookieJar>
+#include <QSslError>
 
 #include "account.h"
 
@@ -17,7 +18,6 @@ class QWebEngineProfile;
 class QWebEnginePage;
 #endif
 
-class QSslError;
 class QNetworkReply;
 class QLineEdit;
 

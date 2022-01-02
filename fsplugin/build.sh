@@ -16,7 +16,7 @@ unset CFLAGS CXXFLAGS LDFLAGS
 
 pushd $CURRENT_PWD
 CONFIG=Debug
-if [ a"$1" != "adebug" ]; then
+if [ a"$1" != "aDebug" ]; then
   rm -rf CMakeCache.txt CMakeFiles
   CONFIG=Release
 fi

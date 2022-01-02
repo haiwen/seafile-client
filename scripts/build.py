@@ -44,10 +44,12 @@ def postbuild_copy_libraries_xcode():
     if not os.path.isdir(frameworks_path):
         os.makedirs(frameworks_path)
     for lib in libs:
-        shutil.copyfile(lib, frameworks_path + '/' + os.path.basename(lib))
+        target_lib = frameworks_path + '/' + os.path.basename(lib)
+        if not (os.path.exists(lib) and os.path.exists(target_lib) and os.path.samefile(lib, target_lib)):
+            shutil.copyfile(lib, target_lib)
     # official macdeployqt is not supported on apple silicon yet
     # see https://github.com/crystalidea/macdeployqt-universal
-    build_helper.write_output(['macdeployqt', target + '.app', '-verbose=3', '-qtdir=' + qtdir])
+    build_helper.write_output(['macdeployqt', target + '.app', '-verbose=%d' % verbose, '-qtdir=' + qtdir])
 
 def postbuild_fix_rpath():
     print 'fixing rpath...'
@@ -66,28 +68,34 @@ def postbuild_install_name_tool():
     resources_path = os.path.join(target + '.app', 'Contents', 'Resources')
     macos_path = os.path.join(target + '.app', 'Contents', 'MacOS')
     binaries = [os.path.join(macos_path, target),
-                os.path.join(resources_path, 'seaf-daemon')]
+                os.path.join(resources_path, 'seaf-daemon'),
+               ]
     for binary in binaries:
+        print 'patching binary "%s"' % binary
         build_helper.write_output(['install_name_tool', '-add_rpath', '@executable_path/../Frameworks', binary])
-        deps = build_helper.get_dependencies(binary)
+        deps = build_helper.get_dependencies_by_otool(binary)
         for dep in deps:
-            build_helper.write_output(['install_name_tool', '-change', dep, '@executable_path/../Frameworks/%s' % os.path.basename(dep), binary])
-        build_helper.write_output(['install_name_tool', '-delete_rpath', '/usr/local/lib', binary])
-        build_helper.write_output(['install_name_tool', '-delete_rpath', '/opt/local/lib', binary])
-        build_helper.write_output(['install_name_tool', '-delete_rpath', '/opt/local/libexec/openssl11/lib', binary])
+            build_helper.write_output(['install_name_tool', '-change', dep.origin_name, '@executable_path/../Frameworks/%s' % os.path.basename(dep.name), binary])
+        build_helper.write_output(['install_name_tool', '-delete_rpath', '/usr/local/lib', binary], suppress_error = True)
+        build_helper.write_output(['install_name_tool', '-delete_rpath', '/opt/local/lib', binary], suppress_error = True)
+        build_helper.write_output(['install_name_tool', '-delete_rpath', '/opt/local/libexec/openssl11/lib', binary], suppress_error = True)
     libs = os.listdir(frameworks_path)
     for lib_name in libs:
+        print 'patching lib "%s"' % lib_name
         lib = os.path.join(frameworks_path, lib_name)
-        if os.path.isdir(lib):
-            continue
-        build_helper.write_output(['install_name_tool', '-id', '@loader_path/../Frameworks/%s' % os.path.basename(lib), lib])
+        # let's fix Framework as well
+        if os.path.isdir(lib) and lib.endswith('.framework'):
+          lib = os.path.join(lib, 'Versions', 'A', lib_name[:-len('.framework')])
+          loader_path = '@loader_path/../../../../Frameworks'
+        else:
+          loader_path = '@loader_path/../Frameworks'
         build_helper.write_output(['install_name_tool', '-add_rpath', '@loader_path/../Frameworks', lib])
-        build_helper.write_output(['install_name_tool', '-delete_rpath', '/usr/local/lib', lib])
-        build_helper.write_output(['install_name_tool', '-delete_rpath', '/opt/local/lib', lib])
-        build_helper.write_output(['install_name_tool', '-delete_rpath', '/opt/local/libexec/openssl11/lib', lib])
-        deps = build_helper.get_dependencies(lib)
+        build_helper.write_output(['install_name_tool', '-delete_rpath', '/usr/local/lib', lib], suppress_error = True)
+        build_helper.write_output(['install_name_tool', '-delete_rpath', '/opt/local/lib', lib], suppress_error = True)
+        build_helper.write_output(['install_name_tool', '-delete_rpath', '/opt/local/libexec/openssl11/lib', lib], suppress_error = True)
+        deps = build_helper.get_dependencies_by_otool(lib)
         for dep in deps:
-            build_helper.write_output(['install_name_tool', '-change', dep, '@loader_path/../Frameworks/%s' % os.path.basename(dep), lib])
+            build_helper.write_output(['install_name_tool', '-change', dep.origin_name, '%s/%s' % (loader_path, os.path.basename(dep.name)), lib])
 
 def postbuild_patchelf():
     lib_path = os.path.join(target, 'lib')
@@ -109,7 +117,7 @@ def postbuild_codesign():
     print 'fixing codesign...'
     if sys.platform == 'darwin':
         build_helper.write_output(['codesign', '--timestamp=none', '--force', '--deep', '--sign', codesign_identity, target + '.app'])
-        build_helper.write_output(['codesign', '-dv', '--deep', '--verbose=4', target + '.app'])
+        build_helper.write_output(['codesign', '-dv', '--deep', '--verbose=%d' % verbose, target + '.app'])
 
 def execute_buildscript(generator = 'xcode'):
     print 'executing build scripts...'
@@ -120,9 +128,6 @@ def execute_buildscript(generator = 'xcode'):
     else:
         command = ['make', '-j', num_cpus]
     build_helper.write_output(command)
-    if generator == 'xcode':
-        shutil.copytree(os.path.join(configuration, target+ '.app'), target + '.app')
-
 
 def generate_buildscript(generator = 'xcode', os_min = '10.14', with_shibboleth = False):
     print 'generating build scripts...'
@@ -153,6 +158,8 @@ def prebuild_cleanup(Force=False):
     shutil.rmtree(configuration, ignore_errors=True)
     shutil.rmtree('CMakeFiles', ignore_errors=True)
     shutil.rmtree(target+ '.app', ignore_errors=True)
+    shutil.rmtree('seafile-client.xcodeproj', ignore_errors=True)
+    shutil.rmtree('seafile-client.build', ignore_errors=True)
     if os.path.exists ('CMakeCache.txt'):
         os.remove('CMakeCache.txt')
 
@@ -166,17 +173,25 @@ if __name__ == '__main__':
     parser.add_argument('--os_min', '-m', help='osx deploy version', default='10.14')
     parser.add_argument('--with_shibboleth', help='build with shibboleth support', action='store_true')
     parser.add_argument('--output', '-o', help='output file', default='-')
-    parser.add_argument('--clean', '-c', help='clean forcely', action='store_true')
+    parser.add_argument('--clean', '-c', help='clean directory before build', action='store_true')
+    parser.add_argument('--force_clean', '-f', help='clean directory forcely', action='store_true')
+    parser.add_argument('--verbose', '-v', help='verbose logging', action='store_true')
     args = parser.parse_args()
 
     if args.build_type == 'Debug' or args.build_type == 'debug':
         configuration = 'Debug'
 
+    if args.verbose:
+        verbose = 3
+    else:
+        verbose = 1
+
     print 'build with type %s' % configuration
 
     os.chdir(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..'))
 
-    prebuild_cleanup(Force=args.clean)
+    if args.clean:
+        prebuild_cleanup(args.force_clean)
 
     if args.output == '-':
         build_helper.set_output(sys.stdout)

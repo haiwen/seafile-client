@@ -5,39 +5,78 @@ from multiprocessing import cpu_count
 
 num_cpus=cpu_count()
 
+class Dependency:
+    def __init__(self, origin_name, name):
+        self.origin_name = origin_name
+        self.name = name
+
+    def __eq__(self, other):
+        return self.origin_name == other.origin_name \
+            and self.name == other.name
+
+    def __hash__(self):
+        return hash(self.name)
+
+    def __str__(self):
+        return '%s %s' % (self.origin_name, self.name)
+
 def get_dependencies_by_otool(path):
     if path.endswith('.app') and os.path.isdir(path):
         path = os.path.join(path, 'Contents', 'MacOS', os.path.basename(path))
+    if path.endswith('.framework') and os.path.isdir(path):
+        path = os.path.join(path, 'Contents', 'Versions', 'A', os.path.basename(path))
     lines = check_string_output(['otool', '-L', path]).split('\n')
     striped_lines = []
     for line in lines:
-        if 'architecture' not in line and ':' not in line:
+        if '(architecture arm64)' not in line and '(architecture x86_64)' not in line and ':' not in line:
             striped_lines.append(line.strip())
     outputs = []
-    if path.endswith('.dylib'):
-        outputs.append(path);
+    path = os.path.abspath(path)
+    if path.endswith('.dylib') or '.framework' in path:
+        outputs.append(Dependency(path, path));
+
+    if '.framework' in path:
+        paths = path.split(os.sep)
+        path = '/'
+        for path_component in paths:
+            if '.framework' in path_component:
+                path = os.path.join(path, path_component, 'Versions', 'A', path_component[:-len('.framework')])
+                break
+            path = os.path.join(path, path_component)
 
     for line in striped_lines:
-        name = line.split('(')[0].strip()
+        origin_name = name = line.split('(')[0].strip()
         if name.startswith('@executable_path/'):
-            name = os.path.join(path, name[len('@executable_path/'):])
+            if '.framework' in path:
+                name = os.path.join(os.path.dirname(path), '..', '..', '..', name[len('@executable_path/'):])
+            else:
+                name = os.path.join(os.path.dirname(path), name[len('@executable_path/'):])
         if name.startswith('@loader_path/'):
-            name = os.path.join(path, name[len('@loader_path/'):])
-        # todo: search rpath
-        if not name.startswith('/'):
+            name = os.path.join(os.path.dirname(path), name[len('@loader_path/'):])
+        # TODO: search rpath
+        if name.startswith('@rpath/'):
             continue
+        name = os.path.normpath(name)
         # skip system libraries
         if name.startswith('/usr/lib') or name.startswith('/System'):
             continue
         # skip Frameworks (TODO: support frameworks, except Qt's framewroks)
         if re.search(r'(\w+)\.framework/Versions/[A-Z0-9]/(\1)$', name):
             continue
+        if re.search(r'(\w+)\.framework/Versions/Current/(\1)$', name):
+            continue
+        if re.search(r'(\w+)\.framework/(\1)$', name):
+            continue
+        if name.endswith('.framework'):
+            continue
+
         # if file not found
         if not os.path.exists(name):
-            raise IOError('broken dependency: file "%s" not found' % name)
-        outputs.append(os.path.normpath(name))
+            raise IOError('broken dependency: expected file "%s" for "%s" was not found for lib "%s"' % (name, origin_name, path))
+        outputs.append(Dependency(origin_name, name))
 
-    return outputs
+    # remove duplicate items
+    return list(set(outputs))
 
 def get_dependencies_by_ldd(path):
     lines = check_string_output(['ldd', '-v', path]).split('Version information:')[1].split('\n\t')
@@ -47,12 +86,10 @@ def get_dependencies_by_ldd(path):
         if not line.startswith('\t'):
             continue
         name = line.strip().split('=>')[1].strip()
-        # todo: search rpath
+        # TODO: search rpath
         if name.startswith('$ORIGIN/'):
             name = os.path.join(path, name[len('$ORIGIN/'):])
-        # skip system libraries, such as linux-vdso.so
-        if not name.startswith('/'):
-            continue
+        name = os.path.normpath(name)
         # skip system libraries, part2
         if name.startswith('/usr/lib') or name.startswith('/usr/lib64'):
             continue
@@ -62,7 +99,7 @@ def get_dependencies_by_ldd(path):
         # if file not found
         if not os.path.exists(name):
             raise IOError('broken dependency: file %s not found' % name)
-        outputs.append(os.path.normpath(name))
+        outputs.append(name)
 
     # remove duplicate items
     return list(set(outputs))
@@ -93,14 +130,12 @@ def get_dependencies_recursively(path):
     elif sys.platform == 'darwin':
         deps = get_dependencies_by_otool(path)
         while(True):
-            deps_extened = list(deps)
+            deps_extened = []
             for dep in deps:
-                deps_extened.extend(get_dependencies_by_otool(dep))
-            deps_extened = set(deps_extened)
-            if deps_extened != deps:
-                deps = deps_extened;
-            else:
-                return list(deps_extened)
+                deps_extened.append(dep.name)
+                for new_dep in get_dependencies_by_otool(dep.name):
+                    deps_extened.append(new_dep.name)
+            return list(set(deps_extened))
     elif sys.platform == 'linux':
         return get_dependencies_by_ldd(path)
     else:
@@ -110,6 +145,7 @@ def check_string_output(command):
     return subprocess.check_output(command, stderr=subprocess.STDOUT).decode().strip()
 
 _output = sys.stdout
+_devnull = open(os.devnull, 'w')
 def set_output(output=sys.stdout):
     global _output
     _output = output
@@ -118,8 +154,9 @@ def close_output():
     if _output != sys.stdout:
         _output.close()
 
-def write_output(command):
-    proc = subprocess.Popen(command, stdout=_output, stderr=_output, shell=False)
+def write_output(command, suppress_error = False):
+    print 'exec "%s"' % (' '.join(command))
+    proc = subprocess.Popen(command, stdout=_output, stderr=_output if not suppress_error else _devnull, shell=False)
     proc.communicate()
 
 if __name__ == '__main__':

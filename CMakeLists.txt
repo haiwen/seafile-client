@@ -861,12 +861,32 @@ IF(CMAKE_GENERATOR STREQUAL Xcode)
   )
   SET(TARGET_EXE ${CMAKE_CURRENT_BINARY_DIR}/seafile-applet.app/Contents/MacOS/seafile-applet)
   FIND_PROGRAM(seaf-daemon seaf-daemon)
-  SET(RESOURCES_DIR ${CMAKE_CURRENT_BINARY_DIR}/\${CONFIGURATION}/seafile-applet.app/Contents/Resources)
-  ADD_CUSTOM_COMMAND(TARGET seafile-applet
-      POST_BUILD
+  SET(BUILD_DIR "${CMAKE_CURRENT_BINARY_DIR}/\${CONFIGURATION}/seafile-applet.app")
+  SET(TARGET_DIR "${CMAKE_CURRENT_BINARY_DIR}/seafile-applet.app")
+  SET(RESOURCES_DIR "${CMAKE_CURRENT_BINARY_DIR}/seafile-applet.app/Contents/Resources")
+  SET(PLUGINS_DIR "${CMAKE_CURRENT_BINARY_DIR}/seafile-applet.app/Contents/PlugIns")
+  ADD_CUSTOM_TARGET(build_plugin
+      COMMAND sh -c "${CMAKE_SOURCE_DIR}/fsplugin/build.sh \${CONFIGURATION}"
+      WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
+  )
+  ADD_CUSTOM_TARGET(clean_old_target
+      COMMAND ${CMAKE_COMMAND} -E remove -f ${TARGET_DIR}
+  )
+  ADD_CUSTOM_TARGET(copy_seafile_applet
+      COMMAND ${CMAKE_COMMAND} -E copy_directory ${BUILD_DIR} ${TARGET_DIR}
+      DEPENDS seafile-applet clean_old_target
+  )
+  ADD_CUSTOM_TARGET(create_resource_and_plugin_dir
       COMMAND ${CMAKE_COMMAND} -E make_directory ${RESOURCES_DIR}
+      COMMAND ${CMAKE_COMMAND} -E make_directory ${PLUGINS_DIR}
+      DEPENDS copy_seafile_applet
+  )
+  ADD_CUSTOM_TARGET(copy_resource_and_plugin_data ALL
       COMMAND ${CMAKE_COMMAND} -E copy seafile.icns ${RESOURCES_DIR}/.
       COMMAND ${CMAKE_COMMAND} -E copy ${seaf-daemon} ${RESOURCES_DIR}/.
+      COMMAND ${CMAKE_COMMAND} -E copy_directory "${CMAKE_SOURCE_DIR}/fsplugin/Seafile FinderSync.appex" "${PLUGINS_DIR}/Seafile FinderSync.appex"
+      DEPENDS create_resource_and_plugin_dir build_plugin
+      VERBATIM
   )
   SET(CMAKE_XCODE_ATTRIBUTE_GCC_GENERATE_DEBUGGING_SYMBOLS "YES")
   SET(CMAKE_XCODE_ATTRIBUTE_DEBUG_INFORMATION_FORMAT "dwarf-with-dsym")

@@ -71,6 +71,8 @@ def get_dependencies_by_objdump(path):
     print 'todo'
     return []
 
+# TODO: actually you can use dumpbin /dependents <path to exe> to get dependency
+# info
 def get_dependencies_by_dependency_walker(path):
     print 'todo'
     return []

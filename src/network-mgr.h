@@ -28,10 +28,12 @@ public:
 
     // retry only once
     bool shouldRetry(const QNetworkReply::NetworkError error) {
+        // proxy errors (101-199):
         if ((error == QNetworkReply::ProxyConnectionClosedError ||
              error == QNetworkReply::ProxyConnectionRefusedError ||
              error == QNetworkReply::ProxyNotFoundError ||
              error == QNetworkReply::ProxyTimeoutError ||
+             error == QNetworkReply::ProxyAuthenticationRequiredError ||
              error == QNetworkReply::UnknownProxyError) &&
             should_retry_) {
             NetworkManager::instance()->reapplyProxy();

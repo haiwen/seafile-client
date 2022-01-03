@@ -116,8 +116,15 @@ def postbuild_patchelf():
 def postbuild_codesign():
     print 'fixing codesign...'
     if sys.platform == 'darwin':
-        build_helper.write_output(['codesign', '--timestamp=none', '--force', '--deep', '--sign', codesign_identity, target + '.app'])
-        build_helper.write_output(['codesign', '-dv', '--deep', '--verbose=%d' % verbose, target + '.app'])
+        # reference https://developer.apple.com/documentation/security/notarizing_macos_software_before_distribution/resolving_common_notarization_issues?language=objc
+        # Hardened runtime is available in the Capabilities pane of Xcode 10 or later
+        codesign_command_lines= ['codesign', '--timestamp=none', '--preserve-metadata=entitlements', '--force', '--deep', '--sign', codesign_identity, target + '.app']
+        if configuration == 'Release':
+            codesign_command_lines.insert(3,'--options=runtime')
+        build_helper.write_output(codesign_command_lines)
+        build_helper.write_output(['codesign', '-dv', '--deep', '--strict', '--verbose=%d' % verbose, target + '.app'])
+        build_helper.write_output(['codesign', '-d', '--entitlements', ':-', target + '.app'])
+        build_helper.write_output(['spctl', '-vvv', '--assess', '--type', 'exec', '--raw', target + '.app'])
 
 def execute_buildscript(generator = 'xcode'):
     print 'executing build scripts...'

@@ -66,6 +66,8 @@ SET_TARGET_PROPERTIES(seafile-finder-sync PROPERTIES
   XCODE_ATTRIBUTE_LOCALIZED_RESOURCES_FOLDER_PATH "Seafile FinderSync.appex/English.lproj"
   XCODE_ATTRIBUTE_INFOSTRINGS_PATH "Seafile FinderSync.appex/English.lproj/InfoPlist.strings"
   XCODE_ATTRIBUTE_UNLOCALIZED_RESOURCES_FOLDER_PATH "Seafile FinderSync.appex"
+  XCODE_ATTRIBUTE_ENABLE_HARDENED_RUNTIME "YES"
+  XCODE_ATTRIBUTE_CODE_SIGN_INJECT_BASE_ENTITLEMENTS "NO"
   )
 
 TARGET_LINK_LIBRARIES(seafile-finder-sync
@@ -123,7 +125,10 @@ ENDFOREACH()
 
 FIND_PROGRAM(CODESIGN codesign)
 
+IF (${CMAKE_BUILD_TYPE} MATCHES Release)
+  SET(CODESIGN_OTHER_CODE_SIGN_FLAGS "--options=runtime")
+ENDIF()
 ADD_CUSTOM_TARGET(codesign ALL
-  COMMAND ${CODESIGN} --force --sign ${CODESIGN_CERTIFICATE} --entitlements ${CMAKE_CURRENT_SOURCE_DIR}/seafile-fsplugin.entitlements ${TARGET_DIR}
+  COMMAND ${CODESIGN} --force --sign ${CODESIGN_CERTIFICATE} ${CODESIGN_OTHER_CODE_SIGN_FLAGS} --entitlements ${CMAKE_CURRENT_SOURCE_DIR}/seafile-fsplugin.entitlements ${TARGET_DIR}
   DEPENDS copy_resources_icns copy_resources_lproj
   )

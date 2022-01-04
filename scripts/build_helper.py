@@ -141,6 +141,78 @@ def get_dependencies_recursively(path):
     else:
         raise IOError('not supported in platform %s' % sys.platform)
 
+def check_universal_build_bundle_darwin(bundle_path):
+    # export from NSBundle.h
+    NSBundleExecutableArchitectureX86_64    = 0x01000007
+    NSBundleExecutableArchitectureARM64     = 0x0100000c
+    from Foundation import NSBundle
+
+    bundle = NSBundle.bundleWithPath_(bundle_path)
+    if not bundle:
+        return False
+
+    arches = bundle.executableArchitectures()
+    if NSBundleExecutableArchitectureX86_64 in arches and NSBundleExecutableArchitectureARM64 in arches:
+        return True
+
+    return False
+
+def check_universal_build_dylib_darwin(lib_path):
+    arches = check_string_output(['lipo', '-archs', lib_path])
+    if 'x86_64' in arches and 'arm64' in arches:
+        return True
+
+    return False
+
+def check_universal_build_darwin(path, verbose = False):
+    checked = True
+    status_msg = ''
+    error_msg = ''
+
+    if path.endswith('.framework') or path.endswith('.app') or path.endswith('.appex'):
+        checked = check_universal_build_bundle_darwin(path)
+        if not checked:
+            status_msg += 'bundle "%s" is not universal built\n' % path
+            error_msg += 'bundle "%s" is not universal built\n' % path
+        else:
+            status_msg += 'bundle "%s" is universal built\n' % path
+
+        for root, dirs, files in os.walk(path):
+          for d in dirs:
+            full_path = os.path.join(root, d)
+            if full_path.endswith('.framework') or full_path.endswith('.app') or full_path.endswith('.appex'):
+                if not check_universal_build_bundle_darwin(full_path):
+                    error_msg += 'bundle "%s" is not universal built\n' % full_path
+                    status_msg += 'bundle "%s" is not universal built\n' % full_path
+                    checked = False
+                else:
+                    status_msg += 'bundle "%s" is universal built\n' % full_path
+
+          for f in files:
+            full_path = os.path.join(root, f)
+            if full_path.endswith('.dylib') or full_path.endswith('.so'):
+                if not check_universal_build_dylib_darwin(full_path):
+                    error_msg += 'dylib "%s" is not universal built\n' % full_path
+                    status_msg += 'dylib "%s" is not universal built\n' % full_path
+                    checked = False
+                else:
+                    status_msg += 'dylib "%s" is universal built\n' % full_path
+
+    if path.endswith('.dylib') or path.endswith('.so'):
+        if not check_universal_build_dylib_darwin(path):
+            error_msg += 'dylib "%s" is not universal built\n' % path
+            status_msg += 'dylib "%s" is not universal built\n' % path
+            checked = False
+        else:
+            status_msg += 'dylib "%s" is universal built\n' % path
+
+
+    if verbose:
+        print status_msg
+
+    if not checked:
+        raise IOError(error_msg)
+
 def check_string_output(command):
     return subprocess.check_output(command, stderr=subprocess.STDOUT).decode().strip()
 

@@ -126,6 +126,12 @@ def postbuild_codesign():
         build_helper.write_output(['codesign', '-d', '--entitlements', ':-', target + '.app'])
         build_helper.write_output(['spctl', '-vvv', '--assess', '--type', 'exec', '--raw', target + '.app'])
 
+def postbuild_check_universal_build():
+    print 'check universal build...'
+    # check if binary is built universally
+    if sys.platform == 'darwin':
+        build_helper.check_universal_build_darwin(target + '.app', verbose = True)
+
 def execute_buildscript(generator = 'xcode'):
     print 'executing build scripts...'
     if generator == 'xcode':
@@ -211,5 +217,6 @@ if __name__ == '__main__':
     postbuild_copy_libraries()
     postbuild_fix_rpath()
     postbuild_codesign()
+    postbuild_check_universal_build()
 
     build_helper.close_output()

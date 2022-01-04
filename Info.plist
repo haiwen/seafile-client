@@ -6,8 +6,10 @@
 	<string>seafile-applet</string>
 	<key>CFBundleGetInfoString</key>
 	<string>Seafile Client Application</string>
-	<key>CFBundleIconFile</key>
+	<key>CFBundleIconName</key>
 	<string>seafile</string>
+	<key>CFBundleIconFile</key>
+	<string>seafile.icns</string>
 	<key>CFBundleIdentifier</key>
 	<string>com.seafile.seafile-client</string>
 	<key>CFBundlePackageType</key>

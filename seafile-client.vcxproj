@@ -397,8 +397,7 @@
     <ClCompile>
       <PreprocessorDefinitions>SEAFILE_CLIENT_VERSION=8.0.5;HAVE_SHIBBOLETH_SUPPORT;HAVE_SPARKLE_SUPPORT;SEAFILE_CLIENT_HAS_CRASH_REPORTER;WIN32_LEAN_AND_MEAN;QUAZIP_BUILD;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>$(ProjectDir)..\libsearpc\lib;$(ProjectDir)..\seafile;$(ProjectDir)..\breakpad\src;$(ProjectDir)third_party\quazip;$(ProjectDir)third_party\QtAwesome;$(ProjectDir)third_party\WinSparkle-0.5.3\include;$(ProjectDir)src;$(ProjectDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <LanguageStandard>stdcpp17</LanguageStandard>
-      <AdditionalOptions>/Zc:__cplusplus /utf-8 %(AdditionalOptions)</AdditionalOptions>
+      <LanguageStandard>stdcpp14</LanguageStandard>
     </ClCompile>
     <Link>
       <AdditionalDependencies>wininet.lib;urlmon.lib;psapi.lib;ws2_32.lib;shlwapi.lib;mpr.lib;crypt32.lib;libsearpc.lib;quazip.lib;common.lib;crash_generation_client.lib;exception_handler.lib;rpcrt4.lib;onecoreuap.lib;onecore.lib;winspool.lib;cldapi.lib;%(AdditionalDependencies)</AdditionalDependencies>
@@ -417,8 +416,8 @@ for /f "delims=. " %%a in ('dir /b /a-d /o-d "%FolderName%\*.ts"') do (
     <QtBuildConfig>debug</QtBuildConfig>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'" Label="QtSettings">
-    <QtInstall>Qt6.2.1-64bit</QtInstall>
-    <QtModules>core;network;gui;widgets;webenginecore;webenginewidgets;core5compat</QtModules>
+    <QtInstall>Qt5.15.1-64bit</QtInstall>
+    <QtModules>core;network;gui;widgets;webengine;webenginewidgets</QtModules>
     <QtBuildConfig>release</QtBuildConfig>
     <QtDeploy>true</QtDeploy>
   </PropertyGroup>

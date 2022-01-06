@@ -5,6 +5,8 @@
 #include <QTreeView>
 #include <QSet>
 
+#include "api/server-repo.h"
+
 class QAction;
 class QContextMenuEvent;
 class QEvent;
@@ -15,7 +17,7 @@ class QStandardItem;
 
 class RepoItem;
 class RepoCategoryItem;
-class ServerRepo;
+// class ServerRepo;
 class LocalRepo;
 
 class ApiError;

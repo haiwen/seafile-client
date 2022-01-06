@@ -130,13 +130,9 @@ void EventItemDelegate::paint(QPainter *painter,
     painter->fillRect(option.rect, backBrush);
     painter->restore();
     painter->setRenderHint(QPainter::Antialiasing);
-    painter->setRenderHint(QPainter::HighQualityAntialiasing);
-
     // get the device pixel radio from current painter device
     double scale_factor = 1;
-#if (QT_VERSION >= QT_VERSION_CHECK(5, 0, 0))
     scale_factor = globalDevicePixelRatio();
-#endif // QT5
 
     // paint avatar
     QImage avatar;
@@ -151,7 +147,6 @@ void EventItemDelegate::paint(QPainter *painter,
     QPainter mask_painter;
     mask_painter.begin(&masked_image);
     mask_painter.setRenderHint(QPainter::Antialiasing);
-    mask_painter.setRenderHint(QPainter::HighQualityAntialiasing);
     mask_painter.setCompositionMode(QPainter::CompositionMode_SourceOver);
     mask_painter.setPen(Qt::NoPen);
     mask_painter.setBrush(Qt::white);

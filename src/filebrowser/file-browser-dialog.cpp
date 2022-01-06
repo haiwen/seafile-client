@@ -1,6 +1,7 @@
 #include <QtGlobal>
 #include <QtWidgets>
 #include <QDesktopServices>
+#include <QStringList>
 #include <QHBoxLayout>
 
 #include "seafile-applet.h"
@@ -453,9 +454,6 @@ bool FileBrowserDialog::handleDragDropEvent(QObject *obj, QEvent *event)
         Q_FOREACH(const QUrl& url, urls)
         {
             QString path = url.toLocalFile();
-#if defined(Q_OS_MAC) && (QT_VERSION <= QT_VERSION_CHECK(5, 4, 0))
-            path = utils::mac::fix_file_id_url(path);
-#endif
             if(path.isEmpty())
                 continue;
             paths.push_back(path);
@@ -671,11 +669,7 @@ void FileBrowserDialog::onDirentSaveAs(const QList<const SeafDirent*>& dirents)
     QString local_dir = QFileDialog::getExistingDirectory(this, tr("Enter the path of the folder you want to save to..."), download_dir.path());
     if (local_dir.isEmpty())
         return;
-#if (QT_VERSION >= QT_VERSION_CHECK(5, 13, 0))
     download_dir.setPath(local_dir);
-#else
-    download_dir = local_dir;
-#endif
     //
     // scan for existing files and folders
     // then begin downloading
@@ -863,7 +857,7 @@ void FileBrowserDialog::uploadMultipleFile(const QStringList& names,
     QString local_path;
     QStringList fnames;
     Q_FOREACH(const QString &name, names) {
-        const QFileInfo file = name;
+        const QFileInfo file(name);
         if (file.isDir()) {
             // a dir
             uploadOrUpdateFile(name);
@@ -1053,7 +1047,7 @@ void FileBrowserDialog::onUploadFinished(bool success)
 
     // add the items to tableview
     Q_FOREACH(const QString &name, names) {
-        const QFileInfo file = QDir(local_path).filePath(name);
+        const QFileInfo file(QDir(local_path).filePath(name));
         const SeafDirent dirent = SeafDirent::file(name, static_cast<quint64>(file.size()));
         if (task->useUpload())
             table_model_->appendItem(dirent);

@@ -1,11 +1,7 @@
 #include <QtGlobal>
 
-#if (QT_VERSION >= QT_VERSION_CHECK(5, 0, 0))
 #include <QtWidgets>
 #include <QUrlQuery>
-#else
-#include <QtGui>
-#endif
 #include <QHeaderView>
 #include <QDesktopServices>
 #include <QEvent>

@@ -4,13 +4,13 @@
 #include <QHash>
 #include <QString>
 #include <QObject>
+#include <QSslError>
 #include <QNetworkReply>
 
 #include "account.h"
 #include "server-repo.h"
 
 class QNetworkAccessManager;
-class QSslError;
 
 /**
  * SeafileApiClient handles the underlying api mechanism

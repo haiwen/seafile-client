@@ -1,10 +1,7 @@
 #include <QtGlobal>
 
-#if (QT_VERSION >= QT_VERSION_CHECK(5, 0, 0))
 #include <QtWidgets>
-#else
 #include <QtGui>
-#endif
 #include <QtNetwork>
 #include <QStringList>
 #include <QSettings>
@@ -93,12 +90,7 @@ LoginDialog::LoginDialog(QWidget *parent) : QDialog(parent)
         mServerAddr->addItems(getUsedServerAddresses());
         mServerAddr->clearEditText();
     }
-#if (QT_VERSION >= QT_VERSION_CHECK(5, 13, 0))
     mServerAddr->setCompleter(nullptr);
-#else
-    mServerAddr->setAutoCompletion(false);
-#endif
-
     mAutomaticLogin->setCheckState(Qt::Checked);
 
     QString computerName = seafApplet->settingsManager()->getComputerName();

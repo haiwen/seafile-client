@@ -520,11 +520,7 @@ SharedItemsHeadView::SharedItemsHeadView(QWidget* parent)
     setCascadingSectionResizes(true);
     setHighlightSections(false);
     setDefaultAlignment(Qt::AlignLeft | Qt::AlignVCenter);
-#if (QT_VERSION >= QT_VERSION_CHECK(5, 0, 0))
     setSectionResizeMode(QHeaderView::ResizeToContents);
-#else
-    setResizeMode(QHeaderView::ResizeToContents);
-#endif
 }
 
 QSize SharedItemsHeadView::sectionSizeFromContents(int index) const
@@ -1043,7 +1039,6 @@ void SharedItemDelegate::paint(QPainter* painter,
 
         painter->save();
         painter->setRenderHint(QPainter::Antialiasing);
-        painter->setRenderHint(QPainter::HighQualityAntialiasing);
         painter->fillPath(path, QBrush(kItemColor));
         painter->restore();
     }

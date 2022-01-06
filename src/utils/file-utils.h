@@ -2,7 +2,7 @@
 #define SEAFILE_CLIENT_FILE_UTILS_H_
 
 #include <QString>
-class QStringList;
+#include <QStringList>
 
 QString mimeTypeFromFileName(const QString& fileName);
 QString iconPrefixFromFileName(const QString& fileName);

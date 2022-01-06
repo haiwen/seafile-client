@@ -2,11 +2,7 @@
 
 #include <QtGlobal>
 
-#if (QT_VERSION >= QT_VERSION_CHECK(5, 0, 0))
 #include <QtWidgets>
-#else
-#include <QtGui>
-#endif
 #include <QApplication>
 #include <QDesktopServices>
 #include <QSet>
@@ -291,12 +287,7 @@ void SeafileTrayIcon::createGlobalMenuBar()
     global_menubar_->setNativeMenuBar(true);
     qApp->setAttribute(Qt::AA_DontUseNativeMenuBar, false);
 
-#if (QT_VERSION >= QT_VERSION_CHECK(5, 2, 0))
-    global_menu_->setAsDockMenu(); // available after qt5.2.0
-#else
-    qt_mac_set_dock_menu(global_menu_); // deprecated in latest qt
-#endif
-    // create QMenuBar that has no parent, so we can share the global menubar
+    global_menu_->setAsDockMenu();
 #endif // Q_OS_MAC
 }
 
@@ -336,12 +327,8 @@ void SeafileTrayIcon::showMessage(const QString &title,
     repo_id_ = repo_id;
     commit_id_ = commit_id;
     previous_commit_id_ = previous_commit_id;
-#if (QT_VERSION >= QT_VERSION_CHECK(5, 9, 0))
     auto current_os_version = QOperatingSystemVersion::current();
     if (current_os_version < QOperatingSystemVersion(QOperatingSystemVersion::MacOS, 10, 8, 0)) {
-#else
-    if (QSysInfo::MacintoshVersion < QSysInfo::MV_MOUNTAINLION) {
-#endif
         // qWarning("using old style notifications");
         QIcon info_icon(":/images/info.png");
         TrayNotificationWidget* trayNotification = new TrayNotificationWidget(info_icon.pixmap(32, 32), title, message);

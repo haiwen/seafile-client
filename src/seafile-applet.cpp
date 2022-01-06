@@ -773,7 +773,11 @@ QString SeafileApplet::getUniqueClientId()
     }
 
     QTextStream input(&id_file);
+#if (QT_VERSION >= QT_VERSION_CHECK(6,0,0))
+    input.setEncoding(QStringConverter::Utf8);
+#else
     input.setCodec("UTF-8");
+#endif
 
     if (input.atEnd()) {
         errorAndExit(tr("incorrect client id"));

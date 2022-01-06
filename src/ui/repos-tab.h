@@ -4,6 +4,7 @@
 #include <QLineEdit>
 
 #include "tab-view.h"
+#include "api/server-repo.h"
 
 class QTimer;
 class QToolButton;
@@ -11,7 +12,6 @@ class QToolButton;
 class RepoTreeModel;
 class RepoFilterProxyModel;
 class RepoTreeView;
-class ServerRepo;
 class ListReposRequest;
 class ApiError;
 class SearchBar;

@@ -1,6 +1,7 @@
 #ifndef SEAFILE_CLIENT_UI_SEARCH_TAB_H
 #define SEAFILE_CLIENT_UI_SEARCH_TAB_H
 #include "tab-view.h"
+#include "api/requests.h"
 
 class QWidget;
 class QLabel;
@@ -13,7 +14,6 @@ class QListWidgetItem;
 class QLineEdit;
 class QTimer;
 class QModelIndex;
-class FileSearchRequest;
 struct FileSearchResult;
 class ApiError;
 class LoadMoreButton;

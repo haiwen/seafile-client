@@ -1,10 +1,6 @@
 #include <QtGlobal>
 
-#if (QT_VERSION >= QT_VERSION_CHECK(5, 0, 0))
 #include <QtWidgets>
-#else
-#include <QtGui>
-#endif
 
 #include "api/requests.h"
 #include "seafile-applet.h"
@@ -144,9 +140,7 @@ bool SearchTab::eventFilter(QObject *obj, QEvent *event)
 
         // get the device pixel radio from current painter device
         int scale_factor = 1;
-#if (QT_VERSION >= QT_VERSION_CHECK(5, 0, 0))
         scale_factor = globalDevicePixelRatio();
-#endif // QT5
 
         QPixmap image = QIcon(":/images/main-panel/search-background.png").pixmap(size);
         painter.drawPixmap(rect, image);

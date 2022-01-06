@@ -837,7 +837,7 @@ QList<LocalRepo> ReposInfoCache::getReposInfo(quint64 ts)
         repo.account = seafApplet->accountManager()->getAccountByRepo(repo.id, rpc_client_);
     }
 
-    cached_info_ = QVector<LocalRepo>::fromStdVector(repos).toList();
+    cached_info_ = QVector<LocalRepo>(repos.begin(), repos.end()).toList();
     cache_ts_ = QDateTime::currentMSecsSinceEpoch();
 
     return cached_info_;

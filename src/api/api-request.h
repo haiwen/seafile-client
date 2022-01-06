@@ -10,9 +10,9 @@
 #include <QList>
 #include <QNetworkReply>
 #include <QHash>
+#include <QSslError>
 
 class SeafileApiClient;
-class QSslError;
 class ApiError;
 
 /**

@@ -14,7 +14,6 @@
 #include <QTimer>
 #include <QApplication>
 #include <QMutexLocker>
-#include <QNetworkConfigurationManager>
 
 #include "utils/utils.h"
 #include "utils/file-utils.h"
@@ -57,8 +56,6 @@ public:
     QNetworkAccessManager *createQNAM() {
         QNetworkAccessManager *manager = new QNetworkAccessManager;
         NetworkManager::instance()->addWatch(manager);
-        manager->setConfiguration(
-            QNetworkConfigurationManager().defaultConfiguration());
         return manager;
     }
 

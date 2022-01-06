@@ -1,10 +1,6 @@
 #include <QtGlobal>
 
-#if (QT_VERSION >= QT_VERSION_CHECK(5, 0, 0))
 #include <QtWidgets>
-#else
-#include <QtGui>
-#endif
 #include <QApplication>
 #include <QDesktopServices>
 #include <QFile>
@@ -44,14 +40,10 @@ const int kPreferredRightMargin = 150;
 
 QSize getReasonableWindowSize(const QSize &in)
 {
-#if (QT_VERSION >= QT_VERSION_CHECK(5, 0, 0))
     QRect screen;
     if (!QGuiApplication::screens().isEmpty()) {
          screen = QGuiApplication::screens().at(0)->availableGeometry();
     }
-#else
-    const QRect screen = QApplication::desktop()->availableGeometry();
-#endif
     return QSize(qMin(in.width(), screen.width() - kMinimumRightMargin),
                  qMin(in.height(), screen.height() - kMinimumTopMargin));
 }
@@ -105,7 +97,7 @@ MainWindow::MainWindow()
 
     createActions();
 
-#if defined(Q_OS_MAC) && (QT_VERSION >= QT_VERSION_CHECK(5, 2, 0))
+#if defined(Q_OS_MAC)
     connect(qApp, SIGNAL(applicationStateChanged(Qt::ApplicationState)),
             this, SLOT(checkShowWindow()));
 #endif
@@ -183,7 +175,7 @@ void MainWindow::showEvent(QShowEvent *event)
 void MainWindow::checkShowWindow()
 {
     // printf ("app inactive = %s\n", (qApp->applicationState() & Qt::ApplicationInactive) ? "yes" : "no");
-#if defined(Q_OS_MAC) && (QT_VERSION >= QT_VERSION_CHECK(5, 2, 0))
+#if defined(Q_OS_MAC)
     if (qApp->applicationState() & Qt::ApplicationActive) {
         if (qApp->activeModalWidget() || qApp->activePopupWidget() || qApp->activeWindow())
             return;

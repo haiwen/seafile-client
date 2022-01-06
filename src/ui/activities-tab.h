@@ -3,10 +3,11 @@
 
 #include <vector>
 #include <QList>
+#include <QSslError>
 
 #include "tab-view.h"
+#include "api/event.h"
 
-class QSslError;
 class QUrl;
 class QNetworkRequest;
 class QNetworkReply;
@@ -14,7 +15,6 @@ class LoadMoreButton;
 class QLabel;
 class QShowEvent;
 
-class SeafEvent;
 class Account;
 class ApiError;
 class EventsListView;

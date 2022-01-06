@@ -2,6 +2,7 @@
 #define SEAFILE_CLIENT_UI_STARRED_FILES_TAB_H
 
 #include "tab-view.h"
+#include "api/starred-file.h"
 
 class QTimer;
 class QListWidget;
@@ -9,7 +10,6 @@ class QListWidget;
 class GetStarredFilesRequest;
 class GetStarredFilesRequestV2;
 class ApiError;
-class StarredItem;
 class StarredFilesListView;
 class StarredFilesListModel;
 

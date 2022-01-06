@@ -293,7 +293,6 @@ bool AccountView::eventFilter(QObject *obj, QEvent *event)
         QRect rect(0, 0, AvatarService::kAvatarSize, AvatarService::kAvatarSize);
         QPainter painter(mAccountBtn);
         painter.setRenderHint(QPainter::Antialiasing);
-        painter.setRenderHint(QPainter::HighQualityAntialiasing);
 
         // get the device pixel radio from current painter device
         double scale_factor = globalDevicePixelRatio();
@@ -309,7 +308,6 @@ bool AccountView::eventFilter(QObject *obj, QEvent *event)
         QPainter mask_painter;
         mask_painter.begin(&masked_image);
         mask_painter.setRenderHint(QPainter::Antialiasing);
-        mask_painter.setRenderHint(QPainter::HighQualityAntialiasing);
         mask_painter.setCompositionMode(QPainter::CompositionMode_SourceOver);
         mask_painter.setPen(Qt::NoPen);
         mask_painter.setBrush(Qt::white);

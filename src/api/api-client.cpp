@@ -3,7 +3,7 @@
 #include <QSslError>
 #include <QSslConfiguration>
 #include <QSslCertificate>
-#include <QNetworkConfigurationManager>
+#include <QRegularExpression>
 
 #include "seafile-applet.h"
 #include "customization-service.h"
@@ -42,16 +42,6 @@ QNetworkAccessManager *createQNAM() {
     NetworkManager::instance()->addWatch(manager);
     manager->setCache(CustomizationService::instance()->diskCache());
 
-    // From: http://www.qtcentre.org/threads/37514-use-of-QNetworkAccessManager-networkAccessible
-    //
-    // QNetworkAccessManager::networkAccessible is not explicitly set when the
-    // QNetworkAccessManager is created. It is only set after the network
-    // session is initialized. The session is initialized automatically when you
-    // make a network request or you can initialize it before hand with
-    // QNetworkAccessManager::setConfiguration() or the
-    // QNetworkConfigurationManager::NetworkSessionRequired flag is set.
-    manager->setConfiguration(
-        QNetworkConfigurationManager().defaultConfiguration());
     return manager;
 }
 
@@ -305,7 +295,7 @@ bool SeafileApiClient::handleHttpRedirect()
         // XXX: Special case for rename/move file api, which returns 301 on
         // success. We need to distinguish that from a normal 301 redirect.
         // (In contrast, Rename/move dir api returns 200 on success).
-        if (redirect_url.path().contains(QRegExp("/api2/repos/[^/]+/file/"))) {
+        if (redirect_url.path().contains(QRegularExpression("/api2/repos/[^/]+/file/"))) {
             QString old_name = getQueryValue(reply_->url(), "p");
             QString new_name = getQueryValue(redirect_url, "p");
             // Only treat it as a rename file success when old and new are different

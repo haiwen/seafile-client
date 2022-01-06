@@ -1,4 +1,5 @@
 #include <QStringList>
+#include <QStringRef>
 #include <QDir>
 #include <QFileInfo>
 #include <QProcess>

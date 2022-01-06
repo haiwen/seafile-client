@@ -1,10 +1,6 @@
 #include <QtGlobal>
 
-#if (QT_VERSION >= QT_VERSION_CHECK(5, 0, 0))
 #include <QtWidgets>
-#else
-#include <QtGui>
-#endif
 
 #include "paint-utils.h"
 
@@ -80,9 +76,5 @@ int textHeightInFont(const QString text, const QFont& font)
 // QIcon::addFile will add a "@2x" file if it exists.
 double globalDevicePixelRatio()
 {
-#if (QT_VERSION >= QT_VERSION_CHECK(5, 0, 0))
     return qApp->devicePixelRatio();
-#else
-    return 1.0;
-#endif
 }

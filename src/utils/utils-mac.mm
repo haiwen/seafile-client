@@ -185,22 +185,6 @@ void orderFrontRegardless(unsigned long long win_id, bool force) {
         [window performSelector:@selector(orderFrontRegardless) withObject:nil afterDelay:0.05];
 }
 
-// https://bugreports.qt-project.org/browse/QTBUG-40449 is fixed in QT 5.4.1
-// TODO remove this and related code once qt 5.4.1 is widely used
-QString fix_file_id_url(const QString &path) {
-    if (!path.startsWith("/.file/id="))
-        return path;
-    const QString url = "file://" + path;
-    NSString *fileIdURL = [NSString stringWithCString:url.toUtf8().data()
-                                    encoding:NSUTF8StringEncoding];
-    NSURL *goodURL = [[NSURL URLWithString:fileIdURL] filePathURL];
-    NSString *filePath = goodURL.path; // readonly
-
-    QString retval = QString::fromUtf8([filePath UTF8String],
-                                       [filePath lengthOfBytesUsingEncoding:NSUTF8StringEncoding]);
-    return retval;
-}
-
 // original idea come from growl framework
 // http://growl.info/about
 bool get_auto_start()

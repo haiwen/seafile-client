@@ -48,28 +48,13 @@ void initBreakpad()
 }
 #endif
 
-void setupFontFix()
-{
-#if QT_VERSION < QT_VERSION_CHECK(5, 3, 2) && defined(Q_OS_MAC)
-    // Text in buttons and drop-downs looks misaligned in osx 10.10,
-    // fixed in qt5.3.2
-    // https://bugreports.qt-project.org/browse/QTBUG-40833
-    if ( QSysInfo::MacintoshVersion > QSysInfo::MV_10_8 ) {
-        QFont::insertSubstitution(".Helvetica Neue DeskInterface", "Helvetica Neue");
-    }
-#endif // QT_VERSION_CHECK(5, 3, 2)
-}
-
 void setupHIDPIFix()
 {
-#if QT_VERSION >= QT_VERSION_CHECK(5, 1, 0)
     // enable builtin retina mode
     // http://blog.qt.digia.com/blog/2013/04/25/retina-display-support-for-mac-os-ios-and-x11/
     // https://qt.gitorious.org/qt/qtbase/source/a3cb057c3d5c9ed2c12fb7542065c3d667be38b7:src/gui/image/qicon.cpp#L1028-1043
     qApp->setAttribute(Qt::AA_UseHighDpiPixmaps);
-#endif
 
-#if QT_VERSION >= QT_VERSION_CHECK(5, 6, 0)
   #if defined(Q_OS_WIN32)
     if (!utils::win::fixQtHDPINonIntegerScaling()) {
         qApp->setAttribute(Qt::AA_EnableHighDpiScaling);
@@ -79,7 +64,6 @@ void setupHIDPIFix()
     // See http://blog.qt.io/blog/2016/01/26/high-dpi-support-in-qt-5-6/
     qApp->setAttribute(Qt::AA_EnableHighDpiScaling);
   #endif
-#endif
 }
 
 void setupSettingDomain()
@@ -183,9 +167,6 @@ int main(int argc, char *argv[])
 
     // don't quit even if the last windows is closed
     app.setQuitOnLastWindowClosed(false);
-
-    // apply some ui fixes for mac
-    setupFontFix();
 
     // set the domains of settings
     setupSettingDomain();

@@ -1,11 +1,6 @@
 #include <QtGlobal>
 
-#if (QT_VERSION >= QT_VERSION_CHECK(5, 0, 0))
 #include <QtWidgets>
-#else
-#include <QtGui>
-#endif
-
 #include "file-browser-dialog.h"
 #include "file-browser-search-tab.h"
 #include "ui/main-window.h"
@@ -361,7 +356,11 @@ QVariant FileBrowserSearchModel::headerData(int section,
     }
 
     if (role == Qt::TextAlignmentRole) {
-        return Qt::AlignLeft + Qt::AlignVCenter;
+#if(QT_VERSION >= QT_VERSION_CHECK(6, 0, 0))
+    return static_cast<Qt::Alignment::Int>(Qt::AlignLeft | Qt::AlignVCenter);
+#else
+    return Qt::AlignLeft + Qt::AlignVCenter;
+#endif
     }
 
     if (role == Qt::DisplayRole) {

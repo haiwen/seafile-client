@@ -256,7 +256,12 @@ void SeafileExtensionHandler::onGetSmartLinkSuccess(const QString& smart_link, c
 
 void SeafileExtensionHandler::onGetSmartLinkFailed(const ApiError& error)
 {
-    seafApplet->warningBox(tr("Failed to get link"));
+    int http_error_code = error.httpErrorCode();
+    if (http_error_code == 403) {
+        seafApplet->warningBox(tr("No permissions to create a smartlink"));
+    } else {
+        seafApplet->warningBox(tr("Failed to get smartlink: %1").arg(error.toString()));
+    }
 }
 
 void SeafileExtensionHandler::lockFile(const QString& repo_id,

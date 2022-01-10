@@ -206,6 +206,9 @@ void FinderSyncHost::doShareLink(const QString &path) {
     connect(get_shared_link_req_.get(), &GetSharedLinkRequest::success,
             this, &FinderSyncHost::onShareLinkGenerated);
 
+    connect(get_shared_link_req_.get(), &GetSharedLinkRequest::failed,
+            this, &FinderSyncHost::onShareLinkGeneratedFailed);
+
     get_shared_link_req_->send();
 }
 
@@ -239,7 +242,12 @@ void FinderSyncHost::onGetSmartLinkSuccess(const QString& smart_link, const QStr
 
 void FinderSyncHost::onGetSmartLinkFailed(const ApiError& error)
 {
-    seafApplet->warningBox(tr("Failed to get link"));
+    int http_error_code = error.httpErrorCode();
+    if (http_error_code == 403) {
+        seafApplet->warningBox(tr("No permissions to create a smartlink"));
+    } else {
+        seafApplet->warningBox(tr("Failed to get smartlink: %1").arg(error.toString()));
+    }
 }
 
 void FinderSyncHost::doLockFile(const QString &path, bool lock)
@@ -269,6 +277,17 @@ void FinderSyncHost::onShareLinkGenerated(const QString &link)
     dialog->show();
     dialog->raise();
     dialog->activateWindow();
+}
+
+void FinderSyncHost::onShareLinkGeneratedFailed(const ApiError& error)
+{
+    int http_error_code = error.httpErrorCode();
+    if (http_error_code == 403) {
+        seafApplet->warningBox(tr("No permissions to create a shared link"));
+    } else {
+        seafApplet->warningBox(tr("Failed to get shared link: %1").arg(error.toString()));
+    }
+
 }
 
 void FinderSyncHost::onLockFileSuccess()

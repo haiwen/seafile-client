@@ -34,7 +34,7 @@ QString translateSyncErrorCode(const int error_code)
             error_str = QObject::tr("Update to file denied by folder permission setting");
             break;
         case SYNC_ERROR_ID_PERM_NOT_SYNCABLE:
-            error_str = QObject::tr("No permission to sync this folder");
+            error_str = QObject::tr("Syncing is denied by cloud-only permission settings");
             break;
         case SYNC_ERROR_ID_UPDATE_TO_READ_ONLY_REPO:
             error_str = QObject::tr("Created or updated a file in a non-writable library or folder");

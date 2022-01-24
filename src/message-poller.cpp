@@ -165,7 +165,7 @@ void MessagePoller::processNotification(const SyncNotification& notification)
             msg = tr("Update to file %1 is denied by folder permission setting.").arg(path);
             break;
         case SYNC_ERROR_ID_PERM_NOT_SYNCABLE:
-            msg = tr("No permission to sync folder %1.").arg(path);
+            msg = tr("Syncing is denied by cloud-only permission settings %1.").arg(path);
             break;
         case SYNC_ERROR_ID_UPDATE_TO_READ_ONLY_REPO:
             msg = tr("Updates in read-only library %1 will not be uploaded.").arg(path);

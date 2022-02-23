@@ -991,7 +991,7 @@ Prosím %1</translation>
     </message>
     <message>
         <source>The uploaded file exceeds the size limit</source>
-        <translation type="unfinished"/>
+        <translation>Velikost nahrávaného souboru překračuje limit</translation>
     </message>
 </context>
 <context>
@@ -1593,11 +1593,11 @@ Cesta k souboru obsahuje nepovolený znak. Není synchronizovaný do tohoto poč
     </message>
     <message>
         <source>The file path %1 contains symbols that are not supported by the Windows system.</source>
-        <translation type="unfinished"/>
+        <translation>Popis umístění souboru %1 obsahuje znaky, které nejsou systémem Windows podporovány.</translation>
     </message>
     <message>
         <source>Library is too large to sync.</source>
-        <translation type="unfinished"/>
+        <translation>Knihovna je příliš velká na to, aby šla synchronizovat.</translation>
     </message>
 </context>
 <context>
@@ -2215,11 +2215,11 @@ Cesta k souboru obsahuje nepovolený znak. Není synchronizovaný do tohoto poč
     </message>
     <message>
         <source>The file path contains symbols that are not supported by the Windows system</source>
-        <translation type="unfinished"/>
+        <translation>Popis umístění souboru obsahuje znaky, které nejsou systémem Windows podporovány</translation>
     </message>
     <message>
         <source>Library is too large to sync.</source>
-        <translation type="unfinished"/>
+        <translation>Knihovna je příliš velká na to, aby šla synchronizovat.</translation>
     </message>
 </context>
 <context>
@@ -2998,7 +2998,7 @@ Cesta k souboru obsahuje nepovolený znak. Není synchronizovaný do tohoto poč
     </message>
     <message>
         <source>Hide Windows incompatibility paths Message</source>
-        <translation type="unfinished"/>
+        <translation>Skrýt hlášení o popisech umístění, nekompatibilních s Windows</translation>
     </message>
 </context>
 <context>
@@ -3071,19 +3071,19 @@ Cesta k souboru obsahuje nepovolený znak. Není synchronizovaný do tohoto poč
     </message>
     <message>
         <source>Password(At least 8 characters)</source>
-        <translation type="unfinished"/>
+        <translation>Heslo (přinejmenším 8 znaků)</translation>
     </message>
     <message>
         <source>Show password</source>
-        <translation type="unfinished"/>
+        <translation>Zobrazit heslo</translation>
     </message>
     <message>
         <source>Expire days</source>
-        <translation type="unfinished"/>
+        <translation>Za kolik dnů skončit platnost</translation>
     </message>
     <message>
         <source>Generate link</source>
-        <translation type="unfinished"/>
+        <translation>Vytvořit odkaz</translation>
     </message>
 </context>
 <context>
@@ -3270,19 +3270,19 @@ Cesta k souboru obsahuje nepovolený znak. Není synchronizovaný do tohoto poč
     <name>UploadLinkDialog</name>
     <message>
         <source>Upload Link</source>
-        <translation type="unfinished"/>
+        <translation>Odkaz pro nahrání:</translation>
     </message>
     <message>
         <source>Upload link:</source>
-        <translation type="unfinished"/>
+        <translation>Odkaz pro nahrání:</translation>
     </message>
     <message>
         <source>Copy to clipboard</source>
-        <translation type="unfinished"/>
+        <translation>Zkopírovat do schránky</translation>
     </message>
     <message>
         <source>OK</source>
-        <translation type="unfinished"/>
+        <translation>OK</translation>
     </message>
 </context>
 </TS>

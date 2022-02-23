@@ -422,7 +422,7 @@ wurde nicht hochgeladen.</translation>
     </message>
     <message>
         <source>Please choose a directory</source>
-        <translation>Bitte einen Ordner auswählen</translation>
+        <translation>Wählen Sie einen Ordner</translation>
     </message>
     <message>
         <source>Creating...</source>
@@ -570,7 +570,7 @@ wurde nicht hochgeladen.</translation>
     </message>
     <message>
         <source>Please choose a folder</source>
-        <translation>Bitte wählen Sie einen Ordner</translation>
+        <translation>Wählen Sie einen Ordner</translation>
     </message>
     <message>
         <source>The folder does not exist</source>
@@ -578,7 +578,7 @@ wurde nicht hochgeladen.</translation>
     </message>
     <message>
         <source>Please choose the folder to sync.</source>
-        <translation>Bitte wählen Sie einen Ordner zum Synchronisieren</translation>
+        <translation>Wählen Sie einen Ordner für die Synchronisation</translation>
     </message>
     <message>
         <source>Your organization disables putting a library outside %1 folder.</source>
@@ -586,11 +586,11 @@ wurde nicht hochgeladen.</translation>
     </message>
     <message>
         <source>Conflicting with existing file &quot;%1&quot;, please choose a different folder.</source>
-        <translation>Konflikt mit der bereits vorhandenen Datei „%1“, bitte wählen Sie einen anderen Ordner.</translation>
+        <translation>Es ist ein Konflikt mit der bereits vorhandenen Datei „%1“ aufgetreten. Wählen Sie einen anderen Ordner.</translation>
     </message>
     <message>
         <source>Conflicting with existing library &quot;%1&quot;, please choose a different folder.</source>
-        <translation>Konflikt mit der bereits vorhandenen Bibliothek „%1“, bitte wählen Sie einen anderen Ordner.</translation>
+        <translation>Es ist ein Konflikt mit der bereits vorhandenen Bibliothek „%1“ aufgetreten. Wählen Sie einen anderen Ordner.</translation>
     </message>
     <message>
         <source>The folder &quot;%1&quot; already exists. Are you sure to sync with it (contents will be merged)?</source>
@@ -710,7 +710,7 @@ Bitte %1</translation>
     </message>
     <message>
         <source>Create a folder</source>
-        <translation>Neuer Ordner</translation>
+        <translation>Ordner erstellen</translation>
     </message>
     <message>
         <source>Refresh</source>
@@ -989,7 +989,7 @@ Bitte %1</translation>
     </message>
     <message>
         <source>The uploaded file exceeds the size limit</source>
-        <translation type="unfinished"/>
+        <translation>Für den Upload ist nicht genug Speicherplatz verfügbar</translation>
     </message>
 </context>
 <context>
@@ -1059,7 +1059,7 @@ Bitte %1</translation>
     </message>
     <message>
         <source>&amp;Sync this folder</source>
-        <translation>&amp;Diesen Ordner synchronisieren</translation>
+        <translation>Ordner synchronisieren</translation>
     </message>
     <message>
         <source>This feature is available in pro version only
@@ -1069,11 +1069,11 @@ Bitte %1</translation>
     </message>
     <message>
         <source>&amp;Generate %1 Download Link</source>
-        <translation>%1 &amp;Download-Link erstellen</translation>
+        <translation>Download-Link erstellen</translation>
     </message>
     <message>
         <source>Share to User</source>
-        <translation>Freigeben für Benutzer/in</translation>
+        <translation>Freigeben für Benutzer</translation>
     </message>
     <message>
         <source>G&amp;enerate %1 Internal Link</source>
@@ -1113,7 +1113,7 @@ Bitte %1</translation>
     </message>
     <message>
         <source>&amp;Generate %1 Upload Link</source>
-        <translation>%1 &amp;Upload-Link erstellen</translation>
+        <translation>Upload-Link erstellen</translation>
     </message>
 </context>
 <context>
@@ -1170,7 +1170,7 @@ Bitte %1</translation>
     </message>
     <message>
         <source>Please choose a directory</source>
-        <translation>Bitte wählen Sie einen Ordner</translation>
+        <translation>Wählen Sie einen Ordner</translation>
     </message>
     <message>
         <source>Initialization is not finished. Really quit?</source>
@@ -2100,7 +2100,7 @@ Die Ordnerstruktur enthält ungültige Zeichen. Synchronisieren mit diesem Compu
     </message>
     <message>
         <source>Internal data corrupt on the client. Please try to resync the library</source>
-        <translation>Bitte versuchen Sie, die Bibliothek neu zu synchronisieren. Es gibt einen Fehler bei der internen Datenverwaltung des lokalen Programms.</translation>
+        <translation>Die lokalen Daten sind beschädigt. Versuchen Sie, die Bibliothek neu zu synchronisieren.</translation>
     </message>
     <message>
         <source>Do not have write permission to the library</source>
@@ -2362,11 +2362,11 @@ Die Ordnerstruktur enthält ungültige Zeichen. Synchronisieren mit diesem Compu
     <name>RepoTreeView</name>
     <message>
         <source>Disable auto sync</source>
-        <translation>Synchronisieren aussetzen</translation>
+        <translation>Synchronisation aussetzen</translation>
     </message>
     <message>
         <source>Enable auto sync</source>
-        <translation>Synchronisieren fortsetzen</translation>
+        <translation>Synchronisation fortsetzen</translation>
     </message>
     <message>
         <source>Show &amp;details</source>
@@ -2418,7 +2418,7 @@ Die Ordnerstruktur enthält ungültige Zeichen. Synchronisieren mit diesem Compu
     </message>
     <message>
         <source>&amp;Unsync</source>
-        <translation>&amp;Synchronisieren trennen</translation>
+        <translation>&amp;Synchronisation trennen</translation>
     </message>
     <message>
         <source>unsync this library</source>
@@ -2426,7 +2426,7 @@ Die Ordnerstruktur enthält ungültige Zeichen. Synchronisieren mit diesem Compu
     </message>
     <message>
         <source>&amp;View on cloud</source>
-        <translation>Im Webbrowser ansehen</translation>
+        <translation>Im Webbrowser öffnen</translation>
     </message>
     <message>
         <source>view this library on seahub</source>
@@ -2434,11 +2434,11 @@ Die Ordnerstruktur enthält ungültige Zeichen. Synchronisieren mit diesem Compu
     </message>
     <message>
         <source>Share to user</source>
-        <translation>Freigeben für Benutzer/in</translation>
+        <translation>Freigeben für Benutzer</translation>
     </message>
     <message>
         <source>Share this library to a user</source>
-        <translation>Bibliothek für Benutzer/in freigeben</translation>
+        <translation>Bibliothek für Benutzer freigeben</translation>
     </message>
     <message>
         <source>Share to group</source>
@@ -2470,7 +2470,7 @@ Die Ordnerstruktur enthält ungültige Zeichen. Synchronisieren mit diesem Compu
     </message>
     <message>
         <source>unsync and resync this library</source>
-        <translation>Synchronisieren trennen und erneut ausführen</translation>
+        <translation>Synchronisation trennen und erneut ausführen</translation>
     </message>
     <message>
         <source>Set sync &amp;Interval</source>
@@ -2640,11 +2640,11 @@ Die Ordnerstruktur enthält ungültige Zeichen. Synchronisieren mit diesem Compu
     <name>SeafileTrayIcon</name>
     <message>
         <source>Disable auto sync</source>
-        <translation>Synchronisieren aussetzen</translation>
+        <translation>Synchronisation aussetzen</translation>
     </message>
     <message>
         <source>Enable auto sync</source>
-        <translation>Synchronisieren fortsetzen</translation>
+        <translation>Synchronisation fortsetzen</translation>
     </message>
     <message>
         <source>&amp;Quit</source>
@@ -3037,7 +3037,7 @@ Die Ordnerstruktur enthält ungültige Zeichen. Synchronisieren mit diesem Compu
     </message>
     <message>
         <source>User</source>
-        <translation>Benutzer/in</translation>
+        <translation>Benutzer</translation>
     </message>
     <message>
         <source>Permission</source>

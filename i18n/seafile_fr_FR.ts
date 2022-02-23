@@ -990,7 +990,7 @@ n&apos;a pu être envoyé.</translation>
     </message>
     <message>
         <source>The uploaded file exceeds the size limit</source>
-        <translation type="unfinished"/>
+        <translation>Le fichier envoyé dépasse la limite de taille</translation>
     </message>
 </context>
 <context>
@@ -1594,7 +1594,7 @@ Le nom de fichier contient des caractères invalides. Il n&apos;est pas synchron
     </message>
     <message>
         <source>Library is too large to sync.</source>
-        <translation type="unfinished"/>
+        <translation>La bibliothèque est trop grande pour être synchronisée.</translation>
     </message>
 </context>
 <context>
@@ -2216,7 +2216,7 @@ Le nom de fichier contient des caractères invalides. Il n&apos;est pas synchron
     </message>
     <message>
         <source>Library is too large to sync.</source>
-        <translation type="unfinished"/>
+        <translation>La bibliothèque est trop grande pour être synchronisée.</translation>
     </message>
 </context>
 <context>
@@ -2434,7 +2434,7 @@ Le nom de fichier contient des caractères invalides. Il n&apos;est pas synchron
     </message>
     <message>
         <source>Share to user</source>
-        <translation>Partager avec l&apos;utilisateur</translation>
+        <translation>Partager avec un utilisateur</translation>
     </message>
     <message>
         <source>Share this library to a user</source>
@@ -2995,7 +2995,7 @@ Le nom de fichier contient des caractères invalides. Il n&apos;est pas synchron
     </message>
     <message>
         <source>Hide Windows incompatibility paths Message</source>
-        <translation type="unfinished"/>
+        <translation>Masquer les messages de Windows relatifs aux incompatibilités des chemins d&apos;accès</translation>
     </message>
 </context>
 <context>

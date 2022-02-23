@@ -990,7 +990,7 @@ falló la subida.</translation>
     </message>
     <message>
         <source>The uploaded file exceeds the size limit</source>
-        <translation type="unfinished"/>
+        <translation>El archivo subido supera el límite de tamaño.</translation>
     </message>
 </context>
 <context>

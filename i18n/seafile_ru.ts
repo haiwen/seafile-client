@@ -991,7 +991,7 @@ failed to upload.</source>
     </message>
     <message>
         <source>The uploaded file exceeds the size limit</source>
-        <translation type="unfinished"/>
+        <translation>Загруженный файл превышает предельный размер</translation>
     </message>
 </context>
 <context>

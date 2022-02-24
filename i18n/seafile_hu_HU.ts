@@ -1,4 +1,4 @@
-<?xml version="1.0" ?><!DOCTYPE TS><TS language="hu_HU" version="2.1">
+<?xml version="1.0" ?><!DOCTYPE TS><TS version="2.1" language="hu_HU">
 <context>
     <name>AboutDialog</name>
     <message>
@@ -1120,10 +1120,6 @@ feltöltése nem sikerült.</translation>
 <context>
     <name>FinderSyncHost</name>
     <message>
-        <source>Failed to get link</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
         <source>File &quot;%1&quot; is locked by %2</source>
         <translation type="unfinished"/>
     </message>
@@ -1132,7 +1128,19 @@ feltöltése nem sikerült.</translation>
         <translation type="unfinished"/>
     </message>
     <message>
-        <source>Failed to get upload link for file &quot;%1&quot;</source>
+        <source>Failed to get internal link: </source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>No permissions to create a shared link</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Failed to get shared link: %1</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Failed to get upload link for file &quot;%1&quot;: </source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -1564,10 +1572,6 @@ File path contains invalid characters. It is not synced to this computer.</sourc
         <translation type="unfinished"/>
     </message>
     <message>
-        <source>No permission to sync folder %1.</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
         <source>Updates in read-only library %1 will not be uploaded.</source>
         <translation type="unfinished"/>
     </message>
@@ -1581,6 +1585,10 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     </message>
     <message>
         <source>Folder for library %1 is removed or moved. The library is unsynced.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Syncing is denied by cloud-only permission settings %1.</source>
         <translation type="unfinished"/>
     </message>
     <message>
@@ -1982,10 +1990,6 @@ File path contains invalid characters. It is not synced to this computer.</sourc
         <translation>%1 perce</translation>
     </message>
     <message>
-        <source>&lt;Not Part of Certificate&gt;</source>
-        <translation>&lt;Nem része a tanúsítványnak&gt;</translation>
-    </message>
-    <message>
         <source>Sync this library to:</source>
         <translation>Szinkronizálja ezt a kötetet ide:</translation>
     </message>
@@ -2102,10 +2106,6 @@ File path contains invalid characters. It is not synced to this computer.</sourc
         <translation type="unfinished"/>
     </message>
     <message>
-        <source>No permission to sync this folder</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
         <source>Removed all items from trash</source>
         <translation type="unfinished"/>
     </message>
@@ -2203,6 +2203,34 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     </message>
     <message>
         <source>failed to open sync error id database</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>path or repo_id invalid.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>no permissions to create an upload link</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>no permissions to create an internal link</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>the file or folder or library could not be found.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>internal Server Error</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>unknown error</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Syncing is denied by cloud-only permission settings</source>
         <translation type="unfinished"/>
     </message>
     <message>

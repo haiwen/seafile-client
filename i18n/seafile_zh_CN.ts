@@ -1,10 +1,9 @@
-<?xml version="1.0" ?><!DOCTYPE TS><TS language="zh_CN" version="2.1">
+<?xml version="1.0" ?><!DOCTYPE TS><TS version="2.1" language="zh_CN">
 <context>
     <name>AboutDialog</name>
     <message>
         <source>About %1</source>
-        <translation>关于 %1
-</translation>
+        <translation>关于 %1</translation>
     </message>
     <message>
         <source>&lt;h2&gt;%1 Client %2&lt;/h2&gt;</source>
@@ -1114,10 +1113,6 @@ failed to upload.</source>
 <context>
     <name>FinderSyncHost</name>
     <message>
-        <source>Failed to get link</source>
-        <translation>获取链接失败</translation>
-    </message>
-    <message>
         <source>File &quot;%1&quot; is locked by %2</source>
         <translation>文件 &quot;%1&quot; 被 %2 锁定</translation>
     </message>
@@ -1126,8 +1121,20 @@ failed to upload.</source>
         <translation>获取文件 &quot;%1&quot; 的锁定信息失败</translation>
     </message>
     <message>
-        <source>Failed to get upload link for file &quot;%1&quot;</source>
-        <translation>获取文件 &quot;%1&quot; 的上传链接失败</translation>
+        <source>Failed to get internal link: </source>
+        <translation>获取内部链接失败：</translation>
+    </message>
+    <message>
+        <source>No permissions to create a shared link</source>
+        <translation>没有权限创建共享链接</translation>
+    </message>
+    <message>
+        <source>Failed to get shared link: %1</source>
+        <translation>获取共享链接失败：%1</translation>
+    </message>
+    <message>
+        <source>Failed to get upload link for file &quot;%1&quot;: </source>
+        <translation>获取文件 &quot;%1&quot; 的上传链接失败：</translation>
     </message>
 </context>
 <context>
@@ -1562,10 +1569,6 @@ File path contains invalid characters. It is not synced to this computer.</sourc
         <translation>文件夹权限设置导致文件 %1 无法被更新</translation>
     </message>
     <message>
-        <source>No permission to sync folder %1.</source>
-        <translation>路径 %1 设置了不可同步的共享权限</translation>
-    </message>
-    <message>
         <source>Updates in read-only library %1 will not be uploaded.</source>
         <translation>只读仓库 %1 的更新不会被上传。</translation>
     </message>
@@ -1580,6 +1583,10 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     <message>
         <source>Folder for library %1 is removed or moved. The library is unsynced.</source>
         <translation>资料库 %1 的文件夹被移动或者删除。这个资料库未同步。</translation>
+    </message>
+    <message>
+        <source>Syncing is denied by cloud-only permission settings %1.</source>
+        <translation>设置了仅云端访问的权限导致无法同步 %1</translation>
     </message>
     <message>
         <source>The file path %1 contains symbols that are not supported by the Windows system.</source>
@@ -1980,10 +1987,6 @@ File path contains invalid characters. It is not synced to this computer.</sourc
         <translation>%1 分钟前</translation>
     </message>
     <message>
-        <source>&lt;Not Part of Certificate&gt;</source>
-        <translation>&lt;不包含这部分信息&gt;</translation>
-    </message>
-    <message>
         <source>Sync this library to:</source>
         <translation>同步此资料库于:</translation>
     </message>
@@ -2100,10 +2103,6 @@ File path contains invalid characters. It is not synced to this computer.</sourc
         <translation>对该库没有写权限</translation>
     </message>
     <message>
-        <source>No permission to sync this folder</source>
-        <translation>没有权限同步此文件夹</translation>
-    </message>
-    <message>
         <source>Removed all items from trash</source>
         <translation>删除了回收站中的所有条目</translation>
     </message>
@@ -2202,6 +2201,34 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     <message>
         <source>failed to open sync error id database</source>
         <translation>获取同步错误标识数据库失败</translation>
+    </message>
+    <message>
+        <source>path or repo_id invalid.</source>
+        <translation>路径或资料库 ID 无效</translation>
+    </message>
+    <message>
+        <source>no permissions to create an upload link</source>
+        <translation>没有权限创建上传链接</translation>
+    </message>
+    <message>
+        <source>no permissions to create an internal link</source>
+        <translation>没有权限创建内部链接</translation>
+    </message>
+    <message>
+        <source>the file or folder or library could not be found.</source>
+        <translation>未找到文件或目录</translation>
+    </message>
+    <message>
+        <source>internal Server Error</source>
+        <translation>服务器内部错误</translation>
+    </message>
+    <message>
+        <source>unknown error</source>
+        <translation>未知错误</translation>
+    </message>
+    <message>
+        <source>Syncing is denied by cloud-only permission settings</source>
+        <translation>设置了仅云端访问的权限导致无法同步</translation>
     </message>
     <message>
         <source>The file path contains symbols that are not supported by the Windows system</source>

@@ -1,4 +1,4 @@
-<?xml version="1.0" ?><!DOCTYPE TS><TS language="fr_FR" version="2.1">
+<?xml version="1.0" ?><!DOCTYPE TS><TS version="2.1" language="fr_FR">
 <context>
     <name>AboutDialog</name>
     <message>
@@ -1120,10 +1120,6 @@ n&apos;a pu être envoyé.</translation>
 <context>
     <name>FinderSyncHost</name>
     <message>
-        <source>Failed to get link</source>
-        <translation>Impossible d&apos;obtenir le lien</translation>
-    </message>
-    <message>
         <source>File &quot;%1&quot; is locked by %2</source>
         <translation>Le fichier &quot;%1&quot; est verrouillé par %2</translation>
     </message>
@@ -1132,8 +1128,20 @@ n&apos;a pu être envoyé.</translation>
         <translation>Impossible d&apos;obtenir l&apos;information de verrouillage du fichier &quot;%1&quot;</translation>
     </message>
     <message>
-        <source>Failed to get upload link for file &quot;%1&quot;</source>
-        <translation>Impossible d&apos;obtenir le lien d&apos;envoi du fichier &quot;%1&quot;</translation>
+        <source>Failed to get internal link: </source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>No permissions to create a shared link</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Failed to get shared link: %1</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Failed to get upload link for file &quot;%1&quot;: </source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -1569,10 +1577,6 @@ Le nom de fichier contient des caractères invalides. Il n&apos;est pas synchron
         <translation>La mise à jour de %1 est refusée par les paramètres de permissions du dossier.</translation>
     </message>
     <message>
-        <source>No permission to sync folder %1.</source>
-        <translation>Pas de permission pour synchroniser le dossier %1.</translation>
-    </message>
-    <message>
         <source>Updates in read-only library %1 will not be uploaded.</source>
         <translation>Les mises à jour dans la bibliothèque en lecture seule %1 ne seront pas envoyées.</translation>
     </message>
@@ -1587,6 +1591,10 @@ Le nom de fichier contient des caractères invalides. Il n&apos;est pas synchron
     <message>
         <source>Folder for library %1 is removed or moved. The library is unsynced.</source>
         <translation>Le dossier de la bibliothèque %1 a été supprimé ou déplacé. La bibliothèque n&apos;est pas synchronisée.</translation>
+    </message>
+    <message>
+        <source>Syncing is denied by cloud-only permission settings %1.</source>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>The file path %1 contains symbols that are not supported by the Windows system.</source>
@@ -1987,10 +1995,6 @@ Le nom de fichier contient des caractères invalides. Il n&apos;est pas synchron
         <translation>Il y a %1 minutes</translation>
     </message>
     <message>
-        <source>&lt;Not Part of Certificate&gt;</source>
-        <translation>&lt;Not Part of Certificate&gt;</translation>
-    </message>
-    <message>
         <source>Sync this library to:</source>
         <translation>Synchroniser cette bibliothèque avec :</translation>
     </message>
@@ -2107,10 +2111,6 @@ Le nom de fichier contient des caractères invalides. Il n&apos;est pas synchron
         <translation>Vous n&apos;avez pas les droits pour écrire dans cette bibliothèque</translation>
     </message>
     <message>
-        <source>No permission to sync this folder</source>
-        <translation>Vous n&apos;avez pas la permission de synchroniser ce dossier.</translation>
-    </message>
-    <message>
         <source>Removed all items from trash</source>
         <translation>Suppression de tous les éléments de la corbeille</translation>
     </message>
@@ -2209,6 +2209,34 @@ Le nom de fichier contient des caractères invalides. Il n&apos;est pas synchron
     <message>
         <source>failed to open sync error id database</source>
         <translation>Impossible d&apos;ouvrir la base des ID d&apos;erreurs de synchronisation</translation>
+    </message>
+    <message>
+        <source>path or repo_id invalid.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>no permissions to create an upload link</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>no permissions to create an internal link</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>the file or folder or library could not be found.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>internal Server Error</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>unknown error</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Syncing is denied by cloud-only permission settings</source>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>The file path contains symbols that are not supported by the Windows system</source>

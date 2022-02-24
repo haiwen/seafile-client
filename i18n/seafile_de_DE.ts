@@ -1,4 +1,4 @@
-<?xml version="1.0" ?><!DOCTYPE TS><TS language="de_DE" version="2.1">
+<?xml version="1.0" ?><!DOCTYPE TS><TS version="2.1" language="de_DE">
 <context>
     <name>AboutDialog</name>
     <message>
@@ -1119,10 +1119,6 @@ Bitte %1</translation>
 <context>
     <name>FinderSyncHost</name>
     <message>
-        <source>Failed to get link</source>
-        <translation>Fehler beim Ermitteln des Links</translation>
-    </message>
-    <message>
         <source>File &quot;%1&quot; is locked by %2</source>
         <translation>Die Datei „%1“ ist von %2 gesperrt</translation>
     </message>
@@ -1131,8 +1127,20 @@ Bitte %1</translation>
         <translation>Datei „%1“ ist gesperrt. Nähere Informationen konnten nicht abgerufen werden.</translation>
     </message>
     <message>
-        <source>Failed to get upload link for file &quot;%1&quot;</source>
-        <translation>Upload-Link von Datei „%1“ konnte nicht abgerufen werden.</translation>
+        <source>Failed to get internal link: </source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>No permissions to create a shared link</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Failed to get shared link: %1</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Failed to get upload link for file &quot;%1&quot;: </source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -1569,10 +1577,6 @@ Die Ordnerstruktur enthält ungültige Zeichen. Synchronisieren mit diesem Compu
         <translation>Die Datei %1 kann wegen der Rechteeinstellungen des Ordners nicht aktualisiert werden.</translation>
     </message>
     <message>
-        <source>No permission to sync folder %1.</source>
-        <translation>Sie haben keine ausreichenden Rechte, um den Ordner %1 zu synchronisieren.</translation>
-    </message>
-    <message>
         <source>Updates in read-only library %1 will not be uploaded.</source>
         <translation>Aktualisierungen in der schreibgeschützten Bibliothek %1 werden nicht hochgeladen.</translation>
     </message>
@@ -1587,6 +1591,10 @@ Die Ordnerstruktur enthält ungültige Zeichen. Synchronisieren mit diesem Compu
     <message>
         <source>Folder for library %1 is removed or moved. The library is unsynced.</source>
         <translation>Der Ordner in Bibliothek %1 ist gelöscht oder verschoben. Die Bibliothek wurde nicht synchronisiert.</translation>
+    </message>
+    <message>
+        <source>Syncing is denied by cloud-only permission settings %1.</source>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>The file path %1 contains symbols that are not supported by the Windows system.</source>
@@ -1987,10 +1995,6 @@ Die Ordnerstruktur enthält ungültige Zeichen. Synchronisieren mit diesem Compu
         <translation>vor %1 Minuten</translation>
     </message>
     <message>
-        <source>&lt;Not Part of Certificate&gt;</source>
-        <translation>&lt;Nicht Teil des Zertifikates&gt;</translation>
-    </message>
-    <message>
         <source>Sync this library to:</source>
         <translation>Bibliothek hier als neuen Unterordner erstellen:</translation>
     </message>
@@ -2107,10 +2111,6 @@ Die Ordnerstruktur enthält ungültige Zeichen. Synchronisieren mit diesem Compu
         <translation>Keine Schreibrechte für die Bibliothek</translation>
     </message>
     <message>
-        <source>No permission to sync this folder</source>
-        <translation>Sie haben keine ausreichenden Rechte, um diesen Ordner zu synchronisieren</translation>
-    </message>
-    <message>
         <source>Removed all items from trash</source>
         <translation>Alle Objekte aus dem Papierkorb entfernt</translation>
     </message>
@@ -2209,6 +2209,34 @@ Die Ordnerstruktur enthält ungültige Zeichen. Synchronisieren mit diesem Compu
     <message>
         <source>failed to open sync error id database</source>
         <translation>Fehler beim Öffnen der Datenbank zu Problemen bei der Synchronisation</translation>
+    </message>
+    <message>
+        <source>path or repo_id invalid.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>no permissions to create an upload link</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>no permissions to create an internal link</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>the file or folder or library could not be found.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>internal Server Error</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>unknown error</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Syncing is denied by cloud-only permission settings</source>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>The file path contains symbols that are not supported by the Windows system</source>

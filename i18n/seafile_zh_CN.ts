@@ -1126,7 +1126,7 @@ failed to upload.</source>
     </message>
     <message>
         <source>No permissions to create a shared link</source>
-        <translation>未获得创建共享链接的授权</translation>
+        <translation>没有权限创建共享链接</translation>
     </message>
     <message>
         <source>Failed to get shared link: %1</source>
@@ -2208,11 +2208,11 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     </message>
     <message>
         <source>no permissions to create an upload link</source>
-        <translation>未获得创建上传链接的授权</translation>
+        <translation>没有权限创建上传链接</translation>
     </message>
     <message>
         <source>no permissions to create an internal link</source>
-        <translation>未获得创建内部链接的授权</translation>
+        <translation>没有权限创建内部链接</translation>
     </message>
     <message>
         <source>the file or folder or library could not be found.</source>

@@ -258,9 +258,9 @@ void SeafileExtensionHandler::onGetSmartLinkFailed(const ApiError& error)
 {
     int http_error_code = error.httpErrorCode();
     if (http_error_code == 403) {
-        seafApplet->warningBox(tr("No permissions to create a smartlink"));
+        seafApplet->warningBox(tr("No permissions to create a internal link"));
     } else {
-        seafApplet->warningBox(tr("Failed to get smartlink: %1").arg(error.toString()));
+        seafApplet->warningBox(tr("Failed to get internal link: %1").arg(error.toString()));
     }
 }
 

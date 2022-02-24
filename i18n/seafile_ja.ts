@@ -1,4 +1,4 @@
-<?xml version="1.0" ?><!DOCTYPE TS><TS language="ja" version="2.1">
+<?xml version="1.0" ?><!DOCTYPE TS><TS version="2.1" language="ja">
 <context>
     <name>AboutDialog</name>
     <message>
@@ -1120,10 +1120,6 @@ failed to upload.</source>
 <context>
     <name>FinderSyncHost</name>
     <message>
-        <source>Failed to get link</source>
-        <translation>リンクを取得できませんでした</translation>
-    </message>
-    <message>
         <source>File &quot;%1&quot; is locked by %2</source>
         <translation>ファイル &quot;％1&quot;は％2によってロックされています</translation>
     </message>
@@ -1132,8 +1128,20 @@ failed to upload.</source>
         <translation>ファイル “%1” のロック情報を取得できませんでした</translation>
     </message>
     <message>
-        <source>Failed to get upload link for file &quot;%1&quot;</source>
-        <translation>ファイルのアップロードリンクの取得に失敗しました “%1”</translation>
+        <source>Failed to get internal link: </source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>No permissions to create a shared link</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Failed to get shared link: %1</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Failed to get upload link for file &quot;%1&quot;: </source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -1569,10 +1577,6 @@ File path contains invalid characters. It is not synced to this computer.</sourc
         <translation>ファイル％1への更新は、フォルダーのアクセス許可の設定によって拒否されます。</translation>
     </message>
     <message>
-        <source>No permission to sync folder %1.</source>
-        <translation>フォルダ％1を同期する権限がありません。</translation>
-    </message>
-    <message>
         <source>Updates in read-only library %1 will not be uploaded.</source>
         <translation>読み取り専用ライブラリ％1の更新はアップロードされません。</translation>
     </message>
@@ -1587,6 +1591,10 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     <message>
         <source>Folder for library %1 is removed or moved. The library is unsynced.</source>
         <translation>ライブラリ%1 のフォルダが削除または移動されました。 ライブラリは同期されていません。</translation>
+    </message>
+    <message>
+        <source>Syncing is denied by cloud-only permission settings %1.</source>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>The file path %1 contains symbols that are not supported by the Windows system.</source>
@@ -1987,10 +1995,6 @@ File path contains invalid characters. It is not synced to this computer.</sourc
         <translation>%1分前</translation>
     </message>
     <message>
-        <source>&lt;Not Part of Certificate&gt;</source>
-        <translation>&lt;Not Part of Certificate&gt;</translation>
-    </message>
-    <message>
         <source>Sync this library to:</source>
         <translation>このライブラリを次の場所に同期:</translation>
     </message>
@@ -2107,10 +2111,6 @@ File path contains invalid characters. It is not synced to this computer.</sourc
         <translation>ライブラリへの書き込み権限がありません</translation>
     </message>
     <message>
-        <source>No permission to sync this folder</source>
-        <translation>このフォルダを同期する権限がありません</translation>
-    </message>
-    <message>
         <source>Removed all items from trash</source>
         <translation>ゴミ箱からすべてのアイテムを削除しました</translation>
     </message>
@@ -2209,6 +2209,34 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     <message>
         <source>failed to open sync error id database</source>
         <translation>同期エラーIDデータベースを開くことができませんでした</translation>
+    </message>
+    <message>
+        <source>path or repo_id invalid.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>no permissions to create an upload link</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>no permissions to create an internal link</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>the file or folder or library could not be found.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>internal Server Error</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>unknown error</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Syncing is denied by cloud-only permission settings</source>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>The file path contains symbols that are not supported by the Windows system</source>

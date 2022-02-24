@@ -502,6 +502,14 @@ failed to upload.</source>
         <source>Cancel</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>end-to-end encryption</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>TextLabel</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>DaemonManager</name>
@@ -972,6 +980,10 @@ failed to upload.</source>
         <source>The storage quota has been used up</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>The uploaded file exceeds the size limit</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>FileTableModel</name>
@@ -1099,10 +1111,6 @@ failed to upload.</source>
 <context>
     <name>FinderSyncHost</name>
     <message>
-        <source>Failed to get link</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>File &quot;%1&quot; is locked by %2</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1111,7 +1119,19 @@ failed to upload.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Failed to get upload link for file &quot;%1&quot;</source>
+        <source>Failed to get internal link: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>No permissions to create a shared link</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Failed to get shared link: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Failed to get upload link for file &quot;%1&quot;: </source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1533,10 +1553,6 @@ File path contains invalid characters. It is not synced to this computer.</sourc
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>No permission to sync folder %1.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Updates in read-only library %1 will not be uploaded.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1550,6 +1566,18 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     </message>
     <message>
         <source>Folder for library %1 is removed or moved. The library is unsynced.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Syncing is denied by cloud-only permission settings %1.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The file path %1 contains symbols that are not supported by the Windows system.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Library is too large to sync.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1943,10 +1971,6 @@ File path contains invalid characters. It is not synced to this computer.</sourc
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>&lt;Not Part of Certificate&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Sync this library to:</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2063,10 +2087,6 @@ File path contains invalid characters. It is not synced to this computer.</sourc
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>No permission to sync this folder</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Removed all items from trash</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2164,6 +2184,42 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     </message>
     <message>
         <source>failed to open sync error id database</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>path or repo_id invalid.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>no permissions to create an upload link</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>no permissions to create an internal link</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>the file or folder or library could not be found.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>internal Server Error</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>unknown error</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Syncing is denied by cloud-only permission settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The file path contains symbols that are not supported by the Windows system</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Library is too large to sync.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2939,6 +2995,10 @@ File path contains invalid characters. It is not synced to this computer.</sourc
         <source>Cancel</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Hide Windows incompatibility paths Message</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>SharedItemDelegate</name>
@@ -3009,15 +3069,19 @@ File path contains invalid characters. It is not synced to this computer.</sourc
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>OK</source>
+        <source>Password(At least 8 characters)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Upload Link</source>
+        <source>Show password</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Upload link:</source>
+        <source>Expire days</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Generate link</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -3198,6 +3262,25 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     </message>
     <message>
         <source>No</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>UploadLinkDialog</name>
+    <message>
+        <source>Upload Link</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Upload link:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Copy to clipboard</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>OK</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

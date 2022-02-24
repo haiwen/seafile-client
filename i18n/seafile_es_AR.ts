@@ -1,4 +1,4 @@
-<?xml version="1.0" ?><!DOCTYPE TS><TS language="es_AR" version="2.1">
+<?xml version="1.0" ?><!DOCTYPE TS><TS version="2.1" language="es_AR">
 <context>
     <name>AboutDialog</name>
     <message>
@@ -1120,10 +1120,6 @@ falló la subida.</translation>
 <context>
     <name>FinderSyncHost</name>
     <message>
-        <source>Failed to get link</source>
-        <translation>Fallo al obtener enlace</translation>
-    </message>
-    <message>
         <source>File &quot;%1&quot; is locked by %2</source>
         <translation>El archivo &quot;%1&quot; está bloqueado por %2</translation>
     </message>
@@ -1132,8 +1128,20 @@ falló la subida.</translation>
         <translation>Fallo al obtener información de bloqueo para el archivo &quot;%1&quot;</translation>
     </message>
     <message>
-        <source>Failed to get upload link for file &quot;%1&quot;</source>
-        <translation>Fallo al obtener el enlace de subida para el archivo &quot;%1&quot;</translation>
+        <source>Failed to get internal link: </source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>No permissions to create a shared link</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Failed to get shared link: %1</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Failed to get upload link for file &quot;%1&quot;: </source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -1570,10 +1578,6 @@ La ruta al archivo contiene caracteres invalidos. No se sincroniza a esta comput
         <translation>Actualizaciones al archivo %1 son denegadas debido a los permisos de la carpeta.</translation>
     </message>
     <message>
-        <source>No permission to sync folder %1.</source>
-        <translation>No tiene permiso para sincronizar la carpeta %1.</translation>
-    </message>
-    <message>
         <source>Updates in read-only library %1 will not be uploaded.</source>
         <translation>Las actualizaciones en la biblioteca de sólo lectura %1 no serán subidas.</translation>
     </message>
@@ -1588,6 +1592,10 @@ La ruta al archivo contiene caracteres invalidos. No se sincroniza a esta comput
     <message>
         <source>Folder for library %1 is removed or moved. The library is unsynced.</source>
         <translation>La carpeta para la biblioteca %1 fue movida o eliminada. La biblioteca está dessincronizada.</translation>
+    </message>
+    <message>
+        <source>Syncing is denied by cloud-only permission settings %1.</source>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>The file path %1 contains symbols that are not supported by the Windows system.</source>
@@ -1988,10 +1996,6 @@ La ruta al archivo contiene caracteres invalidos. No se sincroniza a esta comput
         <translation>hace %1 minutos</translation>
     </message>
     <message>
-        <source>&lt;Not Part of Certificate&gt;</source>
-        <translation>&lt;No es Parte del Certificado&gt;</translation>
-    </message>
-    <message>
         <source>Sync this library to:</source>
         <translation>Sincronizar esta biblioteca con:</translation>
     </message>
@@ -2108,10 +2112,6 @@ La ruta al archivo contiene caracteres invalidos. No se sincroniza a esta comput
         <translation>No tiene permiso de escritura en la biblioteca</translation>
     </message>
     <message>
-        <source>No permission to sync this folder</source>
-        <translation>No tiene permiso para sincronizar esta carpeta</translation>
-    </message>
-    <message>
         <source>Removed all items from trash</source>
         <translation>Todos los items eliminados de la papelera </translation>
     </message>
@@ -2210,6 +2210,34 @@ La ruta al archivo contiene caracteres invalidos. No se sincroniza a esta comput
     <message>
         <source>failed to open sync error id database</source>
         <translation>fallo al abrir la base de datos de id de errores de sincronización</translation>
+    </message>
+    <message>
+        <source>path or repo_id invalid.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>no permissions to create an upload link</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>no permissions to create an internal link</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>the file or folder or library could not be found.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>internal Server Error</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>unknown error</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Syncing is denied by cloud-only permission settings</source>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>The file path contains symbols that are not supported by the Windows system</source>

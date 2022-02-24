@@ -1,4 +1,4 @@
-<?xml version="1.0" ?><!DOCTYPE TS><TS language="ko_KR" version="2.1">
+<?xml version="1.0" ?><!DOCTYPE TS><TS version="2.1" language="ko_KR">
 <context>
     <name>AboutDialog</name>
     <message>
@@ -1121,10 +1121,6 @@ failed to upload.</source>
 <context>
     <name>FinderSyncHost</name>
     <message>
-        <source>Failed to get link</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
         <source>File &quot;%1&quot; is locked by %2</source>
         <translation type="unfinished"/>
     </message>
@@ -1133,7 +1129,19 @@ failed to upload.</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <source>Failed to get upload link for file &quot;%1&quot;</source>
+        <source>Failed to get internal link: </source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>No permissions to create a shared link</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Failed to get shared link: %1</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Failed to get upload link for file &quot;%1&quot;: </source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -1571,10 +1579,6 @@ File path contains invalid characters. It is not synced to this computer.</sourc
         <translation>폴더 권한 설정에 따라 %1 파일 업데이트를 거부합니다.</translation>
     </message>
     <message>
-        <source>No permission to sync folder %1.</source>
-        <translation>%1 폴더 동기화 권한이 없습니다.</translation>
-    </message>
-    <message>
         <source>Updates in read-only library %1 will not be uploaded.</source>
         <translation type="unfinished"/>
     </message>
@@ -1588,6 +1592,10 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     </message>
     <message>
         <source>Folder for library %1 is removed or moved. The library is unsynced.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Syncing is denied by cloud-only permission settings %1.</source>
         <translation type="unfinished"/>
     </message>
     <message>
@@ -1989,10 +1997,6 @@ File path contains invalid characters. It is not synced to this computer.</sourc
         <translation>%1분 전</translation>
     </message>
     <message>
-        <source>&lt;Not Part of Certificate&gt;</source>
-        <translation>&lt;Not Part of Certificate&gt;</translation>
-    </message>
-    <message>
         <source>Sync this library to:</source>
         <translation>이 라이브러리 동기화 대상:</translation>
     </message>
@@ -2109,10 +2113,6 @@ File path contains invalid characters. It is not synced to this computer.</sourc
         <translation>라이브러리 기록 권한이 없습니다</translation>
     </message>
     <message>
-        <source>No permission to sync this folder</source>
-        <translation>이 폴더를 동기화할 권한이 없습니다</translation>
-    </message>
-    <message>
         <source>Removed all items from trash</source>
         <translation>휴지통의 모든 항목을 제거했습니다</translation>
     </message>
@@ -2210,6 +2210,34 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     </message>
     <message>
         <source>failed to open sync error id database</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>path or repo_id invalid.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>no permissions to create an upload link</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>no permissions to create an internal link</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>the file or folder or library could not be found.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>internal Server Error</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>unknown error</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Syncing is denied by cloud-only permission settings</source>
         <translation type="unfinished"/>
     </message>
     <message>

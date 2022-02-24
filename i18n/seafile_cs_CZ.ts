@@ -1,4 +1,4 @@
-<?xml version="1.0" ?><!DOCTYPE TS><TS language="cs_CZ" version="2.1">
+<?xml version="1.0" ?><!DOCTYPE TS><TS version="2.1" language="cs_CZ">
 <context>
     <name>AboutDialog</name>
     <message>
@@ -1121,10 +1121,6 @@ Prosím %1</translation>
 <context>
     <name>FinderSyncHost</name>
     <message>
-        <source>Failed to get link</source>
-        <translation>Nepodařilo se získat odkaz</translation>
-    </message>
-    <message>
         <source>File &quot;%1&quot; is locked by %2</source>
         <translation>Soubor &quot;%1&quot; je uzamčen od %2</translation>
     </message>
@@ -1133,8 +1129,20 @@ Prosím %1</translation>
         <translation>Nepodařilo se získat informace uzamčení souboru &quot;%1&quot;</translation>
     </message>
     <message>
-        <source>Failed to get upload link for file &quot;%1&quot;</source>
-        <translation>Nepodařilo se získat odkaz pro nahrání pro soubor &quot;%1&quot;</translation>
+        <source>Failed to get internal link: </source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>No permissions to create a shared link</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Failed to get shared link: %1</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Failed to get upload link for file &quot;%1&quot;: </source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -1572,10 +1580,6 @@ Cesta k souboru obsahuje nepovolený znak. Není synchronizovaný do tohoto poč
         <translation>Aktualizace souboru %1 byla zablokována kvůli oprávnění na složce.</translation>
     </message>
     <message>
-        <source>No permission to sync folder %1.</source>
-        <translation>Nemáte oprávnění k synchronizaci složky %1.</translation>
-    </message>
-    <message>
         <source>Updates in read-only library %1 will not be uploaded.</source>
         <translation>Aktualizace v knihovně %1 pouze-pro-čtení nebudou nahrány.</translation>
     </message>
@@ -1590,6 +1594,10 @@ Cesta k souboru obsahuje nepovolený znak. Není synchronizovaný do tohoto poč
     <message>
         <source>Folder for library %1 is removed or moved. The library is unsynced.</source>
         <translation>Složka pro knihovnu %1 byla odstraněna. Knihovna je nesynchronizovaná.</translation>
+    </message>
+    <message>
+        <source>Syncing is denied by cloud-only permission settings %1.</source>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>The file path %1 contains symbols that are not supported by the Windows system.</source>
@@ -1990,10 +1998,6 @@ Cesta k souboru obsahuje nepovolený znak. Není synchronizovaný do tohoto poč
         <translation>před %1 minutami</translation>
     </message>
     <message>
-        <source>&lt;Not Part of Certificate&gt;</source>
-        <translation>&lt;Not Part of Certificate&gt;</translation>
-    </message>
-    <message>
         <source>Sync this library to:</source>
         <translation>Synchronizovat tuto knihovnu s:</translation>
     </message>
@@ -2110,10 +2114,6 @@ Cesta k souboru obsahuje nepovolený znak. Není synchronizovaný do tohoto poč
         <translation>Nemáš oprávnění zapisovat do této knihovny</translation>
     </message>
     <message>
-        <source>No permission to sync this folder</source>
-        <translation>Nemáš oprávnění synchronizovat tuto složku</translation>
-    </message>
-    <message>
         <source>Removed all items from trash</source>
         <translation>Odstraněny všechny předměty z koše</translation>
     </message>
@@ -2212,6 +2212,34 @@ Cesta k souboru obsahuje nepovolený znak. Není synchronizovaný do tohoto poč
     <message>
         <source>failed to open sync error id database</source>
         <translation>nepovedlo se otevřít id databáze chyby synchronizace</translation>
+    </message>
+    <message>
+        <source>path or repo_id invalid.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>no permissions to create an upload link</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>no permissions to create an internal link</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>the file or folder or library could not be found.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>internal Server Error</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>unknown error</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Syncing is denied by cloud-only permission settings</source>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>The file path contains symbols that are not supported by the Windows system</source>

@@ -150,6 +150,8 @@ QString translateHttpErrorCode(const ApiError& error, const QString& req_type) {
             error_msg = QObject::tr("no permissions to create a shared link");
         } else if (req_type == "upload link") {
             error_msg = QObject::tr("no permissions to create a upload link");
+        } else if (req_type == "internal link") {
+            error_msg = QObject::tr("no permissions to create an internal link");
         }
     } else if ( error.httpErrorCode() == 404 ) {
         error_msg = QObject::tr("the file or folder or library could not be found.");
@@ -256,12 +258,8 @@ void SeafileExtensionHandler::onGetSmartLinkSuccess(const QString& smart_link, c
 
 void SeafileExtensionHandler::onGetSmartLinkFailed(const ApiError& error)
 {
-    int http_error_code = error.httpErrorCode();
-    if (http_error_code == 403) {
-        seafApplet->warningBox(tr("No permissions to create a smartlink"));
-    } else {
-        seafApplet->warningBox(tr("Failed to get smartlink: %1").arg(error.toString()));
-    }
+    QString error_msg = translateHttpErrorCode(error, "internal link");
+    seafApplet->warningBox(tr("Failed to get internal link: ") + error_msg);
 }
 
 void SeafileExtensionHandler::lockFile(const QString& repo_id,

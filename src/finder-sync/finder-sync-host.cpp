@@ -43,6 +43,27 @@ public:
     ptr->deleteLater();
   }
 };
+
+QString translateHttpErrorCode(const ApiError& error, const QString& req_type) {
+    QString error_msg;
+    if ( error.httpErrorCode() == 400 ) {
+        error_msg = QObject::tr("path or repo_id invalid.");
+    } else if ( error.httpErrorCode() == 403 ) {
+        if ( req_type == "upload link") {
+            error_msg = QObject::tr("no permissions to create an upload link");
+        } else if ( req_type == "internal link" ) {
+            error_msg = QObject::tr("no permissions to create an internal link");
+        }
+    } else if ( error.httpErrorCode() == 404 ) {
+        error_msg = QObject::tr("the file or folder or library could not be found.");
+    } else if ( error.httpErrorCode() == 500 ) {
+        error_msg = QObject::tr("internal Server Error");
+    } else {
+        error_msg = QObject::tr("unknown error");
+    }
+    return error_msg;
+}
+
 } // anonymous namespace
 
 static const char *const kPathStatus[] = {
@@ -242,12 +263,8 @@ void FinderSyncHost::onGetSmartLinkSuccess(const QString& smart_link, const QStr
 
 void FinderSyncHost::onGetSmartLinkFailed(const ApiError& error)
 {
-    int http_error_code = error.httpErrorCode();
-    if (http_error_code == 403) {
-        seafApplet->warningBox(tr("No permissions to create a smartlink"));
-    } else {
-        seafApplet->warningBox(tr("Failed to get smartlink: %1").arg(error.toString()));
-    }
+    QString error_msg = translateHttpErrorCode(error, "internal link");
+    seafApplet->warningBox(tr("Failed to get internal link: ") + error_msg);
 }
 
 void FinderSyncHost::doLockFile(const QString &path, bool lock)
@@ -434,7 +451,8 @@ void FinderSyncHost::onGetUploadLinkSuccess(const QString& upload_link)
 void FinderSyncHost::onGetUploadLinkFailed(const ApiError& error)
 {
     const QString file = ::getBaseName(get_upload_link_req_->path());
-    seafApplet->messageBox(tr("Failed to get upload link for file \"%1\"").arg(file));
+    QString error_msg = translateHttpErrorCode(error, "upload link");
+    seafApplet->warningBox(tr("Failed to get upload link for file \"%1\": ").arg(file) + error_msg);
 }
 
 void FinderSyncHost::privateShare(const QString& path, bool is_share_to_group) {

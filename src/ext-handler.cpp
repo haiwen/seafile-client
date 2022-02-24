@@ -259,7 +259,7 @@ void SeafileExtensionHandler::onGetSmartLinkSuccess(const QString& smart_link, c
 void SeafileExtensionHandler::onGetSmartLinkFailed(const ApiError& error)
 {
     QString error_msg = translateHttpErrorCode(error, "internal link");
-    seafApplet->warningBox(tr("Failed to get internal link: ") + error_msg);
+    seafApplet->warningBox(tr("Failed to get internal link: %1").arg(error_msg));
 }
 
 void SeafileExtensionHandler::lockFile(const QString& repo_id,
@@ -328,7 +328,7 @@ void SeafileExtensionHandler::onShareLinkGenerated(const QString& link)
 
 void SeafileExtensionHandler::onGetSharedLinkFailed(const ApiError& error) {
     QString error_msg = translateHttpErrorCode(error, "shared link");
-    seafApplet->warningBox(tr("failed to get share link: ") + error_msg);
+    seafApplet->warningBox(tr("failed to get share link: %1").arg(error_msg));
 }
 
 void SeafileExtensionHandler::onLockFileSuccess()
@@ -381,7 +381,7 @@ void SeafileExtensionHandler::onGetUploadLinkFailed(const ApiError& error)
 {
     GetUploadLinkRequest *req = qobject_cast<GetUploadLinkRequest *>(sender());
     QString error_msg = translateHttpErrorCode(error, "upload link");
-    seafApplet->messageBox(tr("Failed to get upload link: ") + error_msg);
+    seafApplet->messageBox(tr("Failed to get upload link: %1").arg(error_msg));
     req->deleteLater();
 }
 

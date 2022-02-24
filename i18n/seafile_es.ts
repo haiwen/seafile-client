@@ -1,4 +1,6 @@
-<?xml version="1.0" ?><!DOCTYPE TS><TS version="2.1" language="es">
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE TS>
+<TS version="2.1" language="es">
 <context>
     <name>AboutDialog</name>
     <message>
@@ -1128,20 +1130,20 @@ falló la subida.</translation>
         <translation>Fallo al obtener información de bloqueo para el archivo &quot;%1&quot;</translation>
     </message>
     <message>
-        <source>Failed to get internal link: </source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
         <source>No permissions to create a shared link</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Failed to get shared link: %1</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Failed to get upload link for file &quot;%1&quot;: </source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Failed to get internal link: %1</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1595,7 +1597,7 @@ La ruta al archivo contiene caracteres invalidos. No se sincroniza a esta comput
     </message>
     <message>
         <source>Syncing is denied by cloud-only permission settings %1.</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>The file path %1 contains symbols that are not supported by the Windows system.</source>
@@ -2113,7 +2115,7 @@ La ruta al archivo contiene caracteres invalidos. No se sincroniza a esta comput
     </message>
     <message>
         <source>Removed all items from trash</source>
-        <translation>Todos los items eliminados de la papelera </translation>
+        <translation>Todos los items eliminados de la papelera&#xa0;</translation>
     </message>
     <message>
         <source>Removed items older than days %1 from trash</source>
@@ -2213,31 +2215,31 @@ La ruta al archivo contiene caracteres invalidos. No se sincroniza a esta comput
     </message>
     <message>
         <source>path or repo_id invalid.</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>no permissions to create an upload link</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>no permissions to create an internal link</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>the file or folder or library could not be found.</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>internal Server Error</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>unknown error</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Syncing is denied by cloud-only permission settings</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>The file path contains symbols that are not supported by the Windows system</source>
@@ -2246,6 +2248,14 @@ La ruta al archivo contiene caracteres invalidos. No se sincroniza a esta comput
     <message>
         <source>Library is too large to sync.</source>
         <translation>La biblioteca es de masiado grande para sincronizar.</translation>
+    </message>
+    <message>
+        <source>no permissions to create a shared link</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>no permissions to create a upload link</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -2629,6 +2639,37 @@ La ruta al archivo contiene caracteres invalidos. No se sincroniza a esta comput
     <message>
         <source>failed to read %1</source>
         <translation>fallo al leer %1</translation>
+    </message>
+</context>
+<context>
+    <name>SeafileExtensionHandler</name>
+    <message>
+        <source>Failed to get internal link: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>failed to get share link: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Failed to lock file</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Failed to unlock file</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Failed to get upload link: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>File &quot;%1&quot; is locked by %2</source>
+        <translation type="unfinished">El archivo &quot;%1&quot; está bloqueado por %2</translation>
+    </message>
+    <message>
+        <source>Failed to get lock information for file &quot;%1&quot;</source>
+        <translation type="unfinished">Fallo al obtener información de bloqueo para el archivo &quot;%1&quot;</translation>
     </message>
 </context>
 <context>

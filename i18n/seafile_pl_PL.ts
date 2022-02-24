@@ -1,4 +1,6 @@
-<?xml version="1.0" ?><!DOCTYPE TS><TS version="2.1" language="pl_PL">
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE TS>
+<TS version="2.1" language="pl_PL">
 <context>
     <name>AboutDialog</name>
     <message>
@@ -34,7 +36,7 @@
     </message>
     <message>
         <source>Authorization expired, please re-login</source>
-        <translation>Autoryzacja wygasła, proszę zalogować się ponownie</translation>
+        <translation>Autoryzacja wygasła, proszę zalogować&#xa0;się ponownie</translation>
     </message>
     <message>
         <source>Failed to remove local repos sync token: %1</source>
@@ -510,11 +512,11 @@ nieudane przesyłanie.</translation>
     </message>
     <message>
         <source>end-to-end encryption</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>TextLabel</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished">Etykieta tekstowa</translation>
     </message>
 </context>
 <context>
@@ -532,7 +534,7 @@ nieudane przesyłanie.</translation>
     <name>DataManager</name>
     <message>
         <source>Another copy or move operation is in progress. Please wait until it finishes.</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -875,7 +877,7 @@ nieudane przesyłanie.</translation>
     </message>
     <message>
         <source>Failed to get upload link information for file &quot;%1&quot;</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -934,7 +936,7 @@ nieudane przesyłanie.</translation>
     </message>
     <message>
         <source>Index progress request error %1</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -990,7 +992,7 @@ nieudane przesyłanie.</translation>
     </message>
     <message>
         <source>The uploaded file exceeds the size limit</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1114,34 +1116,34 @@ nieudane przesyłanie.</translation>
     </message>
     <message>
         <source>&amp;Generate %1 Upload Link</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>FinderSyncHost</name>
     <message>
         <source>File &quot;%1&quot; is locked by %2</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Failed to get lock information for file &quot;%1&quot;</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Failed to get internal link: </source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>No permissions to create a shared link</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Failed to get shared link: %1</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Failed to get upload link for file &quot;%1&quot;: </source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Failed to get internal link: %1</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1160,11 +1162,11 @@ nieudane przesyłanie.</translation>
     </message>
     <message>
         <source>Failed to remove the older version of the downloaded file</source>
-        <translation>Nie udało się usunąć starszej wersji pobranego pliku</translation>
+        <translation>Nie udało się&#xa0;usunąć starszej wersji pobranego pliku</translation>
     </message>
     <message>
         <source>Failed to move file</source>
-        <translation>Nie udało się przenieść pliku</translation>
+        <translation>Nie udało się przenieść&#xa0;pliku</translation>
     </message>
 </context>
 <context>
@@ -1579,31 +1581,31 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     </message>
     <message>
         <source>Updates in read-only library %1 will not be uploaded.</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Concurrent updates to file. File %1 is saved as conflict file</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Folder %1 is moved to seafile-recycle-bin folder since it contains not-yet uploaded files.</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Folder for library %1 is removed or moved. The library is unsynced.</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Syncing is denied by cloud-only permission settings %1.</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>The file path %1 contains symbols that are not supported by the Windows system.</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Library is too large to sync.</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1634,19 +1636,19 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     </message>
     <message>
         <source>Failed to get share information of the folder</source>
-        <translation>Nie udało się uzyskać informacji udostępniania folderu</translation>
+        <translation>Nie udało się&#xa0;uzyskać informacji udostępniania folderu</translation>
     </message>
     <message>
         <source>Failed to get your groups and contacts information</source>
-        <translation>Nie udało się uzyskać informacji o grupach i kontaktach</translation>
+        <translation>Nie udało się&#xa0;uzyskać informacji o grupach i kontaktach</translation>
     </message>
     <message>
         <source>Please enter the username</source>
-        <translation>Proszę podać nazwę użytkownika</translation>
+        <translation>Proszę podać nazwę&#xa0;użytkownika</translation>
     </message>
     <message>
         <source>Please enter the group name</source>
-        <translation>Proszę podać nazwę grupy</translation>
+        <translation>Proszę podać&#xa0;nazwę&#xa0;grupy</translation>
     </message>
     <message>
         <source>No such group &quot;%1&quot;</source>
@@ -1654,7 +1656,7 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     </message>
     <message>
         <source>Already shared to group %1</source>
-        <translation>Już udostępniono grupie %1</translation>
+        <translation>Już&#xa0;udostępniono grupie %1</translation>
     </message>
     <message>
         <source>Already shared to user %1</source>
@@ -1889,7 +1891,7 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     </message>
     <message>
         <source>copy failed</source>
-        <translation>nie udało się skopiować</translation>
+        <translation>nie udało się&#xa0;skopiować</translation>
     </message>
     <message>
         <source>Added</source>
@@ -2105,147 +2107,155 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     </message>
     <message>
         <source>Internal data corrupt on the client. Please try to resync the library</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Do not have write permission to the library</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Removed all items from trash</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Removed items older than days %1 from trash</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Published draft</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Created draft</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Created file</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Renamed file</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Deleted draft</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Deleted file</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Restored file</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Moved file</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Updated file</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Created folder</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Renamed folder</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Deleted folder</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Restored folder</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Moved folder</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Created library</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Renamed library</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Deleted library</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Restored library</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Created or updated a file in a non-writable library or folder</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Permission denied on server</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Concurrent updates to file. File is saved as conflict file</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>A folder that may contain not-yet-uploaded files is moved to seafile-recycle-bin folder.</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>failed to open sync error id database</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>path or repo_id invalid.</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>no permissions to create an upload link</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>no permissions to create an internal link</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>the file or folder or library could not be found.</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>internal Server Error</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>unknown error</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Syncing is denied by cloud-only permission settings</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>The file path contains symbols that are not supported by the Windows system</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Library is too large to sync.</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>no permissions to create a shared link</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>no permissions to create a upload link</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -2399,7 +2409,7 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     </message>
     <message>
         <source>Show &amp;details</source>
-        <translation>Pokaż &amp;szczegóły</translation>
+        <translation>Pokaż&#xa0;&amp;szczegóły</translation>
     </message>
     <message>
         <source>Show details of this library</source>
@@ -2483,7 +2493,7 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     </message>
     <message>
         <source>open this library in embedded Cloud File Browser</source>
-        <translation>otwórz tę bibliotekę we wbudowanej przeglądarce plików w chmurze</translation>
+        <translation>otwórz tę&#xa0;bibliotekę we wbudowanej przeglądarce plików w chmurze</translation>
     </message>
     <message>
         <source>&amp;Leave share</source>
@@ -2632,6 +2642,37 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     </message>
 </context>
 <context>
+    <name>SeafileExtensionHandler</name>
+    <message>
+        <source>Failed to get internal link: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>failed to get share link: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Failed to lock file</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Failed to unlock file</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Failed to get upload link: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>File &quot;%1&quot; is locked by %2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Failed to get lock information for file &quot;%1&quot;</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>SeafileLinkDialog</name>
     <message>
         <source>%1 Internal Link</source>
@@ -2651,7 +2692,7 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     </message>
     <message>
         <source>%1 Desktop Access Link:</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -2757,19 +2798,19 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     </message>
     <message>
         <source>Repair explorer extension</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Successfully fixed sync status icons for Explorer</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Faild to fix sync status icons for Explorer</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>have some sync error</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -2888,7 +2929,7 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     </message>
     <message>
         <source>You have changed languange. Restart to apply it?</source>
-        <translation>Zmieniono język. Zrestartować aplikację, aby wprowadzić zmiany?</translation>
+        <translation>Zmieniono język. Zrestartować aplikację, aby wprowadzić&#xa0;zmiany?</translation>
     </message>
     <message>
         <source>The proxy host address can&apos;t be empty</source>
@@ -3024,7 +3065,7 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     </message>
     <message>
         <source>Hide Windows incompatibility paths Message</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -3097,19 +3138,19 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     </message>
     <message>
         <source>Password(At least 8 characters)</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Show password</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Expire days</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Generate link</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -3219,11 +3260,11 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     <name>SyncErrorsTableView</name>
     <message>
         <source>Delete file sync error failed</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>delete</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -3296,19 +3337,19 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     <name>UploadLinkDialog</name>
     <message>
         <source>Upload Link</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Upload link:</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Copy to clipboard</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished">Kopiuj do schowka</translation>
     </message>
     <message>
         <source>OK</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished">OK</translation>
     </message>
 </context>
 </TS>

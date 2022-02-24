@@ -1117,10 +1117,6 @@ failed to upload.</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <source>Failed to get internal link: </source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
         <source>No permissions to create a shared link</source>
         <translation type="unfinished"/>
     </message>
@@ -1130,6 +1126,10 @@ failed to upload.</source>
     </message>
     <message>
         <source>Failed to get upload link for file &quot;%1&quot;: </source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Failed to get internal link: %1</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -2220,6 +2220,14 @@ File path contains invalid characters. It is not synced to this computer.</sourc
         <source>Library is too large to sync.</source>
         <translation type="unfinished"/>
     </message>
+    <message>
+        <source>no permissions to create a shared link</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>no permissions to create a upload link</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>ReliablePostFileTask</name>
@@ -2599,6 +2607,37 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     </message>
     <message>
         <source>failed to read %1</source>
+        <translation type="unfinished"/>
+    </message>
+</context>
+<context>
+    <name>SeafileExtensionHandler</name>
+    <message>
+        <source>Failed to get internal link: %1</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>failed to get share link: %1</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Failed to lock file</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Failed to unlock file</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Failed to get upload link: %1</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>File &quot;%1&quot; is locked by %2</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Failed to get lock information for file &quot;%1&quot;</source>
         <translation type="unfinished"/>
     </message>
 </context>

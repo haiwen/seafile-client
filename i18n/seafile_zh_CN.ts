@@ -1121,10 +1121,6 @@ failed to upload.</source>
         <translation>获取文件 &quot;%1&quot; 的锁定信息失败</translation>
     </message>
     <message>
-        <source>Failed to get internal link: </source>
-        <translation>获取内部链接失败：</translation>
-    </message>
-    <message>
         <source>No permissions to create a shared link</source>
         <translation>没有权限创建共享链接</translation>
     </message>
@@ -1135,6 +1131,10 @@ failed to upload.</source>
     <message>
         <source>Failed to get upload link for file &quot;%1&quot;: </source>
         <translation>获取文件 &quot;%1&quot; 的上传链接失败：</translation>
+    </message>
+    <message>
+        <source>Failed to get internal link: %1</source>
+        <translation>获取内部链接失败：%1</translation>
     </message>
 </context>
 <context>
@@ -2238,6 +2238,14 @@ File path contains invalid characters. It is not synced to this computer.</sourc
         <source>Library is too large to sync.</source>
         <translation>资料库太大不能同步。</translation>
     </message>
+    <message>
+        <source>no permissions to create a shared link</source>
+        <translation>没有权限创建共享链接</translation>
+    </message>
+    <message>
+        <source>no permissions to create a upload link</source>
+        <translation>没有权限创建上传链接</translation>
+    </message>
 </context>
 <context>
     <name>ReliablePostFileTask</name>
@@ -2618,6 +2626,37 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     <message>
         <source>failed to read %1</source>
         <translation>读取文件 %1 失败</translation>
+    </message>
+</context>
+<context>
+    <name>SeafileExtensionHandler</name>
+    <message>
+        <source>Failed to get internal link: %1</source>
+        <translation>获取内部链接失败：%1</translation>
+    </message>
+    <message>
+        <source>failed to get share link: %1</source>
+        <translation>获取共享链接失败：%1</translation>
+    </message>
+    <message>
+        <source>Failed to lock file</source>
+        <translation>锁定文件失败</translation>
+    </message>
+    <message>
+        <source>Failed to unlock file</source>
+        <translation>解锁文件失败</translation>
+    </message>
+    <message>
+        <source>Failed to get upload link: %1</source>
+        <translation>获取上传链接失败：%1</translation>
+    </message>
+    <message>
+        <source>File &quot;%1&quot; is locked by %2</source>
+        <translation>文件 “ %1 ” 被 %2 锁定</translation>
+    </message>
+    <message>
+        <source>Failed to get lock information for file &quot;%1&quot;</source>
+        <translation>获取文件 “ %1 ” 的锁信息失败</translation>
     </message>
 </context>
 <context>

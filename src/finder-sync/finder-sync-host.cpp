@@ -264,7 +264,7 @@ void FinderSyncHost::onGetSmartLinkSuccess(const QString& smart_link, const QStr
 void FinderSyncHost::onGetSmartLinkFailed(const ApiError& error)
 {
     QString error_msg = translateHttpErrorCode(error, "internal link");
-    seafApplet->warningBox(tr("Failed to get internal link: ") + error_msg);
+    seafApplet->warningBox(tr("Failed to get internal link: %1").arg(error_msg));
 }
 
 void FinderSyncHost::doLockFile(const QString &path, bool lock)

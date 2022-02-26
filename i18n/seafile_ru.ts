@@ -1,4 +1,6 @@
-<?xml version="1.0" ?><!DOCTYPE TS><TS version="2.1" language="ru">
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE TS>
+<TS version="2.1" language="ru">
 <context>
     <name>AboutDialog</name>
     <message>
@@ -532,7 +534,7 @@ failed to upload.</source>
     <name>DataManager</name>
     <message>
         <source>Another copy or move operation is in progress. Please wait until it finishes.</source>
-        <translation> 
+        <translation>&#xa0;
 Выполняется другая операция копирования или перемещения. Подождите, пока она не закончится.</translation>
     </message>
 </context>
@@ -1129,20 +1131,20 @@ failed to upload.</source>
         <translation>Не удалось получить информацию о блокировке файла &quot;%1&quot;</translation>
     </message>
     <message>
-        <source>Failed to get internal link: </source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
         <source>No permissions to create a shared link</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Failed to get shared link: %1</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Failed to get upload link for file &quot;%1&quot;: </source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Failed to get internal link: %1</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1596,7 +1598,7 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     </message>
     <message>
         <source>Syncing is denied by cloud-only permission settings %1.</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>The file path %1 contains symbols that are not supported by the Windows system.</source>
@@ -2214,31 +2216,31 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     </message>
     <message>
         <source>path or repo_id invalid.</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>no permissions to create an upload link</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>no permissions to create an internal link</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>the file or folder or library could not be found.</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>internal Server Error</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>unknown error</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Syncing is denied by cloud-only permission settings</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>The file path contains symbols that are not supported by the Windows system</source>
@@ -2247,6 +2249,14 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     <message>
         <source>Library is too large to sync.</source>
         <translation>Библиотека слишком велика для синхронизации.</translation>
+    </message>
+    <message>
+        <source>no permissions to create a shared link</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>no permissions to create a upload link</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -2628,6 +2638,37 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     <message>
         <source>failed to read %1</source>
         <translation>не удалось прочитать %1</translation>
+    </message>
+</context>
+<context>
+    <name>SeafileExtensionHandler</name>
+    <message>
+        <source>Failed to get internal link: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>failed to get share link: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Failed to lock file</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Failed to unlock file</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Failed to get upload link: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>File &quot;%1&quot; is locked by %2</source>
+        <translation type="unfinished">Файл &quot;%1&quot; заблокирован %2</translation>
+    </message>
+    <message>
+        <source>Failed to get lock information for file &quot;%1&quot;</source>
+        <translation type="unfinished">Не удалось получить информацию о блокировке файла &quot;%1&quot;</translation>
     </message>
 </context>
 <context>

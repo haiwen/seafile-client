@@ -71,35 +71,30 @@ delete_large_log_file(const char* file)
     const int delete_threshold = 300 * 1000 * 1000;
     if (log_file_stat_buf.st_size <= delete_threshold) {
         return;
-    } else {
-        const char* backup_file_name_postfix = "-old";
-        GString *backup_file = g_string_new(file);
-        g_string_insert(backup_file, backup_file->len - 4, backup_file_name_postfix);
-        // 4 is length of log file postfix ".log"
-        // rename log file "***.log" to "***-old.log"
-        char file_name[4096] = {0};
-        memcpy(file_name, backup_file->str, backup_file->len);
-        if (backup_file) {
+    }
+
+    const char* backup_file_name_postfix = "-old";
+    GString *backup_file = g_string_new(file);
+    g_string_insert(backup_file, backup_file->len - 4, backup_file_name_postfix);
+    // 4 is length of log file postfix ".log"
+    // rename log file "***.log" to "***-old.log"
+
+    if (g_file_test(backup_file->str, G_FILE_TEST_EXISTS)) {
+        if (g_remove(backup_file->str) != 0) {
+            g_warning ("Delete old log file %s failed errno=%d.", backup_file->str, errno);
             g_string_free(backup_file, TRUE);
-        }
-
-        if (g_file_test(file_name, G_FILE_TEST_EXISTS)) {
-            if (g_remove(file_name) != 0) {
-                g_warning ("Delete old log file %s failed errno=%d.", file_name, errno);
-                return;
-            } else {
-                g_warning ("Deleted old log file %s.", file_name);
-            }
-        }
-
-        if (g_rename(file, file_name) == 0) {
-            g_warning ("Renamed %s to backup file %s.", file, file_name);
             return;
         } else {
-            g_warning ("Rename %s to backup file failed errno=%d.", file, errno);
-            return;
+            g_warning ("Deleted old log file %s.", backup_file->str);
         }
     }
+
+    if (g_rename(file, backup_file->str) == 0) {
+        g_warning ("Renamed %s to backup file %s.", file, backup_file->str);
+    } else {
+        g_warning ("Rename %s to backup file failed errno=%d.", file, errno);
+    }
+    g_string_free(backup_file, TRUE);
 }
 
 int

@@ -230,12 +230,10 @@ void DataManager::copyDirents(const QString &repo_id,
 
         connect(req, SIGNAL(success(const QString&)),
                 SLOT(onCopyDirentsSuccess(const QString&)));
-
         connect(req, SIGNAL(failed(const ApiError&)),
-                SIGNAL(copyDirentsFailed(const ApiError&)));
+                SLOT(onCopyDirentsFailed(const ApiError&)));
         reqs_.push_back(req);
         req->send();
-
     } else {
         // First to invoke ssync api v2.1 if async api return 404 ,then invoke v2.0 async api
         AsyncCopyMultipleItemsRequest *req =
@@ -389,9 +387,8 @@ void DataManager::moveDirents(const QString &repo_id,
 
         connect(req, SIGNAL(success(const QString&)),
                 SLOT(onMoveDirentsSuccess(const QString&)));
-
         connect(req, SIGNAL(failed(const ApiError&)),
-                SIGNAL(moveDirentsFailed(const ApiError&)));
+                SLOT(onMoveDirentsFailed(const ApiError&)));
         reqs_.push_back(req);
         req->send();
     } else {
@@ -579,6 +576,13 @@ void DataManager::onRemoveDirentsSuccess(const QString& repo_id)
 void DataManager::onCopyDirentsSuccess(const QString& dst_repo_id)
 {
     emit copyDirentsSuccess(dst_repo_id);
+    copy_move_in_progress_ = false;
+}
+
+void DataManager::onCopyDirentsFailed(const ApiError& error)
+{
+    emit copyDirentsFailed(error);
+    copy_move_in_progress_ = false;
 }
 
 void DataManager::onMoveDirentsSuccess(const QString& dst_repo_id)
@@ -587,6 +591,13 @@ void DataManager::onMoveDirentsSuccess(const QString& dst_repo_id)
     dirents_cache_->expireCachedDirents(req->srcRepoId(), req->srcPath());
 
     emit moveDirentsSuccess(dst_repo_id);
+    copy_move_in_progress_ = false;
+}
+
+void DataManager::onMoveDirentsFailed(const ApiError& error)
+{
+    emit moveDirentsFailed(error);
+    copy_move_in_progress_ = false;
 }
 
 void DataManager::removeDirentsCache(const QString& repo_id,

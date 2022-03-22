@@ -170,7 +170,9 @@ private slots:
     void onRemoveDirentSuccess(const QString& repo_id);
     void onRemoveDirentsSuccess(const QString& repo_id);
     void onCopyDirentsSuccess(const QString& dst_repo_id);
+    void onCopyDirentsFailed(const ApiError& error);
     void onMoveDirentsSuccess(const QString& dst_repo_id);
+    void onMoveDirentsFailed(const ApiError& error);
 
     void onCreateSubrepoSuccess(const QString& new_repoid);
     void onCreateSubrepoRefreshSuccess(const ServerRepo& new_repo);

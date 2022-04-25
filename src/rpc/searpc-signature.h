@@ -1,3 +1,4 @@
+#include <searpc-server.h>
 
 inline static gchar *
 searpc_signature_int__void()

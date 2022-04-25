@@ -1,3 +1,4 @@
+#include <searpc-server.h>
 
 static char *
 marshal_int__void (void *func, json_t *param_array, gsize *ret_len)

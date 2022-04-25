@@ -1,4 +1,3 @@
-extern "C" {
 #include <searpc-client.h>
 
 #include <searpc.h>
@@ -9,8 +8,6 @@ extern "C" {
 #include <seafile/seafile.h>
 #include <seafile/seafile-object.h>
 #endif
-
-}
 
 #include <QtGlobal>
 

@@ -707,14 +707,6 @@ void AccountManager::reloginAccount(const Account &account_in)
     const Account account(account_in);
 
     do {
-#ifdef HAVE_SHIBBOLETH_SUPPORT
-        if (account.isShibboleth) {
-            ShibLoginDialog shib_dialog(
-                account.serverUrl, seafApplet->settingsManager()->getComputerName());
-            accepted = shib_dialog.exec() == QDialog::Accepted;
-            break;
-        }
-#endif // HAVE_SHIBBOLETH_SUPPORT
         LoginDialog dialog;
         dialog.initFromAccount(account);
         accepted = dialog.exec() == QDialog::Accepted;

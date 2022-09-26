@@ -57,7 +57,20 @@ const int kSearchBarWidth = 250;
 
 void openFile(const QString& path)
 {
+#if defined(Q_OS_WIN32)
+    // The QT_SCREEN_SCALE_FACTORS environment variable will be passed to the
+    // application invoked from here, which may cause scaling problems.
+    // So we temporary reset that and restore back.
+    const char *factors = g_getenv("QT_SCREEN_SCALE_FACTORS");
+    g_setenv("QT_SCREEN_SCALE_FACTORS", "1", 1);
+#endif
+
     ::openInNativeExtension(path) || ::showInGraphicalShell(path);
+
+#if defined(Q_OS_WIN32)
+    g_setenv("QT_SCREEN_SCALE_FACTORS", factors, 1);
+#endif
+
 #ifdef Q_OS_MAC
     MacImageFilesWorkAround::instance()->fileOpened(path);
 #endif

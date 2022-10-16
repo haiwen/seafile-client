@@ -283,7 +283,9 @@ char *b64encode(const char *input)
 {
     char buf[32767] = {0};
     DWORD retlen = 32767;
-    CryptBinaryToString((BYTE*) input, strlen(input), CRYPT_STRING_BASE64 | CRYPT_STRING_NOCRLF, buf, &retlen);
+    if (!CryptBinaryToString((BYTE*) input, strlen(input), CRYPT_STRING_BASE64 | CRYPT_STRING_NOCRLF, buf, &retlen)) {
+        return NULL;
+    }
     return strdup(buf);
 }
 
@@ -307,8 +309,10 @@ std::string getLocalPipeName(const char *pipe_name)
     } else {
         std::string ret(pipe_name);
         char *encoded = b64encode(user_name_buf);
-        ret += encoded;
-        free(encoded);
+        if (encoded) {
+            ret += encoded;
+            free(encoded);
+        }
         return ret;
     }
 }

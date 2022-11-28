@@ -47,6 +47,7 @@
     <None Include="i18n\seafile_fr_FR.ts" />
     <None Include="i18n\seafile_he_IL.ts" />
     <None Include="i18n\seafile_hu_HU.ts" />
+    <None Include="i18n\seafile_id.ts" />
     <None Include="i18n\seafile_is.ts" />
     <None Include="i18n\seafile_it.ts" />
     <None Include="i18n\seafile_ja.ts" />

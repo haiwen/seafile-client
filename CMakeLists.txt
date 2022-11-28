@@ -654,6 +654,7 @@ SET(LANGUAGES
   fr_FR
   he_IL
   hu_HU
+  id
   is
   it
   ko_KR

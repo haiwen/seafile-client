@@ -167,6 +167,9 @@
     <None Include="i18n\seafile_hu_HU.ts">
       <Filter>Translation Files</Filter>
     </None>
+    <None Include="i18n\seafile_id.ts">
+      <Filter>Translation Files</Filter>
+    </None>
     <None Include="i18n\seafile_is.ts">
       <Filter>Translation Files</Filter>
     </None>

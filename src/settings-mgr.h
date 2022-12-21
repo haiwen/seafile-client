@@ -64,6 +64,7 @@ public:
     unsigned int maxUploadRatio() { return maxUploadRatio_; }
     bool allowInvalidWorktree() { return allow_invalid_worktree_; }
     bool syncExtraTempFile() { return sync_extra_temp_file_; }
+    int deleteConfirmThreshold() { return delete_confirm_threshold_; }
 
     void getProxy(QNetworkProxy *proxy) const;
     SeafileProxy getProxy() const { return current_proxy_; };
@@ -74,6 +75,7 @@ public:
     void setMaxUploadRatio(unsigned int ratio);
     void setAllowInvalidWorktree(bool val);
     void setSyncExtraTempFile(bool sync);
+    void setDeleteConfirmThreshold(int value);
     void setProxy(const SeafileProxy& proxy);
 
     bool hideMainWindowWhenStarted();
@@ -151,6 +153,7 @@ private:
     unsigned int maxUploadRatio_;
     bool verify_http_sync_cert_disabled_;
     bool shell_ext_enabled_;
+    int delete_confirm_threshold_;
 
     // proxy settings
     SeafileProxy current_proxy_;

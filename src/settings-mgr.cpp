@@ -115,6 +115,7 @@ SettingsManager::SettingsManager()
       maxDownloadRatio_(0),
       maxUploadRatio_(0),
       verify_http_sync_cert_disabled_(false),
+      delete_confirm_threshold_(500),
       current_proxy_(SeafileProxy())
 {
     check_system_proxy_timer_ = new QTimer(this);
@@ -152,6 +153,10 @@ void SettingsManager::loadSettings()
     if (seafApplet->rpcClient()->seafileGetConfig("disable_verify_certificate",
                                                   &str) >= 0)
         verify_http_sync_cert_disabled_ = (str == "true") ? true : false;
+
+    if (seafApplet->rpcClient()->seafileGetConfigInt("delete_confirm_threshold",
+                                                     &value) >= 0)
+        delete_confirm_threshold_ = value;
 
     loadProxySettings();
     applyProxySettings();
@@ -395,6 +400,18 @@ void SettingsManager::setSyncExtraTempFile(bool sync)
             return;
         }
         sync_extra_temp_file_ = sync;
+    }
+}
+
+void SettingsManager::setDeleteConfirmThreshold(int value)
+{
+    if (delete_confirm_threshold_ != value) {
+        if (seafApplet->rpcClient()->seafileSetConfigInt(
+                "delete_confirm_threshold", value)) {
+            // Error
+            return;
+        }
+        delete_confirm_threshold_ = value;
     }
 }
 

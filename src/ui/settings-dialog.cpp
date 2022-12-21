@@ -79,6 +79,7 @@ void SettingsDialog::updateSettings()
     mgr->setAllowInvalidWorktree(mAllowInvalidWorktreeCheckBox->checkState() == Qt::Checked);
     mgr->setHttpSyncCertVerifyDisabled(mDisableVerifyHttpSyncCert->checkState() == Qt::Checked);
     mgr->setAllowRepoNotFoundOnServer(mAllowRepoNotFoundCheckBox->checkState() == Qt::Checked);
+    mgr->setDeleteConfirmThreshold(mDeleteConfirmSpinBox->value());
 #ifdef HAVE_FINDER_SYNC_SUPPORT
     if(mFinderSyncCheckBox->isEnabled())
         mgr->setFinderSyncExtension(mFinderSyncCheckBox->checkState() == Qt::Checked);
@@ -201,7 +202,7 @@ void SettingsDialog::showEvent(QShowEvent *event)
     }
 #endif
 
-    mEnableSyncingWithExistingFolder->hide();
+    mDeleteConfirmSpinBox->setValue(mgr->deleteConfirmThreshold());
 
     SettingsManager::SeafileProxy proxy = mgr->getProxy();
     showHideControlsBasedOnCurrentProxyType(proxy.type);

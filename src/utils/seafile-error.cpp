@@ -107,6 +107,9 @@ QString translateSyncErrorCode(const int error_code)
         case SYNC_ERROR_ID_LIBRARY_TOO_LARGE:
             error_str = QObject::tr("Library is too large to sync.");
             break;
+        case SYNC_ERROR_ID_DEL_CONFIRMATION_PENDING:
+            error_str = QObject::tr("Waiting for confirmation to delete files");
+            break;
         default:
             qWarning("Unknown sync error");
     }

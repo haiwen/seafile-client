@@ -136,6 +136,8 @@ public:
 
     bool deleteFileAsyncErrorById(int id);
 
+    bool addDelConfirmation(const QString& confirmation_id, bool resync);
+
 private:
     Q_DISABLE_COPY(SeafileRpcClient)
 

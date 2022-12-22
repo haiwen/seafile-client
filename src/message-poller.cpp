@@ -1,5 +1,6 @@
 #include <QTimer>
 #include <QDateTime>
+#include <QJsonDocument>
 
 #include "utils/utils.h"
 #include "utils/translate-commit-desc.h"
@@ -184,6 +185,9 @@ void MessagePoller::processNotification(const SyncNotification& notification)
         case SYNC_ERROR_ID_LIBRARY_TOO_LARGE:
             msg = tr("Library is too large to sync.");
             break;
+        case SYNC_ERROR_ID_DEL_CONFIRMATION_PENDING:
+            msg = tr("Waiting for confirmation to delete files");
+            break;
         default:
             qWarning("Unknown sync error id %d", err_id);
             json_decref(object);
@@ -200,5 +204,32 @@ void MessagePoller::processNotification(const SyncNotification& notification)
         QString repo_name = content;
         QString buf = tr("Folder for library %1 is removed or moved. The library is unsynced.").arg(repo_name);
         seafApplet->trayIcon()->showMessage(getBrand(), buf);
+
+    } else if (type == "sync.del_confirmation") {
+        QJsonParseError error;
+        QJsonDocument doc = QJsonDocument::fromJson(content.toUtf8(), &error);
+        if (doc.isNull()) {
+            qWarning() << "Failed to parse json:" << error.errorString();
+            return;
+        } else if (!doc.isObject()) {
+            qWarning() << "Malformed json string:" << content;
+            return;
+        }
+
+        QString msg = tr("Confirm to bulk delete files in library \"%1\" ?")
+                          .arg(doc["repo_name"].toString().trimmed());
+
+        QRegularExpression re("Deleted \"(.+)\" and (.+) more files.");
+        auto match = re.match(doc["delete_files"].toString().trimmed());
+        if (match.hasMatch()) {
+            msg += tr("\n(deleted \"%1\" and %2 more files.)")
+                       .arg(match.captured(1)).arg(match.captured(2));
+        }
+
+        if (seafApplet->yesOrCancelBox(msg, nullptr, false)) {
+            rpc_client_->addDelConfirmation(doc["confirmation_id"].toString(), false);
+        } else {
+            rpc_client_->addDelConfirmation(doc["confirmation_id"].toString(), true);
+        }
     }
 }

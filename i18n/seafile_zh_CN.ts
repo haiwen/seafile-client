@@ -1596,6 +1596,20 @@ File path contains invalid characters. It is not synced to this computer.</sourc
         <source>Library is too large to sync.</source>
         <translation>资料库太大不能同步。</translation>
     </message>
+    <message>
+        <source>Waiting for confirmation to delete files</source>
+        <translation>等待确认文件删除操作</translation>
+    </message>
+    <message>
+        <source>Confirm to bulk delete files in library &quot;%1&quot; ?</source>
+        <translation>确认删除 “ %1 ” 资料库中的文件？</translation>
+    </message>
+    <message>
+        <source>
+(deleted &quot;%1&quot; and %2 more files.)</source>
+        <translation>
+（删除了 “ %1 ” 以及其它 %2 个文件）</translation>
+    </message>
 </context>
 <context>
     <name>PrivateShareDialog</name>
@@ -2245,6 +2259,10 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     <message>
         <source>no permissions to create a upload link</source>
         <translation>没有权限创建上传链接</translation>
+    </message>
+    <message>
+        <source>Waiting for confirmation to delete files</source>
+        <translation>等待确认文件删除操作</translation>
     </message>
 </context>
 <context>
@@ -2995,10 +3013,6 @@ File path contains invalid characters. It is not synced to this computer.</sourc
         <translation>HTTPS 同步过程中不验证服务器证书</translation>
     </message>
     <message>
-        <source>Enable syncing with an existing folder with a different name</source>
-        <translation>启用与已存在的其他文件夹同步的选项</translation>
-    </message>
-    <message>
         <source>Advanced</source>
         <translation>高级</translation>
     </message>
@@ -3053,6 +3067,10 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     <message>
         <source>Hide Windows incompatibility paths Message</source>
         <translation>隐藏 Windows 不兼容路径的消息通知</translation>
+    </message>
+    <message>
+        <source>Confirm before bulk deleting files more than</source>
+        <translation>提示确认操作，当删除的文件数大于</translation>
     </message>
 </context>
 <context>

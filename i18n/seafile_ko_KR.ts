@@ -1,6 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE TS>
-<TS version="2.1" language="ko_KR">
+<?xml version="1.0" ?><!DOCTYPE TS><TS version="2.1" language="ko_KR">
 <context>
     <name>AboutDialog</name>
     <message>
@@ -382,7 +380,7 @@ failed to upload.</source>
     </message>
     <message>
         <source>or Drop Folder to Sync</source>
-        <translation>하거나 폴더를 내려놓아 동기화하세요</translation>
+        <translation>하거나 폴더를 끌어다 놓아 동기화하세요</translation>
     </message>
     <message>
         <source>download rate</source>
@@ -512,11 +510,11 @@ failed to upload.</source>
     </message>
     <message>
         <source>end-to-end encryption</source>
-        <translation type="unfinished"></translation>
+        <translation>종단간 암호화</translation>
     </message>
     <message>
         <source>TextLabel</source>
-        <translation type="unfinished">텍스트 레이블</translation>
+        <translation>텍스트 레이블</translation>
     </message>
 </context>
 <context>
@@ -534,7 +532,7 @@ failed to upload.</source>
     <name>DataManager</name>
     <message>
         <source>Another copy or move operation is in progress. Please wait until it finishes.</source>
-        <translation type="unfinished"></translation>
+        <translation>다른 복사/이동 작업을 진행하고 있습니다. 끝날 때까지 기다리세요.</translation>
     </message>
 </context>
 <context>
@@ -878,7 +876,7 @@ failed to upload.</source>
     </message>
     <message>
         <source>Failed to get upload link information for file &quot;%1&quot;</source>
-        <translation type="unfinished"></translation>
+        <translation>&quot;%1&quot; 파일 업로드 링크 정보 가져오기에 실패했습니다</translation>
     </message>
 </context>
 <context>
@@ -993,7 +991,7 @@ failed to upload.</source>
     </message>
     <message>
         <source>The uploaded file exceeds the size limit</source>
-        <translation type="unfinished"></translation>
+        <translation>업로드한 파일이 크기 제한을 초과합니다</translation>
     </message>
 </context>
 <context>
@@ -1117,34 +1115,34 @@ failed to upload.</source>
     </message>
     <message>
         <source>&amp;Generate %1 Upload Link</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 업로드 링크 만들기(&amp;G)</translation>
     </message>
 </context>
 <context>
     <name>FinderSyncHost</name>
     <message>
         <source>File &quot;%1&quot; is locked by %2</source>
-        <translation type="unfinished"></translation>
+        <translation>%2 사용자가 &quot;%1&quot; 파일을 잠궜습니다</translation>
     </message>
     <message>
         <source>Failed to get lock information for file &quot;%1&quot;</source>
-        <translation type="unfinished"></translation>
+        <translation>&quot;%1&quot; 파일 잠금 정보 가져오기에 실패했습니다</translation>
     </message>
     <message>
         <source>No permissions to create a shared link</source>
-        <translation type="unfinished"></translation>
+        <translation>공유 링크를 만들 권한이 없습니다</translation>
     </message>
     <message>
         <source>Failed to get shared link: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>공유 링크 가져오기에 실패했습니다: %1</translation>
     </message>
     <message>
         <source>Failed to get upload link for file &quot;%1&quot;: </source>
-        <translation type="unfinished"></translation>
+        <translation>&quot;%1&quot; 파일 업로드 링크 가져오기에 실패했습니다:</translation>
     </message>
     <message>
         <source>Failed to get internal link: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>내부 링크 가져오기에 실패했습니다: %1</translation>
     </message>
 </context>
 <context>
@@ -1582,31 +1580,44 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     </message>
     <message>
         <source>Updates in read-only library %1 will not be uploaded.</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 읽기 전용 라이브러리로 업데이트를 업로드하지 않습니다.</translation>
     </message>
     <message>
         <source>Concurrent updates to file. File %1 is saved as conflict file</source>
-        <translation type="unfinished"></translation>
+        <translation>파일 업데이트가 둘 이상 있습니다. %1 파일을 동시 저장 파일로 저장했습니다.</translation>
     </message>
     <message>
         <source>Folder %1 is moved to seafile-recycle-bin folder since it contains not-yet uploaded files.</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 폴더에 업로드한 파일이 없어 seafile-recycle-bin 폴더로 이동했습니다.</translation>
     </message>
     <message>
         <source>Folder for library %1 is removed or moved. The library is unsynced.</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 라이브러리의 폴더를 제거하거나 이동했습니다. 라이브러리를 동기화하지 않았습니다.</translation>
     </message>
     <message>
         <source>Syncing is denied by cloud-only permission settings %1.</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 클라우드 전용 권한 설정이 동기화 동작을 막았습니다.</translation>
     </message>
     <message>
         <source>The file path %1 contains symbols that are not supported by the Windows system.</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 파일 경로에 윈도우 시스템에서 지원하지 않는 기호 문자가 들어있습니다.</translation>
     </message>
     <message>
         <source>Library is too large to sync.</source>
-        <translation type="unfinished"></translation>
+        <translation>라이브러리 용량이 동기화하기에 너무 큽니다.</translation>
+    </message>
+    <message>
+        <source>Waiting for confirmation to delete files</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Confirm to bulk delete files in library &quot;%1&quot; ?</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>
+(deleted &quot;%1&quot; and %2 more files.)</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -2196,67 +2207,71 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     </message>
     <message>
         <source>Created or updated a file in a non-writable library or folder</source>
-        <translation type="unfinished"></translation>
+        <translation>쓸 수 없는 라이브러리 또는 폴더에 파일을 만들거나 업로드했습니다</translation>
     </message>
     <message>
         <source>Permission denied on server</source>
-        <translation type="unfinished"></translation>
+        <translation>서버에서 권한을 거부했습니다</translation>
     </message>
     <message>
         <source>Concurrent updates to file. File is saved as conflict file</source>
-        <translation type="unfinished"></translation>
+        <translation>파일 업데이트가 둘 이상 있습니다. 파일을 동시 저장 파일로 저장했습니다.</translation>
     </message>
     <message>
         <source>A folder that may contain not-yet-uploaded files is moved to seafile-recycle-bin folder.</source>
-        <translation type="unfinished"></translation>
+        <translation>아직 업로드하지 않은 파일이 들어간 폴더를 seafile-recycle-bin 폴더로 옮겼습니다.</translation>
     </message>
     <message>
         <source>failed to open sync error id database</source>
-        <translation type="unfinished"></translation>
+        <translation>동기화 오류 ID 데이터베이스 열기에 실패했습니다</translation>
     </message>
     <message>
         <source>path or repo_id invalid.</source>
-        <translation type="unfinished"></translation>
+        <translation>경로 또는 저장소 ID가 부적절합니다.</translation>
     </message>
     <message>
         <source>no permissions to create an upload link</source>
-        <translation type="unfinished"></translation>
+        <translation>업로드 링크를 만들 권한이 없습니다</translation>
     </message>
     <message>
         <source>no permissions to create an internal link</source>
-        <translation type="unfinished"></translation>
+        <translation>내부 링크를 만들 권한이 없습니다</translation>
     </message>
     <message>
         <source>the file or folder or library could not be found.</source>
-        <translation type="unfinished"></translation>
+        <translation>파일, 폴더 또는 라이브러리를 찾을 수 없습니다.</translation>
     </message>
     <message>
         <source>internal Server Error</source>
-        <translation type="unfinished"></translation>
+        <translation>내부 서버 오류</translation>
     </message>
     <message>
         <source>unknown error</source>
-        <translation type="unfinished"></translation>
+        <translation>알 수 없는 오류</translation>
     </message>
     <message>
         <source>Syncing is denied by cloud-only permission settings</source>
-        <translation type="unfinished"></translation>
+        <translation>클라우드 전용 권한 설정이 동기화 동작을 막았습니다</translation>
     </message>
     <message>
         <source>The file path contains symbols that are not supported by the Windows system</source>
-        <translation type="unfinished"></translation>
+        <translation>파일 경로에 윈도우 시스템에서 지원하지 않는 기호 문자가 들어있습니다</translation>
     </message>
     <message>
         <source>Library is too large to sync.</source>
-        <translation type="unfinished"></translation>
+        <translation>라이브러리 용량이 동기화하기에 너무 큽니다.</translation>
     </message>
     <message>
         <source>no permissions to create a shared link</source>
-        <translation type="unfinished"></translation>
+        <translation>공유 링크를 만들 권한이 없습니다</translation>
     </message>
     <message>
         <source>no permissions to create a upload link</source>
-        <translation type="unfinished"></translation>
+        <translation>업로드 링크를 만들 권한이 없습니다</translation>
+    </message>
+    <message>
+        <source>Waiting for confirmation to delete files</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -2646,31 +2661,31 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     <name>SeafileExtensionHandler</name>
     <message>
         <source>Failed to get internal link: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>내부 링크 가져오기에 실패했습니다: %1</translation>
     </message>
     <message>
         <source>failed to get share link: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>공유 링크 가져오기에 실패했습니다: %1</translation>
     </message>
     <message>
         <source>Failed to lock file</source>
-        <translation type="unfinished"></translation>
+        <translation>파일 잠금에 실패했습니다</translation>
     </message>
     <message>
         <source>Failed to unlock file</source>
-        <translation type="unfinished"></translation>
+        <translation>파일 잠금 해제에 실패했습니다</translation>
     </message>
     <message>
         <source>Failed to get upload link: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>업로드 링크 가져오기에 실패했습니다: %1</translation>
     </message>
     <message>
         <source>File &quot;%1&quot; is locked by %2</source>
-        <translation type="unfinished"></translation>
+        <translation>%2 사용자가  &quot;%1&quot; 파일을 잠궜습니다</translation>
     </message>
     <message>
         <source>Failed to get lock information for file &quot;%1&quot;</source>
-        <translation type="unfinished"></translation>
+        <translation>&quot;%1&quot; 파일 잠금 정보 가져오기에 실패했습니다</translation>
     </message>
 </context>
 <context>
@@ -2693,7 +2708,7 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     </message>
     <message>
         <source>%1 Desktop Access Link:</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 데스크톱 접근 링크:</translation>
     </message>
 </context>
 <context>
@@ -2811,7 +2826,7 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     </message>
     <message>
         <source>have some sync error</source>
-        <translation type="unfinished"></translation>
+        <translation>동기화 과정에 일부 오류가 있습니다</translation>
     </message>
 </context>
 <context>
@@ -3010,10 +3025,6 @@ File path contains invalid characters. It is not synced to this computer.</sourc
         <translation>HTTPS 동기화시 서버 인증서 검증하지 않음</translation>
     </message>
     <message>
-        <source>Enable syncing with an existing folder with a different name</source>
-        <translation>다른 이름을 가진 기존 폴더와 동기화 활성화</translation>
-    </message>
-    <message>
         <source>Advanced</source>
         <translation>고급</translation>
     </message>
@@ -3067,7 +3078,11 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     </message>
     <message>
         <source>Hide Windows incompatibility paths Message</source>
-        <translation type="unfinished"></translation>
+        <translation>윈도우 비호환성 경로 메시지 숨김</translation>
+    </message>
+    <message>
+        <source>Confirm before bulk deleting files more than</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -3140,19 +3155,19 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     </message>
     <message>
         <source>Password(At least 8 characters)</source>
-        <translation type="unfinished"></translation>
+        <translation>암호(최소 8문자)</translation>
     </message>
     <message>
         <source>Show password</source>
-        <translation type="unfinished"></translation>
+        <translation>암호 표시</translation>
     </message>
     <message>
         <source>Expire days</source>
-        <translation type="unfinished"></translation>
+        <translation>유효 일수</translation>
     </message>
     <message>
         <source>Generate link</source>
-        <translation type="unfinished"></translation>
+        <translation>링크 만들기</translation>
     </message>
 </context>
 <context>
@@ -3262,11 +3277,11 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     <name>SyncErrorsTableView</name>
     <message>
         <source>Delete file sync error failed</source>
-        <translation type="unfinished"></translation>
+        <translation>동기화 오류 파일 삭제에 실패했습니다</translation>
     </message>
     <message>
         <source>delete</source>
-        <translation type="unfinished"></translation>
+        <translation>삭제</translation>
     </message>
 </context>
 <context>
@@ -3339,19 +3354,19 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     <name>UploadLinkDialog</name>
     <message>
         <source>Upload Link</source>
-        <translation type="unfinished"></translation>
+        <translation>업로드 링크</translation>
     </message>
     <message>
         <source>Upload link:</source>
-        <translation type="unfinished"></translation>
+        <translation>업로드 링크:</translation>
     </message>
     <message>
         <source>Copy to clipboard</source>
-        <translation type="unfinished">클립보드로 복사</translation>
+        <translation>클립보드로 복사</translation>
     </message>
     <message>
         <source>OK</source>
-        <translation type="unfinished">확인</translation>
+        <translation>확인</translation>
     </message>
 </context>
 </TS>

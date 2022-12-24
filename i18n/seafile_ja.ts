@@ -1,6 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE TS>
-<TS version="2.1" language="ja">
+<?xml version="1.0" ?><!DOCTYPE TS><TS version="2.1" language="ja">
 <context>
     <name>AboutDialog</name>
     <message>
@@ -992,7 +990,7 @@ failed to upload.</source>
     </message>
     <message>
         <source>The uploaded file exceeds the size limit</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -1131,19 +1129,19 @@ failed to upload.</source>
     </message>
     <message>
         <source>No permissions to create a shared link</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Failed to get shared link: %1</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Failed to get upload link for file &quot;%1&quot;: </source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Failed to get internal link: %1</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -1596,15 +1594,28 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     </message>
     <message>
         <source>Syncing is denied by cloud-only permission settings %1.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>The file path %1 contains symbols that are not supported by the Windows system.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Library is too large to sync.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Waiting for confirmation to delete files</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Confirm to bulk delete files in library &quot;%1&quot; ?</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>
+(deleted &quot;%1&quot; and %2 more files.)</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -2214,47 +2225,51 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     </message>
     <message>
         <source>path or repo_id invalid.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>no permissions to create an upload link</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>no permissions to create an internal link</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>the file or folder or library could not be found.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>internal Server Error</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>unknown error</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Syncing is denied by cloud-only permission settings</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>The file path contains symbols that are not supported by the Windows system</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Library is too large to sync.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>no permissions to create a shared link</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>no permissions to create a upload link</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Waiting for confirmation to delete files</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -2644,31 +2659,31 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     <name>SeafileExtensionHandler</name>
     <message>
         <source>Failed to get internal link: %1</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>failed to get share link: %1</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Failed to lock file</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Failed to unlock file</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Failed to get upload link: %1</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>File &quot;%1&quot; is locked by %2</source>
-        <translation type="unfinished">ファイル &quot;％1&quot;は％2によってロックされています</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Failed to get lock information for file &quot;%1&quot;</source>
-        <translation type="unfinished">ファイル “%1” のロック情報を取得できませんでした</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -3007,10 +3022,6 @@ File path contains invalid characters. It is not synced to this computer.</sourc
         <translation>HTTPS同期でサーバー証明書を検証しない</translation>
     </message>
     <message>
-        <source>Enable syncing with an existing folder with a different name</source>
-        <translation>別の名前の既存のフォルダーとの同期を有効にする</translation>
-    </message>
-    <message>
         <source>Advanced</source>
         <translation>詳細</translation>
     </message>
@@ -3064,7 +3075,11 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     </message>
     <message>
         <source>Hide Windows incompatibility paths Message</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Confirm before bulk deleting files more than</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -3137,19 +3152,19 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     </message>
     <message>
         <source>Password(At least 8 characters)</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Show password</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Expire days</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Generate link</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -3336,19 +3351,19 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     <name>UploadLinkDialog</name>
     <message>
         <source>Upload Link</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Upload link:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Copy to clipboard</source>
-        <translation type="unfinished">クリップボードにコピー</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>OK</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 </TS>

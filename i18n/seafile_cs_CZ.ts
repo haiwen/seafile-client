@@ -1,6 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE TS>
-<TS version="2.1" language="cs_CZ">
+<?xml version="1.0" ?><!DOCTYPE TS><TS version="2.1" language="cs_CZ">
 <context>
     <name>AboutDialog</name>
     <message>
@@ -1132,19 +1130,19 @@ Prosím %1</translation>
     </message>
     <message>
         <source>No permissions to create a shared link</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Failed to get shared link: %1</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Failed to get upload link for file &quot;%1&quot;: </source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Failed to get internal link: %1</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -1599,7 +1597,7 @@ Cesta k souboru obsahuje nepovolený znak. Není synchronizovaný do tohoto poč
     </message>
     <message>
         <source>Syncing is denied by cloud-only permission settings %1.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>The file path %1 contains symbols that are not supported by the Windows system.</source>
@@ -1608,6 +1606,19 @@ Cesta k souboru obsahuje nepovolený znak. Není synchronizovaný do tohoto poč
     <message>
         <source>Library is too large to sync.</source>
         <translation>Knihovna je příliš velká na to, aby šla synchronizovat.</translation>
+    </message>
+    <message>
+        <source>Waiting for confirmation to delete files</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Confirm to bulk delete files in library &quot;%1&quot; ?</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>
+(deleted &quot;%1&quot; and %2 more files.)</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -2217,31 +2228,31 @@ Cesta k souboru obsahuje nepovolený znak. Není synchronizovaný do tohoto poč
     </message>
     <message>
         <source>path or repo_id invalid.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>no permissions to create an upload link</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>no permissions to create an internal link</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>the file or folder or library could not be found.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>internal Server Error</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>unknown error</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Syncing is denied by cloud-only permission settings</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>The file path contains symbols that are not supported by the Windows system</source>
@@ -2253,11 +2264,15 @@ Cesta k souboru obsahuje nepovolený znak. Není synchronizovaný do tohoto poč
     </message>
     <message>
         <source>no permissions to create a shared link</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>no permissions to create a upload link</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Waiting for confirmation to delete files</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -2647,31 +2662,31 @@ Cesta k souboru obsahuje nepovolený znak. Není synchronizovaný do tohoto poč
     <name>SeafileExtensionHandler</name>
     <message>
         <source>Failed to get internal link: %1</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>failed to get share link: %1</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Failed to lock file</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Failed to unlock file</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Failed to get upload link: %1</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>File &quot;%1&quot; is locked by %2</source>
-        <translation type="unfinished">Soubor &quot;%1&quot; je uzamčen od %2</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Failed to get lock information for file &quot;%1&quot;</source>
-        <translation type="unfinished">Nepodařilo se získat informace uzamčení souboru &quot;%1&quot;</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -3010,10 +3025,6 @@ Cesta k souboru obsahuje nepovolený znak. Není synchronizovaný do tohoto poč
         <translation>Neověřovat certifikát při HTTPS synchronizaci</translation>
     </message>
     <message>
-        <source>Enable syncing with an existing folder with a different name</source>
-        <translation>Povolit synchronizaci s existujícím adresářem pod jiným názvem</translation>
-    </message>
-    <message>
         <source>Advanced</source>
         <translation>Rozšířené</translation>
     </message>
@@ -3068,6 +3079,10 @@ Cesta k souboru obsahuje nepovolený znak. Není synchronizovaný do tohoto poč
     <message>
         <source>Hide Windows incompatibility paths Message</source>
         <translation>Skrýt hlášení o popisech umístění, nekompatibilních s Windows</translation>
+    </message>
+    <message>
+        <source>Confirm before bulk deleting files more than</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>

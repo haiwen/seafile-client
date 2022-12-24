@@ -1578,6 +1578,19 @@ File path contains invalid characters. It is not synced to this computer.</sourc
         <source>Library is too large to sync.</source>
         <translation type="unfinished"/>
     </message>
+    <message>
+        <source>Waiting for confirmation to delete files</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Confirm to bulk delete files in library &quot;%1&quot; ?</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>
+(deleted &quot;%1&quot; and %2 more files.)</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>PrivateShareDialog</name>
@@ -2226,6 +2239,10 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     </message>
     <message>
         <source>no permissions to create a upload link</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Waiting for confirmation to delete files</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -2977,10 +2994,6 @@ File path contains invalid characters. It is not synced to this computer.</sourc
         <translation type="unfinished"/>
     </message>
     <message>
-        <source>Enable syncing with an existing folder with a different name</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
         <source>Advanced</source>
         <translation type="unfinished"/>
     </message>
@@ -3034,6 +3047,10 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     </message>
     <message>
         <source>Hide Windows incompatibility paths Message</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Confirm before bulk deleting files more than</source>
         <translation type="unfinished"/>
     </message>
 </context>

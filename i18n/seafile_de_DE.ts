@@ -1,6 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE TS>
-<TS version="2.1" language="de_DE">
+<?xml version="1.0" ?><!DOCTYPE TS><TS version="2.1" language="de_DE">
 <context>
     <name>AboutDialog</name>
     <message>
@@ -1130,19 +1128,19 @@ Bitte %1</translation>
     </message>
     <message>
         <source>No permissions to create a shared link</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Failed to get shared link: %1</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Failed to get upload link for file &quot;%1&quot;: </source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Failed to get internal link: %1</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -1596,7 +1594,7 @@ Die Ordnerstruktur enthält ungültige Zeichen. Synchronisieren mit diesem Compu
     </message>
     <message>
         <source>Syncing is denied by cloud-only permission settings %1.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>The file path %1 contains symbols that are not supported by the Windows system.</source>
@@ -1605,6 +1603,19 @@ Die Ordnerstruktur enthält ungültige Zeichen. Synchronisieren mit diesem Compu
     <message>
         <source>Library is too large to sync.</source>
         <translation>Die Bibliothek ist für die Synchronisation zu groß.</translation>
+    </message>
+    <message>
+        <source>Waiting for confirmation to delete files</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Confirm to bulk delete files in library &quot;%1&quot; ?</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>
+(deleted &quot;%1&quot; and %2 more files.)</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -2214,31 +2225,31 @@ Die Ordnerstruktur enthält ungültige Zeichen. Synchronisieren mit diesem Compu
     </message>
     <message>
         <source>path or repo_id invalid.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>no permissions to create an upload link</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>no permissions to create an internal link</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>the file or folder or library could not be found.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>internal Server Error</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>unknown error</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Syncing is denied by cloud-only permission settings</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>The file path contains symbols that are not supported by the Windows system</source>
@@ -2250,11 +2261,15 @@ Die Ordnerstruktur enthält ungültige Zeichen. Synchronisieren mit diesem Compu
     </message>
     <message>
         <source>no permissions to create a shared link</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>no permissions to create a upload link</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Waiting for confirmation to delete files</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -2644,31 +2659,31 @@ Die Ordnerstruktur enthält ungültige Zeichen. Synchronisieren mit diesem Compu
     <name>SeafileExtensionHandler</name>
     <message>
         <source>Failed to get internal link: %1</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>failed to get share link: %1</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Failed to lock file</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Failed to unlock file</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Failed to get upload link: %1</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>File &quot;%1&quot; is locked by %2</source>
-        <translation type="unfinished">Die Datei „%1“ ist von %2 gesperrt</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Failed to get lock information for file &quot;%1&quot;</source>
-        <translation type="unfinished">Datei „%1“ ist gesperrt. Nähere Informationen konnten nicht abgerufen werden.</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -3007,10 +3022,6 @@ Die Ordnerstruktur enthält ungültige Zeichen. Synchronisieren mit diesem Compu
         <translation>Server-Zertifikat bei https-Synchronisierung nicht überprüfen</translation>
     </message>
     <message>
-        <source>Enable syncing with an existing folder with a different name</source>
-        <translation>Synchronisieren von Ordnern mit unterschiedlichen Namen ermöglichen</translation>
-    </message>
-    <message>
         <source>Advanced</source>
         <translation>Erweitert</translation>
     </message>
@@ -3065,6 +3076,10 @@ Die Ordnerstruktur enthält ungültige Zeichen. Synchronisieren mit diesem Compu
     <message>
         <source>Hide Windows incompatibility paths Message</source>
         <translation>Hinweis auf nicht kompatible Windows-Pfade ausblenden</translation>
+    </message>
+    <message>
+        <source>Confirm before bulk deleting files more than</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>

@@ -1589,8 +1589,7 @@ File path contains invalid characters. It is not synced to this computer.</sourc
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>
-(deleted &quot;%1&quot; and %2 more files.)</source>
+        <source>Deleted &quot;%1&quot; and %2 more files.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2626,6 +2625,10 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     </message>
     <message>
         <source>failed to read %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Settings</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

@@ -1614,8 +1614,7 @@ La ruta al archivo contiene caracteres invalidos. No se sincroniza a esta comput
         <translation type="unfinished"/>
     </message>
     <message>
-        <source>
-(deleted &quot;%1&quot; and %2 more files.)</source>
+        <source>Deleted &quot;%1&quot; and %2 more files.</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -2654,6 +2653,10 @@ La ruta al archivo contiene caracteres invalidos. No se sincroniza a esta comput
     <message>
         <source>failed to read %1</source>
         <translation>fallo al leer %1</translation>
+    </message>
+    <message>
+        <source>Settings</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>

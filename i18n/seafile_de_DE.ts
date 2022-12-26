@@ -1613,8 +1613,7 @@ Die Ordnerstruktur enthält ungültige Zeichen. Synchronisieren mit diesem Compu
         <translation type="unfinished"/>
     </message>
     <message>
-        <source>
-(deleted &quot;%1&quot; and %2 more files.)</source>
+        <source>Deleted &quot;%1&quot; and %2 more files.</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -2653,6 +2652,10 @@ Die Ordnerstruktur enthält ungültige Zeichen. Synchronisieren mit diesem Compu
     <message>
         <source>failed to read %1</source>
         <translation>Fehler beim Lesen von %1</translation>
+    </message>
+    <message>
+        <source>Settings</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>

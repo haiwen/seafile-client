@@ -1613,8 +1613,7 @@ Le nom de fichier contient des caractères invalides. Il n&apos;est pas synchron
         <translation type="unfinished"/>
     </message>
     <message>
-        <source>
-(deleted &quot;%1&quot; and %2 more files.)</source>
+        <source>Deleted &quot;%1&quot; and %2 more files.</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -2653,6 +2652,10 @@ Le nom de fichier contient des caractères invalides. Il n&apos;est pas synchron
     <message>
         <source>failed to read %1</source>
         <translation>Impossible de lire %1</translation>
+    </message>
+    <message>
+        <source>Settings</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>

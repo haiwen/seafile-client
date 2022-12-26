@@ -1602,13 +1602,11 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     </message>
     <message>
         <source>Confirm to bulk delete files in library &quot;%1&quot; ?</source>
-        <translation>确认删除 “ %1 ” 资料库中的文件？</translation>
+        <translation>确认删除 “%1” 资料库中的文件？</translation>
     </message>
     <message>
-        <source>
-(deleted &quot;%1&quot; and %2 more files.)</source>
-        <translation>
-（删除了 “ %1 ” 以及其它 %2 个文件）</translation>
+        <source>Deleted &quot;%1&quot; and %2 more files.</source>
+        <translation>删除了 “%1” 以及其它 %2 个文件</translation>
     </message>
 </context>
 <context>
@@ -2644,6 +2642,10 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     <message>
         <source>failed to read %1</source>
         <translation>读取文件 %1 失败</translation>
+    </message>
+    <message>
+        <source>Settings</source>
+        <translation>设置</translation>
     </message>
 </context>
 <context>

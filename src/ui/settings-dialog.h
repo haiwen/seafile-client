@@ -11,6 +11,7 @@ class SettingsDialog : public QDialog,
     Q_OBJECT
 public:
     SettingsDialog(QWidget *parent=0);
+    void setCurrentTab(int index);
 
 private slots:
 

@@ -585,7 +585,6 @@ bool SeafileApplet::yesOrCancelBox(const QString& msg, QWidget *parent, bool def
     return box.clickedButton() == yes_btn;
 }
 
-
 QMessageBox::StandardButton
 SeafileApplet::yesNoCancelBox(const QString& msg, QWidget *parent, QMessageBox::StandardButton default_btn)
 {
@@ -626,6 +625,41 @@ bool SeafileApplet::detailedYesOrNoBox(const QString& msg, const QString& detail
     layout->addItem(horizontalSpacer, layout->rowCount(), 0, 1, layout->columnCount());
     msgBox.setDefaultButton(default_val ? QMessageBox::Yes : QMessageBox::No);
     return msgBox.exec() == QMessageBox::Yes;
+}
+
+bool SeafileApplet::bulkDeletingMessageBox(const QString& text, const QString& info)
+{
+    QMessageBox box(main_win_);
+
+    box.setText(text);
+    box.setInformativeText(info);
+    box.setIcon(QMessageBox::Question);
+
+    // Disable the close button
+    box.setWindowFlags((box.windowFlags() & ~Qt::WindowCloseButtonHint) | Qt::CustomizeWindowHint);
+
+    auto yesButton = box.addButton(tr("Yes"), QMessageBox::YesRole);
+    auto noButton = box.addButton(tr("No"), QMessageBox::NoRole);
+    auto settingsButton = box.addButton(tr("Settings"), QMessageBox::NoRole);
+    box.setDefaultButton(noButton);
+
+    box.exec();
+
+    if (box.clickedButton() == yesButton) {
+        return true;
+    } else if (box.clickedButton() == noButton) {
+        return false;
+    } else if (box.clickedButton() == settingsButton) {
+        settings_dialog_->setCurrentTab(1);
+
+        settings_dialog_->show();
+        settings_dialog_->raise();
+        settings_dialog_->activateWindow();
+
+        return false;
+    }
+
+    return false;
 }
 
 /**

@@ -66,6 +66,11 @@ SettingsDialog::SettingsDialog(QWidget *parent) : QDialog(parent)
     connect(mOkBtn, SIGNAL(clicked()), this, SLOT(onOkBtnClicked()));
 }
 
+void SettingsDialog::setCurrentTab(int index)
+{
+    mTabWidget->setCurrentIndex(index);
+}
+
 void SettingsDialog::updateSettings()
 {
     SettingsManager *mgr = seafApplet->settingsManager();

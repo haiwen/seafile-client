@@ -145,8 +145,10 @@ bool isWindows10OrHigher()
 
 typedef HRESULT (WINAPI *GetDpiForMonitor)(HMONITOR,int,UINT *,UINT *);
 typedef BOOL (WINAPI *SetProcessDPIAware)();
+typedef BOOL (WINAPI *EnumDisplayMonitors)(HDC, LPCRECT, MONITORENUMPROC, LPARAM);
 GetDpiForMonitor getDpiForMonitor;
 SetProcessDPIAware setProcessDPIAware;
+EnumDisplayMonitors enumDisplayMonitors;
 typedef QPair<qreal, qreal> QDpi;
 
 static inline QDpi monitorDPI(HMONITOR hMonitor)
@@ -202,7 +204,7 @@ bool monitorEnumCallback(HMONITOR hMonitor, HDC hdc, LPRECT rect, LPARAM p)
 
 static bool readDPI(QDpi *dpi)
 {
-    EnumDisplayMonitors(0, 0, (MONITORENUMPROC)monitorEnumCallback, (LPARAM)dpi);
+    enumDisplayMonitors(0, 0, (MONITORENUMPROC)monitorEnumCallback, (LPARAM)dpi);
     return dpi->first != 0;
 }
 
@@ -249,6 +251,11 @@ bool fixQtHDPINonIntegerScaling()
 
     // Turn off system scaling, otherwise we'll always see a 96 DPI virtual screen.
     if (!setProcessDPIAware()) {
+        return false;
+    }
+
+    enumDisplayMonitors = (EnumDisplayMonitors)user32_dll.resolve("EnumDisplayMonitors");
+    if (enumDisplayMonitors == nullptr) {
         return false;
     }
 

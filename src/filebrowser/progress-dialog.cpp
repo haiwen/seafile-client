@@ -196,8 +196,8 @@ void FileBrowserProgressDialog::onQueryUpdate()
     progress_request_ = new GetIndexProgressRequest(progress_url_, progerss_id_);
     connect(progress_request_, SIGNAL(success(const ServerIndexProgress&)),
             this, SLOT(onQuerySuccess(const ServerIndexProgress&)));
-    connect(progress_request_, SIGNAL(failed(const ApiError& error)),
-            this, SLOT(onQueryFailed(const ApiError& error)));
+    connect(progress_request_, SIGNAL(failed(const ApiError&)),
+            this, SLOT(onQueryFailed(const ApiError&)));
 
     progress_request_->send();
 }

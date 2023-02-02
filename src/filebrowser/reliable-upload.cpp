@@ -199,22 +199,14 @@ void ReliablePostFileTask::createPostFileTask()
                                      relative_path_,
                                      total_size_));
     } else {
-        QUrl url = url_;
         if (useResumableUpload()) {
             current_chunk_size_ =
                 qMin((quint64)kUploadChunkSize, total_size_ - current_offset_);
-            // This is a quick fix when the server hasn't implemented chunking
-            // support in /upload/api/ endpoint yet.
-            url = QUrl(url_.toString(QUrl::PrettyDecoded).replace("/upload-api/", "/upload-aj/"));
-            // printf ("old url: %s\n", url_.toEncoded().data());
-            // printf ("new url: %s\n", url.toEncoded().data());
-            need_idx_progress_ = true;
-        } else {
-            need_idx_progress_ = false;
         }
+
         // For emulating upload errors
-        // url = QUrl(url_.toString(QUrl::PrettyDecoded).replace("1", "x").replace("2", "x"));
-        task_.reset(new PostFileTask(url,
+        // QUrl url = QUrl(url_.toString(QUrl::PrettyDecoded).replace("1", "x").replace("2", "x"));
+        task_.reset(new PostFileTask(url_,
                                      parent_dir_,
                                      local_path_,
                                      file_,
@@ -222,8 +214,7 @@ void ReliablePostFileTask::createPostFileTask()
                                      use_upload_,
                                      total_size_,
                                      current_offset_,
-                                     current_chunk_size_,
-                                     need_idx_progress_));
+                                     current_chunk_size_));
     }
     setupSignals();
     // printThread("reliable task is in thread");
@@ -338,8 +329,7 @@ PostFileTask::PostFileTask(const QUrl& url,
                            const bool use_upload,
                            quint64 total_size,
                            quint64 start_offset,
-                           quint32 chunk_size,
-                           const bool need_idx_progress)
+                           quint32 chunk_size)
     : FileServerTask(url, local_path),
       parent_dir_(parent_dir),
       file_(file),
@@ -347,8 +337,7 @@ PostFileTask::PostFileTask(const QUrl& url,
       use_upload_(use_upload),
       total_size_(total_size),
       start_offset_(start_offset),
-      chunk_size_(chunk_size),
-      need_idx_progress_(need_idx_progress)
+      chunk_size_(chunk_size)
 {
 }
 
@@ -367,8 +356,7 @@ PostFileTask::PostFileTask(const QUrl& url,
       relative_path_(relative_path),
       total_size_(total_size),
       start_offset_(0),
-      chunk_size_(-1),
-      need_idx_progress_(false)
+      chunk_size_(-1)
 {
 }
 
@@ -443,11 +431,6 @@ void PostFileTask::sendRequest()
         file_part.setBodyDevice(file_);
     }
     multipart->append(file_part);
-
-    // "need_idx_progress" param
-    if (need_idx_progress_) {
-        url_ = ::includeQueryParams(url_, {{"need_idx_progress", "true"}});
-    }
 
     QNetworkRequest request(url_);
     request.setRawHeader("Content-Type",

@@ -478,20 +478,6 @@ struct ServerIndexProgress {
     qint64 status;
 };
 
-class GetIndexProgressRequest : public SeafileApiRequest {
-    Q_OBJECT
-public:
-    GetIndexProgressRequest(const QUrl &url, const QString &task_id);
-signals:
-    void success(const ServerIndexProgress& result);
-
-protected slots:
-    void requestSuccess(QNetworkReply& reply);
-
-private:
-    Q_DISABLE_COPY(GetIndexProgressRequest);
-};
-
 class GetSmartLinkRequest : public SeafileApiRequest
 {
     Q_OBJECT

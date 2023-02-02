@@ -644,33 +644,6 @@ void GetFileUploadedBytesRequest::requestSuccess(QNetworkReply &reply)
     emit success(true, uploaded_bytes);
 }
 
-GetIndexProgressRequest::GetIndexProgressRequest(const QUrl &url, const QString &task_id)
-    : SeafileApiRequest(url, SeafileApiRequest::METHOD_GET)
-{
-    setUrlParam("task_id", task_id);
-}
-
-void GetIndexProgressRequest::requestSuccess(QNetworkReply& reply)
-{
-    json_error_t error;
-    json_t *root = parseJSON(reply, &error);
-    if (!root) {
-        qWarning("GetIndexProgressRequest: failed to parse json:%s\n", error.text);
-        emit failed(ApiError::fromJsonError());
-        return;
-    }
-
-    QScopedPointer<json_t, JsonPointerCustomDeleter> json(root);
-
-    QMap<QString, QVariant> dict = mapFromJSON(json.data(), &error);
-    ServerIndexProgress result;
-
-    result.total = dict.value("total").toInt();
-    result.indexed = dict.value("indexed").toInt();
-    result.status = dict.value("status").toInt();
-    emit success(result);
-}
-
 GetSmartLinkRequest::GetSmartLinkRequest(const Account& account,
                                          const QString &repo_id,
                                          const QString &path,

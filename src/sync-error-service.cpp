@@ -51,6 +51,7 @@ void LastSyncError::start()
           "     PRIMARY KEY (accountsig))";
     sqlite_query_exec (db, sql);
 
+    // RepoSyncError table records special type errors, which will be persistent displayed on the RepoTreeView.
     sql = "CREATE TABLE IF NOT EXISTS RepoSyncError ("
           "    accountsig text NOT NULL,"
           "    repoid text NOT NULL,"

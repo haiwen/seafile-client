@@ -23,6 +23,7 @@ class LocalRepo;
 class ApiError;
 class CloneTasksDialog;
 class FileUploadTask;
+class SyncErrorsDialog;
 
 class RepoTreeView : public QTreeView {
     Q_OBJECT
@@ -72,6 +73,8 @@ private slots:
     void saveExpandedCategries();
     void resyncRepo();
     void setRepoSyncInterval();
+    void viewRepoSyncErrors();
+    void discardRepoSyncErrors();
 
     void checkRootPermDone();
     void uploadFileStart(FileUploadTask *task);
@@ -121,11 +124,15 @@ private:
     QAction *cancel_download_action_;
     QAction *resync_action_;
     QAction *set_sync_interval_action_;
+    QAction *view_repo_sync_errors_action_;
+    QAction *discard_repo_sync_errors_action_;
 
     QSet<QString> expanded_categroies_;
 
     QModelIndex current_drop_target_;
     QModelIndex previous_drop_target_;
+
+    SyncErrorsDialog *sync_errors_dialog_;
 };
 
 #endif // SEAFILE_CLIENT_REPO_TREE_VIEW_H

@@ -12,6 +12,7 @@
 #include "rpc/rpc-client.h"
 #include "rpc/sync-error.h"
 #include "ui/tray-icon.h"
+#include "sync-error-service.h"
 
 #include "message-poller.h"
 #if defined(_MSC_VER)
@@ -139,6 +140,18 @@ void MessagePoller::processNotification(const SyncNotification& notification)
         QString title = QString::fromUtf8(json_string_value(json_object_get(object, "repo_name")));
         QString path = QString::fromUtf8(json_string_value(json_object_get(object, "path")));
         int err_id = json_integer_value(json_object_get(object, "err_id"));
+
+        switch (err_id) {
+        case SYNC_ERROR_ID_PATH_END_SPACE_PERIOD:
+        case SYNC_ERROR_ID_PATH_INVALID_CHARACTER:
+        case SYNC_ERROR_ID_REMOVE_UNCOMMITTED_FOLDER:
+#if !defined(Q_OS_WIN32)
+        case SYNC_ERROR_ID_INVALID_PATH_ON_WINDOWS:
+#endif
+            LastSyncError::instance()->flagRepoSyncError(repo_id, err_id);
+            break;
+        }
+
         QString msg;
         switch (err_id) {
         case SYNC_ERROR_ID_FILE_LOCKED_BY_APP:

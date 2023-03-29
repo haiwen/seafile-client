@@ -51,6 +51,14 @@ void LastSyncError::start()
           "     PRIMARY KEY (accountsig))";
     sqlite_query_exec (db, sql);
 
+    sql = "CREATE TABLE IF NOT EXISTS RepoSyncError ("
+          "    accountsig text NOT NULL,"
+          "    repoid text NOT NULL,"
+          "    errid integer NOT NULL,"
+          "    PRIMARY KEY (accountsig, repoid)"
+          ")";
+    sqlite_query_exec (db, sql);
+
     db_ = db;
 }
 
@@ -89,3 +97,48 @@ int LastSyncError::getLastSyncErrorID() {
     return 0;
 }
 
+bool LastSyncError::collectRepoSyncError(sqlite3_stmt *stmt, void *data)
+{
+    RepoSyncError *repo_sync_error = static_cast<RepoSyncError *>(data);
+    repo_sync_error->account_sig = reinterpret_cast<const char *>(sqlite3_column_text(stmt, 0));
+    repo_sync_error->repo_id = reinterpret_cast<const char *>(sqlite3_column_text(stmt, 1));
+    repo_sync_error->err_id = sqlite3_column_int(stmt, 2);
+    return true;
+}
+
+int LastSyncError::getRepoSyncError(const QString repo_id)
+{
+    QString account_sig = seafApplet->accountManager()->currentAccount().getSignature();
+    char *sql = sqlite3_mprintf("SELECT * FROM RepoSyncError WHERE accountsig = %Q AND repoid = %Q",
+                                toCStr(account_sig), toCStr(repo_id));
+
+    RepoSyncError repo_sync_error;
+    int n = sqlite_foreach_selected_row(db_, sql, collectRepoSyncError, &repo_sync_error);
+    sqlite3_free(sql);
+
+    if (n == 0) {
+        return -1;
+    }
+
+    return repo_sync_error.err_id;
+}
+
+void LastSyncError::flagRepoSyncError(const QString repo_id, int err_id)
+{
+    QString account_sig = seafApplet->accountManager()->currentAccount().getSignature();
+    char *sql = sqlite3_mprintf("REPLACE INTO RepoSyncError (accountsig, repoid, errid) VALUES (%Q, %Q, %d)",
+                                toCStr(account_sig), toCStr(repo_id), err_id);
+
+    sqlite_query_exec(db_, sql);
+    sqlite3_free(sql);
+}
+
+void LastSyncError::cleanRepoSyncError(const QString repo_id)
+{
+    QString account_sig = seafApplet->accountManager()->currentAccount().getSignature();
+    char *sql = sqlite3_mprintf("DELETE FROM RepoSyncError WHERE accountsig = %Q AND repoid = %Q",
+                                toCStr(account_sig), toCStr(repo_id));
+
+    sqlite_query_exec(db_, sql);
+    sqlite3_free(sql);
+}

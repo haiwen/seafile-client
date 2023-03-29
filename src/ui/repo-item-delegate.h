@@ -45,7 +45,7 @@ private:
     QSize sizeHintForRepoItem(const QStyleOptionViewItem &option,
                               const RepoItem *item) const;
 
-    QIcon getSyncStatusIcon(const RepoItem *item) const;
+    QIcon getSyncStatusIcon(const RepoItem *item, int err_id) const;
 
     mutable QHash<QString, QString> last_icon_map_;
 };

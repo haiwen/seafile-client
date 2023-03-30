@@ -17,6 +17,8 @@
 #include "account-mgr.h"
 #include "repo-service.h"
 #include "QtAwesome.h"
+#include "sync-error-service.h"
+#include "utils/seafile-error.cpp"
 
 #include "repo-item-delegate.h"
 
@@ -222,8 +224,7 @@ void RepoItemDelegate::paintRepoItem(QPainter *painter,
     repo_icon_pos += option.rect.topLeft();
 
     // get the device pixel radio from current painter device
-    int scale_factor = 1;
-    scale_factor = painter->device()->devicePixelRatio();
+    int scale_factor = painter->device()->devicePixelRatio();
     QPixmap repo_icon = repo.getIcon().pixmap(QSize(kRepoIconWidthAlpha, kRepoIconHeightAlpha));
 
     QRect repo_icon_rect(repo_icon_pos, QSize(kRepoIconWidthAlpha, kRepoIconHeightAlpha));
@@ -258,6 +259,7 @@ void RepoItemDelegate::paintRepoItem(QPainter *painter,
     // Paint repo description
     QString description;
     const LocalRepo& r = item->localRepo();
+    int repo_err_id = LastSyncError::instance()->getRepoSyncError(r.id);
     if (r.isValid()) {
         if (r.sync_state == LocalRepo::SYNC_STATE_ING) {
             description = r.sync_state_str;
@@ -269,6 +271,8 @@ void RepoItemDelegate::paintRepoItem(QPainter *painter,
             }
         } else if (r.sync_state == LocalRepo::SYNC_STATE_ERROR) {
             description = r.getErrorString();
+        } else if (r.sync_state == LocalRepo::SYNC_STATE_DONE && repo_err_id >= 0) {
+            description = translateSyncErrorCode(repo_err_id);
         }
     } else {
         const CloneTask& task = item->cloneTask();
@@ -334,7 +338,7 @@ void RepoItemDelegate::paintRepoItem(QPainter *painter,
     status_icon_pos.setY(option.rect.center().y() - (kRepoStatusIconHeightAlpha / 2));
     QRect status_icon_rect(status_icon_pos, QSize(kRepoStatusIconWidthAlpha, kRepoStatusIconHeightAlpha));
 
-    QPixmap status_icon_pixmap = getSyncStatusIcon(item).pixmap(status_icon_rect.size());
+    QPixmap status_icon_pixmap = getSyncStatusIcon(item, repo_err_id).pixmap(status_icon_rect.size());
 
     painter->save();
     painter->drawPixmap(status_icon_rect, status_icon_pixmap);
@@ -388,8 +392,7 @@ void RepoItemDelegate::paintRepoCategoryItem(QPainter *painter,
                                 kRepoCategoryVerticalMargin + vertical_padding_between_indicator_and_name),
                          QSize(kRepoCategoryIndicatorWidth, kRepoCategoryIndicatorHeight));
     // get the device pixel radio from current painter device
-    int scale_factor = 1;
-    scale_factor = painter->device()->devicePixelRatio();
+    int scale_factor = painter->device()->devicePixelRatio();
 
     QIcon icon(expanded ? awesome->icon(icon_caret_down, kRepoCategoryIndicatorColor)
                         : awesome->icon(icon_caret_right, kRepoCategoryIndicatorColor));
@@ -449,7 +452,7 @@ void RepoItemDelegate::paintRepoCategoryItem(QPainter *painter,
     painter->restore();
 }
 
-QIcon RepoItemDelegate::getSyncStatusIcon(const RepoItem *item) const
+QIcon RepoItemDelegate::getSyncStatusIcon(const RepoItem *item, int err_id) const
 {
     const QString prefix = ":/images/sync/";
     const LocalRepo& repo = item->localRepo();
@@ -458,6 +461,8 @@ QIcon RepoItemDelegate::getSyncStatusIcon(const RepoItem *item) const
         icon = "cloud-unsynced";
     } else if (!seafApplet->settingsManager()->autoSync()) {
         icon = "pause";
+    } else if (repo.sync_state == LocalRepo::SYNC_STATE_DONE && err_id >= 0) {
+        icon = "exclamation";
     } else {
         switch (repo.sync_state) {
         case LocalRepo::SYNC_STATE_DONE:
@@ -545,4 +550,3 @@ void RepoItemDelegate::showRepoItemToolTip(const RepoItem *item,
         }
     }
 }
-

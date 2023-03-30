@@ -24,6 +24,8 @@
 #include "utils/paint-utils.h"
 #include "repo-service.h"
 #include "auto-login-service.h"
+#include "sync-error-service.h"
+#include "sync-errors-dialog.h"
 
 #include "filebrowser/file-browser-manager.h"
 #include "filebrowser/file-browser-dialog.h"
@@ -83,7 +85,8 @@ static ServerRepo selected_repo_;
 // TODO save localrepo as well to avoid many copys
 
 RepoTreeView::RepoTreeView(QWidget *parent)
-    : QTreeView(parent)
+    : QTreeView(parent),
+      sync_errors_dialog_(nullptr)
 {
     header()->hide();
     createActions();
@@ -204,6 +207,9 @@ QMenu* RepoTreeView::prepareContextMenu(const RepoItem *item)
     if (item->localRepo().isValid()) {
         menu->addAction(unsync_action_);
         menu->addAction(resync_action_);
+
+        menu->addAction(view_repo_sync_errors_action_);
+        menu->addAction(discard_repo_sync_errors_action_);
     }
 
     return menu;
@@ -238,6 +244,8 @@ void RepoTreeView::updateRepoActions()
         view_on_web_action_->setEnabled(false);
         open_in_filebrowser_action_->setEnabled(false);
         show_detail_action_->setEnabled(false);
+        view_repo_sync_errors_action_->setVisible(false);
+        discard_repo_sync_errors_action_->setVisible(false);
         return;
     }
 
@@ -266,6 +274,18 @@ void RepoTreeView::updateRepoActions()
 
         set_sync_interval_action_->setData(QVariant::fromValue(local_repo));
         set_sync_interval_action_->setEnabled(true);
+
+        int err_id = LastSyncError::instance()->getRepoSyncError(local_repo.id);
+        if (local_repo.sync_state == LocalRepo::SYNC_STATE_DONE && err_id >= 0) {
+            view_repo_sync_errors_action_->setData(QVariant::fromValue(local_repo));
+            view_repo_sync_errors_action_->setVisible(true);
+
+            discard_repo_sync_errors_action_->setData(QVariant::fromValue(local_repo));
+            discard_repo_sync_errors_action_->setVisible(true);
+        } else {
+            view_repo_sync_errors_action_->setVisible(false);
+            discard_repo_sync_errors_action_->setVisible(false);
+        }
 
         if (seafApplet->settingsManager()->autoSync()) {
             toggle_auto_sync_action_->setData(QVariant::fromValue(local_repo));
@@ -301,6 +321,8 @@ void RepoTreeView::updateRepoActions()
         resync_action_->setEnabled(false);
         set_sync_interval_action_->setEnabled(false);
         toggle_auto_sync_action_->setEnabled(false);
+        view_repo_sync_errors_action_->setVisible(false);
+        discard_repo_sync_errors_action_->setVisible(false);
     }
 
     selected_repo_ = item->repo();
@@ -439,6 +461,16 @@ void RepoTreeView::createActions()
     set_sync_interval_action_->setStatusTip(tr("set sync interval for this library"));
 
     connect(set_sync_interval_action_, SIGNAL(triggered()), this, SLOT(setRepoSyncInterval()));
+
+    view_repo_sync_errors_action_ = new QAction(tr("Show file sync errors"));
+    view_repo_sync_errors_action_->setIcon(QIcon(":/images/info-gray.png"));
+    view_repo_sync_errors_action_->setStatusTip(tr("show file sync errors from this repo"));
+    connect(view_repo_sync_errors_action_, SIGNAL(triggered()), this, SLOT(viewRepoSyncErrors()));
+
+    discard_repo_sync_errors_action_ = new QAction(tr("Discard file sync errors"));
+    discard_repo_sync_errors_action_->setIcon(QIcon(":/images/minus-gray.png"));
+    discard_repo_sync_errors_action_->setStatusTip(tr("discard file sync errors from this repo"));
+    connect(discard_repo_sync_errors_action_, SIGNAL(triggered()), this, SLOT(discardRepoSyncErrors()));
 }
 
 void RepoTreeView::downloadRepo()
@@ -1096,4 +1128,29 @@ void RepoTreeView::setRepoSyncInterval()
 
     seafApplet->rpcClient()->setRepoProperty(
         local_repo.id, kSyncIntervalProperty, QString::number(interval));
+}
+
+void RepoTreeView::viewRepoSyncErrors()
+{
+    LocalRepo local_repo = qvariant_cast<LocalRepo>(set_sync_interval_action_->data());
+
+    if (sync_errors_dialog_ == nullptr) {
+        sync_errors_dialog_ = new SyncErrorsDialog();
+    }
+
+    sync_errors_dialog_->updateErrors();
+    sync_errors_dialog_->show();
+    sync_errors_dialog_->raise();
+    sync_errors_dialog_->activateWindow();
+
+    LastSyncError::instance()->cleanRepoSyncError(local_repo.id);
+    updateRepoActions();
+}
+
+void RepoTreeView::discardRepoSyncErrors()
+{
+    LocalRepo local_repo = qvariant_cast<LocalRepo>(set_sync_interval_action_->data());
+
+    LastSyncError::instance()->cleanRepoSyncError(local_repo.id);
+    updateRepoActions();
 }

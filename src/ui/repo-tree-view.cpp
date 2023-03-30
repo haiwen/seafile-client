@@ -206,9 +206,10 @@ QMenu* RepoTreeView::prepareContextMenu(const RepoItem *item)
     }
     if (item->localRepo().isValid()) {
         menu->addAction(unsync_action_);
+        menu->addAction(resync_action_);
+
         menu->addAction(view_repo_sync_errors_action_);
         menu->addAction(discard_repo_sync_errors_action_);
-        menu->addAction(resync_action_);
     }
 
     return menu;

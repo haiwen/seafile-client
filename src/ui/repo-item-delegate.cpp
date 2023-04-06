@@ -18,7 +18,7 @@
 #include "repo-service.h"
 #include "QtAwesome.h"
 #include "sync-error-service.h"
-#include "utils/seafile-error.cpp"
+#include "utils/seafile-error.h"
 
 #include "repo-item-delegate.h"
 

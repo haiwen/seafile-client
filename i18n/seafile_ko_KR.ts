@@ -925,18 +925,6 @@ failed to upload.</source>
         <source>Abort</source>
         <translation>중단</translation>
     </message>
-    <message>
-        <source>Saving</source>
-        <translation>저장 중</translation>
-    </message>
-    <message>
-        <source>File save failed</source>
-        <translation>파일 저장에 실패했습니다</translation>
-    </message>
-    <message>
-        <source>Index progress request error %1</source>
-        <translation>인덱싱 진행 요청 오류 %1</translation>
-    </message>
 </context>
 <context>
     <name>FileBrowserSearchModel</name>
@@ -1608,15 +1596,15 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     </message>
     <message>
         <source>Waiting for confirmation to delete files</source>
-        <translation type="unfinished"/>
+        <translation>파일 삭제 확인을 기다리는 중</translation>
     </message>
     <message>
         <source>Confirm to bulk delete files in library &quot;%1&quot; ?</source>
-        <translation type="unfinished"/>
+        <translation>&quot;%1&quot; 라이브러리 파일을 한꺼번에 삭제할까요?</translation>
     </message>
     <message>
         <source>Deleted &quot;%1&quot; and %2 more files.</source>
-        <translation type="unfinished"/>
+        <translation>&quot;%1&quot; 파일 및 파일 %2 개를 삭제했습니다.</translation>
     </message>
 </context>
 <context>
@@ -2270,7 +2258,7 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     </message>
     <message>
         <source>Waiting for confirmation to delete files</source>
-        <translation type="unfinished"/>
+        <translation>파일 삭제 확인을 기다리는 중</translation>
     </message>
 </context>
 <context>
@@ -2594,6 +2582,22 @@ File path contains invalid characters. It is not synced to this computer.</sourc
         <source>Set Sync Internval For Library &quot;%1&quot;</source>
         <translation>&quot;%1&quot; 라이브러리 동기화 시간 간격을 설정합니다</translation>
     </message>
+    <message>
+        <source>Show file sync errors</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Show file sync errors from this library</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Discard file sync errors</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Ignore file sync errors from this library</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>ReposTab</name>
@@ -2657,7 +2661,7 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     </message>
     <message>
         <source>Settings</source>
-        <translation type="unfinished"/>
+        <translation>설정</translation>
     </message>
 </context>
 <context>
@@ -3085,7 +3089,7 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     </message>
     <message>
         <source>Confirm before bulk deleting files more than</source>
-        <translation type="unfinished"/>
+        <translation>다음 보다 많은 수량의 파일을 삭제하기 전 확인</translation>
     </message>
 </context>
 <context>

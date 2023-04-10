@@ -918,18 +918,6 @@ failed to upload.</source>
         <source>Abort</source>
         <translation>中止</translation>
     </message>
-    <message>
-        <source>Saving</source>
-        <translation>保存中</translation>
-    </message>
-    <message>
-        <source>File save failed</source>
-        <translation>文件保存失败</translation>
-    </message>
-    <message>
-        <source>Index progress request error %1</source>
-        <translation>索引处理请求错误 %1</translation>
-    </message>
 </context>
 <context>
     <name>FileBrowserSearchModel</name>
@@ -2581,6 +2569,22 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     <message>
         <source>Set Sync Internval For Library &quot;%1&quot;</source>
         <translation>设置资料库 “%1” 的同步间隔</translation>
+    </message>
+    <message>
+        <source>Show file sync errors</source>
+        <translation>查看文件同步错误</translation>
+    </message>
+    <message>
+        <source>Show file sync errors from this library</source>
+        <translation>显示资料库的同步错误</translation>
+    </message>
+    <message>
+        <source>Discard file sync errors</source>
+        <translation>忽略文件同步错误</translation>
+    </message>
+    <message>
+        <source>Ignore file sync errors from this library</source>
+        <translation>忽略资料库的同步错误</translation>
     </message>
 </context>
 <context>

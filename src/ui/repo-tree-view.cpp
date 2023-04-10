@@ -464,12 +464,12 @@ void RepoTreeView::createActions()
 
     view_repo_sync_errors_action_ = new QAction(tr("Show file sync errors"));
     view_repo_sync_errors_action_->setIcon(QIcon(":/images/info-gray.png"));
-    view_repo_sync_errors_action_->setStatusTip(tr("show file sync errors from this repo"));
+    view_repo_sync_errors_action_->setStatusTip(tr("Show file sync errors from this library"));
     connect(view_repo_sync_errors_action_, SIGNAL(triggered()), this, SLOT(viewRepoSyncErrors()));
 
     discard_repo_sync_errors_action_ = new QAction(tr("Discard file sync errors"));
     discard_repo_sync_errors_action_->setIcon(QIcon(":/images/minus-gray.png"));
-    discard_repo_sync_errors_action_->setStatusTip(tr("discard file sync errors from this repo"));
+    discard_repo_sync_errors_action_->setStatusTip(tr("Ignore file sync errors from this library"));
     connect(discard_repo_sync_errors_action_, SIGNAL(triggered()), this, SLOT(discardRepoSyncErrors()));
 }
 

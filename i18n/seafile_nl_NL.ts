@@ -923,18 +923,6 @@ kon niet worden geüpload.</translation>
         <source>Abort</source>
         <translation>Afbreken</translation>
     </message>
-    <message>
-        <source>Saving</source>
-        <translation>Opslaan</translation>
-    </message>
-    <message>
-        <source>File save failed</source>
-        <translation>Bestand opslaan niet gelukt</translation>
-    </message>
-    <message>
-        <source>Index progress request error %1</source>
-        <translation type="unfinished"/>
-    </message>
 </context>
 <context>
     <name>FileBrowserSearchModel</name>
@@ -2583,6 +2571,22 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     <message>
         <source>Set Sync Internval For Library &quot;%1&quot;</source>
         <translation>Synchronisatieinterval voor bibliotheek &quot;%1&quot; instellen</translation>
+    </message>
+    <message>
+        <source>Show file sync errors</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Show file sync errors from this library</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Discard file sync errors</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Ignore file sync errors from this library</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>

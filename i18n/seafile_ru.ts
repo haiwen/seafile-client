@@ -925,18 +925,6 @@ failed to upload.</source>
         <source>Abort</source>
         <translation>Отменить</translation>
     </message>
-    <message>
-        <source>Saving</source>
-        <translation>Сохранение</translation>
-    </message>
-    <message>
-        <source>File save failed</source>
-        <translation>Не удалось сохранить файл</translation>
-    </message>
-    <message>
-        <source>Index progress request error %1</source>
-        <translation>Ошибка запроса прогресса индекса %1</translation>
-    </message>
 </context>
 <context>
     <name>FileBrowserSearchModel</name>
@@ -1608,15 +1596,15 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     </message>
     <message>
         <source>Waiting for confirmation to delete files</source>
-        <translation type="unfinished"/>
+        <translation>Ожидание подтверждения удаления файлов</translation>
     </message>
     <message>
         <source>Confirm to bulk delete files in library &quot;%1&quot; ?</source>
-        <translation type="unfinished"/>
+        <translation>Подтвердить массовое удаление файлов в библиотеке &quot;%1&quot; ?</translation>
     </message>
     <message>
         <source>Deleted &quot;%1&quot; and %2 more files.</source>
-        <translation type="unfinished"/>
+        <translation>Удалено &quot;%1&quot; и еще %2 файлов.</translation>
     </message>
 </context>
 <context>
@@ -2270,7 +2258,7 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     </message>
     <message>
         <source>Waiting for confirmation to delete files</source>
-        <translation type="unfinished"/>
+        <translation>Ожидание подтверждения удаления файлов</translation>
     </message>
 </context>
 <context>
@@ -2592,6 +2580,22 @@ File path contains invalid characters. It is not synced to this computer.</sourc
         <source>Set Sync Internval For Library &quot;%1&quot;</source>
         <translation>Установить интервал синхронизации для библиотеки &quot;%1&quot;</translation>
     </message>
+    <message>
+        <source>Show file sync errors</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Show file sync errors from this library</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Discard file sync errors</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Ignore file sync errors from this library</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>ReposTab</name>
@@ -2655,7 +2659,7 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     </message>
     <message>
         <source>Settings</source>
-        <translation type="unfinished"/>
+        <translation>Настройки</translation>
     </message>
 </context>
 <context>
@@ -3082,7 +3086,7 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     </message>
     <message>
         <source>Confirm before bulk deleting files more than</source>
-        <translation type="unfinished"/>
+        <translation>Подтвердите перед массовым удалением файлов более</translation>
     </message>
 </context>
 <context>

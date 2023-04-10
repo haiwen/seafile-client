@@ -925,18 +925,6 @@ Prosím %1</translation>
         <source>Abort</source>
         <translation>Přerušit</translation>
     </message>
-    <message>
-        <source>Saving</source>
-        <translation>Ukládám</translation>
-    </message>
-    <message>
-        <source>File save failed</source>
-        <translation>Uložení souboru selhalo</translation>
-    </message>
-    <message>
-        <source>Index progress request error %1</source>
-        <translation>Chyba požadavku indexu %1</translation>
-    </message>
 </context>
 <context>
     <name>FileBrowserSearchModel</name>
@@ -2594,6 +2582,22 @@ Cesta k souboru obsahuje nepovolený znak. Není synchronizovaný do tohoto poč
     <message>
         <source>Set Sync Internval For Library &quot;%1&quot;</source>
         <translation>Nastavit interval synchronizace pro knihovnu &quot;%1&quot;</translation>
+    </message>
+    <message>
+        <source>Show file sync errors</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Show file sync errors from this library</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Discard file sync errors</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Ignore file sync errors from this library</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>

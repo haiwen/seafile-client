@@ -924,18 +924,6 @@ feltöltése nem sikerült.</translation>
         <source>Abort</source>
         <translation>Megszakít</translation>
     </message>
-    <message>
-        <source>Saving</source>
-        <translation>Mentés</translation>
-    </message>
-    <message>
-        <source>File save failed</source>
-        <translation>Fájl mentése sikertelen</translation>
-    </message>
-    <message>
-        <source>Index progress request error %1</source>
-        <translation>Indexelési hiba %1</translation>
-    </message>
 </context>
 <context>
     <name>FileBrowserSearchModel</name>
@@ -2586,6 +2574,22 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     <message>
         <source>Set Sync Internval For Library &quot;%1&quot;</source>
         <translation>&quot;%1&quot; kötet szinkronizálási időközének beállítása</translation>
+    </message>
+    <message>
+        <source>Show file sync errors</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Show file sync errors from this library</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Discard file sync errors</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Ignore file sync errors from this library</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>

@@ -924,18 +924,6 @@ n&apos;a pu être envoyé.</translation>
         <source>Abort</source>
         <translation>Annuler</translation>
     </message>
-    <message>
-        <source>Saving</source>
-        <translation>Enregistrement</translation>
-    </message>
-    <message>
-        <source>File save failed</source>
-        <translation>Échec de l&apos;enregistrement du fichier</translation>
-    </message>
-    <message>
-        <source>Index progress request error %1</source>
-        <translation>Erreur %1 de la requête de progression d&apos;index</translation>
-    </message>
 </context>
 <context>
     <name>FileBrowserSearchModel</name>
@@ -2591,6 +2579,22 @@ Le nom de fichier contient des caractères invalides. Il n&apos;est pas synchron
     <message>
         <source>Set Sync Internval For Library &quot;%1&quot;</source>
         <translation>Paramétrer l&apos;intervalle de synchro pour la bibliothèque &quot;%1&quot;</translation>
+    </message>
+    <message>
+        <source>Show file sync errors</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Show file sync errors from this library</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Discard file sync errors</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Ignore file sync errors from this library</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>

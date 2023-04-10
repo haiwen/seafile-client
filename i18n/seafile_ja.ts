@@ -924,18 +924,6 @@ failed to upload.</source>
         <source>Abort</source>
         <translation>アボート</translation>
     </message>
-    <message>
-        <source>Saving</source>
-        <translation>保存</translation>
-    </message>
-    <message>
-        <source>File save failed</source>
-        <translation>ファイルの保存に失敗しました</translation>
-    </message>
-    <message>
-        <source>Index progress request error %1</source>
-        <translation>インデックス進行要求エラー%1</translation>
-    </message>
 </context>
 <context>
     <name>FileBrowserSearchModel</name>
@@ -2591,6 +2579,22 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     <message>
         <source>Set Sync Internval For Library &quot;%1&quot;</source>
         <translation>ライブラリ &quot;％1&quot;の同期間隔を設定します</translation>
+    </message>
+    <message>
+        <source>Show file sync errors</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Show file sync errors from this library</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Discard file sync errors</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Ignore file sync errors from this library</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>

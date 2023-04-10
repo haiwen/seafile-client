@@ -924,18 +924,6 @@ falló la subida.</translation>
         <source>Abort</source>
         <translation>Abortar</translation>
     </message>
-    <message>
-        <source>Saving</source>
-        <translation>Guardando</translation>
-    </message>
-    <message>
-        <source>File save failed</source>
-        <translation>Guardar archivo falló</translation>
-    </message>
-    <message>
-        <source>Index progress request error %1</source>
-        <translation>Index progress request error %1</translation>
-    </message>
 </context>
 <context>
     <name>FileBrowserSearchModel</name>
@@ -2592,6 +2580,22 @@ La ruta al archivo contiene caracteres invalidos. No se sincroniza a esta comput
     <message>
         <source>Set Sync Internval For Library &quot;%1&quot;</source>
         <translation>Establecer Intervalo de Sincronización para la Biblioteca &quot;%1&quot;</translation>
+    </message>
+    <message>
+        <source>Show file sync errors</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Show file sync errors from this library</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Discard file sync errors</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Ignore file sync errors from this library</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>

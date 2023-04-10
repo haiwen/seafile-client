@@ -923,18 +923,6 @@ Bitte %1</translation>
         <source>Abort</source>
         <translation>Abbrechen</translation>
     </message>
-    <message>
-        <source>Saving</source>
-        <translation>Speichern …</translation>
-    </message>
-    <message>
-        <source>File save failed</source>
-        <translation>Speichern der Datei fehlgeschlagen</translation>
-    </message>
-    <message>
-        <source>Index progress request error %1</source>
-        <translation>Fehler beim Indizieren des Fortschritts %1</translation>
-    </message>
 </context>
 <context>
     <name>FileBrowserSearchModel</name>
@@ -1128,19 +1116,19 @@ Bitte %1</translation>
     </message>
     <message>
         <source>No permissions to create a shared link</source>
-        <translation type="unfinished"/>
+        <translation>Sie haben nicht die Berechtigung für die Erstellung eines Freigabe-Links.</translation>
     </message>
     <message>
         <source>Failed to get shared link: %1</source>
-        <translation type="unfinished"/>
+        <translation>Der Abruf des Freigabelinks %1 ist fehlgeschlagen.</translation>
     </message>
     <message>
         <source>Failed to get upload link for file &quot;%1&quot;: </source>
-        <translation type="unfinished"/>
+        <translation>Der Abruf des Upload-Links für die Datei &quot;%1&quot; ist fehlgeschlagen.</translation>
     </message>
     <message>
         <source>Failed to get internal link: %1</source>
-        <translation type="unfinished"/>
+        <translation>Der Abruf des internen Links %1 ist fehlgeschlagen.</translation>
     </message>
 </context>
 <context>
@@ -1594,7 +1582,7 @@ Die Ordnerstruktur enthält ungültige Zeichen. Synchronisieren mit diesem Compu
     </message>
     <message>
         <source>Syncing is denied by cloud-only permission settings %1.</source>
-        <translation type="unfinished"/>
+        <translation>Die Synchronisation ist aufgrund der Nur-Online Freigabeberechtigung %1 nicht möglich.</translation>
     </message>
     <message>
         <source>The file path %1 contains symbols that are not supported by the Windows system.</source>
@@ -1606,15 +1594,15 @@ Die Ordnerstruktur enthält ungültige Zeichen. Synchronisieren mit diesem Compu
     </message>
     <message>
         <source>Waiting for confirmation to delete files</source>
-        <translation type="unfinished"/>
+        <translation>Die Löschbestätigung wir abgewartet.</translation>
     </message>
     <message>
         <source>Confirm to bulk delete files in library &quot;%1&quot; ?</source>
-        <translation type="unfinished"/>
+        <translation>Bitte bestätigen Sie die Maschenlösung in Bibliothek &quot;%1&quot;.</translation>
     </message>
     <message>
         <source>Deleted &quot;%1&quot; and %2 more files.</source>
-        <translation type="unfinished"/>
+        <translation>Die Datei &quot;%1&quot; und %2 weitere Dateien wurden gelöscht.</translation>
     </message>
 </context>
 <context>
@@ -2224,31 +2212,31 @@ Die Ordnerstruktur enthält ungültige Zeichen. Synchronisieren mit diesem Compu
     </message>
     <message>
         <source>path or repo_id invalid.</source>
-        <translation type="unfinished"/>
+        <translation>Der Pfad oder die Repo ID ist ungültig.</translation>
     </message>
     <message>
         <source>no permissions to create an upload link</source>
-        <translation type="unfinished"/>
+        <translation>Sie haben nicht die Berechtigung für die Erstellung eines Upload-Links.</translation>
     </message>
     <message>
         <source>no permissions to create an internal link</source>
-        <translation type="unfinished"/>
+        <translation>Sie haben nicht die Berechtigung für die Erstellung eines internen Links.</translation>
     </message>
     <message>
         <source>the file or folder or library could not be found.</source>
-        <translation type="unfinished"/>
+        <translation>Die Datei/Order/Bibliothek konnte nicht gefunden werden.</translation>
     </message>
     <message>
         <source>internal Server Error</source>
-        <translation type="unfinished"/>
+        <translation>Interner Serverfehler</translation>
     </message>
     <message>
         <source>unknown error</source>
-        <translation type="unfinished"/>
+        <translation>Unbekannter Fehler</translation>
     </message>
     <message>
         <source>Syncing is denied by cloud-only permission settings</source>
-        <translation type="unfinished"/>
+        <translation>Die Synchronisation ist aufgrund der Nur-Online Freigabeberechtigung nicht möglich.</translation>
     </message>
     <message>
         <source>The file path contains symbols that are not supported by the Windows system</source>
@@ -2260,15 +2248,15 @@ Die Ordnerstruktur enthält ungültige Zeichen. Synchronisieren mit diesem Compu
     </message>
     <message>
         <source>no permissions to create a shared link</source>
-        <translation type="unfinished"/>
+        <translation>Sie haben nicht die Berechtigung für die Erstellung eines Freigabe-Links.</translation>
     </message>
     <message>
         <source>no permissions to create a upload link</source>
-        <translation type="unfinished"/>
+        <translation>Sie haben nicht die Berechtigung für die Erstellung eines Upload-Links.</translation>
     </message>
     <message>
         <source>Waiting for confirmation to delete files</source>
-        <translation type="unfinished"/>
+        <translation>Die Löschbestätigung wir abgewartet.</translation>
     </message>
 </context>
 <context>
@@ -2592,6 +2580,22 @@ Die Ordnerstruktur enthält ungültige Zeichen. Synchronisieren mit diesem Compu
         <source>Set Sync Internval For Library &quot;%1&quot;</source>
         <translation>Sync-Intervall für Bibliothek „%1“ festlegen</translation>
     </message>
+    <message>
+        <source>Show file sync errors</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Show file sync errors from this library</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Discard file sync errors</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Ignore file sync errors from this library</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>ReposTab</name>
@@ -2655,38 +2659,38 @@ Die Ordnerstruktur enthält ungültige Zeichen. Synchronisieren mit diesem Compu
     </message>
     <message>
         <source>Settings</source>
-        <translation type="unfinished"/>
+        <translation>Einstellungen</translation>
     </message>
 </context>
 <context>
     <name>SeafileExtensionHandler</name>
     <message>
         <source>Failed to get internal link: %1</source>
-        <translation type="unfinished"/>
+        <translation>Der Abruf des internen Links %1 ist fehlgeschlagen.</translation>
     </message>
     <message>
         <source>failed to get share link: %1</source>
-        <translation type="unfinished"/>
+        <translation>Der Abruf des Freigabelinks %1 ist fehlgeschlagen.</translation>
     </message>
     <message>
         <source>Failed to lock file</source>
-        <translation type="unfinished"/>
+        <translation>Die Datei konnte nicht gesperrt werden.</translation>
     </message>
     <message>
         <source>Failed to unlock file</source>
-        <translation type="unfinished"/>
+        <translation>Die Datei konnte nicht entsperrt werden.</translation>
     </message>
     <message>
         <source>Failed to get upload link: %1</source>
-        <translation type="unfinished"/>
+        <translation>Der Abruf des Upload-Links %1 ist fehlgeschlagen.</translation>
     </message>
     <message>
         <source>File &quot;%1&quot; is locked by %2</source>
-        <translation type="unfinished"/>
+        <translation>Die Datei „%1“ ist von %2 gesperrt</translation>
     </message>
     <message>
         <source>Failed to get lock information for file &quot;%1&quot;</source>
-        <translation type="unfinished"/>
+        <translation>Der Abruf der Sperrinformationen für Datei &quot;%1&quot; ist fehlgeschlagen.</translation>
     </message>
 </context>
 <context>
@@ -3082,7 +3086,7 @@ Die Ordnerstruktur enthält ungültige Zeichen. Synchronisieren mit diesem Compu
     </message>
     <message>
         <source>Confirm before bulk deleting files more than</source>
-        <translation type="unfinished"/>
+        <translation>Bitte bestätigen Sie die Massenlöschung von Dateien.</translation>
     </message>
 </context>
 <context>

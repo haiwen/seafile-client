@@ -134,11 +134,21 @@ void LastSyncError::flagRepoSyncError(const QString repo_id, int err_id)
     sqlite3_free(sql);
 }
 
-void LastSyncError::cleanRepoSyncError(const QString repo_id)
+void LastSyncError::cleanRepoSyncErrors(const QString repo_id)
 {
     QString account_sig = seafApplet->accountManager()->currentAccount().getSignature();
     char *sql = sqlite3_mprintf("DELETE FROM RepoSyncError WHERE accountsig = %Q AND repoid = %Q",
                                 toCStr(account_sig), toCStr(repo_id));
+
+    sqlite_query_exec(db_, sql);
+    sqlite3_free(sql);
+}
+
+void LastSyncError::cleanAllSyncErrors()
+{
+    QString account_sig = seafApplet->accountManager()->currentAccount().getSignature();
+    char *sql = sqlite3_mprintf("DELETE FROM RepoSyncError WHERE accountsig = %Q",
+                                toCStr(account_sig));
 
     sqlite_query_exec(db_, sql);
     sqlite3_free(sql);

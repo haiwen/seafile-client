@@ -28,6 +28,7 @@ public:
     SyncErrorsDialog(QWidget *parent=0);
     void updateErrors();
 
+    void showEvent(QShowEvent *event);
     void closeEvent(QCloseEvent *event);
 
 private slots:

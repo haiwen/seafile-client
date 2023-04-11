@@ -2581,19 +2581,19 @@ Le nom de fichier contient des caractères invalides. Il n&apos;est pas synchron
         <translation>Paramétrer l&apos;intervalle de synchro pour la bibliothèque &quot;%1&quot;</translation>
     </message>
     <message>
-        <source>Show file sync errors</source>
+        <source>Show sync errors</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <source>Show file sync errors from this library</source>
+        <source>Show sync errors from all libraries</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <source>Discard file sync errors</source>
+        <source>Discard sync errors</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <source>Ignore file sync errors from this library</source>
+        <source>Ignore sync errors from this library</source>
         <translation type="unfinished"/>
     </message>
 </context>

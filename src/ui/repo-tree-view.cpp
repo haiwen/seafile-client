@@ -462,14 +462,14 @@ void RepoTreeView::createActions()
 
     connect(set_sync_interval_action_, SIGNAL(triggered()), this, SLOT(setRepoSyncInterval()));
 
-    view_repo_sync_errors_action_ = new QAction(tr("Show file sync errors"));
+    view_repo_sync_errors_action_ = new QAction(tr("Show sync errors"));
     view_repo_sync_errors_action_->setIcon(QIcon(":/images/info-gray.png"));
-    view_repo_sync_errors_action_->setStatusTip(tr("Show file sync errors from this library"));
+    view_repo_sync_errors_action_->setStatusTip(tr("Show sync errors from all libraries"));
     connect(view_repo_sync_errors_action_, SIGNAL(triggered()), this, SLOT(viewRepoSyncErrors()));
 
-    discard_repo_sync_errors_action_ = new QAction(tr("Discard file sync errors"));
+    discard_repo_sync_errors_action_ = new QAction(tr("Discard sync errors"));
     discard_repo_sync_errors_action_->setIcon(QIcon(":/images/minus-gray.png"));
-    discard_repo_sync_errors_action_->setStatusTip(tr("Ignore file sync errors from this library"));
+    discard_repo_sync_errors_action_->setStatusTip(tr("Ignore sync errors from this library"));
     connect(discard_repo_sync_errors_action_, SIGNAL(triggered()), this, SLOT(discardRepoSyncErrors()));
 }
 
@@ -1143,7 +1143,6 @@ void RepoTreeView::viewRepoSyncErrors()
     sync_errors_dialog_->raise();
     sync_errors_dialog_->activateWindow();
 
-    LastSyncError::instance()->cleanRepoSyncError(local_repo.id);
     updateRepoActions();
 }
 
@@ -1151,6 +1150,6 @@ void RepoTreeView::discardRepoSyncErrors()
 {
     LocalRepo local_repo = qvariant_cast<LocalRepo>(set_sync_interval_action_->data());
 
-    LastSyncError::instance()->cleanRepoSyncError(local_repo.id);
+    LastSyncError::instance()->cleanRepoSyncErrors(local_repo.id);
     updateRepoActions();
 }

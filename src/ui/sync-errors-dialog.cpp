@@ -101,6 +101,13 @@ SyncErrorsDialog::SyncErrorsDialog(QWidget *parent)
     connect(model_, SIGNAL(modelReset()), this, SLOT(onModelReset()));
 }
 
+void SyncErrorsDialog::showEvent(QShowEvent *event)
+{
+    QDialog::showEvent(event);
+    LastSyncError::instance()->cleanAllSyncErrors();
+    seafApplet->trayIcon()->setSyncErrorStatus(false);
+}
+
 void SyncErrorsDialog::closeEvent(QCloseEvent *event)
 {
     event->ignore();

@@ -34,7 +34,8 @@ public:
     // getRepoSyncError returns the flagged error id of a repo, or -1 if not exists.
     int getRepoSyncError(const QString repo_id);
     void flagRepoSyncError(const QString repo_id, int err_id);
-    void cleanRepoSyncError(const QString repo_id);
+    void cleanRepoSyncErrors(const QString repo_id);
+    void cleanAllSyncErrors();
 
     QList<LastSyncError::SyncErrorInfo> getAllSyncErrorsInfo();
 

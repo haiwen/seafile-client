@@ -2555,19 +2555,15 @@ File path contains invalid characters. It is not synced to this computer.</sourc
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Show file sync errors</source>
+        <source>Show sync errors</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Show file sync errors from this library</source>
+        <source>Discard sync errors</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Discard file sync errors</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Ignore file sync errors from this library</source>
+        <source>Ignore sync errors from this library</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

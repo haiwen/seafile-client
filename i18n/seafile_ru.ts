@@ -2581,20 +2581,16 @@ File path contains invalid characters. It is not synced to this computer.</sourc
         <translation>Установить интервал синхронизации для библиотеки &quot;%1&quot;</translation>
     </message>
     <message>
-        <source>Show file sync errors</source>
-        <translation type="unfinished"/>
+        <source>Show sync errors</source>
+        <translation>Показать ошибки синхронизации</translation>
     </message>
     <message>
-        <source>Show file sync errors from this library</source>
-        <translation type="unfinished"/>
+        <source>Discard sync errors</source>
+        <translation>Удалить ошибки синхронизации</translation>
     </message>
     <message>
-        <source>Discard file sync errors</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Ignore file sync errors from this library</source>
-        <translation type="unfinished"/>
+        <source>Ignore sync errors from this library</source>
+        <translation>Игнорировать ошибки синхронизации из этой библиотеки</translation>
     </message>
 </context>
 <context>

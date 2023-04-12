@@ -741,5 +741,4 @@ void SeafileTrayIcon::showSyncErrorsDialog()
     sync_errors_dialog_->show();
     sync_errors_dialog_->raise();
     sync_errors_dialog_->activateWindow();
-    setSyncErrorStatus(false);
 }

@@ -86,10 +86,9 @@ public:
 
     QString getErrorString() const;
 
-    void setSyncInfo(const QString &state, const int error = SYNC_ERROR_ID_NO_ERROR);
+    void setSyncInfo(const QString &state);
 
 private:
-    void translateSyncError(const int error);
     void translateSyncState(const QString &state);
 };
 

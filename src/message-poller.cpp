@@ -142,8 +142,11 @@ void MessagePoller::processNotification(const SyncNotification& notification)
         int err_id = json_integer_value(json_object_get(object, "err_id"));
 
         switch (err_id) {
+        case SYNC_ERROR_ID_FILE_LOCKED_BY_APP:
+        case SYNC_ERROR_ID_INDEX_ERROR:
         case SYNC_ERROR_ID_PATH_END_SPACE_PERIOD:
         case SYNC_ERROR_ID_PATH_INVALID_CHARACTER:
+        case SYNC_ERROR_ID_UPDATE_TO_READ_ONLY_REPO:
         case SYNC_ERROR_ID_REMOVE_UNCOMMITTED_FOLDER:
 #if !defined(Q_OS_WIN32)
         case SYNC_ERROR_ID_INVALID_PATH_ON_WINDOWS:

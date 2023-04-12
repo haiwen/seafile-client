@@ -2571,20 +2571,16 @@ File path contains invalid characters. It is not synced to this computer.</sourc
         <translation>设置资料库 “%1” 的同步间隔</translation>
     </message>
     <message>
-        <source>Show file sync errors</source>
-        <translation>查看文件同步错误</translation>
+        <source>Show sync errors</source>
+        <translation>查看同步错误</translation>
     </message>
     <message>
-        <source>Show file sync errors from this library</source>
-        <translation>显示资料库的同步错误</translation>
+        <source>Discard sync errors</source>
+        <translation>忽略同步错误</translation>
     </message>
     <message>
-        <source>Discard file sync errors</source>
-        <translation>忽略文件同步错误</translation>
-    </message>
-    <message>
-        <source>Ignore file sync errors from this library</source>
-        <translation>忽略资料库的同步错误</translation>
+        <source>Ignore sync errors from this library</source>
+        <translation>忽略这个资料库的同步错误</translation>
     </message>
 </context>
 <context>

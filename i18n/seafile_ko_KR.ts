@@ -2583,19 +2583,15 @@ File path contains invalid characters. It is not synced to this computer.</sourc
         <translation>&quot;%1&quot; 라이브러리 동기화 시간 간격을 설정합니다</translation>
     </message>
     <message>
-        <source>Show file sync errors</source>
+        <source>Show sync errors</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <source>Show file sync errors from this library</source>
+        <source>Discard sync errors</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <source>Discard file sync errors</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Ignore file sync errors from this library</source>
+        <source>Ignore sync errors from this library</source>
         <translation type="unfinished"/>
     </message>
 </context>

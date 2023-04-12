@@ -2582,19 +2582,15 @@ La ruta al archivo contiene caracteres invalidos. No se sincroniza a esta comput
         <translation>Establecer Intervalo de Sincronización para la Biblioteca &quot;%1&quot;</translation>
     </message>
     <message>
-        <source>Show file sync errors</source>
+        <source>Show sync errors</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <source>Show file sync errors from this library</source>
+        <source>Discard sync errors</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <source>Discard file sync errors</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Ignore file sync errors from this library</source>
+        <source>Ignore sync errors from this library</source>
         <translation type="unfinished"/>
     </message>
 </context>

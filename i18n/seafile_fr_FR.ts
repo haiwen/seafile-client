@@ -2585,10 +2585,6 @@ Le nom de fichier contient des caractères invalides. Il n&apos;est pas synchron
         <translation type="unfinished"/>
     </message>
     <message>
-        <source>Show sync errors from all libraries</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
         <source>Discard sync errors</source>
         <translation type="unfinished"/>
     </message>

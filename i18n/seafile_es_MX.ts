@@ -2586,10 +2586,6 @@ La ruta al archivo contiene caracteres invalidos. No se sincroniza a esta comput
         <translation type="unfinished"/>
     </message>
     <message>
-        <source>Show sync errors from all libraries</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
         <source>Discard sync errors</source>
         <translation type="unfinished"/>
     </message>

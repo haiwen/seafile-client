@@ -464,7 +464,7 @@ void RepoTreeView::createActions()
 
     view_repo_sync_errors_action_ = new QAction(tr("Show sync errors"));
     view_repo_sync_errors_action_->setIcon(QIcon(":/images/info-gray.png"));
-    view_repo_sync_errors_action_->setStatusTip(tr("Show sync errors from all libraries"));
+    view_repo_sync_errors_action_->setStatusTip(tr("Show sync errors"));
     connect(view_repo_sync_errors_action_, SIGNAL(triggered()), this, SLOT(viewRepoSyncErrors()));
 
     discard_repo_sync_errors_action_ = new QAction(tr("Discard sync errors"));

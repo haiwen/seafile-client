@@ -2575,10 +2575,6 @@ File path contains invalid characters. It is not synced to this computer.</sourc
         <translation>查看同步错误</translation>
     </message>
     <message>
-        <source>Show sync errors from all libraries</source>
-        <translation>查看所有资料库的同步错误</translation>
-    </message>
-    <message>
         <source>Discard sync errors</source>
         <translation>忽略同步错误</translation>
     </message>

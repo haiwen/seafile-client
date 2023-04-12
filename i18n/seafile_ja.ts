@@ -2585,10 +2585,6 @@ File path contains invalid characters. It is not synced to this computer.</sourc
         <translation type="unfinished"/>
     </message>
     <message>
-        <source>Show sync errors from all libraries</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
         <source>Discard sync errors</source>
         <translation type="unfinished"/>
     </message>

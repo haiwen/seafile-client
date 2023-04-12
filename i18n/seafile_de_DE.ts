@@ -2585,10 +2585,6 @@ Die Ordnerstruktur enthält ungültige Zeichen. Synchronisieren mit diesem Compu
         <translation type="unfinished"/>
     </message>
     <message>
-        <source>Show sync errors from all libraries</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
         <source>Discard sync errors</source>
         <translation type="unfinished"/>
     </message>

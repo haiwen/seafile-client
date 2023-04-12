@@ -2582,19 +2582,15 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     </message>
     <message>
         <source>Show sync errors</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Show sync errors from all libraries</source>
-        <translation type="unfinished"/>
+        <translation>Показать ошибки синхронизации</translation>
     </message>
     <message>
         <source>Discard sync errors</source>
-        <translation type="unfinished"/>
+        <translation>Удалить ошибки синхронизации</translation>
     </message>
     <message>
         <source>Ignore sync errors from this library</source>
-        <translation type="unfinished"/>
+        <translation>Игнорировать ошибки синхронизации из этой библиотеки</translation>
     </message>
 </context>
 <context>

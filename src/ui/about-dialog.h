@@ -13,11 +13,6 @@ class AboutDialog : public QDialog,
 public:
     AboutDialog(QWidget *parent=0);
 
-#ifdef HAVE_SPARKLE_SUPPORT
-private slots:
-    void checkUpdate();
-#endif
-
 private:
     Q_DISABLE_COPY(AboutDialog)
 

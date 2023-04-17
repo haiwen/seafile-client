@@ -123,13 +123,6 @@
       </spacer>
      </item>
      <item>
-      <widget class="QPushButton" name="mCheckUpdateBtn">
-       <property name="text">
-        <string>Check For Updates</string>
-       </property>
-      </widget>
-     </item>
-     <item>
       <widget class="QPushButton" name="mOKBtn">
        <property name="text">
         <string>OK</string>

@@ -1599,12 +1599,12 @@ File path contains invalid characters. It is not synced to this computer.</sourc
         <translation>파일 삭제 확인을 기다리는 중</translation>
     </message>
     <message>
-        <source>Confirm to bulk delete files in library &quot;%1&quot; ?</source>
-        <translation>&quot;%1&quot; 라이브러리 파일을 한꺼번에 삭제할까요?</translation>
-    </message>
-    <message>
         <source>Deleted &quot;%1&quot; and %2 more files.</source>
         <translation>&quot;%1&quot; 파일 및 파일 %2 개를 삭제했습니다.</translation>
+    </message>
+    <message>
+        <source>Do you want to delete files in library &quot;%1&quot; ?</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -3084,8 +3084,8 @@ File path contains invalid characters. It is not synced to this computer.</sourc
         <translation>윈도우 비호환성 경로 메시지 숨김</translation>
     </message>
     <message>
-        <source>Confirm before bulk deleting files more than</source>
-        <translation>다음 보다 많은 수량의 파일을 삭제하기 전 확인</translation>
+        <source>Confirm before deleting files more than</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>

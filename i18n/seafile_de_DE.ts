@@ -1597,12 +1597,12 @@ Die Ordnerstruktur enthält ungültige Zeichen. Synchronisieren mit diesem Compu
         <translation>Die Löschbestätigung wir abgewartet.</translation>
     </message>
     <message>
-        <source>Confirm to bulk delete files in library &quot;%1&quot; ?</source>
-        <translation>Bitte bestätigen Sie die Maschenlösung in Bibliothek &quot;%1&quot;.</translation>
-    </message>
-    <message>
         <source>Deleted &quot;%1&quot; and %2 more files.</source>
         <translation>Die Datei &quot;%1&quot; und %2 weitere Dateien wurden gelöscht.</translation>
+    </message>
+    <message>
+        <source>Do you want to delete files in library &quot;%1&quot; ?</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -3081,8 +3081,8 @@ Die Ordnerstruktur enthält ungültige Zeichen. Synchronisieren mit diesem Compu
         <translation>Hinweis auf nicht kompatible Windows-Pfade ausblenden</translation>
     </message>
     <message>
-        <source>Confirm before bulk deleting files more than</source>
-        <translation>Bitte bestätigen Sie die Massenlöschung von Dateien.</translation>
+        <source>Confirm before deleting files more than</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>

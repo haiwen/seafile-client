@@ -1589,12 +1589,12 @@ File path contains invalid characters. It is not synced to this computer.</sourc
         <translation>等待确认文件删除操作</translation>
     </message>
     <message>
-        <source>Confirm to bulk delete files in library &quot;%1&quot; ?</source>
-        <translation>确认删除 “%1” 资料库中的文件？</translation>
-    </message>
-    <message>
         <source>Deleted &quot;%1&quot; and %2 more files.</source>
         <translation>删除了 “%1” 以及其它 %2 个文件</translation>
+    </message>
+    <message>
+        <source>Do you want to delete files in library &quot;%1&quot; ?</source>
+        <translation>确认删除 “%1” 资料库中的文件？</translation>
     </message>
 </context>
 <context>
@@ -3071,7 +3071,7 @@ File path contains invalid characters. It is not synced to this computer.</sourc
         <translation>隐藏 Windows 不兼容路径的消息通知</translation>
     </message>
     <message>
-        <source>Confirm before bulk deleting files more than</source>
+        <source>Confirm before deleting files more than</source>
         <translation>提示确认操作，当删除的文件数大于</translation>
     </message>
 </context>

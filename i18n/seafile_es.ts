@@ -1598,11 +1598,11 @@ La ruta al archivo contiene caracteres invalidos. No se sincroniza a esta comput
         <translation type="unfinished"/>
     </message>
     <message>
-        <source>Confirm to bulk delete files in library &quot;%1&quot; ?</source>
+        <source>Deleted &quot;%1&quot; and %2 more files.</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <source>Deleted &quot;%1&quot; and %2 more files.</source>
+        <source>Do you want to delete files in library &quot;%1&quot; ?</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -3082,7 +3082,7 @@ La ruta al archivo contiene caracteres invalidos. No se sincroniza a esta comput
         <translation>Ocultar mensaje de WIndows sobre incompatibilidad de rutas</translation>
     </message>
     <message>
-        <source>Confirm before bulk deleting files more than</source>
+        <source>Confirm before deleting files more than</source>
         <translation type="unfinished"/>
     </message>
 </context>

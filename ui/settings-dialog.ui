@@ -81,13 +81,6 @@
         </widget>
        </item>
        <item>
-        <widget class="QCheckBox" name="mCheckLatestVersionBox">
-         <property name="text">
-          <string>Check for updates automatically</string>
-         </property>
-        </widget>
-       </item>
-       <item>
         <layout class="QFormLayout" name="formLayout">
          <property name="labelAlignment">
           <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>

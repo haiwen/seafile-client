@@ -12,10 +12,6 @@
 #include "api/requests.h"
 #include "settings-dialog.h"
 
-#ifdef HAVE_SPARKLE_SUPPORT
-#include "auto-update-service.h"
-#endif
-
 namespace {
 
 const char *kSettingsGroupForSettingsDialog = "SettingsDialog";
@@ -36,12 +32,6 @@ SettingsDialog::SettingsDialog(QWidget *parent) : QDialog(parent)
         tr("Hide %1 Icon from the dock").arg(getBrand()));
 
     mTabWidget->setCurrentIndex(0);
-
-#ifdef HAVE_SPARKLE_SUPPORT
-    if (!AutoUpdateService::instance()->shouldSupportAutoUpdate()) {
-        mCheckLatestVersionBox->setVisible(false);
-    }
-#endif
 
     mLanguageComboBox->addItems(I18NHelper::getInstance()->getLanguages());
     // The range of mProxyPort is set to (0, 65535) in the ui file, so we
@@ -98,13 +88,6 @@ void SettingsDialog::updateSettings()
 #endif
 
     updateProxySettings();
-
-#ifdef HAVE_SPARKLE_SUPPORT
-    if (AutoUpdateService::instance()->shouldSupportAutoUpdate()) {
-        bool enabled = mCheckLatestVersionBox->checkState() == Qt::Checked;
-        AutoUpdateService::instance()->setAutoUpdateEnabled(enabled);
-    }
-#endif
 
     bool language_changed = false;
     if (mLanguageComboBox->currentIndex() != I18NHelper::getInstance()->preferredLanguage()) {
@@ -199,13 +182,6 @@ void SettingsDialog::showEvent(QShowEvent *event)
     mDownloadSpinBox->setValue(ratio);
     ratio = mgr->maxUploadRatio();
     mUploadSpinBox->setValue(ratio);
-
-#ifdef HAVE_SPARKLE_SUPPORT
-    if (AutoUpdateService::instance()->shouldSupportAutoUpdate()) {
-        state = AutoUpdateService::instance()->autoUpdateEnabled() ? Qt::Checked : Qt::Unchecked;
-        mCheckLatestVersionBox->setCheckState(state);
-    }
-#endif
 
     mDeleteConfirmSpinBox->setValue(mgr->deleteConfirmThreshold());
 

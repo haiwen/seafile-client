@@ -240,10 +240,10 @@ void MessagePoller::processNotification(const SyncNotification& notification)
                       .arg(match.captured(1)).arg(match.captured(2));
         }
 
-        QString info = tr("Confirm to bulk delete files in library \"%1\" ?")
+        QString info = tr("Do you want to delete files in library \"%1\" ?")
                           .arg(doc["repo_name"].toString().trimmed());
 
-        if (seafApplet->bulkDeletingMessageBox(text, info)) {
+        if (seafApplet->deletingConfirmationBox(text, info)) {
             rpc_client_->addDelConfirmation(doc["confirmation_id"].toString(), false);
         } else {
             rpc_client_->addDelConfirmation(doc["confirmation_id"].toString(), true);

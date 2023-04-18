@@ -385,7 +385,12 @@ void DownloadRepoDialog::onDownloadRepoRequestFailed(const ApiError& error)
 
 void DownloadRepoDialog::setMergeWithExisting(const QString& localPath) {
     merge_without_question_ = true;
+    if (!manual_merge_mode_) {
+        manual_merge_mode_ = true;
+    }
+
     setDirectoryText(localPath);
+    updateSyncMode();
 }
 
 void DownloadRepoDialog::setResyncMode() {

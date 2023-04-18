@@ -325,11 +325,11 @@ void LoginDialog::onHttpError(int code)
         if (two_factor_dialog.exec() == QDialog::Accepted) {
             two_factor_auth_token_ = two_factor_dialog.getText();
             is_remember_device_ = two_factor_dialog.rememberDeviceChecked();
-        }
 
-        if (!two_factor_auth_token_.isEmpty()) {
-            doLogin();
-            return;
+            if (!two_factor_auth_token_.isEmpty()) {
+                doLogin();
+                return;
+            }
         }
     } else {
         QString err_msg, reason;

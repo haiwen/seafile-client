@@ -519,7 +519,6 @@ void SeafileApplet::warningBox(const QString& msg, QWidget *parent)
     box.setWindowTitle(getBrand());
     box.setIcon(QMessageBox::Warning);
     box.addButton(tr("OK"), QMessageBox::YesRole);
-    box.setFocusPolicy(Qt::ClickFocus);
     box.exec();
 
     if (!parent && main_win_) {
@@ -538,7 +537,6 @@ void SeafileApplet::messageBox(const QString& msg, QWidget *parent)
     if (!parent) {
         main_win_->showWindow();
     }
-    box.setFocusPolicy(Qt::ClickFocus);
     box.exec();
     qDebug("%s", msg.toUtf8().data());
 }
@@ -552,7 +550,6 @@ bool SeafileApplet::yesOrNoBox(const QString& msg, QWidget *parent, bool default
     QPushButton *yes_btn = box.addButton(tr("Yes"), QMessageBox::YesRole);
     QPushButton *no_btn = box.addButton(tr("No"), QMessageBox::NoRole);
     box.setDefaultButton(default_val ? yes_btn: no_btn);
-    box.setFocusPolicy(Qt::ClickFocus);
     box.exec();
 
     return box.clickedButton() == yes_btn;
@@ -567,7 +564,6 @@ bool SeafileApplet::yesOrCancelBox(const QString& msg, QWidget *parent, bool def
     QPushButton *yes_btn = box.addButton(tr("Yes"), QMessageBox::YesRole);
     QPushButton *cancel_btn = box.addButton(tr("Cancel"), QMessageBox::RejectRole);
     box.setDefaultButton(default_yes ? yes_btn: cancel_btn);
-    box.setFocusPolicy(Qt::ClickFocus);
     box.exec();
 
     return box.clickedButton() == yes_btn;
@@ -584,7 +580,6 @@ SeafileApplet::yesNoCancelBox(const QString& msg, QWidget *parent, QMessageBox::
     QPushButton *no_btn = box.addButton(tr("No"), QMessageBox::NoRole);
     box.addButton(tr("Cancel"), QMessageBox::RejectRole);
     box.setDefaultButton(default_btn);
-    box.setFocusPolicy(Qt::ClickFocus);
     box.exec();
 
     QAbstractButton *btn = box.clickedButton();
@@ -613,11 +608,10 @@ bool SeafileApplet::detailedYesOrNoBox(const QString& msg, const QString& detail
     QGridLayout* layout = (QGridLayout*)msgBox.layout();
     layout->addItem(horizontalSpacer, layout->rowCount(), 0, 1, layout->columnCount());
     msgBox.setDefaultButton(default_val ? QMessageBox::Yes : QMessageBox::No);
-    msgBox.setFocusPolicy(Qt::ClickFocus);
     return msgBox.exec() == QMessageBox::Yes;
 }
 
-bool SeafileApplet::deletingConfirmationBox(const QString& text, const QString& info)
+bool SeafileApplet::bulkDeletingMessageBox(const QString& text, const QString& info)
 {
     QMessageBox box(main_win_);
 
@@ -633,7 +627,6 @@ bool SeafileApplet::deletingConfirmationBox(const QString& text, const QString& 
     auto settingsButton = box.addButton(tr("Settings"), QMessageBox::NoRole);
     box.setDefaultButton(noButton);
 
-    box.setFocusPolicy(Qt::ClickFocus);
     box.exec();
 
     if (box.clickedButton() == yesButton) {

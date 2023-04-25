@@ -42,7 +42,7 @@ public:
                                                QMessageBox::StandardButton default_btn);
     bool yesOrCancelBox(const QString& msg, QWidget *parent, bool default_ok);
 
-    bool deletingConfirmationBox(const QString& text, const QString& info);
+    bool bulkDeletingMessageBox(const QString& text, const QString& info);
 
     QString getText(QWidget *parent,
                     const QString &title,

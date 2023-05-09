@@ -2787,7 +2787,7 @@ Le nom de fichier contient des caractères invalides. Il n&apos;est pas synchron
     </message>
     <message>
         <source>Downloading</source>
-        <translation>Téléhargement en cours</translation>
+        <translation>Téléchargement en cours</translation>
     </message>
     <message>
         <source>open %1 log folder</source>
@@ -2827,7 +2827,7 @@ Le nom de fichier contient des caractères invalides. Il n&apos;est pas synchron
     </message>
     <message>
         <source>have some sync error</source>
-        <translation>Il y a une erreur de synchromisation</translation>
+        <translation>Il y a une erreur de synchronisation</translation>
     </message>
 </context>
 <context>

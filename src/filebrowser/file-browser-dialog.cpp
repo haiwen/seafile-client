@@ -682,7 +682,11 @@ void FileBrowserDialog::onDirentSaveAs(const QList<const SeafDirent*>& dirents)
     QString local_dir = QFileDialog::getExistingDirectory(this, tr("Enter the path of the folder you want to save to..."), download_dir.path());
     if (local_dir.isEmpty())
         return;
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 13, 0))
     download_dir.setPath(local_dir);
+#else
+    download_dir = local_dir;
+#endif
     //
     // scan for existing files and folders
     // then begin downloading

@@ -43,7 +43,7 @@ QRegularExpression makeFilterRegExp(const QString& text)
 #else
 QRegExp makeFilterRegExp(const QString& text)
 {
-    return QRegExp(text.split(" ", Qt::SkipEmptyParts).join(".*"),
+    return QRegExp(text.split(" ", QString::SkipEmptyParts).join(".*"),
         Qt::CaseInsensitive);
 }
 #endif

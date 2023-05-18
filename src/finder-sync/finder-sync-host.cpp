@@ -334,13 +334,7 @@ bool FinderSyncHost::lookUpFileInformation(const QString &path, QString *repo_id
     *path_in_repo = QDir(worktree).relativeFilePath(path);
     if (!path_in_repo->startsWith("/"))
         *path_in_repo = "/" + *path_in_repo;
-    if (path.endsWith("/"))
-        *path_in_repo += "/";
-
-    // we have a empty path_in_repo representing the root of the directory,
-    // and we are okay!
-    if (path_in_repo->startsWith("."))
-        return false;
+    *path_in_repo = QDir::cleanPath(*path_in_repo);
 
     *account = seafApplet->accountManager()->getAccountByRepo(*repo_id);
     if (!account->isValid())

@@ -348,8 +348,8 @@ static constexpr double kGetFileStatusInterval = 2.0; // seconds
     // Produce a menu for the extension.
     NSMenu *menu = [[NSMenu alloc] initWithTitle:@""];
     NSMenuItem *shareLinkItem =
-        [menu addItemWithTitle:NSLocalizedString(@"Get Seafile Download Link",
-                                                 @"Get Seafile Download Link")
+        [menu addItemWithTitle:NSLocalizedString(@"Get Download Link",
+                                                 @"Get Download Link")
                         action:@selector(shareLinkAction:)
                  keyEquivalent:@""];
     NSImage *seafileImage = [NSImage imageNamed:@"seafile.icns"];
@@ -366,8 +366,8 @@ static constexpr double kGetFileStatusInterval = 2.0; // seconds
     auto repo = findRepoContainPath(watched_repos_, file_path);
     if (repo != watched_repos_.end() && repo->internal_link_supported) {
         NSMenuItem *internalLinkItem =
-            [menu addItemWithTitle:NSLocalizedString(@"Get Seafile Internal Link",
-                                                     @"Get Seafile Internal Link")
+            [menu addItemWithTitle:NSLocalizedString(@"Get Internal Link",
+                                                     @"Get Internal Link")
                             action:@selector(internalLinkAction:)
                      keyEquivalent:@""];
         [internalLinkItem setImage:seafileImage];
@@ -399,8 +399,8 @@ static constexpr double kGetFileStatusInterval = 2.0; // seconds
         [shareToGroupByMenuItem setImage:seafileImage];
 
         NSMenuItem *showUploadLinkByMenuItem =
-                [menu addItemWithTitle:NSLocalizedString(@"Get Seafile Upload Link",
-                                                         @"Get Seafile Upload Link")
+                [menu addItemWithTitle:NSLocalizedString(@"Get Upload Link",
+                                                         @"Get Upload Link")
                                 action:@selector(getUploadLinkAction:)
                          keyEquivalent:@""];
         [showUploadLinkByMenuItem setImage:seafileImage];

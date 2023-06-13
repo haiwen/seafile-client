@@ -204,6 +204,9 @@ void MessagePoller::processNotification(const SyncNotification& notification)
         case SYNC_ERROR_ID_DEL_CONFIRMATION_PENDING:
             msg = tr("Waiting for confirmation to delete files");
             break;
+        case SYNC_ERROR_ID_TOO_MANY_FILES:
+            msg = tr("Too many files in library");
+            break;
         default:
             qWarning("Unknown sync error id %d", err_id);
             json_decref(object);

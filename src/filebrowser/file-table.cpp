@@ -752,6 +752,16 @@ void FileTableView::onRename()
 
 void FileTableView::onRemove()
 {
+    QString confirm_msg;
+    if (item_ != NULL) {
+        confirm_msg = tr("Are you sure you want to delete \"%1\" ?").arg(item_->name);
+    } else {
+        confirm_msg = tr("Are you sure you want to delete those files ?");
+    }
+    if (!seafApplet->yesOrNoBox(confirm_msg, this, false)) {
+        return;
+    }
+
     bool has_readonly = false;
     if (item_ == NULL) {
         const QList<const SeafDirent*> dirents = getSelectedItemsFromSource();
@@ -769,6 +779,7 @@ void FileTableView::onRemove()
     }
     if (has_readonly || item_->readonly) {
         seafApplet->messageBox(tr("Unable to remove readonly files"), this);
+        return;
     }
 
     emit direntRemove(*item_);

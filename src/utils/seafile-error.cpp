@@ -110,6 +110,9 @@ QString translateSyncErrorCode(const int error_code)
         case SYNC_ERROR_ID_DEL_CONFIRMATION_PENDING:
             error_str = QObject::tr("Waiting for confirmation to delete files");
             break;
+        case SYNC_ERROR_ID_TOO_MANY_FILES:
+            error_str = QObject::tr("Too many files in library");
+            break;
         default:
             qWarning("Unknown sync error");
     }

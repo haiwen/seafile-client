@@ -18,10 +18,6 @@
         <translation>Acerca de</translation>
     </message>
     <message>
-        <source>Check For Updates</source>
-        <translation>Verificar si hay actualizaciones</translation>
-    </message>
-    <message>
         <source>OK</source>
         <translation>OK</translation>
     </message>
@@ -1104,6 +1100,14 @@ falló la subida.</translation>
         <source>&amp;Generate %1 Upload Link</source>
         <translation>&amp;Generar Enlace %1 para Subir</translation>
     </message>
+    <message>
+        <source>Are you sure you want to delete &quot;%1&quot; ?</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Are you sure you want to delete those files ?</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>FinderSyncHost</name>
@@ -1598,11 +1602,15 @@ La ruta al archivo contiene caracteres invalidos. No se sincroniza a esta comput
         <translation type="unfinished"/>
     </message>
     <message>
-        <source>Confirm to bulk delete files in library &quot;%1&quot; ?</source>
+        <source>Deleted &quot;%1&quot; and %2 more files.</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <source>Deleted &quot;%1&quot; and %2 more files.</source>
+        <source>Too many files in library</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Do you want to delete files in library &quot;%1&quot; ?</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -2257,6 +2265,10 @@ La ruta al archivo contiene caracteres invalidos. No se sincroniza a esta comput
     </message>
     <message>
         <source>Waiting for confirmation to delete files</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Too many files in library</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -3018,10 +3030,6 @@ La ruta al archivo contiene caracteres invalidos. No se sincroniza a esta comput
         <translation>Habilitar extensión Explorer</translation>
     </message>
     <message>
-        <source>Check for updates automatically</source>
-        <translation>Verificar si hay actualizaciones automáticamente</translation>
-    </message>
-    <message>
         <source>Do not verify server certificate in HTTPS syncing</source>
         <translation>No verificar el certificado del servidor en sincronización HTTPS</translation>
     </message>
@@ -3082,7 +3090,7 @@ La ruta al archivo contiene caracteres invalidos. No se sincroniza a esta comput
         <translation>Ocultar mensaje de WIndows sobre incompatibilidad de rutas</translation>
     </message>
     <message>
-        <source>Confirm before bulk deleting files more than</source>
+        <source>Confirm before deleting files more than</source>
         <translation type="unfinished"/>
     </message>
 </context>

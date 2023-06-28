@@ -18,10 +18,6 @@
         <translation>정보</translation>
     </message>
     <message>
-        <source>Check For Updates</source>
-        <translation>업데이트 확인</translation>
-    </message>
-    <message>
         <source>OK</source>
         <translation>확인</translation>
     </message>
@@ -1105,6 +1101,14 @@ failed to upload.</source>
         <source>&amp;Generate %1 Upload Link</source>
         <translation>%1 업로드 링크 만들기(&amp;G)</translation>
     </message>
+    <message>
+        <source>Are you sure you want to delete &quot;%1&quot; ?</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Are you sure you want to delete those files ?</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>FinderSyncHost</name>
@@ -1599,12 +1603,16 @@ File path contains invalid characters. It is not synced to this computer.</sourc
         <translation>파일 삭제 확인을 기다리는 중</translation>
     </message>
     <message>
-        <source>Confirm to bulk delete files in library &quot;%1&quot; ?</source>
-        <translation>&quot;%1&quot; 라이브러리 파일을 한꺼번에 삭제할까요?</translation>
-    </message>
-    <message>
         <source>Deleted &quot;%1&quot; and %2 more files.</source>
         <translation>&quot;%1&quot; 파일 및 파일 %2 개를 삭제했습니다.</translation>
+    </message>
+    <message>
+        <source>Too many files in library</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Do you want to delete files in library &quot;%1&quot; ?</source>
+        <translation>&quot;%1&quot; 라이브러리 파일을 삭제할까요?</translation>
     </message>
 </context>
 <context>
@@ -2260,6 +2268,10 @@ File path contains invalid characters. It is not synced to this computer.</sourc
         <source>Waiting for confirmation to delete files</source>
         <translation>파일 삭제 확인을 기다리는 중</translation>
     </message>
+    <message>
+        <source>Too many files in library</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>ReliablePostFileTask</name>
@@ -2584,15 +2596,15 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     </message>
     <message>
         <source>Show sync errors</source>
-        <translation type="unfinished"/>
+        <translation>동기화 오류 표시</translation>
     </message>
     <message>
         <source>Discard sync errors</source>
-        <translation type="unfinished"/>
+        <translation>동기화 오류 무시</translation>
     </message>
     <message>
         <source>Ignore sync errors from this library</source>
-        <translation type="unfinished"/>
+        <translation>이 라이브러리의 동기화 오류 무시</translation>
     </message>
 </context>
 <context>
@@ -3020,10 +3032,6 @@ File path contains invalid characters. It is not synced to this computer.</sourc
         <translation>탐색기 확장 기능 활성화</translation>
     </message>
     <message>
-        <source>Check for updates automatically</source>
-        <translation>업데이트 자동으로 확인</translation>
-    </message>
-    <message>
         <source>Do not verify server certificate in HTTPS syncing</source>
         <translation>HTTPS 동기화시 서버 인증서 검증하지 않음</translation>
     </message>
@@ -3084,7 +3092,7 @@ File path contains invalid characters. It is not synced to this computer.</sourc
         <translation>윈도우 비호환성 경로 메시지 숨김</translation>
     </message>
     <message>
-        <source>Confirm before bulk deleting files more than</source>
+        <source>Confirm before deleting files more than</source>
         <translation>다음 보다 많은 수량의 파일을 삭제하기 전 확인</translation>
     </message>
 </context>

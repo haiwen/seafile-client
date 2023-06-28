@@ -18,10 +18,6 @@
         <translation>Sobre</translation>
     </message>
     <message>
-        <source>Check For Updates</source>
-        <translation>Verificar Atualizações</translation>
-    </message>
-    <message>
         <source>OK</source>
         <translation>OK</translation>
     </message>
@@ -1103,6 +1099,14 @@ Incapaz de encontrar um nome alternativo para a pasta</translation>
         <source>&amp;Generate %1 Upload Link</source>
         <translation type="unfinished"/>
     </message>
+    <message>
+        <source>Are you sure you want to delete &quot;%1&quot; ?</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Are you sure you want to delete those files ?</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>FinderSyncHost</name>
@@ -1589,11 +1593,15 @@ File path contains invalid characters. It is not synced to this computer.</sourc
         <translation type="unfinished"/>
     </message>
     <message>
-        <source>Confirm to bulk delete files in library &quot;%1&quot; ?</source>
+        <source>Deleted &quot;%1&quot; and %2 more files.</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <source>Deleted &quot;%1&quot; and %2 more files.</source>
+        <source>Too many files in library</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Do you want to delete files in library &quot;%1&quot; ?</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -2248,6 +2256,10 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     </message>
     <message>
         <source>Waiting for confirmation to delete files</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Too many files in library</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -3010,10 +3022,6 @@ Abrir % 1 ajuda on-line</translation>
         <translation>Habilitar a Extensão Explorer</translation>
     </message>
     <message>
-        <source>Check for updates automatically</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
         <source>Do not verify server certificate in HTTPS syncing</source>
         <translation>Não verificar o certificado do servidor quando sincronizando por HTTPS</translation>
     </message>
@@ -3074,7 +3082,7 @@ Abrir % 1 ajuda on-line</translation>
         <translation type="unfinished"/>
     </message>
     <message>
-        <source>Confirm before bulk deleting files more than</source>
+        <source>Confirm before deleting files more than</source>
         <translation type="unfinished"/>
     </message>
 </context>

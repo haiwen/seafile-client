@@ -18,10 +18,6 @@
         <translation>О программе</translation>
     </message>
     <message>
-        <source>Check For Updates</source>
-        <translation>Проверить обновления</translation>
-    </message>
-    <message>
         <source>OK</source>
         <translation>OK</translation>
     </message>
@@ -1105,6 +1101,14 @@ failed to upload.</source>
         <source>&amp;Generate %1 Upload Link</source>
         <translation>&amp;Создать %1 ссылку для загрузки</translation>
     </message>
+    <message>
+        <source>Are you sure you want to delete &quot;%1&quot; ?</source>
+        <translation>Вы уверены, что хотите удалить &quot;%1&quot; ?</translation>
+    </message>
+    <message>
+        <source>Are you sure you want to delete those files ?</source>
+        <translation>Вы уверены, что хотите удалить эти файлы ?</translation>
+    </message>
 </context>
 <context>
     <name>FinderSyncHost</name>
@@ -1599,12 +1603,16 @@ File path contains invalid characters. It is not synced to this computer.</sourc
         <translation>Ожидание подтверждения удаления файлов</translation>
     </message>
     <message>
-        <source>Confirm to bulk delete files in library &quot;%1&quot; ?</source>
-        <translation>Подтвердить массовое удаление файлов в библиотеке &quot;%1&quot; ?</translation>
-    </message>
-    <message>
         <source>Deleted &quot;%1&quot; and %2 more files.</source>
         <translation>Удалено &quot;%1&quot; и еще %2 файлов.</translation>
+    </message>
+    <message>
+        <source>Too many files in library</source>
+        <translation>Слишком много файлов в библиотеке</translation>
+    </message>
+    <message>
+        <source>Do you want to delete files in library &quot;%1&quot; ?</source>
+        <translation>Вы хотите удалить файлы в библиотеке &quot;%1&quot; ?</translation>
     </message>
 </context>
 <context>
@@ -2259,6 +2267,10 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     <message>
         <source>Waiting for confirmation to delete files</source>
         <translation>Ожидание подтверждения удаления файлов</translation>
+    </message>
+    <message>
+        <source>Too many files in library</source>
+        <translation>Слишком много файлов в библиотеке</translation>
     </message>
 </context>
 <context>
@@ -3017,10 +3029,6 @@ File path contains invalid characters. It is not synced to this computer.</sourc
         <translation>Включить расширение проводник</translation>
     </message>
     <message>
-        <source>Check for updates automatically</source>
-        <translation>Автоматическая проверка обновлений</translation>
-    </message>
-    <message>
         <source>Do not verify server certificate in HTTPS syncing</source>
         <translation>Не проверять сертификат сервера при HTTPS синхронизации</translation>
     </message>
@@ -3081,8 +3089,8 @@ File path contains invalid characters. It is not synced to this computer.</sourc
         <translation>Скрыть сообщение Windows о несовместимости путей</translation>
     </message>
     <message>
-        <source>Confirm before bulk deleting files more than</source>
-        <translation>Подтвердите перед массовым удалением файлов более</translation>
+        <source>Confirm before deleting files more than</source>
+        <translation>Подтвердите удаление файлов более чем</translation>
     </message>
 </context>
 <context>

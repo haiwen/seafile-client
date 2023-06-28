@@ -18,10 +18,6 @@
         <translation>关于</translation>
     </message>
     <message>
-        <source>Check For Updates</source>
-        <translation>检查更新</translation>
-    </message>
-    <message>
         <source>OK</source>
         <translation>确定</translation>
     </message>
@@ -1097,6 +1093,14 @@ failed to upload.</source>
         <source>&amp;Generate %1 Upload Link</source>
         <translation>&amp;获取 %1 上传链接</translation>
     </message>
+    <message>
+        <source>Are you sure you want to delete &quot;%1&quot; ?</source>
+        <translation>确定要删除 “%1” ？</translation>
+    </message>
+    <message>
+        <source>Are you sure you want to delete those files ?</source>
+        <translation>确定要删除这些文件？</translation>
+    </message>
 </context>
 <context>
     <name>FinderSyncHost</name>
@@ -1589,12 +1593,16 @@ File path contains invalid characters. It is not synced to this computer.</sourc
         <translation>等待确认文件删除操作</translation>
     </message>
     <message>
-        <source>Confirm to bulk delete files in library &quot;%1&quot; ?</source>
-        <translation>确认删除 “%1” 资料库中的文件？</translation>
-    </message>
-    <message>
         <source>Deleted &quot;%1&quot; and %2 more files.</source>
         <translation>删除了 “%1” 以及其它 %2 个文件</translation>
+    </message>
+    <message>
+        <source>Too many files in library</source>
+        <translation>资料库的文件太多</translation>
+    </message>
+    <message>
+        <source>Do you want to delete files in library &quot;%1&quot; ?</source>
+        <translation>确认删除 “%1” 资料库中的文件？</translation>
     </message>
 </context>
 <context>
@@ -2249,6 +2257,10 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     <message>
         <source>Waiting for confirmation to delete files</source>
         <translation>等待确认文件删除操作</translation>
+    </message>
+    <message>
+        <source>Too many files in library</source>
+        <translation>资料库的文件太多</translation>
     </message>
 </context>
 <context>
@@ -3007,10 +3019,6 @@ File path contains invalid characters. It is not synced to this computer.</sourc
         <translation>启用文件浏览器的扩展</translation>
     </message>
     <message>
-        <source>Check for updates automatically</source>
-        <translation>自动检查更新</translation>
-    </message>
-    <message>
         <source>Do not verify server certificate in HTTPS syncing</source>
         <translation>HTTPS 同步过程中不验证服务器证书</translation>
     </message>
@@ -3071,7 +3079,7 @@ File path contains invalid characters. It is not synced to this computer.</sourc
         <translation>隐藏 Windows 不兼容路径的消息通知</translation>
     </message>
     <message>
-        <source>Confirm before bulk deleting files more than</source>
+        <source>Confirm before deleting files more than</source>
         <translation>提示确认操作，当删除的文件数大于</translation>
     </message>
 </context>

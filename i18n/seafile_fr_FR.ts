@@ -18,10 +18,6 @@
         <translation>À propos</translation>
     </message>
     <message>
-        <source>Check For Updates</source>
-        <translation>Vérification des mises à jour</translation>
-    </message>
-    <message>
         <source>OK</source>
         <translation>Ok</translation>
     </message>
@@ -1104,6 +1100,14 @@ n&apos;a pu être envoyé.</translation>
         <source>&amp;Generate %1 Upload Link</source>
         <translation>&amp;Générer %1 un lien d&apos;envoi</translation>
     </message>
+    <message>
+        <source>Are you sure you want to delete &quot;%1&quot; ?</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Are you sure you want to delete those files ?</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>FinderSyncHost</name>
@@ -1597,11 +1601,15 @@ Le nom de fichier contient des caractères invalides. Il n&apos;est pas synchron
         <translation type="unfinished"/>
     </message>
     <message>
-        <source>Confirm to bulk delete files in library &quot;%1&quot; ?</source>
+        <source>Deleted &quot;%1&quot; and %2 more files.</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <source>Deleted &quot;%1&quot; and %2 more files.</source>
+        <source>Too many files in library</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Do you want to delete files in library &quot;%1&quot; ?</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -2256,6 +2264,10 @@ Le nom de fichier contient des caractères invalides. Il n&apos;est pas synchron
     </message>
     <message>
         <source>Waiting for confirmation to delete files</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Too many files in library</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -3017,10 +3029,6 @@ Le nom de fichier contient des caractères invalides. Il n&apos;est pas synchron
         <translation>Activer l&apos;extension de l&apos;explorateur de fichiers</translation>
     </message>
     <message>
-        <source>Check for updates automatically</source>
-        <translation>Vérifier les mises à jour automatiquement</translation>
-    </message>
-    <message>
         <source>Do not verify server certificate in HTTPS syncing</source>
         <translation>Ne pas vérifier le certificat serveur lors de la connexion HTTPS</translation>
     </message>
@@ -3081,7 +3089,7 @@ Le nom de fichier contient des caractères invalides. Il n&apos;est pas synchron
         <translation>Masquer les messages de Windows relatifs aux incompatibilités des chemins d&apos;accès</translation>
     </message>
     <message>
-        <source>Confirm before bulk deleting files more than</source>
+        <source>Confirm before deleting files more than</source>
         <translation type="unfinished"/>
     </message>
 </context>

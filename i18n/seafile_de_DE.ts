@@ -18,10 +18,6 @@
         <translation>Über</translation>
     </message>
     <message>
-        <source>Check For Updates</source>
-        <translation>Auf Aktualisierungen prüfen</translation>
-    </message>
-    <message>
         <source>OK</source>
         <translation>OK</translation>
     </message>
@@ -1103,6 +1099,14 @@ Bitte %1</translation>
         <source>&amp;Generate %1 Upload Link</source>
         <translation>Upload-Link erstellen</translation>
     </message>
+    <message>
+        <source>Are you sure you want to delete &quot;%1&quot; ?</source>
+        <translation>Möchten Sie „%1“ wirklich löschen?</translation>
+    </message>
+    <message>
+        <source>Are you sure you want to delete those files ?</source>
+        <translation>Möchten Sie die Dateien wirklich löschen?</translation>
+    </message>
 </context>
 <context>
     <name>FinderSyncHost</name>
@@ -1597,12 +1601,16 @@ Die Ordnerstruktur enthält ungültige Zeichen. Synchronisieren mit diesem Compu
         <translation>Die Löschbestätigung wir abgewartet.</translation>
     </message>
     <message>
-        <source>Confirm to bulk delete files in library &quot;%1&quot; ?</source>
-        <translation>Bitte bestätigen Sie die Maschenlösung in Bibliothek &quot;%1&quot;.</translation>
-    </message>
-    <message>
         <source>Deleted &quot;%1&quot; and %2 more files.</source>
         <translation>Die Datei &quot;%1&quot; und %2 weitere Dateien wurden gelöscht.</translation>
+    </message>
+    <message>
+        <source>Too many files in library</source>
+        <translation>Bibliothek enthält zu viele Dateien</translation>
+    </message>
+    <message>
+        <source>Do you want to delete files in library &quot;%1&quot; ?</source>
+        <translation>Möchten Sie die Dateien in Bibliothek „%1“ löschen?</translation>
     </message>
 </context>
 <context>
@@ -2258,6 +2266,10 @@ Die Ordnerstruktur enthält ungültige Zeichen. Synchronisieren mit diesem Compu
         <source>Waiting for confirmation to delete files</source>
         <translation>Die Löschbestätigung wir abgewartet.</translation>
     </message>
+    <message>
+        <source>Too many files in library</source>
+        <translation>Bibliothek enthält zu viele Dateien</translation>
+    </message>
 </context>
 <context>
     <name>ReliablePostFileTask</name>
@@ -2582,15 +2594,15 @@ Die Ordnerstruktur enthält ungültige Zeichen. Synchronisieren mit diesem Compu
     </message>
     <message>
         <source>Show sync errors</source>
-        <translation type="unfinished"/>
+        <translation>Synchronisierungs-Fehler anzeigen</translation>
     </message>
     <message>
         <source>Discard sync errors</source>
-        <translation type="unfinished"/>
+        <translation>Synchronisierungs-Fehler verwerfen</translation>
     </message>
     <message>
         <source>Ignore sync errors from this library</source>
-        <translation type="unfinished"/>
+        <translation>Synchronisierungs-Fehler dieser Bibliothek ignorieren</translation>
     </message>
 </context>
 <context>
@@ -3017,10 +3029,6 @@ Die Ordnerstruktur enthält ungültige Zeichen. Synchronisieren mit diesem Compu
         <translation>Die Explorer-Symbole anzeigen</translation>
     </message>
     <message>
-        <source>Check for updates automatically</source>
-        <translation>Automatisch auf Aktualisierungen prüfen</translation>
-    </message>
-    <message>
         <source>Do not verify server certificate in HTTPS syncing</source>
         <translation>Server-Zertifikat bei https-Synchronisierung nicht überprüfen</translation>
     </message>
@@ -3081,8 +3089,8 @@ Die Ordnerstruktur enthält ungültige Zeichen. Synchronisieren mit diesem Compu
         <translation>Hinweis auf nicht kompatible Windows-Pfade ausblenden</translation>
     </message>
     <message>
-        <source>Confirm before bulk deleting files more than</source>
-        <translation>Bitte bestätigen Sie die Massenlöschung von Dateien.</translation>
+        <source>Confirm before deleting files more than</source>
+        <translation>Bestätigung bei Löschung von mehreren Dateien ab einer Zahl von</translation>
     </message>
 </context>
 <context>

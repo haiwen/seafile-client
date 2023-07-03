@@ -788,7 +788,7 @@ failed to upload.</source>
     </message>
     <message>
         <source>Do you really want to delete these items</source>
-        <translation>이 항목을 정말로 삭제할까요?</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Create folder failed</source>
@@ -873,6 +873,14 @@ failed to upload.</source>
     <message>
         <source>Failed to get upload link information for file &quot;%1&quot;</source>
         <translation>&quot;%1&quot; 파일 업로드 링크 정보 가져오기에 실패했습니다</translation>
+    </message>
+    <message>
+        <source>Do you really want to delete file &quot;%1&quot;?</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Do you really want to delete folder &quot;%1&quot;?</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -1100,14 +1108,6 @@ failed to upload.</source>
     <message>
         <source>&amp;Generate %1 Upload Link</source>
         <translation>%1 업로드 링크 만들기(&amp;G)</translation>
-    </message>
-    <message>
-        <source>Are you sure you want to delete &quot;%1&quot; ?</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Are you sure you want to delete those files ?</source>
-        <translation type="unfinished"/>
     </message>
 </context>
 <context>

@@ -787,7 +787,7 @@ feltöltése nem sikerült.</translation>
     </message>
     <message>
         <source>Do you really want to delete these items</source>
-        <translation>Biztosan törli a kiválasztott elemeket?</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Create folder failed</source>
@@ -872,6 +872,14 @@ feltöltése nem sikerült.</translation>
     <message>
         <source>Failed to get upload link information for file &quot;%1&quot;</source>
         <translation>Hiba a feltöltési link lekérése során a fájlhoz: &quot;%1%&quot;</translation>
+    </message>
+    <message>
+        <source>Do you really want to delete file &quot;%1&quot;?</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Do you really want to delete folder &quot;%1&quot;?</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -1098,14 +1106,6 @@ feltöltése nem sikerült.</translation>
     </message>
     <message>
         <source>&amp;Generate %1 Upload Link</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Are you sure you want to delete &quot;%1&quot; ?</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Are you sure you want to delete those files ?</source>
         <translation type="unfinished"/>
     </message>
 </context>

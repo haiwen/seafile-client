@@ -787,7 +787,7 @@ falló la subida.</translation>
     </message>
     <message>
         <source>Do you really want to delete these items</source>
-        <translation>¿Realmente desea eliminar estos ítems?</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Create folder failed</source>
@@ -872,6 +872,14 @@ falló la subida.</translation>
     <message>
         <source>Failed to get upload link information for file &quot;%1&quot;</source>
         <translation>Fallo al obtener información del enlace de subida para el archivo &quot;%1&quot;</translation>
+    </message>
+    <message>
+        <source>Do you really want to delete file &quot;%1&quot;?</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Do you really want to delete folder &quot;%1&quot;?</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -1099,14 +1107,6 @@ falló la subida.</translation>
     <message>
         <source>&amp;Generate %1 Upload Link</source>
         <translation>&amp;Generar Enlace %1 para Subir</translation>
-    </message>
-    <message>
-        <source>Are you sure you want to delete &quot;%1&quot; ?</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Are you sure you want to delete those files ?</source>
-        <translation type="unfinished"/>
     </message>
 </context>
 <context>

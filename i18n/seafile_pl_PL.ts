@@ -787,7 +787,7 @@ nieudane przesyłanie.</translation>
     </message>
     <message>
         <source>Do you really want to delete these items</source>
-        <translation>Czy na pewno chcesz usunąć te elementy</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Create folder failed</source>
@@ -871,6 +871,14 @@ nieudane przesyłanie.</translation>
     </message>
     <message>
         <source>Failed to get upload link information for file &quot;%1&quot;</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Do you really want to delete file &quot;%1&quot;?</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Do you really want to delete folder &quot;%1&quot;?</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -1098,14 +1106,6 @@ nieudane przesyłanie.</translation>
     </message>
     <message>
         <source>&amp;Generate %1 Upload Link</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Are you sure you want to delete &quot;%1&quot; ?</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Are you sure you want to delete those files ?</source>
         <translation type="unfinished"/>
     </message>
 </context>

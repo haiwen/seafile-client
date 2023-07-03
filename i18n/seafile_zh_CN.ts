@@ -867,6 +867,14 @@ failed to upload.</source>
         <source>Failed to get upload link information for file &quot;%1&quot;</source>
         <translation>无法获取文件 &quot;%1&quot; 的上传链接</translation>
     </message>
+    <message>
+        <source>Do you really want to delete file &quot;%1&quot;?</source>
+        <translation>您真的想删除文件 “%1” ？</translation>
+    </message>
+    <message>
+        <source>Do you really want to delete folder &quot;%1&quot;?</source>
+        <translation>您真的想删除文件夹 “%1” ？</translation>
+    </message>
 </context>
 <context>
     <name>FileBrowserProgressDialog</name>
@@ -1092,14 +1100,6 @@ failed to upload.</source>
     <message>
         <source>&amp;Generate %1 Upload Link</source>
         <translation>&amp;获取 %1 上传链接</translation>
-    </message>
-    <message>
-        <source>Are you sure you want to delete &quot;%1&quot; ?</source>
-        <translation>确定要删除 “%1” ？</translation>
-    </message>
-    <message>
-        <source>Are you sure you want to delete those files ?</source>
-        <translation>确定要删除这些文件？</translation>
     </message>
 </context>
 <context>

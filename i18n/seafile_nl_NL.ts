@@ -786,7 +786,7 @@ kon niet worden geüpload.</translation>
     </message>
     <message>
         <source>Do you really want to delete these items</source>
-        <translation>Weet je zeker dat je deze items wilt verwijderen?</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Create folder failed</source>
@@ -870,6 +870,14 @@ kon niet worden geüpload.</translation>
     </message>
     <message>
         <source>Failed to get upload link information for file &quot;%1&quot;</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Do you really want to delete file &quot;%1&quot;?</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Do you really want to delete folder &quot;%1&quot;?</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -1097,14 +1105,6 @@ kon niet worden geüpload.</translation>
     </message>
     <message>
         <source>&amp;Generate %1 Upload Link</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Are you sure you want to delete &quot;%1&quot; ?</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Are you sure you want to delete those files ?</source>
         <translation type="unfinished"/>
     </message>
 </context>

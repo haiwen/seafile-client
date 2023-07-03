@@ -1210,9 +1210,10 @@ void FileBrowserDialog::onGetDirentRename(const SeafDirent& dirent,
 
 void FileBrowserDialog::onGetDirentRemove(const SeafDirent& dirent)
 {
-    // if (seafApplet->yesOrNoBox(dirent.isFile() ?
-    //         tr("Do you really want to delete file \"%1\"?").arg(dirent.name) :
-    //         tr("Do you really want to delete folder \"%1\"?").arg(dirent.name), this, false))
+    if (seafApplet->yesOrNoBox(dirent.isFile() ?
+            tr("Do you really want to delete file \"%1\"?").arg(dirent.name) :
+            tr("Do you really want to delete folder \"%1\"?").arg(dirent.name), this, false))
+
     data_mgr_->removeDirent(repo_.id, pathJoin(current_path_, dirent.name),
                             dirent.isFile());
 }

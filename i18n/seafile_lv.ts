@@ -867,6 +867,14 @@ failed to upload.</source>
         <source>Failed to get upload link information for file &quot;%1&quot;</source>
         <translation type="unfinished"/>
     </message>
+    <message>
+        <source>Do you really want to delete file &quot;%1&quot;?</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Do you really want to delete folder &quot;%1&quot;?</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>FileBrowserProgressDialog</name>
@@ -1091,14 +1099,6 @@ failed to upload.</source>
     </message>
     <message>
         <source>&amp;Generate %1 Upload Link</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Are you sure you want to delete &quot;%1&quot; ?</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Are you sure you want to delete those files ?</source>
         <translation type="unfinished"/>
     </message>
 </context>

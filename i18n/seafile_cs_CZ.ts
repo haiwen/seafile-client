@@ -788,7 +788,7 @@ Prosím %1</translation>
     </message>
     <message>
         <source>Do you really want to delete these items</source>
-        <translation>Opravdu chcete smazat tyto položky</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Create folder failed</source>
@@ -873,6 +873,14 @@ Prosím %1</translation>
     <message>
         <source>Failed to get upload link information for file &quot;%1&quot;</source>
         <translation>Nepodařilo se získat odkaz pro nahrání souboru &quot;%1&quot; ze serveru</translation>
+    </message>
+    <message>
+        <source>Do you really want to delete file &quot;%1&quot;?</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Do you really want to delete folder &quot;%1&quot;?</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -1100,14 +1108,6 @@ Prosím %1</translation>
     <message>
         <source>&amp;Generate %1 Upload Link</source>
         <translation>&amp;Generovat %1 odkaz pro nahrání</translation>
-    </message>
-    <message>
-        <source>Are you sure you want to delete &quot;%1&quot; ?</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Are you sure you want to delete those files ?</source>
-        <translation type="unfinished"/>
     </message>
 </context>
 <context>

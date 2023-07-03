@@ -787,7 +787,7 @@ n&apos;a pu être envoyé.</translation>
     </message>
     <message>
         <source>Do you really want to delete these items</source>
-        <translation>Voulez-vous vraiment supprimer ces éléments ?</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Create folder failed</source>
@@ -872,6 +872,14 @@ n&apos;a pu être envoyé.</translation>
     <message>
         <source>Failed to get upload link information for file &quot;%1&quot;</source>
         <translation>Impossible d&apos;obtenir les informations du lien d&apos;envoi du fichier &quot;%1&quot;</translation>
+    </message>
+    <message>
+        <source>Do you really want to delete file &quot;%1&quot;?</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Do you really want to delete folder &quot;%1&quot;?</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -1099,14 +1107,6 @@ n&apos;a pu être envoyé.</translation>
     <message>
         <source>&amp;Generate %1 Upload Link</source>
         <translation>&amp;Générer %1 un lien d&apos;envoi</translation>
-    </message>
-    <message>
-        <source>Are you sure you want to delete &quot;%1&quot; ?</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Are you sure you want to delete those files ?</source>
-        <translation type="unfinished"/>
     </message>
 </context>
 <context>

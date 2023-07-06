@@ -161,6 +161,16 @@ public:
                       const QString& magic,
                       const QString& random_key,
                       const QString& salt);
+    // Constructor for seafile encryption v5
+    CreateRepoRequest(const Account& account,
+                      const QString& name,
+                      const QString& desc,
+                      int enc_version,
+                      const QString& repo_id,
+                      const QString& magic,
+                      const QString& random_key,
+                      const QString& salt,
+                      int key_iter);
 
 protected slots:
     void requestSuccess(QNetworkReply& reply);

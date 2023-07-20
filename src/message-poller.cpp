@@ -207,6 +207,9 @@ void MessagePoller::processNotification(const SyncNotification& notification)
         case SYNC_ERROR_ID_TOO_MANY_FILES:
             msg = tr("Too many files in library");
             break;
+        case SYNC_ERROR_ID_CHECKOUT_FILE:
+            msg = tr("Failed to checkout file on the client. Please check disk space or folder permissions");
+            break;
         default:
             qWarning("Unknown sync error id %d", err_id);
             json_decref(object);

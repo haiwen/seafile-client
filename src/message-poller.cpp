@@ -148,6 +148,7 @@ void MessagePoller::processNotification(const SyncNotification& notification)
         case SYNC_ERROR_ID_PATH_INVALID_CHARACTER:
         case SYNC_ERROR_ID_UPDATE_TO_READ_ONLY_REPO:
         case SYNC_ERROR_ID_REMOVE_UNCOMMITTED_FOLDER:
+        case SYNC_ERROR_ID_CHECKOUT_FILE:
 #if !defined(Q_OS_WIN32)
         case SYNC_ERROR_ID_INVALID_PATH_ON_WINDOWS:
 #endif
@@ -206,6 +207,9 @@ void MessagePoller::processNotification(const SyncNotification& notification)
             break;
         case SYNC_ERROR_ID_TOO_MANY_FILES:
             msg = tr("Too many files in library");
+            break;
+        case SYNC_ERROR_ID_CHECKOUT_FILE:
+            msg = tr("Failed to download file %1. Please check disk space or folder permissions").arg(path);
             break;
         default:
             qWarning("Unknown sync error id %d", err_id);

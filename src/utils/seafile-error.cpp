@@ -114,7 +114,7 @@ QString translateSyncErrorCode(const int error_code)
             error_str = QObject::tr("Too many files in library");
             break;
         case SYNC_ERROR_ID_CHECKOUT_FILE:
-            error_str = QObject::tr("Failed to checkout file on the client. Please check disk space or folder permissions");
+            error_str = QObject::tr("Failed to download file. Please check disk space or folder permissions");
             break;
         default:
             qWarning("Unknown sync error");

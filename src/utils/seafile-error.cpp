@@ -116,6 +116,9 @@ QString translateSyncErrorCode(const int error_code)
         case SYNC_ERROR_ID_CHECKOUT_FILE:
             error_str = QObject::tr("Failed to download file. Please check disk space or folder permissions");
             break;
+        case SYNC_ERROR_ID_BLOCK_MISSING:
+            error_str = QObject::tr("Failed to upload file blocks. Please check network or firewall");
+            break;
         default:
             qWarning("Unknown sync error");
     }

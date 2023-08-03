@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|x64">
@@ -397,7 +397,7 @@
     <ClCompile>
       <PreprocessorDefinitions>SEAFILE_CLIENT_VERSION=9.0.3;HAVE_SHIBBOLETH_SUPPORT;SEAFILE_CLIENT_HAS_CRASH_REPORTER;WIN32_LEAN_AND_MEAN;QUAZIP_BUILD;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>$(ProjectDir)..\libsearpc\lib;$(ProjectDir)..\seafile;$(ProjectDir)..\breakpad\src;$(ProjectDir)third_party\quazip;$(ProjectDir)third_party\QtAwesome;$(ProjectDir)third_party\WinSparkle-0.5.3\include;$(ProjectDir)src;$(ProjectDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <LanguageStandard>stdcpp14</LanguageStandard>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <AdditionalDependencies>wininet.lib;urlmon.lib;psapi.lib;ws2_32.lib;shlwapi.lib;mpr.lib;crypt32.lib;libsearpc.lib;quazip.lib;common.lib;crash_generation_client.lib;exception_handler.lib;rpcrt4.lib;onecoreuap.lib;onecore.lib;winspool.lib;cldapi.lib;%(AdditionalDependencies)</AdditionalDependencies>
@@ -410,14 +410,19 @@ for /f "delims=. " %%a in ('dir /b /a-d /o-d "%FolderName%\*.ts"') do (
 )</Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+    </ClCompile>
+  </ItemDefinitionGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'" Label="QtSettings">
-    <QtInstall>Qt 5.13.1-64bit</QtInstall>
-    <QtModules>core;network;gui;widgets;webengine;webenginewidgets</QtModules>
+    <QtInstall>Qt 6.5.2</QtInstall>
+    <QtModules>core;gui;network;widgets;core5compat;webenginecore;webenginewidgets</QtModules>
     <QtBuildConfig>debug</QtBuildConfig>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'" Label="QtSettings">
-    <QtInstall>Qt5.15.1-64bit</QtInstall>
-    <QtModules>core;network;gui;widgets;webengine;webenginewidgets</QtModules>
+    <QtInstall>Qt 6.5.2</QtInstall>
+    <QtModules>core;gui;network;widgets;core5compat;webenginecore;webenginewidgets</QtModules>
     <QtBuildConfig>release</QtBuildConfig>
     <QtDeploy>true</QtDeploy>
   </PropertyGroup>

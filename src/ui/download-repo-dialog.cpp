@@ -368,9 +368,15 @@ void DownloadRepoDialog::onDownloadRepoRequestSuccess(const RepoDownloadInfo& in
         }
         seafApplet->warningBox(tr("Failed to add download task:\n %1").arg(error), this);
         setAllInputsEnabled(true);
-    } else {
-        done(QDialog::Accepted);
+        return;
     }
+
+    QFileSystemWatcher watcher;
+    if (!watcher.addPath(worktree)) {
+        seafApplet->warningBox(tr("Library \"%1\" may not sync automatically, please set a sync interval afterwards.").arg(repo_.name), this);
+    }
+
+    done(QDialog::Accepted);
 }
 
 

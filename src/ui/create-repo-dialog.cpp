@@ -208,10 +208,16 @@ void CreateRepoDialog::createSuccess(const RepoDownloadInfo& info)
         error = translateErrorMsg(error);
         seafApplet->warningBox(tr("Failed to add download task:\n %1").arg(error), this);
         setAllInputsEnabled(true);
-    } else {
-        repos_tab_->refresh();
-        done(QDialog::Accepted);
+        return;
     }
+
+    QFileSystemWatcher watcher;
+    if (!watcher.addPath(path_)) {
+        seafApplet->warningBox(tr("Library \"%1\" may not sync automatically, please set a sync interval afterwards.").arg(info.repo_name), this);
+    }
+
+    repos_tab_->refresh();
+    done(QDialog::Accepted);
 }
 
 void CreateRepoDialog::createFailed(const ApiError& error)

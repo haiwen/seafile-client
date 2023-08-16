@@ -1128,9 +1128,11 @@ void FileBrowserDialog::goHome()
 void FileBrowserDialog::updateTable(const QList<SeafDirent>& dirents)
 {
     if (dirents.isEmpty()) {
+        AutoUpdateManager::instance()->setDirents(QList<SeafDirent>());
         table_model_->setDirents(QList<SeafDirent>());
         stack_->setCurrentIndex(INDEX_TABLE_VIEW);
     } else {
+        AutoUpdateManager::instance()->setDirents(dirents);
         table_model_->setDirents(dirents);
         stack_->setCurrentIndex(INDEX_TABLE_VIEW);
     }

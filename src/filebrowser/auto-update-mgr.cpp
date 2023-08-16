@@ -171,6 +171,15 @@ void AutoUpdateManager::onFileChanged(const QString& local_path)
         return;
     }
 #endif
+
+    auto status = getFileStatusForDirectory(info.account.getSignature(), info.repo_id,
+                                            QFileInfo(info.path_in_repo).path(), dirents_);
+    QString filename = QFileInfo(info.path_in_repo).fileName();
+    if (status.contains(filename) && status.value(filename) == NOT_SYNCED) {
+        qDebug("[AutoUpdateManager] skip NOT_SYNCED file %s", toCStr(local_path));
+        return;
+    }
+
     removePath(&watcher_, local_path);
     QString repo_id, path_in_repo;
 
@@ -390,6 +399,11 @@ void CachedFilesCleaner::run()
             delete_dir_recursively(file_cache_tmp_dir);
         }
     }
+}
+
+void AutoUpdateManager::setDirents(const QList<SeafDirent>& dirents)
+{
+    dirents_ = dirents;
 }
 
 void AutoUpdateManager::dumpCacheStatus()

@@ -40,6 +40,7 @@ public:
         const QList<SeafDirent>& dirents);
     void cleanCachedFile();
     void uploadFile(const QString& local_path);
+    void setDirents(const QList<SeafDirent>& dirents);
     void dumpCacheStatus();
 
 signals:
@@ -82,6 +83,8 @@ private:
     QHash<QString, WatchedFileInfo> watch_infos_;
 
     QQueue<WatchedFileInfo> deleted_files_infos_;
+
+    QList<SeafDirent> dirents_;
 
     bool system_shut_down_;
 };

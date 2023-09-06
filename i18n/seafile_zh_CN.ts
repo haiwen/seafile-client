@@ -2272,7 +2272,7 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     </message>
     <message>
         <source>Failed to upload file blocks. Please check network or firewall</source>
-        <translation>上传文件区块失败，请检查网络或防火墙设置。</translation>
+        <translation>上传文件块失败，请检查网络或防火墙设置。</translation>
     </message>
 </context>
 <context>

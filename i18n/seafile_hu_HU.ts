@@ -787,7 +787,7 @@ feltöltése nem sikerült.</translation>
     </message>
     <message>
         <source>Do you really want to delete these items</source>
-        <translation type="unfinished"/>
+        <translation>Biztosan törölni akarja ezeket az elemeket</translation>
     </message>
     <message>
         <source>Create folder failed</source>
@@ -1607,6 +1607,10 @@ File path contains invalid characters. It is not synced to this computer.</sourc
         <source>Do you want to delete files in library &quot;%1&quot; ?</source>
         <translation type="unfinished"/>
     </message>
+    <message>
+        <source>Failed to download file %1. Please check disk space or folder permissions</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>PrivateShareDialog</name>
@@ -2263,6 +2267,14 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     </message>
     <message>
         <source>Too many files in library</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Failed to download file. Please check disk space or folder permissions</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Failed to upload file blocks. Please check network or firewall</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -3158,19 +3170,19 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     </message>
     <message>
         <source>Password(At least 8 characters)</source>
-        <translation type="unfinished"/>
+        <translation>Jelszó (Legalább 8 karakter)</translation>
     </message>
     <message>
         <source>Show password</source>
-        <translation type="unfinished"/>
+        <translation>Jelszó mutatása</translation>
     </message>
     <message>
         <source>Expire days</source>
-        <translation type="unfinished"/>
+        <translation>Lejárati napok száma</translation>
     </message>
     <message>
         <source>Generate link</source>
-        <translation type="unfinished"/>
+        <translation>Link generálása</translation>
     </message>
 </context>
 <context>

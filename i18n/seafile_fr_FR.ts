@@ -1612,6 +1612,10 @@ Le nom de fichier contient des caractères invalides. Il n&apos;est pas synchron
         <source>Do you want to delete files in library &quot;%1&quot; ?</source>
         <translation type="unfinished"/>
     </message>
+    <message>
+        <source>Failed to download file %1. Please check disk space or folder permissions</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>PrivateShareDialog</name>
@@ -2268,6 +2272,14 @@ Le nom de fichier contient des caractères invalides. Il n&apos;est pas synchron
     </message>
     <message>
         <source>Too many files in library</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Failed to download file. Please check disk space or folder permissions</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Failed to upload file blocks. Please check network or firewall</source>
         <translation type="unfinished"/>
     </message>
 </context>

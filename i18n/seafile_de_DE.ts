@@ -786,7 +786,7 @@ Bitte %1</translation>
     </message>
     <message>
         <source>Do you really want to delete these items</source>
-        <translation type="unfinished"/>
+        <translation>Möchten Sie die ausgewählten Objekte wirklich löschen?</translation>
     </message>
     <message>
         <source>Create folder failed</source>
@@ -874,11 +874,11 @@ Bitte %1</translation>
     </message>
     <message>
         <source>Do you really want to delete file &quot;%1&quot;?</source>
-        <translation type="unfinished"/>
+        <translation>Möchten Sie die Datei „%1“ wirklich löschen?</translation>
     </message>
     <message>
         <source>Do you really want to delete folder &quot;%1&quot;?</source>
-        <translation type="unfinished"/>
+        <translation>Möchten Sie den Ordner „%1“ wirklich löschen?</translation>
     </message>
 </context>
 <context>
@@ -1612,6 +1612,10 @@ Die Ordnerstruktur enthält ungültige Zeichen. Synchronisieren mit diesem Compu
         <source>Do you want to delete files in library &quot;%1&quot; ?</source>
         <translation>Möchten Sie die Dateien in Bibliothek „%1“ löschen?</translation>
     </message>
+    <message>
+        <source>Failed to download file %1. Please check disk space or folder permissions</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>PrivateShareDialog</name>
@@ -2269,6 +2273,14 @@ Die Ordnerstruktur enthält ungültige Zeichen. Synchronisieren mit diesem Compu
     <message>
         <source>Too many files in library</source>
         <translation>Bibliothek enthält zu viele Dateien</translation>
+    </message>
+    <message>
+        <source>Failed to download file. Please check disk space or folder permissions</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Failed to upload file blocks. Please check network or firewall</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>

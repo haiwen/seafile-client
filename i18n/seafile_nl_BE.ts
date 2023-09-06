@@ -1602,6 +1602,10 @@ File path contains invalid characters. It is not synced to this computer.</sourc
         <source>Do you want to delete files in library &quot;%1&quot; ?</source>
         <translation type="unfinished"/>
     </message>
+    <message>
+        <source>Failed to download file %1. Please check disk space or folder permissions</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>PrivateShareDialog</name>
@@ -2258,6 +2262,14 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     </message>
     <message>
         <source>Too many files in library</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Failed to download file. Please check disk space or folder permissions</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Failed to upload file blocks. Please check network or firewall</source>
         <translation type="unfinished"/>
     </message>
 </context>

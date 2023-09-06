@@ -788,7 +788,7 @@ failed to upload.</source>
     </message>
     <message>
         <source>Do you really want to delete these items</source>
-        <translation type="unfinished"/>
+        <translation>Вы действительно хотите удалить эти элементы</translation>
     </message>
     <message>
         <source>Create folder failed</source>
@@ -876,11 +876,11 @@ failed to upload.</source>
     </message>
     <message>
         <source>Do you really want to delete file &quot;%1&quot;?</source>
-        <translation type="unfinished"/>
+        <translation>Вы действительно хотите удалить файл &quot;%1&quot;?</translation>
     </message>
     <message>
         <source>Do you really want to delete folder &quot;%1&quot;?</source>
-        <translation type="unfinished"/>
+        <translation>Вы действительно хотите удалить папку &quot;%1&quot;?</translation>
     </message>
 </context>
 <context>
@@ -1614,6 +1614,10 @@ File path contains invalid characters. It is not synced to this computer.</sourc
         <source>Do you want to delete files in library &quot;%1&quot; ?</source>
         <translation>Вы хотите удалить файлы в библиотеке &quot;%1&quot; ?</translation>
     </message>
+    <message>
+        <source>Failed to download file %1. Please check disk space or folder permissions</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>PrivateShareDialog</name>
@@ -2271,6 +2275,14 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     <message>
         <source>Too many files in library</source>
         <translation>Слишком много файлов в библиотеке</translation>
+    </message>
+    <message>
+        <source>Failed to download file. Please check disk space or folder permissions</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Failed to upload file blocks. Please check network or firewall</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>

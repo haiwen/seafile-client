@@ -1604,6 +1604,10 @@ File path contains invalid characters. It is not synced to this computer.</sourc
         <source>Do you want to delete files in library &quot;%1&quot; ?</source>
         <translation>确认删除 “%1” 资料库中的文件？</translation>
     </message>
+    <message>
+        <source>Failed to download file %1. Please check disk space or folder permissions</source>
+        <translation>下载文件失败：%1 ，请检查磁盘可用空间以及文件夹权限。</translation>
+    </message>
 </context>
 <context>
     <name>PrivateShareDialog</name>
@@ -2261,6 +2265,14 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     <message>
         <source>Too many files in library</source>
         <translation>资料库的文件太多</translation>
+    </message>
+    <message>
+        <source>Failed to download file. Please check disk space or folder permissions</source>
+        <translation>下载文件失败，请检查磁盘可用空间以及文件夹权限。</translation>
+    </message>
+    <message>
+        <source>Failed to upload file blocks. Please check network or firewall</source>
+        <translation>上传文件块失败，请检查网络或防火墙设置。</translation>
     </message>
 </context>
 <context>

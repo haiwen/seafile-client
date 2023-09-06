@@ -788,7 +788,7 @@ failed to upload.</source>
     </message>
     <message>
         <source>Do you really want to delete these items</source>
-        <translation type="unfinished"/>
+        <translation>이 항목을 정말로 삭제할까요</translation>
     </message>
     <message>
         <source>Create folder failed</source>
@@ -876,11 +876,11 @@ failed to upload.</source>
     </message>
     <message>
         <source>Do you really want to delete file &quot;%1&quot;?</source>
-        <translation type="unfinished"/>
+        <translation>&quot;%1&quot; 파일을 정말로 삭제할까요?</translation>
     </message>
     <message>
         <source>Do you really want to delete folder &quot;%1&quot;?</source>
-        <translation type="unfinished"/>
+        <translation>&quot;%1&quot; 폴더를 정말로 삭제할까요?</translation>
     </message>
 </context>
 <context>
@@ -1608,11 +1608,15 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     </message>
     <message>
         <source>Too many files in library</source>
-        <translation type="unfinished"/>
+        <translation>라이브러리에 파일이 너무 많습니다</translation>
     </message>
     <message>
         <source>Do you want to delete files in library &quot;%1&quot; ?</source>
         <translation>&quot;%1&quot; 라이브러리 파일을 삭제할까요?</translation>
+    </message>
+    <message>
+        <source>Failed to download file %1. Please check disk space or folder permissions</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -2270,6 +2274,14 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     </message>
     <message>
         <source>Too many files in library</source>
+        <translation>라이브러리에 파일이 너무 많습니다</translation>
+    </message>
+    <message>
+        <source>Failed to download file. Please check disk space or folder permissions</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Failed to upload file blocks. Please check network or firewall</source>
         <translation type="unfinished"/>
     </message>
 </context>

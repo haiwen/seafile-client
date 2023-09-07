@@ -3,6 +3,7 @@
 #include <QDir>
 #include <QStringList>
 #include "stl.h"
+#include "utils.h"
 
 #ifdef Q_OS_WIN32
 #include <windows.h>
@@ -817,6 +818,7 @@ QString expandVars(const QString& origin)
         retval = QString::fromWCharArray(&expanded[0], expanded_size);
         // workaround with a bug
         retval = QString::fromUtf8(retval.toUtf8());
+        retval = trimNULL(retval);
     } else {
         retval = origin;
     }

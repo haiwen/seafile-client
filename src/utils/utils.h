@@ -97,4 +97,6 @@ bool shouldUseFramelessWindow();
 
 const QRect getScreenSize(int index);
 
+QString trimNULL(QString& s);
+
 #endif

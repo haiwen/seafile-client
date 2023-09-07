@@ -60,7 +60,7 @@ public:
     // Read preconfigure settings
     QVariant readPreconfigureEntry(const QString& key, const QVariant& default_value = QVariant());
     // ExpandedVars String
-    QString readPreconfigureExpandedString(const QString& key, const QString& default_value = QString());
+    QString readPreconfigureExpandedString(const QString& key, const QVariant& default_value = QVariant());
 
     // Create a unique device id to replace obselete ccnet id
     QString getUniqueClientId();

@@ -232,6 +232,7 @@ void RegElement::read()
 
     // workaround with a bug
     string_value_ = QString::fromUtf8(string_value_.toUtf8());
+    string_value_ = trimNULL(string_value_);
 
     return;
 }

@@ -712,7 +712,7 @@ QVariant SeafileApplet::readPreconfigureEntry(const QString& key, const QVariant
     return value;
 }
 
-QString SeafileApplet::readPreconfigureExpandedString(const QString& key, const QString& default_value)
+QString SeafileApplet::readPreconfigureExpandedString(const QString& key, const QVariant& default_value)
 {
     QVariant retval = readPreconfigureEntry(key, default_value);
     if (retval.isNull() || retval.type() != QVariant::String)

@@ -831,3 +831,10 @@ const QRect getScreenSize(int index) {
         return QRect();
     }
 }
+
+QString trimNULL(QString& s) {
+    if (s.endsWith(QChar::Null)) {
+        s.chop(1);
+    }
+    return s;
+}

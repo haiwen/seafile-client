@@ -32,15 +32,9 @@ sudo apt-get install -y qt56base qt56translations qt56tools qt56webengine
 sudo apt-get install -y mesa-common-dev libglu1-mesa-dev
 
 git clone --depth=1 --branch=master git://github.com/haiwen/libsearpc.git deps/libsearpc
-git clone --depth=1 --branch=master git://github.com/haiwen/ccnet.git deps/ccnet
 git clone --depth=1 --branch="$SEAFILE_BRANCH" git://github.com/haiwen/seafile.git deps/seafile
 pushd deps/libsearpc
 ./autogen.sh && ./configure
-make -j8 && sudo make install
-popd
-
-pushd deps/ccnet
-./autogen.sh && ./configure --enable-client --disable-server
 make -j8 && sudo make install
 popd
 

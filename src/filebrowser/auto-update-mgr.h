@@ -83,6 +83,8 @@ private:
 
     QQueue<WatchedFileInfo> deleted_files_infos_;
 
+    QSet<QString> not_synced_files_;
+
     bool system_shut_down_;
 };
 

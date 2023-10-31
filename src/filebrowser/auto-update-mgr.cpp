@@ -153,6 +153,10 @@ void AutoUpdateManager::onFileChanged(const QString& local_path)
         return;
     }
 
+    if (not_synced_files_.contains(local_path)) {
+        return;
+    }
+
     WatchedFileInfo &info = watch_infos_[local_path];
     QFileInfo finfo(local_path);
 
@@ -307,12 +311,8 @@ AutoUpdateManager::getFileStatusForDirectory(const QString &account_sig,
     QHash<QString, FileStatus> ret;
     QList<FileCache::CacheEntry> caches =
         FileCache::instance()->getCachedFilesForDirectory(account_sig, repo_id, parent_dir);
-    if (caches.empty()) {
-        // qDebug("no cached files for dir %s\n", toCStr(parent_dir));
-    }
-    foreach(const FileCache::CacheEntry& entry, caches) {
-        // qDebug("found cache entry: %s\n", entry.path.toUtf8().data());
 
+    foreach(const FileCache::CacheEntry& entry, caches) {
         QString local_file_path = DataManager::getLocalCacheFilePath(entry.repo_id, entry.path);
         const QString& file = ::getBaseName(entry.path);
         bool is_uploading = watch_infos_.contains(local_file_path) && watch_infos_[local_file_path].uploading;
@@ -340,6 +340,22 @@ AutoUpdateManager::getFileStatusForDirectory(const QString &account_sig,
         }
         qDebug("is_uploading %s, local_file_path is %s", is_uploading ? "true" : "false", toCStr(local_file_path));
     }
+
+    for (auto&& entry : caches) {
+        QString local_file_path = DataManager::getLocalCacheFilePath(entry.repo_id, entry.path);
+        QString filename = ::getBaseName(local_file_path);
+
+        if (!dirents_map.contains(filename)) {
+            continue;
+        }
+
+        if (ret.contains(filename) && ret[filename] == NOT_SYNCED) {
+            not_synced_files_.insert(local_file_path);
+        } else {
+            not_synced_files_.remove(local_file_path);
+        }
+    }
+
     return ret;
 }
 

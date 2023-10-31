@@ -83,7 +83,7 @@ private slots:
     void goHome();
     void chooseFileToUpload();
     void chooseDirectoryToUpload();
-    void onDownloadFinished(bool success);
+    void onDownloadFinished(bool success, bool is_file_locked);
     void onUploadFinished(bool success);
 
     // prompt a menu for user to choose a upload action
@@ -169,7 +169,7 @@ private:
     void showLoading();
     void updateTable(const QList<SeafDirent>& dirents);
     void createDirectory(const QString &name);
-    void downloadFile(const QString& path);
+    void downloadFile(const QString& path, bool is_locked);
     void uploadFile(const QString& path, const QString& name,
                     bool overwrite = false);
     void uploadMultipleFile(const QStringList& paths, bool overwrite = false);
@@ -181,9 +181,11 @@ private:
 
     void updateFileCount();
 
+    void setUnlockedFilesWritable(const QList<SeafDirent>& dirents);
+
     void forceRefresh();
 
-    bool setPasswordAndRetry(FileNetworkTask *task);
+    bool setPasswordAndRetry(FileNetworkTask *task, bool is_file_locked = false);
 
     bool eventFilter(QObject *obj, QEvent *event);
     bool handleDragDropEvent(QObject *obj, QEvent *event);

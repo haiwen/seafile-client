@@ -556,6 +556,22 @@ void FileBrowserDialog::updateFileCount()
     details_label_->setText(tr("%1 items").arg(row_count));
 }
 
+void FileBrowserDialog::setUnlockedFilesWritable(const QList<SeafDirent>& dirents)
+{
+    for (auto&& file : dirents) {
+        QString fpath = ::pathJoin(current_path_, file.name);
+        QString cached_file = data_mgr_->getLocalCachedFile(repo_.id, fpath, file.id);
+        if (!cached_file.isEmpty() && QFileInfo(cached_file).exists() && !file.is_locked) {
+            if (!(QFile::permissions(cached_file) & QFileDevice::WriteOwner)) {
+                QFile::setPermissions(cached_file,
+                    QFileDevice::ReadOwner | QFileDevice::WriteOwner |
+                    QFileDevice::ReadGroup | QFileDevice::ReadOther
+                );
+            }
+        }
+    }
+}
+
 void FileBrowserDialog::fetchDirents(bool force_refresh)
 {
     if (!has_password_dialog_ && repo_.encrypted && !data_mgr_->isRepoPasswordSet(repo_.id)) {
@@ -812,6 +828,15 @@ void FileBrowserDialog::onFileClicked(const SeafDirent& file)
     QString cached_file = data_mgr_->getLocalCachedFile(repo_.id, fpath, file.id);
     qDebug("cached_file is %s", cached_file.toUtf8().data());
     if (!cached_file.isEmpty() && QFileInfo(cached_file).exists()) {
+        // Cached files are set to read-only when they are locked.
+        if (file.is_locked) {
+            QFile::setPermissions(cached_file,
+                QFileDevice::ReadOwner |
+                QFileDevice::ReadGroup |
+                QFileDevice::ReadOther
+            );
+        }
+
         // double-checked the watch, since it might fails sometime
         AutoUpdateManager::instance()->watchCachedFile(account_, repo_.id, fpath);
         openFile(cached_file);
@@ -822,7 +847,7 @@ void FileBrowserDialog::onFileClicked(const SeafDirent& file)
         }
         AutoUpdateManager::instance()->removeWatch(
             DataManager::getLocalCacheFilePath(repo_.id, fpath));
-        downloadFile(fpath);
+        downloadFile(fpath, file.is_locked);
     }
 }
 
@@ -831,11 +856,13 @@ void FileBrowserDialog::createDirectory(const QString &name)
     data_mgr_->createDirectory(repo_.id, ::pathJoin(current_path_, name));
 }
 
-void FileBrowserDialog::downloadFile(const QString& path)
+void FileBrowserDialog::downloadFile(const QString& path, bool is_locked)
 {
     qDebug("begin to downloadfile is %s", path.toUtf8().data());
     FileDownloadTask *task = data_mgr_->createDownloadTask(repo_.id, path);
-    connect(task, SIGNAL(finished(bool)), this, SLOT(onDownloadFinished(bool)));
+    connect(task, &FileDownloadTask::finished, this, [=](bool success) {
+        onDownloadFinished(success, is_locked);
+    });
 }
 
 void FileBrowserDialog::onGetDirentReupload(const SeafDirent& dirent)
@@ -954,18 +981,27 @@ void FileBrowserDialog::uploadOrUpdateMutipleFile(const QStringList &paths)
         uploadMultipleFile(paths);
 }
 
-void FileBrowserDialog::onDownloadFinished(bool success)
+void FileBrowserDialog::onDownloadFinished(bool success, bool is_file_locked)
 {
     FileDownloadTask *task = qobject_cast<FileDownloadTask *>(sender());
     QString _error;
     if (task == NULL)
         return;
     if (success) {
-        if (!task->isSaveAsTask())
+        if (!task->isSaveAsTask()) {
+            // Cached files are set to read-only when they are locked.
+            if (is_file_locked) {
+                QFile::setPermissions(task->localFilePath(),
+                    QFileDevice::ReadOwner |
+                    QFileDevice::ReadGroup |
+                    QFileDevice::ReadOther
+                );
+            }
             openFile(task->localFilePath());
+        }
     } else {
         if (repo_.encrypted &&
-            setPasswordAndRetry(task)) {
+            setPasswordAndRetry(task, is_file_locked)) {
             return;
         }
 
@@ -1075,7 +1111,7 @@ void FileBrowserDialog::onUploadFinished(bool success)
     updateFileCount();
 }
 
-bool FileBrowserDialog::setPasswordAndRetry(FileNetworkTask *task)
+bool FileBrowserDialog::setPasswordAndRetry(FileNetworkTask *task, bool is_file_locked)
 {
     if (task->httpErrorCode() == 400) {
         if (has_password_dialog_) {
@@ -1085,7 +1121,7 @@ bool FileBrowserDialog::setPasswordAndRetry(FileNetworkTask *task)
         SetRepoPasswordDialog password_dialog(repo_, this);
         if (password_dialog.exec() == QDialog::Accepted) {
             if (task->type() == FileNetworkTask::Download)
-                downloadFile(task->path());
+                downloadFile(task->path(), is_file_locked);
             else
                 uploadOrUpdateFile(task->path());
             return true;
@@ -1150,6 +1186,8 @@ void FileBrowserDialog::updateTable(const QList<SeafDirent>& dirents)
     }
     gohome_action_->setEnabled(current_path_ != "/");
     updateFileCount();
+
+    setUnlockedFilesWritable(dirents);
 }
 
 void FileBrowserDialog::chooseFileToUpload()

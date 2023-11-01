@@ -48,6 +48,8 @@ signals:
 private slots:
     void onFileChanged(const QString& path);
     void onUpdateTaskFinished(bool success);
+    void onListReposFailed(const ApiError& error);
+    void onListReposSuccess(const std::vector<ServerRepo>& repos, QString repo_id, QString path, QString sig, QString file_id, QString local_path);
     void checkFileRecreated();
     void systemShutDown();
 

@@ -875,8 +875,10 @@ void FileBrowserDialog::onGetDirentReupload(const SeafDirent& dirent)
 void FileBrowserDialog::uploadFile(const QString& path, const QString& name,
                                    bool overwrite)
 {
-    FileUploadTask *task =
-      data_mgr_->createUploadTask(repo_.id, current_path_, path, name, overwrite);
+    FileCache::CacheEntry entry;
+    FileCache::instance()->getCacheEntry(repo_.id, path, &entry);
+
+    FileUploadTask *task = data_mgr_->createUploadTask(repo_.id, current_path_, path, entry.commit_id, name, overwrite);
     connect(task, SIGNAL(finished(bool)), this, SLOT(onUploadFinished(bool)));
     FileBrowserProgressDialog *dialog = new FileBrowserProgressDialog(task, this);
     task->start();
@@ -1463,7 +1465,7 @@ void FileBrowserDialog::onDirentShareFailed(const ApiError&error)
 
 void FileBrowserDialog::onFileAutoUpdated(const QString& repo_id, const QString& path)
 {
-    if (repo_id == repo_.id && path == current_path_) {
+    if (repo_id == repo_.id) {
         forceRefresh();
     }
 }

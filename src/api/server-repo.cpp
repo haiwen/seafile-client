@@ -24,6 +24,7 @@ ServerRepo ServerRepo::fromJSON(const json_t *json, json_error_t */* error */)
     repo.mtime = json_integer_value(json_object_get(json, "mtime"));
     repo.size = json_integer_value(json_object_get(json, "size"));
     repo.root = getStringFromJson(json, "root");
+    repo.head_commit_id = getStringFromJson(json, "head_commit_id");
 
     repo.encrypted = json_is_true(json_object_get(json, "encrypted"));
 

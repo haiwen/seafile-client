@@ -102,6 +102,7 @@ public:
     FileUploadTask* createUploadTask(const QString& repo_id,
                                      const QString& parent_dir,
                                      const QString& local_path,
+                                     const QString& commit_id,
                                      const QString& name,
                                      const bool overwrite);
 
@@ -163,6 +164,8 @@ private slots:
     void onGetDirentsSuccess(bool current_readonly, const QList<SeafDirent>& dirents, const QString& repo_id);
     void onFileUploadFinished(bool success);
     void onFileDownloadFinished(bool success);
+    void onListReposFailed(const ApiError& error);
+    void onListReposSuccess(const std::vector<ServerRepo>& repos, QString repo_id, QString path, QString file_id, QString local_path);
 
     void onCreateDirectorySuccess(const QString& repo_id);
     void onLockFileSuccess(const QString& repo_id);

@@ -38,7 +38,7 @@ const int kLockIconSize = 16;
 const int kFileStatusIconSize = 16;
 const int kMarginBetweenFileNameAndStatusIcon = 5;
 
-const int kRefreshProgressInterval = 1000;
+const int kRefreshProgressInterval = 5000;
 
 const QColor kSelectedItemBackgroundcColor("#F9E0C7");
 const QColor kItemBackgroundColor("white");

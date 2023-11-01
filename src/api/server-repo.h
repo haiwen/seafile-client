@@ -25,6 +25,7 @@ public:
     qint64 mtime;
     qint64  size;
     QString root;
+    QString head_commit_id;
 
     bool encrypted;
     bool readonly;

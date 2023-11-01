@@ -954,7 +954,7 @@ void RepoTreeView::uploadDroppedFile(const ServerRepo& repo, const QString& loca
     }
 
     FileUploadTask *task = new FileUploadTask(seafApplet->accountManager()->currentAccount(),
-          repo.id, "/", local_path, file_name);
+          repo.id, "/", local_path, QString(), file_name);
     uploadFileStart(task);
 }
 

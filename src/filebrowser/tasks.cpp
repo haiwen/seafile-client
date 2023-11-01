@@ -263,13 +263,15 @@ FileUploadTask::FileUploadTask(const Account& account,
                                const QString& repo_id,
                                const QString& path,
                                const QString& local_path,
+                               const QString& commit_id,
                                const QString& name,
                                const bool use_upload,
                                const bool accept_user_confirmation)
     : FileNetworkTask(account, repo_id, path, local_path),
       name_(name),
       use_upload_(use_upload),
-      accept_user_confirmation_(accept_user_confirmation)
+      accept_user_confirmation_(accept_user_confirmation),
+      commit_id_(commit_id)
 {
 }
 
@@ -288,8 +290,17 @@ void FileUploadTask::createGetLinkRequest()
 
 void FileUploadTask::createFileServerTask(const QString& link)
 {
-    fileserver_task_ = new ReliablePostFileTask(account_, repo_id_, link, path_, local_path_,
-                                                name_, use_upload_, accept_user_confirmation_);
+    QUrl url(link);
+    QString new_link;
+    if (url.isValid() && !use_upload_ && !commit_id_.isEmpty()) {
+        new_link = ::includeQueryParams(url, {{"head", commit_id_}}).toString();
+    } else {
+        new_link = link;
+    }
+
+    fileserver_task_ = new ReliablePostFileTask(account_, repo_id_, new_link, path_,
+                                                local_path_, name_, use_upload_,
+                                                accept_user_confirmation_);
 }
 
 void FileUploadTask::startFileServerTask(const QString& link)
@@ -326,7 +337,7 @@ FileUploadMultipleTask::FileUploadMultipleTask(const Account& account,
                                                const QString& local_path,
                                                const QStringList& names,
                                                bool use_upload)
-  : FileUploadTask(account, repo_id, path, local_path, QString(), use_upload),
+  : FileUploadTask(account, repo_id, path, local_path, QString(), QString(), use_upload),
   names_(names)
 {
 }
@@ -347,7 +358,7 @@ FileUploadDirectoryTask::FileUploadDirectoryTask(const Account& account,
                                                  const QString& path,
                                                  const QString& local_path,
                                                  const QString& name)
-  : FileUploadTask(account, repo_id, path, local_path, name)
+  : FileUploadTask(account, repo_id, path, local_path, QString(), name)
 {
 }
 

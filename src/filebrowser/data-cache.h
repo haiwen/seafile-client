@@ -88,6 +88,7 @@ public:
         QString path;
         QString account_sig;
         QString file_id;
+        QString commit_id;
         qint64  seafile_mtime;
         qint64  seafile_size;
     };
@@ -99,8 +100,9 @@ public:
                        CacheEntry *entry);
     void saveCachedFileId(const QString& repo_id,
                           const QString& path,
-                          const QString& file_id,
                           const QString& account_sig,
+                          const QString& file_id,
+                          const QString& commit_id,
                           const QString& local_file_path);
 
     QList<CacheEntry> getCachedFilesForDirectory(const QString& account_sig,

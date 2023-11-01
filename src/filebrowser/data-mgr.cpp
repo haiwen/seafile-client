@@ -619,7 +619,6 @@ QString DataManager::getLocalCachedFile(const QString& repo_id,
     QString local_file_path = getLocalCacheFilePath(repo_id, fpath);
     QFileInfo finfo(local_file_path);
     if (!finfo.exists()) {
-        qWarning ("No cache file for %s\n", toCStr(fpath));
         return "";
     }
 
@@ -696,27 +695,58 @@ void DataManager::onFileDownloadFinished(bool success)
     FileDownloadTask *task = qobject_cast<FileDownloadTask *>(sender());
     if (task == NULL)
         return;
-    if (success) {
-        filecache_->saveCachedFileId(task->repoId(),
-                                     task->path(),
-                                     account_.getSignature(),
-                                     task->fileId(),
-                                     task->localFilePath());
-        // TODO we don't want to watch readonly files
-        AutoUpdateManager::instance()->watchCachedFile(account_, task->repoId(), task->path());
+    if (!success)
+        return;
+
+
+    QString repo_id    = task->repoId(),
+            path       = task->path(),
+            file_id    = task->fileId(),
+            local_path = task->localFilePath();
+    ListReposRequest *req = new ListReposRequest(account_);
+    connect(req, SIGNAL(failed(const ApiError&)),
+            this, SLOT(onListReposFailed(const ApiError&)));
+    connect(req, &ListReposRequest::success,
+            this, [=](const std::vector<ServerRepo>& repos) {
+                this->onListReposSuccess(repos, repo_id, path, file_id, local_path);
+            });
+    req->send();
+}
+
+void DataManager::onListReposFailed(const ApiError& error)
+{
+    qWarning() << "onListReposFailed" << error.toString();
+}
+
+void DataManager::onListReposSuccess(const std::vector<ServerRepo>& repos, QString repo_id, QString path, QString file_id, QString local_path)
+{
+    QString commit_id("");
+    for (auto&& repo : repos) {
+        if (repo.id == repo_id) {
+            commit_id = repo.head_commit_id;
+            break;
+        }
     }
+    if (commit_id.isEmpty()) {
+        qWarning() << "onListReposSuccess() failed to get commit id";
+    }
+
+    filecache_->saveCachedFileId(repo_id, path, account_.getSignature(), file_id, commit_id, local_path);
+
+    AutoUpdateManager::instance()->watchCachedFile(account_, repo_id, path);
 }
 
 FileUploadTask* DataManager::createUploadTask(const QString& repo_id,
                                               const QString& parent_dir,
                                               const QString& local_path,
+                                              const QString& commit_id,
                                               const QString& name,
                                               const bool overwrite)
 {
     FileUploadTask *task;
     if (QFileInfo(local_path).isFile())
         task = new FileUploadTask(account_, repo_id, parent_dir,
-                                  local_path, name, !overwrite);
+                                  local_path, commit_id, name, !overwrite);
     else
         task = new FileUploadDirectoryTask(account_, repo_id, parent_dir,
                                            local_path, name);

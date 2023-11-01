@@ -6,6 +6,7 @@
 #include <QTimer>
 #include <QThreadPool>
 
+#include "api/requests.h"
 #include "seafile-applet.h"
 #include "ui/tray-icon.h"
 #include "configurator.h"
@@ -129,9 +130,12 @@ void AutoUpdateManager::uploadFile(const QString& local_path)
     qDebug("start upload file %s", toCStr(local_path));
     WatchedFileInfo &info = watch_infos_[local_path];
 
+    FileCache::CacheEntry entry;
+    FileCache::instance()->getCacheEntry(info.repo_id, info.path_in_repo, &entry);
+
     FileNetworkTask *task = seafApplet->dataManager()->createUploadTask(
-        info.repo_id, ::getParentPath(info.path_in_repo),
-        local_path, ::getBaseName(local_path), true);
+        info.repo_id, ::getParentPath(info.path_in_repo), local_path,
+        entry.commit_id, ::getBaseName(local_path), true);
 
     ((FileUploadTask *)task)->setAcceptUserConfirmation(false);
 
@@ -218,22 +222,7 @@ void AutoUpdateManager::onUpdateTaskFinished(bool success)
     WatchedFileInfo& info = watch_infos_[local_path];
     info.uploading = false;
 
-    if (success) {
-        qDebug("[AutoUpdateManager] uploaded new version of file %s", local_path.toUtf8().data());
-        info.mtime = finfo.lastModified().toMSecsSinceEpoch();
-        info.fsize = finfo.size();
-        seafApplet->trayIcon()->showMessage(tr("Upload Success"),
-                                            tr("File \"%1\"\nuploaded successfully.").arg(finfo.fileName()),
-                                            task->repoId());
-
-        // This would also set the "uploading" and "num_upload_errors" column to 0.
-        FileCache::instance()->saveCachedFileId(task->repoId(),
-                                                info.path_in_repo,
-                                                task->account().getSignature(),
-                                                task->oid(),
-                                                task->localFilePath());
-        emit fileUpdated(task->repoId(), task->path());
-    } else {
+    if (!success) {
         qWarning("[AutoUpdateManager] failed to upload new version of file %s: %s",
                  toCStr(local_path),
                  toCStr(task->errorString()));
@@ -265,7 +254,57 @@ void AutoUpdateManager::onUpdateTaskFinished(bool success)
         seafApplet->trayIcon()->showMessage(tr("Upload Failure: %1").arg(error_msg),
                                             msg,
                                             task->repoId());
+
+        addPath(&watcher_, local_path);
+        return;
     }
+
+    QString repo_id    = task->repoId(),
+            path       = info.path_in_repo,
+            sig        = task->account().getSignature(),
+            file_id    = task->oid();
+    ListReposRequest *req = new ListReposRequest(task->account());
+    connect(req, SIGNAL(failed(const ApiError&)),
+            this, SLOT(onListReposFailed(const ApiError&)));
+    connect(req, &ListReposRequest::success,
+            this, [=](const std::vector<ServerRepo>& repos) {
+                this->onListReposSuccess(repos, repo_id, path, sig, file_id, local_path);
+            });
+    req->send();
+}
+
+void AutoUpdateManager::onListReposFailed(const ApiError& error)
+{
+    qWarning() << "[AutoUpdateManager] failed to list repos:" << error.toString();
+}
+
+void AutoUpdateManager::onListReposSuccess(const std::vector<ServerRepo>& repos, QString repo_id, QString path, QString sig, QString file_id, QString local_path)
+{
+    QString commit_id("");
+    for (auto&& repo : repos) {
+        if (repo.id == repo_id) {
+            commit_id = repo.head_commit_id;
+            break;
+        }
+    }
+    if (commit_id.isEmpty()) {
+        qWarning() << "[AutoUpdateManager] onListReposSuccess failed to get commit id";
+    }
+
+    const QFileInfo finfo = QFileInfo(local_path);
+    WatchedFileInfo& info = watch_infos_[local_path];
+
+    qDebug("[AutoUpdateManager] uploaded new version of file %s", local_path.toUtf8().data());
+    info.mtime = finfo.lastModified().toMSecsSinceEpoch();
+    info.fsize = finfo.size();
+    seafApplet->trayIcon()->showMessage(tr("Upload Success"),
+                                        tr("File \"%1\"\nuploaded successfully.").arg(finfo.fileName()),
+                                        repo_id);
+
+    // This would also set the "uploading" and "num_upload_errors" column to 0.
+    FileCache::instance()->saveCachedFileId(repo_id, path, sig, file_id, commit_id, local_path);
+
+    emit fileUpdated(repo_id, path);
 
     addPath(&watcher_, local_path);
 }

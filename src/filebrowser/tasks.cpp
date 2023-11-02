@@ -292,6 +292,7 @@ void FileUploadTask::createFileServerTask(const QString& link)
 {
     QUrl url(link);
     QString new_link;
+    // Try to include "head" query parameter in "/update-api/" requests.
     if (url.isValid() && !use_upload_ && !commit_id_.isEmpty()) {
         new_link = ::includeQueryParams(url, {{"head", commit_id_}}).toString();
     } else {

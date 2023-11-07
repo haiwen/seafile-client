@@ -164,8 +164,8 @@ private slots:
     void onGetDirentsSuccess(bool current_readonly, const QList<SeafDirent>& dirents, const QString& repo_id);
     void onFileUploadFinished(bool success);
     void onFileDownloadFinished(bool success);
-    void onListReposFailed(const ApiError& error);
-    void onListReposSuccess(const std::vector<ServerRepo>& repos, QString repo_id, QString path, QString file_id, QString local_path);
+    void onGetRepoFailed(const ApiError& error);
+    void onGetRepoSuccess(const ServerRepo& repo, QString repo_id, QString path, QString file_id, QString local_path);
 
     void onCreateDirectorySuccess(const QString& repo_id);
     void onLockFileSuccess(const QString& repo_id);

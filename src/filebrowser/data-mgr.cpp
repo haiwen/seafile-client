@@ -703,34 +703,25 @@ void DataManager::onFileDownloadFinished(bool success)
             path       = task->path(),
             file_id    = task->fileId(),
             local_path = task->localFilePath();
-    ListReposRequest *req = new ListReposRequest(account_);
+    auto req = new GetRepoRequest(account_, repo_id);
     connect(req, SIGNAL(failed(const ApiError&)),
-            this, SLOT(onListReposFailed(const ApiError&)));
-    connect(req, &ListReposRequest::success,
-            this, [=](const std::vector<ServerRepo>& repos) {
-                this->onListReposSuccess(repos, repo_id, path, file_id, local_path);
+            this, SLOT(onGetRepoFailed(const ApiError&)));
+    connect(req, &GetRepoRequest::success,
+            this, [=](const ServerRepo& repo) {
+                this->onGetRepoSuccess(repo, repo_id, path, file_id, local_path);
             });
     req->send();
 }
 
-void DataManager::onListReposFailed(const ApiError& error)
+void DataManager::onGetRepoFailed(const ApiError& error)
 {
-    qWarning() << "onListReposFailed" << error.toString();
+    qWarning() << "onGetRepoFailed" << error.toString();
 }
 
-void DataManager::onListReposSuccess(const std::vector<ServerRepo>& repos, QString repo_id, QString path, QString file_id, QString local_path)
+void DataManager::onGetRepoSuccess(const ServerRepo& repo, QString repo_id, QString path, QString file_id, QString local_path)
 {
-    QString commit_id("");
-    for (auto&& repo : repos) {
-        if (repo.id == repo_id) {
-            commit_id = repo.head_commit_id;
-            break;
-        }
-    }
-    if (commit_id.isEmpty()) {
-        qWarning() << "onListReposSuccess() failed to get commit id";
-    }
-
+    // The commit_id should not be a null string.
+    QString commit_id = repo.head_commit_id.isEmpty() ? "" : repo.head_commit_id;
     filecache_->saveCachedFileId(repo_id, path, account_.getSignature(), file_id, commit_id, local_path);
 
     AutoUpdateManager::instance()->watchCachedFile(account_, repo_id, path);

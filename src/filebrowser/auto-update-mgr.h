@@ -48,8 +48,8 @@ signals:
 private slots:
     void onFileChanged(const QString& path);
     void onUpdateTaskFinished(bool success);
-    void onListReposFailed(const ApiError& error);
-    void onListReposSuccess(const std::vector<ServerRepo>& repos, QString repo_id, QString path, QString sig, QString file_id, QString local_path);
+    void onGetRepoFailed(const ApiError& error);
+    void onGetRepoSuccess(const ServerRepo& repo, QString repo_id, QString path, QString sig, QString file_id, QString local_path);
     void checkFileRecreated();
     void systemShutDown();
 
@@ -85,7 +85,7 @@ private:
 
     QQueue<WatchedFileInfo> deleted_files_infos_;
 
-    QSet<QString> not_synced_files_;
+    QSet<QString> remote_changed_files_;
 
     bool system_shut_down_;
 };

@@ -560,7 +560,7 @@ void FileBrowserDialog::setUnlockedFilesWritable(const QList<SeafDirent>& dirent
 {
     for (auto&& file : dirents) {
         QString fpath = ::pathJoin(current_path_, file.name);
-        QString cached_file = data_mgr_->getLocalCachedFile(repo_.id, fpath, file.id);
+        QString cached_file = data_mgr_->getLocalCacheFilePath(repo_.id, fpath);
         if (!cached_file.isEmpty() && QFileInfo(cached_file).exists() && !file.is_locked) {
             if (!(QFile::permissions(cached_file) & QFileDevice::WriteOwner)) {
                 QFile::setPermissions(cached_file,
@@ -845,8 +845,20 @@ void FileBrowserDialog::onFileClicked(const SeafDirent& file)
         if (TransferManager::instance()->getDownloadTask(repo_.id, fpath)) {
             return;
         }
-        AutoUpdateManager::instance()->removeWatch(
-            DataManager::getLocalCacheFilePath(repo_.id, fpath));
+
+        auto local_file = DataManager::getLocalCacheFilePath(repo_.id, fpath);
+        AutoUpdateManager::instance()->removeWatch(local_file);
+
+        // The read-only permission will be cleared before downloading files to avoid updating errors.
+        if (!local_file.isEmpty() && QFileInfo(local_file).exists()) {
+            if (!(QFile::permissions(local_file) & QFileDevice::WriteOwner)) {
+                QFile::setPermissions(local_file,
+                    QFileDevice::ReadOwner | QFileDevice::WriteOwner |
+                    QFileDevice::ReadGroup | QFileDevice::ReadOther
+                );
+            }
+        }
+
         downloadFile(fpath, file.is_locked);
     }
 }
@@ -1189,6 +1201,8 @@ void FileBrowserDialog::updateTable(const QList<SeafDirent>& dirents)
     gohome_action_->setEnabled(current_path_ != "/");
     updateFileCount();
 
+    // The read-only permission will be cleared on unlocked files when refreshing.
+    // However, we will not assign the read-only permission on locked files, because it is done when opening files. Also, other measures has been taken to prevent uploading of diverged files.
     setUnlockedFilesWritable(dirents);
 }
 

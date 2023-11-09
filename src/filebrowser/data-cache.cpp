@@ -26,6 +26,7 @@ void filecache_entry_from_sqlite3_result(sqlite3_stmt *stmt, FileCache::CacheEnt
     entry->file_id = (const char *)sqlite3_column_text (stmt, 3);
     entry->seafile_mtime = sqlite3_column_int64 (stmt, 4);
     entry->seafile_size = sqlite3_column_int64 (stmt, 5);
+    entry->commit_id = (const char *)sqlite3_column_text (stmt, 6);
 }
 
 } // namespace
@@ -177,6 +178,8 @@ void FileCache::start()
         "     seafile_size integer NOT NULL, "
         "     PRIMARY KEY (repo_id, path))";
     sqlite_query_exec (db, sql);
+    sql = "ALTER TABLE FileCacheV2 ADD COLUMN commit_id TEXT";
+    sqlite_query_exec (db, sql);
 
     db_ = db;
 }
@@ -206,19 +209,21 @@ void FileCache::saveCachedFileId(const QString& repo_id,
                                  const QString& path,
                                  const QString& account_sig,
                                  const QString& file_id,
+                                 const QString& commit_id,
                                  const QString& local_file_path)
 {
     QFileInfo finfo (local_file_path);
     qint64 mtime = finfo.lastModified().toMSecsSinceEpoch();
     qint64 fsize = finfo.size();
     char *zql = sqlite3_mprintf("REPLACE INTO FileCacheV2( "
-                                "repo_id, path, account_sig, file_id, "
+                                "repo_id, path, account_sig, file_id, commit_id, "
                                 "seafile_mtime, seafile_size "
-                                ") VALUES (%Q, %Q, %Q, %Q, %lld, %lld)",
+                                ") VALUES (%Q, %Q, %Q, %Q, %Q, %lld, %lld)",
                                 toCStr(repo_id),
                                 toCStr(path),
                                 toCStr(account_sig),
                                 toCStr(file_id),
+                                toCStr(commit_id),
                                 mtime,
                                 fsize);
     sqlite_query_exec(db_, zql);

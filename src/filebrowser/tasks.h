@@ -180,6 +180,7 @@ public:
                    const QString& repo_id,
                    const QString& path,
                    const QString& local_path,
+                   const QString& commit_id,
                    const QString& name,
                    const bool use_upload = true,
                    const bool accept_user_confirmation = true);
@@ -226,6 +227,7 @@ private:
     const bool use_upload_;
     bool accept_user_confirmation_;
     bool retry_;
+    const QString commit_id_;
 };
 
 class FileUploadMultipleTask : public FileUploadTask {

@@ -6,6 +6,7 @@
 #include <QTimer>
 #include <QThreadPool>
 
+#include "api/requests.h"
 #include "seafile-applet.h"
 #include "ui/tray-icon.h"
 #include "configurator.h"
@@ -129,9 +130,12 @@ void AutoUpdateManager::uploadFile(const QString& local_path)
     qDebug("start upload file %s", toCStr(local_path));
     WatchedFileInfo &info = watch_infos_[local_path];
 
+    FileCache::CacheEntry entry;
+    FileCache::instance()->getCacheEntry(info.repo_id, info.path_in_repo, &entry);
+
     FileNetworkTask *task = seafApplet->dataManager()->createUploadTask(
-        info.repo_id, ::getParentPath(info.path_in_repo),
-        local_path, ::getBaseName(local_path), true);
+        info.repo_id, ::getParentPath(info.path_in_repo), local_path,
+        entry.commit_id, ::getBaseName(local_path), true);
 
     ((FileUploadTask *)task)->setAcceptUserConfirmation(false);
 
@@ -150,6 +154,10 @@ void AutoUpdateManager::onFileChanged(const QString& local_path)
     qDebug("[AutoUpdateManager] detected cache file %s changed", local_path.toUtf8().data());
     if (!watch_infos_.contains(local_path)) {
         // filter unwanted events
+        return;
+    }
+
+    if (remote_changed_files_.contains(local_path)) {
         return;
     }
 
@@ -214,22 +222,7 @@ void AutoUpdateManager::onUpdateTaskFinished(bool success)
     WatchedFileInfo& info = watch_infos_[local_path];
     info.uploading = false;
 
-    if (success) {
-        qDebug("[AutoUpdateManager] uploaded new version of file %s", local_path.toUtf8().data());
-        info.mtime = finfo.lastModified().toMSecsSinceEpoch();
-        info.fsize = finfo.size();
-        seafApplet->trayIcon()->showMessage(tr("Upload Success"),
-                                            tr("File \"%1\"\nuploaded successfully.").arg(finfo.fileName()),
-                                            task->repoId());
-
-        // This would also set the "uploading" and "num_upload_errors" column to 0.
-        FileCache::instance()->saveCachedFileId(task->repoId(),
-                                                info.path_in_repo,
-                                                task->account().getSignature(),
-                                                task->oid(),
-                                                task->localFilePath());
-        emit fileUpdated(task->repoId(), task->path());
-    } else {
+    if (!success) {
         qWarning("[AutoUpdateManager] failed to upload new version of file %s: %s",
                  toCStr(local_path),
                  toCStr(task->errorString()));
@@ -261,7 +254,48 @@ void AutoUpdateManager::onUpdateTaskFinished(bool success)
         seafApplet->trayIcon()->showMessage(tr("Upload Failure: %1").arg(error_msg),
                                             msg,
                                             task->repoId());
+
+        addPath(&watcher_, local_path);
+        return;
     }
+
+    QString repo_id    = task->repoId(),
+            path       = info.path_in_repo,
+            sig        = task->account().getSignature(),
+            file_id    = task->oid();
+    auto req = new GetRepoRequest(task->account(), repo_id);
+    connect(req, SIGNAL(failed(const ApiError&)),
+            this, SLOT(onGetRepoFailed(const ApiError&)));
+    connect(req, &GetRepoRequest::success,
+            this, [=](const ServerRepo& repo) {
+                this->onGetRepoSuccess(repo, repo_id, path, sig, file_id, local_path);
+            });
+    req->send();
+}
+
+void AutoUpdateManager::onGetRepoFailed(const ApiError& error)
+{
+    qWarning() << "[AutoUpdateManager] failed to list repos:" << error.toString();
+}
+
+void AutoUpdateManager::onGetRepoSuccess(const ServerRepo& repo, QString repo_id, QString path, QString sig, QString file_id, QString local_path)
+{
+    // The commit_id should not be a null string.
+    QString commit_id = repo.head_commit_id.isEmpty() ? "" : repo.head_commit_id;
+    const QFileInfo finfo = QFileInfo(local_path);
+    WatchedFileInfo& info = watch_infos_[local_path];
+
+    qDebug("[AutoUpdateManager] uploaded new version of file %s", local_path.toUtf8().data());
+    info.mtime = finfo.lastModified().toMSecsSinceEpoch();
+    info.fsize = finfo.size();
+    seafApplet->trayIcon()->showMessage(tr("Upload Success"),
+                                        tr("File \"%1\"\nuploaded successfully.").arg(finfo.fileName()),
+                                        repo_id);
+
+    // This would also set the "uploading" and "num_upload_errors" column to 0.
+    FileCache::instance()->saveCachedFileId(repo_id, path, sig, file_id, commit_id, local_path);
+
+    emit fileUpdated(repo_id, path);
 
     addPath(&watcher_, local_path);
 }
@@ -307,39 +341,39 @@ AutoUpdateManager::getFileStatusForDirectory(const QString &account_sig,
     QHash<QString, FileStatus> ret;
     QList<FileCache::CacheEntry> caches =
         FileCache::instance()->getCachedFilesForDirectory(account_sig, repo_id, parent_dir);
-    if (caches.empty()) {
-        // qDebug("no cached files for dir %s\n", toCStr(parent_dir));
-    }
-    foreach(const FileCache::CacheEntry& entry, caches) {
-        // qDebug("found cache entry: %s\n", entry.path.toUtf8().data());
 
+    foreach(const FileCache::CacheEntry& entry, caches) {
         QString local_file_path = DataManager::getLocalCacheFilePath(entry.repo_id, entry.path);
         const QString& file = ::getBaseName(entry.path);
-        bool is_uploading = watch_infos_.contains(local_file_path) && watch_infos_[local_file_path].uploading;
 
         if (!dirents_map.contains(file)) {
-            // qDebug("cached files no longer exists: %s\n", entry.path.toUtf8().data());
+            remote_changed_files_.remove(local_file_path);
             continue;
         }
 
-        const SeafDirent& d = dirents_map[file];
-        if (d.id != entry.file_id) {
-            // qDebug("cached file is a stale version: %s\n", entry.path.toUtf8().data());
-            ret[file] = is_uploading ? UPLOADING : NOT_SYNCED;
+        bool is_uploading = watch_infos_.contains(local_file_path) && watch_infos_[local_file_path].uploading;
+        if (is_uploading) {
+            remote_changed_files_.remove(local_file_path);
+            ret[file] = UPLOADING;
             continue;
         }
 
-        QFileInfo finfo(local_file_path);
-
-        qint64 mtime = finfo.lastModified().toMSecsSinceEpoch();
-        bool consistent = mtime == entry.seafile_mtime && finfo.size() == entry.seafile_size;
-        if (consistent) {
-            ret[file] = is_uploading ? UPLOADING: SYNCED;
+        QFileInfo info(local_file_path);
+        auto size = info.size();
+        auto mtime = info.lastModified().toMSecsSinceEpoch();
+        if (dirents_map[file].id != entry.file_id) {
+            // If the remote file id is different from the cached one (which means the remote file is changed), we record it in the remote_changed_files_ and prevent auto uploading of this file.
+            remote_changed_files_.insert(local_file_path);
+            ret[file] = NOT_SYNCED;
+        } else if (mtime == entry.seafile_mtime && size == entry.seafile_size) {
+            remote_changed_files_.remove(local_file_path);
+            ret[file] = SYNCED;
         } else {
-            ret[file] = is_uploading ? UPLOADING : NOT_SYNCED;
+            remote_changed_files_.remove(local_file_path);
+            ret[file] = NOT_SYNCED;
         }
-        qDebug("is_uploading %s, local_file_path is %s", is_uploading ? "true" : "false", toCStr(local_file_path));
     }
+
     return ret;
 }
 

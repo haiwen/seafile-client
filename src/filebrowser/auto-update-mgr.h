@@ -48,6 +48,8 @@ signals:
 private slots:
     void onFileChanged(const QString& path);
     void onUpdateTaskFinished(bool success);
+    void onGetRepoFailed(const ApiError& error);
+    void onGetRepoSuccess(const ServerRepo& repo, QString repo_id, QString path, QString sig, QString file_id, QString local_path);
     void checkFileRecreated();
     void systemShutDown();
 
@@ -82,6 +84,8 @@ private:
     QHash<QString, WatchedFileInfo> watch_infos_;
 
     QQueue<WatchedFileInfo> deleted_files_infos_;
+
+    QSet<QString> remote_changed_files_;
 
     bool system_shut_down_;
 };

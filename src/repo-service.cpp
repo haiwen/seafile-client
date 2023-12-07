@@ -351,7 +351,8 @@ void RepoService::openLocalFile(const QString& repo_id,
         openFolder(repo_id, path_in_repo.left(path_in_repo.size() - 1));
         return;
     }
-    qDebug("trying to open file %s in library %s", path_in_repo.toUtf8().data(), repo_id.toUtf8().data());
+
+    qInfo() << "[FileBrowser] double clicked file in search results" << path_in_repo;
 
     LocalRepo r;
 

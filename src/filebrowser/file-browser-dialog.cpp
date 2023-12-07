@@ -814,6 +814,7 @@ void FileBrowserDialog::enterPath(const QString& path)
 void FileBrowserDialog::onFileClicked(const SeafDirent& file)
 {
     QString fpath = ::pathJoin(current_path_, file.name);
+    qInfo() << "[FileBrowser] double clicked file" << fpath;
 
     LocalRepo repo;
     if (seafApplet->rpcClient()->getLocalRepo(repo_.id, &repo) == 0) {
@@ -825,9 +826,12 @@ void FileBrowserDialog::onFileClicked(const SeafDirent& file)
         openFile(synced_path);
         return;
     }
+
     QString cached_file = data_mgr_->getLocalCachedFile(repo_.id, fpath, file.id);
-    qDebug("cached_file is %s", cached_file.toUtf8().data());
     if (!cached_file.isEmpty() && QFileInfo(cached_file).exists()) {
+        QFileInfo info(cached_file);
+        qInfo() << "[FileBrowser] open cached file" << fpath
+                << ", size =" << info.size() << ", mtime =" << info.lastModified();
         // Cached files are set to read-only when they are locked.
         if (file.is_locked) {
             QFile::setPermissions(cached_file,
@@ -843,8 +847,10 @@ void FileBrowserDialog::onFileClicked(const SeafDirent& file)
         return;
     } else {
         if (TransferManager::instance()->getDownloadTask(repo_.id, fpath)) {
+            qInfo() << "[FileBrowser] file is downloading" << fpath;
             return;
         }
+        qInfo() << "[FileBrowser] file will be downloaded" << fpath;
 
         auto local_file = DataManager::getLocalCacheFilePath(repo_.id, fpath);
         AutoUpdateManager::instance()->removeWatch(local_file);
@@ -870,7 +876,6 @@ void FileBrowserDialog::createDirectory(const QString &name)
 
 void FileBrowserDialog::downloadFile(const QString& path, bool is_locked)
 {
-    qDebug("begin to downloadfile is %s", path.toUtf8().data());
     FileDownloadTask *task = data_mgr_->createDownloadTask(repo_.id, path);
     connect(task, &FileDownloadTask::finished, this, [=](bool success) {
         onDownloadFinished(success, is_locked);
@@ -959,6 +964,7 @@ void FileBrowserDialog::uploadFileOrMkdir()
 
 void FileBrowserDialog::uploadOrUpdateFile(const QString& path)
 {
+    qInfo() << "[FileBrowser] upload or update file:" << path;
     const QString name = ::getBaseName(path);
 
     // ignore the confirm procedure for uploading directory, which is non-sense
@@ -989,6 +995,7 @@ void FileBrowserDialog::uploadOrUpdateFile(const QString& path)
 
 void FileBrowserDialog::uploadOrUpdateMutipleFile(const QStringList &paths)
 {
+    qInfo() << "[FileBrowser] upload or update files:" << paths;
     if (paths.size() == 1)
         uploadOrUpdateFile(paths.front());
     else
@@ -1003,6 +1010,10 @@ void FileBrowserDialog::onDownloadFinished(bool success, bool is_file_locked)
         return;
     if (success) {
         if (!task->isSaveAsTask()) {
+            QFileInfo info(task->localFilePath());
+            qInfo() << "[FileBrowser] download file success" << task->path()
+                    << ", size =" << info.size() << ", mtime =" << info.lastModified();
+
             // Cached files are set to read-only when they are locked.
             if (is_file_locked) {
                 QFile::setPermissions(task->localFilePath(),

@@ -154,8 +154,8 @@ void AutoUpdateManager::onFileChanged(const QString& local_path)
     }
 
     if (remote_changed_files_.contains(local_path)) {
-        qDebug() << "[AutoUpdateManager] remote changed file" << local_path
-                 << "is not synced yet, skip this event";
+        qInfo() << "[AutoUpdateManager] remote changed file" << local_path
+                << "is not synced yet, skip this event";
         return;
     }
 
@@ -166,14 +166,14 @@ void AutoUpdateManager::onFileChanged(const QString& local_path)
     // If the timestamp has not changed, it will not be uploaded
     qint64 mtime = finfo.lastModified().toMSecsSinceEpoch();
     if (mtime == info.mtime) {
-        qDebug() << "[AutoUpdateManager] the mtime of file" << local_path
-                 << "has not changed, skip this event";
+        qInfo() << "[AutoUpdateManager] the mtime of file" << local_path
+                << "has not changed, skip this event";
         return;
     }
 
 #ifdef Q_OS_MAC
     if (MacImageFilesWorkAround::instance()->isRecentOpenedImage(local_path)) {
-        qDebug("[AutoUpdateManager] skip the image file updates on mac for %s", toCStr(local_path));
+        qInfo("[AutoUpdateManager] skip the image file updates on mac for %s", toCStr(local_path));
         return;
     }
 #endif

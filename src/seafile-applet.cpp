@@ -90,6 +90,9 @@ void myLogHandlerDebug(QtMsgType type, const QMessageLogContext &context, const 
     case QtFatalMsg:
         g_critical("%s (%s:%u)\n", localMsg.constData(), context.file, context.line);
         abort();
+    case QtInfoMsg:
+        g_info("%s (%s:%u)\n", localMsg.constData(), context.file, context.line);
+        break;
 #else // QT_MESSAGELOGCONTEXT
     case QtDebugMsg:
         g_debug("%s\n", localMsg.constData());
@@ -103,6 +106,9 @@ void myLogHandlerDebug(QtMsgType type, const QMessageLogContext &context, const 
     case QtFatalMsg:
         g_critical("%s\n", localMsg.constData());
         abort();
+    case QtInfoMsg:
+        g_info("%s\n", localMsg.constData());
+        break;
 #endif // QT_MESSAGELOGCONTEXT
     default:
         break;
@@ -122,6 +128,9 @@ void myLogHandler(QtMsgType type, const QMessageLogContext &context, const QStri
     case QtFatalMsg:
         g_critical("%s (%s:%u)\n", localMsg.constData(), context.file, context.line);
         abort();
+    case QtInfoMsg:
+        g_info("%s (%s:%u)\n", localMsg.constData(), context.file, context.line);
+        break;
 #else // QT_MESSAGELOGCONTEXT
     case QtWarningMsg:
         g_warning("%s\n", localMsg.constData());
@@ -132,6 +141,9 @@ void myLogHandler(QtMsgType type, const QMessageLogContext &context, const QStri
     case QtFatalMsg:
         g_critical("%s\n", localMsg.constData());
         abort();
+    case QtInfoMsg:
+        g_info("%s\n", localMsg.constData());
+        break;
 #endif // QT_MESSAGELOGCONTEXT
     default:
         break;

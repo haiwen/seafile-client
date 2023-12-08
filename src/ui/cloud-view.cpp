@@ -289,22 +289,9 @@ void CloudView::onCloseBtnClicked()
 bool CloudView::eventFilter(QObject* obj, QEvent* event)
 {
     if (obj == mHeader) {
-        static QPoint oldPos;
         if (event->type() == QEvent::MouseButtonPress) {
-            QMouseEvent* ev = (QMouseEvent*)event;
-            oldPos = ev->globalPos();
-
-            return true;
-        }
-        else if (event->type() == QEvent::MouseMove) {
-            QMouseEvent* ev = (QMouseEvent*)event;
-            const QPoint delta = ev->globalPos() - oldPos;
-
-            MainWindow* win = seafApplet->mainWindow();
-            win->move(win->x() + delta.x(), win->y() + delta.y());
-
-            oldPos = ev->globalPos();
-            return true;
+            QWindow* win = seafApplet->mainWindow()->windowHandle();
+            win->startSystemMove();
         }
     }
     else if (obj == mDropArea) {

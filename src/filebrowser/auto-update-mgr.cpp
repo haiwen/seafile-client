@@ -76,9 +76,7 @@ void AutoUpdateManager::watchCachedFile(const Account& account,
                                         const QString& path)
 {
     QString local_path = DataManager::getLocalCacheFilePath(repo_id, path);
-    qDebug("[AutoUpdateManager] watch cache file %s", local_path.toUtf8().data());
     if (!QFileInfo(local_path).exists()) {
-        qWarning("[AutoUpdateManager] unable to watch non-existent cache file %s", local_path.toUtf8().data());
         return;
     }
 
@@ -127,7 +125,6 @@ void AutoUpdateManager::cleanCachedFile()
 
 void AutoUpdateManager::uploadFile(const QString& local_path)
 {
-    qDebug("start upload file %s", toCStr(local_path));
     WatchedFileInfo &info = watch_infos_[local_path];
 
     FileCache::CacheEntry entry;
@@ -142,8 +139,6 @@ void AutoUpdateManager::uploadFile(const QString& local_path)
     connect(task, SIGNAL(finished(bool)),
             this, SLOT(onUpdateTaskFinished(bool)));
 
-    qDebug("[AutoUpdateManager] start uploading new version of file %s", local_path.toUtf8().data());
-
     info.uploading = true;
 
     task->start();
@@ -151,13 +146,16 @@ void AutoUpdateManager::uploadFile(const QString& local_path)
 
 void AutoUpdateManager::onFileChanged(const QString& local_path)
 {
-    qDebug("[AutoUpdateManager] detected cache file %s changed", local_path.toUtf8().data());
+    qInfo() << "[AutoUpdateManager] file changed" << local_path;
+
     if (!watch_infos_.contains(local_path)) {
         // filter unwanted events
         return;
     }
 
     if (remote_changed_files_.contains(local_path)) {
+        qInfo() << "[AutoUpdateManager] remote changed file" << local_path
+                << "is not synced yet, skip this event";
         return;
     }
 
@@ -168,14 +166,14 @@ void AutoUpdateManager::onFileChanged(const QString& local_path)
     // If the timestamp has not changed, it will not be uploaded
     qint64 mtime = finfo.lastModified().toMSecsSinceEpoch();
     if (mtime == info.mtime) {
-        qDebug("[AutoUpdateManager] Received a file %s upload notification, but the timestamp has not changed, "
-               "it will not upload", local_path.toUtf8().data());
+        qInfo() << "[AutoUpdateManager] the mtime of file" << local_path
+                << "has not changed, skip this event";
         return;
     }
 
 #ifdef Q_OS_MAC
     if (MacImageFilesWorkAround::instance()->isRecentOpenedImage(local_path)) {
-        qDebug("[AutoUpdateManager] skip the image file updates on mac for %s", toCStr(local_path));
+        qInfo("[AutoUpdateManager] skip the image file updates on mac for %s", toCStr(local_path));
         return;
     }
 #endif
@@ -183,7 +181,8 @@ void AutoUpdateManager::onFileChanged(const QString& local_path)
     QString repo_id, path_in_repo;
 
     if (!finfo.exists()) {
-        qDebug("[AutoUpdateManager] detected cache file %s renamed or removed", local_path.toUtf8().data());
+        qInfo() << "[AutoUpdateManager] file renamed or removed" << local_path;
+
         WatchedFileInfo deferred_info = info;
         removeWatch(local_path);
         // Some application would deleted and recreate the file when saving.
@@ -193,6 +192,9 @@ void AutoUpdateManager::onFileChanged(const QString& local_path)
         deleted_files_infos_.enqueue(deferred_info);
         return;
     }
+
+    qInfo() << "[AutoUpdateManager] uploading file" << local_path
+            << ", size =" << finfo.size() << ", mtime =" << finfo.lastModified();
 
     uploadFile(local_path);
 }
@@ -316,7 +318,7 @@ void AutoUpdateManager::checkFileRecreated()
     const WatchedFileInfo info = deleted_files_infos_.dequeue();
     const QString path = DataManager::getLocalCacheFilePath(info.repo_id, info.path_in_repo);
     if (QFileInfo(path).exists()) {
-        qDebug("[AutoUpdateManager] detected recreated file %s", path.toUtf8().data());
+        qInfo() << "[AutoUpdateManager] file recreated" << path;
         addPath(&watcher_, path);
         watch_infos_[path] = info;
         // Some applications like MSOffice would remove the original file and

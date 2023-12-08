@@ -674,6 +674,11 @@ FileDownloadTask* DataManager::createDownloadTask(const QString& repo_id,
             this, SLOT(onFileDownloadFinished(bool)), Qt::UniqueConnection);
     setupTaskCleanup(task);
 
+    QFileInfo info(local_path);
+    qInfo() << "[DataManager] download task created, repo_id =" << repo_id
+            << ", path =" << path << ", local_path =" << local_path
+            << ", size =" << info.size() << ", mtime =" << info.lastModified();
+
     return task;
 }
 
@@ -690,14 +695,15 @@ FileDownloadTask* DataManager::createSaveAsTask(const QString& repo_id,
 
 void DataManager::onFileDownloadFinished(bool success)
 {
-    qDebug("[onFileDownloadFinished function] invoked,is success %s",
-           success ? "true" : "false");
     FileDownloadTask *task = qobject_cast<FileDownloadTask *>(sender());
     if (task == NULL)
         return;
+
+    qInfo() << "[DataManager] download task finished, success =" << success
+            << ", repo_id =" << task->repoId() << ", path =" << task->path();
+
     if (!success)
         return;
-
 
     QString repo_id    = task->repoId(),
             path       = task->path(),
@@ -745,6 +751,13 @@ FileUploadTask* DataManager::createUploadTask(const QString& repo_id,
             this, SLOT(onFileUploadFinished(bool)));
     setupTaskCleanup(task);
 
+    QFileInfo info(local_path);
+    qInfo() << "[DataManager] upload task created, repo_id =" << repo_id
+            << ", parent_dir =" << parent_dir << ", local_path =" << local_path
+            << ", commit_id =" << commit_id << ", name =" << name
+            << ", overwrite =" << overwrite << ", size =" << info.size()
+            << ", mtime =" << info.lastModified();
+
     return task;
 }
 
@@ -767,6 +780,12 @@ FileUploadTask* DataManager::createUploadMultipleTask(const QString& repo_id,
             this, SLOT(onFileUploadFinished(bool)));
     setupTaskCleanup(task);
 
+    QFileInfo info(local_path);
+    qInfo() << "[DataManager] upload multiple task created, repo_id =" << repo_id
+            << ", parent_dir =" << parent_dir << ", local_path =" << local_path
+            << ", names =" << names << ", overwrite =" << overwrite
+            << ", size =" << info.size() << ", mtime =" << info.lastModified();
+
     return task;
 }
 
@@ -775,6 +794,10 @@ void DataManager::onFileUploadFinished(bool success)
     FileUploadTask *task = qobject_cast<FileUploadTask *>(sender());
     if (task == NULL)
         return;
+
+    qInfo() << "[DataManager] upload (multiple) task finished, success =" << success
+            << ", repo_id =" << task->repoId() << ", path =" << task->path();
+
     if (success) {
         //expire the parent path
         dirents_cache_->expireCachedDirents(task->repoId(),

@@ -228,6 +228,11 @@ void FileCache::saveCachedFileId(const QString& repo_id,
                                 fsize);
     sqlite_query_exec(db_, zql);
     sqlite3_free(zql);
+
+    qInfo() << "[DataCache] file cache table updated for" << local_file_path
+            << ", repo_id = " << repo_id << ", path = " << path
+            << ", file_id = " << file_id << ", commit_id = " << commit_id
+            << ", size = " << fsize << ", mtime = " << mtime;
 }
 
 bool FileCache::collectCachedFile(sqlite3_stmt *stmt, void *data)

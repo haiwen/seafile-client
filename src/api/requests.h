@@ -12,6 +12,7 @@
 #include "api/server-repo.h"
 #include "api/starred-file.h"
 #include "api/event.h"
+#include "api/sso-status.h"
 
 class QNetworkReply;
 class QImage;
@@ -406,9 +407,15 @@ class ServerInfoRequest : public SeafileApiRequest
     Q_OBJECT
 public:
     ServerInfoRequest(const Account& account);
+    ServerInfoRequest(const QUrl& server_url);
+
+    const Account& account() const
+    {
+        return account_;
+    }
 
 signals:
-    void success(const Account& account, const ServerInfo& info);
+    void success(const ServerInfo& info);
 
 protected slots:
     void requestSuccess(QNetworkReply& reply);
@@ -885,6 +892,40 @@ protected slots:
 
 private:
     Q_DISABLE_COPY(GetUploadFileLinkRequest);
+};
+
+class ClientSSOLinkRequest : public SeafileApiRequest
+{
+    Q_OBJECT
+
+public:
+    ClientSSOLinkRequest(const QUrl& server_url);
+
+signals:
+    void success(const QString& link);
+
+protected slots:
+    void requestSuccess(QNetworkReply& reply);
+
+private:
+    Q_DISABLE_COPY(ClientSSOLinkRequest)
+};
+
+class ClientSSOStatusRequest : public SeafileApiRequest
+{
+    Q_OBJECT
+
+public:
+    ClientSSOStatusRequest(const QUrl& server_url, const QString& token);
+
+signals:
+    void success(const ClientSSOStatus& status);
+
+protected slots:
+    void requestSuccess(QNetworkReply& reply);
+
+private:
+    Q_DISABLE_COPY(ClientSSOStatusRequest)
 };
 
 #endif // SEAFILE_CLIENT_API_REQUESTS_H

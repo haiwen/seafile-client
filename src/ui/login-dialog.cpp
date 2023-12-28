@@ -77,6 +77,8 @@ LoginDialog::LoginDialog(QWidget *parent) : QDialog(parent)
     request_ = NULL;
     account_info_req_ = NULL;
     is_remember_device_ = false;
+    connect(&client_sso_timer_, SIGNAL(timeout()),
+            this, SLOT(checkClientSSOStatus()));
 
     mStatusText->setText("");
     mLogo->setPixmap(QPixmap(":/images/seafile-32.png"));
@@ -432,10 +434,116 @@ void LoginDialog::loginWithShib()
     }
 
     seafApplet->settingsManager()->setLastShibUrl(url.toString());
+    sso_server_ = url;
 
-    ShibLoginDialog shib_dialog(url, mComputerName->text(), this);
-    if (shib_dialog.exec() == QDialog::Accepted) {
-        accept();
-    }
+    ServerInfoRequest *request = new ServerInfoRequest(sso_server_);
+    connect(request, SIGNAL(success(const ServerInfo&)),
+            this, SLOT(serverInfoSuccess(const ServerInfo&)));
+    connect(request, SIGNAL(failed(const ApiError&)),
+            this, SLOT(serverInfoFailed(const ApiError&)));
+    request->send();
 }
+
+void LoginDialog::serverInfoSuccess(const ServerInfo& info)
+{
+    if (!info.clientSSOViaLocalBrowser) {
+        ShibLoginDialog shib_dialog(sso_server_, mComputerName->text(), this);
+        if (shib_dialog.exec() == QDialog::Accepted) {
+            accept();
+        }
+        return;
+    }
+
+    qInfo() << "begin sso login via local browser";
+
+    ClientSSOLinkRequest *request = new ClientSSOLinkRequest(sso_server_);
+    connect(request, SIGNAL(success(const QString&)),
+            this, SLOT(clientSSOLinkSuccess(const QString&)));
+    connect(request, SIGNAL(failed(const ApiError&)),
+            this, SLOT(clientSSOLinkFailed(const ApiError&)));
+    request->send();
+}
+
+
+void LoginDialog::serverInfoFailed(const ApiError& error)
+{
+    showWarning(tr("Failed to get server info. Please check the server address."));
+}
+
+void LoginDialog::clientSSOLinkSuccess(const QString& link)
+{
+    QString sso_link(link);
+
+    qInfo() << "open sso link in browser:" << sso_link;
+    QDesktopServices::openUrl(QUrl(sso_link));
+
+    QRegularExpression re("/client-sso/([^/]+)");
+    QRegularExpressionMatch match = re.match(sso_link);
+    if (!match.hasMatch()) {
+        qWarning() << "failed to parse token from client sso link" << sso_link;
+        return;
+    }
+
+    QString token = match.captured(1);
+    if (token.isEmpty()) {
+        qWarning() << "failed to parse token from client sso link" << sso_link;
+        return;
+    }
+    sso_token_ = token;
+
+    client_sso_timer_.start(3000);
+    client_sso_success_ = false;
+}
+
+void LoginDialog::clientSSOLinkFailed(const ApiError& error)
+{
+    showWarning(tr("Failed to get client sso link."));
+}
+
+void LoginDialog::checkClientSSOStatus()
+{
+    ClientSSOStatusRequest *request = new ClientSSOStatusRequest(sso_server_, sso_token_);
+    connect(request, SIGNAL(success(const ClientSSOStatus&)),
+            this, SLOT(clientSSOStatusSuccess(const ClientSSOStatus&)));
+    connect(request, SIGNAL(failed(const ApiError&)),
+            this, SLOT(clientSSOStatusFailed(const ApiError&)));
+    request->send();
+}
+
+void LoginDialog::clientSSOStatusSuccess(const ClientSSOStatus& status)
+{
+    if (status.status == "waiting") {
+        qInfo() << "waiting for client sso login";
+        return;
+    } else if (status.status != "success") {
+        qWarning() << "client sso login failed:" << status.status;
+        showWarning(tr("SSO login failed."));
+        client_sso_timer_.stop();
+        return;
+    }
+    client_sso_timer_.stop();
+
+    // avoid multiple success signals
+    if (client_sso_success_) {
+        return;
+    }
+    client_sso_success_ = true;
+
+    qInfo() << "client sso login success" << status.username;
+
+    Account account(sso_server_, status.username, status.api_token);
+    account_info_req_ = new FetchAccountInfoRequest(account);
+    connect(account_info_req_, SIGNAL(success(const AccountInfo&)),
+            this, SLOT(onFetchAccountInfoSuccess(const AccountInfo&)));
+    connect(account_info_req_, SIGNAL(failed(const ApiError&)),
+            this, SLOT(onFetchAccountInfoFailed(const ApiError&)));
+    account_info_req_->send();
+}
+
+void LoginDialog::clientSSOStatusFailed(const ApiError& error)
+{
+    showWarning(tr("Failed to get client sso status."));
+    client_sso_timer_.stop();
+}
+
 #endif // HAVE_SHIBBOLETH_SUPPORT

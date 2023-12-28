@@ -13,6 +13,7 @@ public:
   bool officePreview;
   bool fileSearch;
   bool disableSyncWithAnyFolder;
+  bool clientSSOViaLocalBrowser;
   QString customBrand;
   QString customLogo;
 
@@ -66,6 +67,8 @@ public:
           fileSearch = value;
       } else if (key == "disable-sync-with-any-folder") {
           disableSyncWithAnyFolder = value;
+      } else if (key == "client-sso-via-local-browser") {
+          clientSSOViaLocalBrowser = value;
       } else {
           return false;
       }

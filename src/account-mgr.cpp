@@ -516,8 +516,8 @@ void AccountManager::updateServerInfoForAllAccounts()
 void AccountManager::updateAccountServerInfo(const Account& account)
 {
     ServerInfoRequest *request = new ServerInfoRequest(account);
-    connect(request, SIGNAL(success(const Account&, const ServerInfo &)),
-            this, SLOT(serverInfoSuccess(const Account&, const ServerInfo &)));
+    connect(request, SIGNAL(success(const ServerInfo &)),
+            this, SLOT(serverInfoSuccess(const ServerInfo &)));
     connect(request, SIGNAL(failed(const ApiError&)),
             this, SLOT(serverInfoFailed(const ApiError&)));
     request->send();
@@ -543,12 +543,12 @@ void AccountManager::updateAccountInfo(const Account& account,
 }
 
 
-void AccountManager::serverInfoSuccess(const Account &_account, const ServerInfo &info)
+void AccountManager::serverInfoSuccess(const ServerInfo &info)
 {
     ServerInfoRequest *req = (ServerInfoRequest *)(sender());
     req->deleteLater();
 
-    Account account = _account;
+    Account account(req->account());
     account.serverInfo = info;
 
     setServerInfoKeyValue(db, account, kVersionKeyName, info.getVersionString());
@@ -557,7 +557,7 @@ void AccountManager::serverInfoSuccess(const Account &_account, const ServerInfo
     setServerInfoKeyValue(db, account, kCustomLogoKeyName, info.customLogo);
     setServerInfoKeyValue(db, account, kCustomBrandKeyName, info.customBrand);
 
-    bool changed = _account.serverInfo != info;
+    bool changed = req->account().serverInfo != info;
     if (!changed)
         return;
 

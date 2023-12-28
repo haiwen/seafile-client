@@ -50,6 +50,8 @@ const char* kRemoteWipeReportUrl = "api2/device-wiped/";
 const char* kSearchUsersUrl = "api2/search-user/";
 const char* kGetThumbnailUrl = "api2/repos/%1/thumbnail/";
 const char* kCreateFileUploadLink = "api/v2.1/upload-links/";
+const char* kClientSSOLinkUrl = "api2/client-sso-link/";
+const char* kClientSSOStatusUrl = "api2/client-sso-link/%1/";
 
 const char* kGetFileActivitiesUrl = "api/v2.1/activities/";
 } // namespace
@@ -715,6 +717,12 @@ ServerInfoRequest::ServerInfoRequest(const Account& account)
 {
 }
 
+ServerInfoRequest::ServerInfoRequest(const QUrl& server_url)
+    : SeafileApiRequest(urlJoin(server_url, kServerInfoUrl),
+                        SeafileApiRequest::METHOD_GET)
+{
+}
+
 void ServerInfoRequest::requestSuccess(QNetworkReply& reply)
 {
     json_error_t error;
@@ -750,7 +758,7 @@ void ServerInfoRequest::requestSuccess(QNetworkReply& reply)
         ret.customBrand = dict["desktop-custom-brand"].toString();
     }
 
-    emit success(account_, ret);
+    emit success(ret);
 }
 
 LogoutDeviceRequest::LogoutDeviceRequest(const Account& account)
@@ -1428,4 +1436,65 @@ void GetUploadFileLinkRequest::requestSuccess(QNetworkReply& reply)
         return;
     } while (0);
     emit failed(ApiError::fromHttpError(500));
+}
+
+ClientSSOLinkRequest::ClientSSOLinkRequest(const QUrl& server_url)
+    : SeafileApiRequest(urlJoin(server_url, kClientSSOLinkUrl),
+                        SeafileApiRequest::METHOD_POST)
+{
+}
+
+void ClientSSOLinkRequest::requestSuccess(QNetworkReply& reply)
+{
+    json_error_t error;
+    json_t *root = parseJSON(reply, &error);
+    if (!root) {
+        qWarning() << "ClientSSOLinkRequest: failed to parse json:" << error.text;
+        emit failed(ApiError::fromJsonError());
+        return;
+    }
+
+    QScopedPointer<json_t, JsonPointerCustomDeleter> json(root);
+    QMap<QString, QVariant> dict = mapFromJSON(json.data(), &error);
+    QString link = dict["link"].toString();
+    if (link.isEmpty()) {
+        qWarning() << "ClientSSOLinkRequest: failed to parse link";
+        emit failed(ApiError::fromJsonError());
+        return;
+    }
+
+    emit success(link);
+}
+
+ClientSSOStatusRequest::ClientSSOStatusRequest(const QUrl& server_url, const QString& token)
+    : SeafileApiRequest(urlJoin(server_url, QString(kClientSSOStatusUrl).arg(token)),
+                        SeafileApiRequest::METHOD_GET)
+{
+}
+
+void ClientSSOStatusRequest::requestSuccess(QNetworkReply& reply)
+{
+    json_error_t error;
+    json_t *root = parseJSON(reply, &error);
+    if (!root) {
+        qWarning() << "ClientSSOStatusRequest: failed to parse json:" << error.text;
+        emit failed(ApiError::fromJsonError());
+        return;
+    }
+
+    QScopedPointer<json_t, JsonPointerCustomDeleter> json(root);
+    QMap<QString, QVariant> dict = mapFromJSON(json.data(), &error);
+
+    ClientSSOStatus status;
+    status.status = dict["status"].toString();
+    status.username = dict["username"].toString();
+    status.api_token = dict["apiToken"].toString();
+
+    if (status.status.isEmpty()) {
+        qWarning() << "ClientSSOStatusRequest: failed to parse status";
+        emit failed(ApiError::fromJsonError());
+        return;
+    }
+
+    emit success(status);
 }

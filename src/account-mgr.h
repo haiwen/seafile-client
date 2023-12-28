@@ -108,7 +108,7 @@ public slots:
     void reloginAccount(const Account &account);
 
 private slots:
-    void serverInfoSuccess(const Account &account, const ServerInfo &info);
+    void serverInfoSuccess(const ServerInfo &info);
     void serverInfoFailed(const ApiError&);
 
     void onAccountsChanged();

@@ -1075,6 +1075,8 @@ void FileBrowserDialog::onUploadFinished(bool success)
             _error = tr("Library/Folder not found.");
         } else if (task->httpErrorCode() == 401) {
             _error = tr("Authorization expired");
+        } else if (task->httpErrorCode() == 442) {
+            _error = tr("File count limit exceeded");
         } else {
             _error = task->errorString();
         }

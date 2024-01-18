@@ -33,11 +33,10 @@ private slots:
     void doLogin();
     void loginSuccess(const QString& token, const QString& s2fa_token);
     void loginFailed(const ApiError& error);
-#ifdef HAVE_SHIBBOLETH_SUPPORT
-    void loginWithShib();
-#endif // HAVE_SHIBBOLETH_SUPPORT
     void onFetchAccountInfoSuccess(const AccountInfo& info);
     void onFetchAccountInfoFailed(const ApiError&);
+#ifdef HAVE_SHIBBOLETH_SUPPORT
+    void loginWithShib();
     void serverInfoSuccess(const ServerInfo&);
     void serverInfoFailed(const ApiError&);
     void clientSSOLinkSuccess(const QString&);
@@ -45,6 +44,7 @@ private slots:
     void checkClientSSOStatus();
     void clientSSOStatusSuccess(const ClientSSOStatus&);
     void clientSSOStatusFailed(const ApiError&);
+#endif // HAVE_SHIBBOLETH_SUPPORT
 
 private:
     Q_DISABLE_COPY(LoginDialog);

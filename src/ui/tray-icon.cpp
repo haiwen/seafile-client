@@ -402,7 +402,9 @@ QIcon SeafileTrayIcon::getIcon(const QString& name)
     }
 
     QIcon icon(name);
+#ifdef Q_OS_MAC
     icon.setIsMask(true);
+#endif
     icon_cache_[name] = icon;
     return icon;
 }

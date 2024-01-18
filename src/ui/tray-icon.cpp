@@ -57,11 +57,6 @@ const int kMessageDisplayTimeMSecs = 5000;
 const QString kShellExtFixExecutableName = "shellext-fix.exe";
 const QString kShellFixLogName = "shellext-fix.log";
 #endif
-#ifdef Q_OS_MAC
-void darkmodeWatcher(bool /*new Value*/) {
-    seafApplet->trayIcon()->reloadTrayIcon();
-}
-#endif
 
 QString folderToShow(const CommitDetails& details, const QString& worktree)
 {
@@ -154,9 +149,6 @@ void SeafileTrayIcon::start()
 {
     show();
     refresh_timer_->start(kRefreshInterval);
-#if defined(Q_OS_MAC)
-    utils::mac::set_darkmode_watcher(&darkmodeWatcher);
-#endif
     sync_errors_dialog_ = new SyncErrorsDialog;
     sync_errors_dialog_->updateErrors();
 }
@@ -410,6 +402,7 @@ QIcon SeafileTrayIcon::getIcon(const QString& name)
     }
 
     QIcon icon(name);
+    icon.setIsMask(true);
     icon_cache_[name] = icon;
     return icon;
 }
@@ -444,8 +437,6 @@ QIcon SeafileTrayIcon::stateToIcon(TrayState state)
     }
     return getIcon(icon_name);
 #elif defined(Q_OS_MAC)
-    bool isDarkMode = utils::mac::is_darkmode();
-    // filename = icon_name + ?white + .png
     QString icon_name;
 
     switch (state) {
@@ -453,7 +444,7 @@ QIcon SeafileTrayIcon::stateToIcon(TrayState state)
         icon_name = ":/images/mac/daemon_up";
         break;
     case STATE_DAEMON_DOWN:
-        icon_name = ":/images/mac/daemon_down.png";
+        icon_name = ":/images/mac/daemon_down";
         break;
     case STATE_DAEMON_AUTOSYNC_DISABLED:
         icon_name = ":/images/mac/seafile_auto_sync_disabled";
@@ -471,7 +462,7 @@ QIcon SeafileTrayIcon::stateToIcon(TrayState state)
         icon_name = ":/images/mac/notification";
         break;
     }
-    return getIcon(icon_name + (isDarkMode ? "_white" : "") + ".png");
+    return getIcon(icon_name + ".png");
 #else
     QString icon_name;
     switch (state) {

@@ -403,6 +403,7 @@ QIcon SeafileTrayIcon::getIcon(const QString& name)
 
     QIcon icon(name);
 #ifdef Q_OS_MAC
+    // The icon style has been changed to monochrome on macOS.
     icon.setIsMask(true);
 #endif
     icon_cache_[name] = icon;

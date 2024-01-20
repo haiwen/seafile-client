@@ -235,6 +235,8 @@ void AutoUpdateManager::onUpdateTaskFinished(bool success)
             error_msg = tr("Authorization expired");
         } else if (task->httpErrorCode() == 441) {
             error_msg = tr("File does not exist");
+        } else if (task->httpErrorCode() == 442) {
+            error_msg = tr("File count limit exceeded");
         } else {
             error_msg = task->errorString();
         }

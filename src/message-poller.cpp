@@ -218,7 +218,7 @@ void MessagePoller::processNotification(const SyncNotification& notification)
         }
 
         seafApplet->trayIcon()->showMessage(title, msg, repo_id,
-                                            QString(""), QString(""), QSystemTrayIcon::Information, 10000, true);
+                                            QString(""), QString(""), QSystemTrayIcon::Information, true);
 
         json_decref(object);
 

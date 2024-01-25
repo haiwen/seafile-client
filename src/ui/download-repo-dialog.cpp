@@ -19,6 +19,10 @@
 #include "repo-service.h"
 #include "download-repo-dialog.h"
 
+#ifdef Q_OS_WIN32
+#include "utils/utils-win.h"
+#endif
+
 namespace {
 const int kAlternativeTryTimes = 20;
 bool inline isPathInWorktree(const QString& worktree, const QString &path)
@@ -276,14 +280,20 @@ bool DownloadRepoDialog::validateInputs()
         return false;
     }
 
+    QString path = QDir(mDirectory->text()).absoluteFilePath(repo_.name);
+
     if (manual_merge_mode_) {
+#ifdef Q_OS_WIN32
+        if (utils::win::isNetworkDevice(path)) {
+            seafApplet->warningBox(tr("Library \"%1\" may not sync automatically, please set a sync interval afterwards.").arg(repo_.name));
+        }
+#endif // Q_OS_WIN32
         return true;
     }
 
     sync_with_existing_ = false;
     alternative_path_ = "";
 
-    QString path = QDir(mDirectory->text()).absoluteFilePath(repo_.name);
     QFileInfo fileinfo = QFileInfo(path);
     if (fileinfo.exists()) {
         sync_with_existing_ = true;
@@ -317,6 +327,12 @@ bool DownloadRepoDialog::validateInputs()
             alternative_path_ = new_path;
         }
     }
+
+#ifdef Q_OS_WIN32
+    if (utils::win::isNetworkDevice(path)) {
+        seafApplet->warningBox(tr("Library \"%1\" may not sync automatically, please set a sync interval afterwards.").arg(repo_.name));
+    }
+#endif // Q_OS_WIN32
 
     return true;
 }
@@ -368,15 +384,9 @@ void DownloadRepoDialog::onDownloadRepoRequestSuccess(const RepoDownloadInfo& in
         }
         seafApplet->warningBox(tr("Failed to add download task:\n %1").arg(error), this);
         setAllInputsEnabled(true);
-        return;
+    } else {
+        done(QDialog::Accepted);
     }
-
-    QFileSystemWatcher watcher;
-    if (!watcher.addPath(worktree)) {
-        seafApplet->warningBox(tr("Library \"%1\" may not sync automatically, please set a sync interval afterwards.").arg(repo_.name), this);
-    }
-
-    done(QDialog::Accepted);
 }
 
 

@@ -6,6 +6,7 @@
 #include <QLibrary>
 #include <QPair>
 #include <QString>
+#include <QDir>
 
 #include "utils/utils-win.h"
 
@@ -348,6 +349,25 @@ DWORD runShellAsAdministrator(LPCSTR cmd, LPCSTR arg, int n_show)
     return exit_code;
 }
 
+bool isNetworkDevice(QString path)
+{
+    // Shared folders are supposed to be network device.
+    if (path.startsWith("//")) {
+        return true;
+    }
+
+    QString root = path;
+    while (!QDir(root).isRoot()) {
+        root = QDir::cleanPath(root + "/..");
+    }
+    if (!root.endsWith("/")) {
+        root += "/";
+    }
+    root = QDir::toNativeSeparators(root);
+
+    LPCWSTR lpRootPathName = reinterpret_cast<LPCWSTR>(root.utf16());
+    return GetDriveTypeW(lpRootPathName) == DRIVE_REMOTE;
+}
 
 } // namespace win
 

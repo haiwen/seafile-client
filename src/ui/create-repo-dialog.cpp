@@ -14,6 +14,10 @@
 #include "ui/create-repo-dialog.h"
 #include "ui/repos-tab.h"
 
+#ifdef Q_OS_WIN32
+#include "utils/utils-win.h"
+#endif
+
 CreateRepoDialog::CreateRepoDialog(const Account& account,
                                    const QString& worktree,
                                    ReposTab *repos_tab,
@@ -183,6 +187,13 @@ bool CreateRepoDialog::validateInputs()
 
     name_ = mName->text().trimmed();
     path_ = mDirectory->text();
+
+#ifdef Q_OS_WIN32
+    if (utils::win::isNetworkDevice(path_)) {
+        seafApplet->warningBox(tr("Library \"%1\" may not sync automatically, please set a sync interval afterwards.").arg(name_));
+    }
+#endif // Q_OS_WIN32
+
     return true;
 }
 
@@ -208,16 +219,10 @@ void CreateRepoDialog::createSuccess(const RepoDownloadInfo& info)
         error = translateErrorMsg(error);
         seafApplet->warningBox(tr("Failed to add download task:\n %1").arg(error), this);
         setAllInputsEnabled(true);
-        return;
+    } else {
+        repos_tab_->refresh();
+        done(QDialog::Accepted);
     }
-
-    QFileSystemWatcher watcher;
-    if (!watcher.addPath(path_)) {
-        seafApplet->warningBox(tr("Library \"%1\" may not sync automatically, please set a sync interval afterwards.").arg(info.repo_name), this);
-    }
-
-    repos_tab_->refresh();
-    done(QDialog::Accepted);
 }
 
 void CreateRepoDialog::createFailed(const ApiError& error)

@@ -92,6 +92,17 @@ void CreateRepoDialog::createAction()
     if (!validateInputs()) {
         return;
     }
+#ifdef Q_OS_WIN32
+    if (utils::win::isNetworkDevice(path_)) {
+        bool ok = seafApplet->yesOrCancelBox(
+            tr("File changes on network drives may not be synced automatically. You can set sync intervals to enable periodic sync. Do you want to sync with this folder?"),
+            this, true);
+        if (!ok) {
+            return;
+        }
+    }
+#endif // Q_OS_WIN32
+
     mStatusText->setText(tr("Creating..."));
 
     setAllInputsEnabled(false);
@@ -187,18 +198,6 @@ bool CreateRepoDialog::validateInputs()
 
     name_ = mName->text().trimmed();
     path_ = mDirectory->text();
-
-#ifdef Q_OS_WIN32
-    if (utils::win::isNetworkDevice(path_)) {
-        bool ok = seafApplet->detailedYesOrNoBox(
-            tr("File changes on network drives may not be synced automatically. Do you want to sync with this folder?"),
-            tr("You can set sync intervals to enable periodic sync."), this);
-        if (!ok) {
-            return false;
-        }
-    }
-#endif // Q_OS_WIN32
-
     return true;
 }
 

@@ -234,6 +234,19 @@ void DownloadRepoDialog::onOkBtnClicked()
     if (!validateInputs()) {
         return;
     }
+#ifdef Q_OS_WIN32
+    QString worktree = alternative_path_.isEmpty() ?
+                        QDir(mDirectory->text()).absoluteFilePath(repo_.name) :
+                        alternative_path_;
+    if (utils::win::isNetworkDevice(worktree)) {
+        bool ok = seafApplet->yesOrCancelBox(
+            tr("File changes on network drives may not be synced automatically. You can set sync intervals to enable periodic sync. Do you want to sync with this folder?"),
+            this, true);
+        if (!ok) {
+            return;
+        }
+    }
+#endif // Q_OS_WIN32
 
     setAllInputsEnabled(false);
 
@@ -280,25 +293,14 @@ bool DownloadRepoDialog::validateInputs()
         return false;
     }
 
-    QString path = QDir(mDirectory->text()).absoluteFilePath(repo_.name);
-
     if (manual_merge_mode_) {
-#ifdef Q_OS_WIN32
-        if (utils::win::isNetworkDevice(path)) {
-            bool ok = seafApplet->detailedYesOrNoBox(
-                tr("File changes on network drives may not be synced automatically. Do you want to sync with this folder?"),
-                tr("You can set sync intervals to enable periodic sync."), this);
-            if (!ok) {
-                return false;
-            }
-        }
-#endif // Q_OS_WIN32
         return true;
     }
 
     sync_with_existing_ = false;
     alternative_path_ = "";
 
+    QString path = QDir(mDirectory->text()).absoluteFilePath(repo_.name);
     QFileInfo fileinfo = QFileInfo(path);
     if (fileinfo.exists()) {
         sync_with_existing_ = true;
@@ -332,17 +334,6 @@ bool DownloadRepoDialog::validateInputs()
             alternative_path_ = new_path;
         }
     }
-
-#ifdef Q_OS_WIN32
-    if (utils::win::isNetworkDevice(path)) {
-        bool ok = seafApplet->detailedYesOrNoBox(
-            tr("File changes on network drives may not be synced automatically. Do you want to sync with this folder?"),
-            tr("You can set sync intervals to enable periodic sync."), this);
-        if (!ok) {
-            return false;
-        }
-    }
-#endif // Q_OS_WIN32
 
     return true;
 }

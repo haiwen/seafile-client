@@ -19,6 +19,10 @@
 #include "repo-service.h"
 #include "download-repo-dialog.h"
 
+#ifdef Q_OS_WIN32
+#include "utils/utils-win.h"
+#endif
+
 namespace {
 const int kAlternativeTryTimes = 20;
 bool inline isPathInWorktree(const QString& worktree, const QString &path)
@@ -230,6 +234,19 @@ void DownloadRepoDialog::onOkBtnClicked()
     if (!validateInputs()) {
         return;
     }
+#ifdef Q_OS_WIN32
+    QString worktree = alternative_path_.isEmpty() ?
+                        QDir(mDirectory->text()).absoluteFilePath(repo_.name) :
+                        alternative_path_;
+    if (utils::win::isNetworkDevice(worktree)) {
+        bool ok = seafApplet->yesOrCancelBox(
+            tr("File changes on network drives may not be synced automatically. You can set sync intervals to enable periodic sync. Do you want to sync with this folder?"),
+            this, true);
+        if (!ok) {
+            return;
+        }
+    }
+#endif // Q_OS_WIN32
 
     setAllInputsEnabled(false);
 

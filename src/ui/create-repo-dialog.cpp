@@ -14,6 +14,10 @@
 #include "ui/create-repo-dialog.h"
 #include "ui/repos-tab.h"
 
+#ifdef Q_OS_WIN32
+#include "utils/utils-win.h"
+#endif
+
 CreateRepoDialog::CreateRepoDialog(const Account& account,
                                    const QString& worktree,
                                    ReposTab *repos_tab,
@@ -88,6 +92,17 @@ void CreateRepoDialog::createAction()
     if (!validateInputs()) {
         return;
     }
+#ifdef Q_OS_WIN32
+    if (utils::win::isNetworkDevice(path_)) {
+        bool ok = seafApplet->yesOrCancelBox(
+            tr("File changes on network drives may not be synced automatically. You can set sync intervals to enable periodic sync. Do you want to sync with this folder?"),
+            this, true);
+        if (!ok) {
+            return;
+        }
+    }
+#endif // Q_OS_WIN32
+
     mStatusText->setText(tr("Creating..."));
 
     setAllInputsEnabled(false);

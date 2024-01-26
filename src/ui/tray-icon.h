@@ -47,7 +47,6 @@ public:
                      const QString& commit_id = QString(),
                      const QString& previous_commit_id = QString(),
                      MessageIcon icon = Information,
-                     int millisecondsTimeoutHint = 10000,
                      bool is_error_message = false);
 
     void setSyncErrorStatus(bool have_sync_error) {

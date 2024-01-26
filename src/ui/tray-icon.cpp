@@ -311,7 +311,6 @@ void SeafileTrayIcon::showMessage(const QString &title,
                                   const QString &commit_id,
                                   const QString &previous_commit_id,
                                   MessageIcon icon,
-                                  int millisecondsTimeoutHint,
                                   bool is_error_message)
 {
     is_error_message_ = is_error_message;
@@ -329,7 +328,7 @@ void SeafileTrayIcon::showMessage(const QString &title,
     }
     // qWarning("using new style notifications");
 
-    QSystemTrayIcon::showMessage(title, message, icon, millisecondsTimeoutHint);
+    QSystemTrayIcon::showMessage(title, message, icon, 0);
 #elif defined(Q_OS_LINUX)
     repo_id_ = repo_id;
     Q_UNUSED(icon);

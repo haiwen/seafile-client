@@ -190,7 +190,12 @@ bool CreateRepoDialog::validateInputs()
 
 #ifdef Q_OS_WIN32
     if (utils::win::isNetworkDevice(path_)) {
-        seafApplet->warningBox(tr("Library \"%1\" may not sync automatically, please set a sync interval afterwards.").arg(name_));
+        bool ok = seafApplet->detailedYesOrNoBox(
+            tr("File changes on network drives may not be synced automatically. Do you want to sync with this folder?"),
+            tr("You can set sync intervals to enable periodic sync."), this);
+        if (!ok) {
+            return false;
+        }
     }
 #endif // Q_OS_WIN32
 

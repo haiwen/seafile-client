@@ -285,7 +285,12 @@ bool DownloadRepoDialog::validateInputs()
     if (manual_merge_mode_) {
 #ifdef Q_OS_WIN32
         if (utils::win::isNetworkDevice(path)) {
-            seafApplet->warningBox(tr("Library \"%1\" may not sync automatically, please set a sync interval afterwards.").arg(repo_.name));
+            bool ok = seafApplet->detailedYesOrNoBox(
+                tr("File changes on network drives may not be synced automatically. Do you want to sync with this folder?"),
+                tr("You can set sync intervals to enable periodic sync."), this);
+            if (!ok) {
+                return false;
+            }
         }
 #endif // Q_OS_WIN32
         return true;
@@ -330,7 +335,12 @@ bool DownloadRepoDialog::validateInputs()
 
 #ifdef Q_OS_WIN32
     if (utils::win::isNetworkDevice(path)) {
-        seafApplet->warningBox(tr("Library \"%1\" may not sync automatically, please set a sync interval afterwards.").arg(repo_.name));
+        bool ok = seafApplet->detailedYesOrNoBox(
+            tr("File changes on network drives may not be synced automatically. Do you want to sync with this folder?"),
+            tr("You can set sync intervals to enable periodic sync."), this);
+        if (!ok) {
+            return false;
+        }
     }
 #endif // Q_OS_WIN32
 

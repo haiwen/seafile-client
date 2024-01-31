@@ -187,7 +187,13 @@ void SettingsManager::loadProxySettings()
 
     QString use_proxy;
     seafApplet->rpcClient()->seafileGetConfig(kUseProxy, &use_proxy);
-    if (use_proxy != "true") {
+    if (use_proxy.isNull()) {
+        // The use_proxy is null when no proxy setting has been configured.
+        // So we use the "system proxy" setting as default and notify daemon.
+        current_proxy_.type = SystemProxy;
+        writeProxySettingsToDaemon(current_proxy_);
+        return;
+    } else if (use_proxy != "true") {
         return;
     }
     QString use_system_proxy;

@@ -86,7 +86,7 @@
    </item>
    <item>
     <widget class="QPushButton" name="mSettingsPushButton">
-     <property name="accessibleName">
+     <property name="toolTip">
       <string>settings</string>
      </property>
      <property name="text">
@@ -109,7 +109,7 @@
    </item>
    <item>
     <widget class="QLabel" name="mRefreshLabel">
-     <property name="accessibleName">
+     <property name="toolTip">
       <string>refresh</string>
      </property>
      <property name="text">

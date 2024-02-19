@@ -154,6 +154,14 @@
         <source>server</source>
         <translation>servidor</translation>
     </message>
+    <message>
+        <source>settings</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>refresh</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>ActivitiesTab</name>
@@ -207,6 +215,10 @@ falhou ao enviar.</translation>
     <message>
         <source>Upload Failure: %1</source>
         <translation>Falha no Upload: %1</translation>
+    </message>
+    <message>
+        <source>File count limit exceeded</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -510,6 +522,10 @@ falhou ao enviar.</translation>
         <source>TextLabel</source>
         <translation type="unfinished"/>
     </message>
+    <message>
+        <source>File changes on network drives may not be synced automatically. You can set sync intervals to enable periodic sync. Do you want to sync with this folder?</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>DaemonManager</name>
@@ -631,6 +647,10 @@ Incapaz de encontrar um nome alternativo para a pasta</translation>
     <message>
         <source>Cancel</source>
         <translation>Cancelar</translation>
+    </message>
+    <message>
+        <source>File changes on network drives may not be synced automatically. You can set sync intervals to enable periodic sync. Do you want to sync with this folder?</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -878,6 +898,10 @@ Incapaz de encontrar um nome alternativo para a pasta</translation>
     </message>
     <message>
         <source>Do you really want to delete folder &quot;%1&quot;?</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>File count limit exceeded</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -1491,6 +1515,22 @@ Do you like to download your default library?</source>
     </message>
     <message>
         <source>Automatic Login</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Failed to get server info. Please check the server address.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Failed to get client sso link.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>SSO login failed.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Failed to get client sso status.</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -2874,6 +2914,40 @@ Abrir % 1 ajuda on-line</translation>
     </message>
 </context>
 <context>
+    <name>ServerRepoItem</name>
+    <message>
+        <source>Form</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>repoicon</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>reponame</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>download</source>
+        <translation type="unfinished"/>
+    </message>
+</context>
+<context>
+    <name>ServerReposView</name>
+    <message>
+        <source>Form</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Refresh</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Add a repo</source>
+        <translation type="unfinished"/>
+    </message>
+</context>
+<context>
     <name>ServerStatusDialog</name>
     <message>
         <source>Servers connection status</source>
@@ -3167,10 +3241,6 @@ Abrir % 1 ajuda on-line</translation>
         <translation>Copiar para a área de transferência</translation>
     </message>
     <message>
-        <source>Password(At least 8 characters)</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
         <source>Show password</source>
         <translation type="unfinished"/>
     </message>
@@ -3180,6 +3250,25 @@ Abrir % 1 ajuda on-line</translation>
     </message>
     <message>
         <source>Generate link</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Password</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Failed to generate share link: %1</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Failed to generate share link: Invalid input</source>
+        <translation type="unfinished"/>
+    </message>
+</context>
+<context>
+    <name>ShibLoginDialog</name>
+    <message>
+        <source>Login with Shibboleth</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -3379,6 +3468,29 @@ Abrir % 1 ajuda on-line</translation>
     </message>
     <message>
         <source>OK</source>
+        <translation type="unfinished"/>
+    </message>
+</context>
+<context>
+    <name>WelcomeDialog</name>
+    <message>
+        <source>Dialog</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Welcome to the seafile client</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>HelpImage</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;To sync files with a Seafile server:&lt;br/&gt;&lt;/p&gt;&lt;p&gt;1. Add an account (with server address and your email)&lt;/p&gt;&lt;p&gt;2. Download a library&lt;/p&gt;&lt;p&gt;3. Put files into the library and they will be uploaded to server automatically&lt;br/&gt;&lt;/p&gt;&lt;p&gt;You can also create a library from any local folder. See &lt;a href=&quot;http://www.seafile.com/en/help/install_v2/&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;seafile online help&lt;/span&gt;&lt;/a&gt; for more information.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Next</source>
         <translation type="unfinished"/>
     </message>
 </context>

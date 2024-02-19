@@ -154,6 +154,14 @@
         <source>server</source>
         <translation>服务器</translation>
     </message>
+    <message>
+        <source>settings</source>
+        <translation>设置</translation>
+    </message>
+    <message>
+        <source>refresh</source>
+        <translation>刷新</translation>
+    </message>
 </context>
 <context>
     <name>ActivitiesTab</name>
@@ -207,6 +215,10 @@ failed to upload.</source>
     <message>
         <source>Upload Failure: %1</source>
         <translation>上传失败：%1</translation>
+    </message>
+    <message>
+        <source>File count limit exceeded</source>
+        <translation>文件数量超出了限制</translation>
     </message>
 </context>
 <context>
@@ -507,6 +519,10 @@ failed to upload.</source>
         <source>TextLabel</source>
         <translation>文本标签</translation>
     </message>
+    <message>
+        <source>File changes on network drives may not be synced automatically. You can set sync intervals to enable periodic sync. Do you want to sync with this folder?</source>
+        <translation>网络驱动器上的文件改动可能不会被自动同步。您可以设置资料库的同步间隔以启用定时同步。您想要继续与此文件夹同步吗？</translation>
+    </message>
 </context>
 <context>
     <name>DaemonManager</name>
@@ -626,6 +642,10 @@ failed to upload.</source>
     <message>
         <source>Cancel</source>
         <translation>取消</translation>
+    </message>
+    <message>
+        <source>File changes on network drives may not be synced automatically. You can set sync intervals to enable periodic sync. Do you want to sync with this folder?</source>
+        <translation>网络驱动器上的文件改动可能不会被自动同步。您可以设置资料库的同步间隔以启用定时同步。您想要继续与此文件夹同步吗？</translation>
     </message>
 </context>
 <context>
@@ -874,6 +894,10 @@ failed to upload.</source>
     <message>
         <source>Do you really want to delete folder &quot;%1&quot;?</source>
         <translation>您真的想删除文件夹 “%1” ？</translation>
+    </message>
+    <message>
+        <source>File count limit exceeded</source>
+        <translation>文件数量超出了限制</translation>
     </message>
 </context>
 <context>
@@ -1486,6 +1510,22 @@ Do you like to download your default library?</source>
     <message>
         <source>Automatic Login</source>
         <translation>自动登录</translation>
+    </message>
+    <message>
+        <source>Failed to get server info. Please check the server address.</source>
+        <translation>获取服务器数据失败。请检查服务器地址。</translation>
+    </message>
+    <message>
+        <source>Failed to get client sso link.</source>
+        <translation>获取客户端单点登录链接失败。</translation>
+    </message>
+    <message>
+        <source>SSO login failed.</source>
+        <translation>单点登录失败。</translation>
+    </message>
+    <message>
+        <source>Failed to get client sso status.</source>
+        <translation>获取客户端单点登录状态失败。</translation>
     </message>
 </context>
 <context>
@@ -2871,6 +2911,40 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     </message>
 </context>
 <context>
+    <name>ServerRepoItem</name>
+    <message>
+        <source>Form</source>
+        <translation>表单</translation>
+    </message>
+    <message>
+        <source>repoicon</source>
+        <translation>资料库图标</translation>
+    </message>
+    <message>
+        <source>reponame</source>
+        <translation>资料库名称</translation>
+    </message>
+    <message>
+        <source>download</source>
+        <translation>下载</translation>
+    </message>
+</context>
+<context>
+    <name>ServerReposView</name>
+    <message>
+        <source>Form</source>
+        <translation>表单</translation>
+    </message>
+    <message>
+        <source>Refresh</source>
+        <translation>刷新</translation>
+    </message>
+    <message>
+        <source>Add a repo</source>
+        <translation>新增一个资料库</translation>
+    </message>
+</context>
+<context>
     <name>ServerStatusDialog</name>
     <message>
         <source>Servers connection status</source>
@@ -3164,10 +3238,6 @@ File path contains invalid characters. It is not synced to this computer.</sourc
         <translation>复制至剪贴板</translation>
     </message>
     <message>
-        <source>Password(At least 8 characters)</source>
-        <translation>密码（至少 8 个字符）</translation>
-    </message>
-    <message>
         <source>Show password</source>
         <translation>显示密码</translation>
     </message>
@@ -3178,6 +3248,25 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     <message>
         <source>Generate link</source>
         <translation>生成链接</translation>
+    </message>
+    <message>
+        <source>Password</source>
+        <translation>密码</translation>
+    </message>
+    <message>
+        <source>Failed to generate share link: %1</source>
+        <translation>生成共享链接失败：%1</translation>
+    </message>
+    <message>
+        <source>Failed to generate share link: Invalid input</source>
+        <translation>生成共享链接失败：输入错误</translation>
+    </message>
+</context>
+<context>
+    <name>ShibLoginDialog</name>
+    <message>
+        <source>Login with Shibboleth</source>
+        <translation>单点登录</translation>
     </message>
 </context>
 <context>
@@ -3377,6 +3466,29 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     <message>
         <source>OK</source>
         <translation>确定</translation>
+    </message>
+</context>
+<context>
+    <name>WelcomeDialog</name>
+    <message>
+        <source>Dialog</source>
+        <translation>对话框</translation>
+    </message>
+    <message>
+        <source>Welcome to the seafile client</source>
+        <translation>欢迎使用 Seafile 客户端</translation>
+    </message>
+    <message>
+        <source>HelpImage</source>
+        <translation>帮助图片</translation>
+    </message>
+    <message>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;To sync files with a Seafile server:&lt;br/&gt;&lt;/p&gt;&lt;p&gt;1. Add an account (with server address and your email)&lt;/p&gt;&lt;p&gt;2. Download a library&lt;/p&gt;&lt;p&gt;3. Put files into the library and they will be uploaded to server automatically&lt;br/&gt;&lt;/p&gt;&lt;p&gt;You can also create a library from any local folder. See &lt;a href=&quot;http://www.seafile.com/en/help/install_v2/&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;seafile online help&lt;/span&gt;&lt;/a&gt; for more information.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;与 Seafile 服务器同步文件：&lt;br/&gt;&lt;/p&gt;&lt;p&gt;1. 添加一个账号（包含服务器地址和您的邮箱）&lt;/p&gt;&lt;p&gt;2. 同步一个资料库&lt;/p&gt;&lt;p&gt;3. 将文件放入本地资料库，它们会被自动上传到服务器&lt;br/&gt;&lt;/p&gt;&lt;p&gt;您也可以从任意一个本地文件夹创建资料库。更多内容请参考&lt;a href=&quot;http://www.seafile.com/en/help/install_v2/&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;Seafile 帮助文档&lt;/span&gt;&lt;/a&gt;。&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+    </message>
+    <message>
+        <source>Next</source>
+        <translation>下一步</translation>
     </message>
 </context>
 </TS>

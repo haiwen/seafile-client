@@ -154,6 +154,14 @@
         <source>server</source>
         <translation>Serveur</translation>
     </message>
+    <message>
+        <source>settings</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>refresh</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>ActivitiesTab</name>
@@ -207,6 +215,10 @@ n&apos;a pu être envoyé.</translation>
     <message>
         <source>Upload Failure: %1</source>
         <translation>Échec de l&apos;envoi : %1</translation>
+    </message>
+    <message>
+        <source>File count limit exceeded</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -512,6 +524,10 @@ n&apos;a pu être envoyé.</translation>
         <source>TextLabel</source>
         <translation>LabelTexte</translation>
     </message>
+    <message>
+        <source>File changes on network drives may not be synced automatically. You can set sync intervals to enable periodic sync. Do you want to sync with this folder?</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>DaemonManager</name>
@@ -632,6 +648,10 @@ n&apos;a pu être envoyé.</translation>
     <message>
         <source>Cancel</source>
         <translation>Annuler</translation>
+    </message>
+    <message>
+        <source>File changes on network drives may not be synced automatically. You can set sync intervals to enable periodic sync. Do you want to sync with this folder?</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -787,7 +807,7 @@ n&apos;a pu être envoyé.</translation>
     </message>
     <message>
         <source>Do you really want to delete these items</source>
-        <translation type="unfinished"/>
+        <translation>Voulez-vous vraiment supprimer ces éléments ?</translation>
     </message>
     <message>
         <source>Create folder failed</source>
@@ -875,10 +895,14 @@ n&apos;a pu être envoyé.</translation>
     </message>
     <message>
         <source>Do you really want to delete file &quot;%1&quot;?</source>
-        <translation type="unfinished"/>
+        <translation>Voulez-vous vraiment supprimer le fichier &quot;%1&quot; ?</translation>
     </message>
     <message>
         <source>Do you really want to delete folder &quot;%1&quot;?</source>
+        <translation>Souhaitez vous vraiment supprimer le dossier &quot;%1&quot; ?</translation>
+    </message>
+    <message>
+        <source>File count limit exceeded</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -1495,6 +1519,22 @@ Voulez-vous télécharger la bibliothèque par défaut ?</translation>
         <source>Automatic Login</source>
         <translation>Connexion automatique</translation>
     </message>
+    <message>
+        <source>Failed to get server info. Please check the server address.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Failed to get client sso link.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>SSO login failed.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Failed to get client sso status.</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>LogoutView</name>
@@ -1598,23 +1638,23 @@ Le nom de fichier contient des caractères invalides. Il n&apos;est pas synchron
     </message>
     <message>
         <source>Waiting for confirmation to delete files</source>
-        <translation type="unfinished"/>
+        <translation>En attente de confirmation d&apos;effacement des fichiers</translation>
     </message>
     <message>
         <source>Deleted &quot;%1&quot; and %2 more files.</source>
-        <translation type="unfinished"/>
+        <translation>Suppression de &quot;%1&quot; et de %2 autres fichiers.</translation>
     </message>
     <message>
         <source>Too many files in library</source>
-        <translation type="unfinished"/>
+        <translation>Trop de fichiers dans la bibliothèque</translation>
     </message>
     <message>
         <source>Do you want to delete files in library &quot;%1&quot; ?</source>
-        <translation type="unfinished"/>
+        <translation>Voulez-vous supprimer les fichiers dans la bibliothèque &quot;%1&quot; ?</translation>
     </message>
     <message>
         <source>Failed to download file %1. Please check disk space or folder permissions</source>
-        <translation type="unfinished"/>
+        <translation>Impossible de télécharger le fichier %1. Vérifiez l&apos;espace disque ou les permissions.</translation>
     </message>
 </context>
 <context>
@@ -2268,19 +2308,19 @@ Le nom de fichier contient des caractères invalides. Il n&apos;est pas synchron
     </message>
     <message>
         <source>Waiting for confirmation to delete files</source>
-        <translation type="unfinished"/>
+        <translation>En attente de confirmation d&apos;effacement des fichiers</translation>
     </message>
     <message>
         <source>Too many files in library</source>
-        <translation type="unfinished"/>
+        <translation>Trop de fichiers dans la bibliothèque</translation>
     </message>
     <message>
         <source>Failed to download file. Please check disk space or folder permissions</source>
-        <translation type="unfinished"/>
+        <translation>Impossible de télécharger le fichier. Vérifiez l&apos;espace disque ou les permissions.</translation>
     </message>
     <message>
         <source>Failed to upload file blocks. Please check network or firewall</source>
-        <translation type="unfinished"/>
+        <translation>Impossible d&apos;envoyer les blocs de fichiers. Veuillez vérifier le réseau ou le pare-feu.</translation>
     </message>
 </context>
 <context>
@@ -2606,15 +2646,15 @@ Le nom de fichier contient des caractères invalides. Il n&apos;est pas synchron
     </message>
     <message>
         <source>Show sync errors</source>
-        <translation type="unfinished"/>
+        <translation>Afficher les erreurs de synchronisation.</translation>
     </message>
     <message>
         <source>Discard sync errors</source>
-        <translation type="unfinished"/>
+        <translation>Ignorer les erreurs de synchronisation.</translation>
     </message>
     <message>
         <source>Ignore sync errors from this library</source>
-        <translation type="unfinished"/>
+        <translation>Ignorer les erreurs de synchronisation de cette bibliothèque.</translation>
     </message>
 </context>
 <context>
@@ -2679,7 +2719,7 @@ Le nom de fichier contient des caractères invalides. Il n&apos;est pas synchron
     </message>
     <message>
         <source>Settings</source>
-        <translation type="unfinished"/>
+        <translation>Paramètres</translation>
     </message>
 </context>
 <context>
@@ -2878,6 +2918,40 @@ Le nom de fichier contient des caractères invalides. Il n&apos;est pas synchron
     <message>
         <source>Failed to search&lt;br/&gt;Please %1</source>
         <translation>Impossible de rechercher&lt;br/&gt;Veuillez %1</translation>
+    </message>
+</context>
+<context>
+    <name>ServerRepoItem</name>
+    <message>
+        <source>Form</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>repoicon</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>reponame</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>download</source>
+        <translation type="unfinished"/>
+    </message>
+</context>
+<context>
+    <name>ServerReposView</name>
+    <message>
+        <source>Form</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Refresh</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Add a repo</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -3102,7 +3176,7 @@ Le nom de fichier contient des caractères invalides. Il n&apos;est pas synchron
     </message>
     <message>
         <source>Confirm before deleting files more than</source>
-        <translation type="unfinished"/>
+        <translation>Confirmez avant de supprimer des fichiers de plus de </translation>
     </message>
 </context>
 <context>
@@ -3174,10 +3248,6 @@ Le nom de fichier contient des caractères invalides. Il n&apos;est pas synchron
         <translation>Copier dans le presse-papiers</translation>
     </message>
     <message>
-        <source>Password(At least 8 characters)</source>
-        <translation>Mot de passe (au moins 8 caractères)</translation>
-    </message>
-    <message>
         <source>Show password</source>
         <translation>Montrer le mot de passe</translation>
     </message>
@@ -3188,6 +3258,25 @@ Le nom de fichier contient des caractères invalides. Il n&apos;est pas synchron
     <message>
         <source>Generate link</source>
         <translation>Générer un lien</translation>
+    </message>
+    <message>
+        <source>Password</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Failed to generate share link: %1</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Failed to generate share link: Invalid input</source>
+        <translation type="unfinished"/>
+    </message>
+</context>
+<context>
+    <name>ShibLoginDialog</name>
+    <message>
+        <source>Login with Shibboleth</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -3387,6 +3476,29 @@ Le nom de fichier contient des caractères invalides. Il n&apos;est pas synchron
     <message>
         <source>OK</source>
         <translation>Ok</translation>
+    </message>
+</context>
+<context>
+    <name>WelcomeDialog</name>
+    <message>
+        <source>Dialog</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Welcome to the seafile client</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>HelpImage</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;To sync files with a Seafile server:&lt;br/&gt;&lt;/p&gt;&lt;p&gt;1. Add an account (with server address and your email)&lt;/p&gt;&lt;p&gt;2. Download a library&lt;/p&gt;&lt;p&gt;3. Put files into the library and they will be uploaded to server automatically&lt;br/&gt;&lt;/p&gt;&lt;p&gt;You can also create a library from any local folder. See &lt;a href=&quot;http://www.seafile.com/en/help/install_v2/&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;seafile online help&lt;/span&gt;&lt;/a&gt; for more information.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Next</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 </TS>

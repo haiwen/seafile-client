@@ -154,6 +154,14 @@
         <source>server</source>
         <translation>сервер</translation>
     </message>
+    <message>
+        <source>settings</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>refresh</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>ActivitiesTab</name>
@@ -207,6 +215,10 @@ failed to upload.</source>
     <message>
         <source>Upload Failure: %1</source>
         <translation>Ошибка загрузки: %1</translation>
+    </message>
+    <message>
+        <source>File count limit exceeded</source>
+        <translation>Превышен лимит количества файлов</translation>
     </message>
 </context>
 <context>
@@ -512,6 +524,10 @@ failed to upload.</source>
         <source>TextLabel</source>
         <translation>Метка</translation>
     </message>
+    <message>
+        <source>File changes on network drives may not be synced automatically. You can set sync intervals to enable periodic sync. Do you want to sync with this folder?</source>
+        <translation>Изменения файлов на сетевых дисках могут не синхронизироваться автоматически. Вы можете установить интервалы синхронизации, чтобы включить периодическую синхронизацию. Вы хотите выполнить синхронизацию с этой папкой?</translation>
+    </message>
 </context>
 <context>
     <name>DaemonManager</name>
@@ -633,6 +649,10 @@ failed to upload.</source>
     <message>
         <source>Cancel</source>
         <translation>Отмена</translation>
+    </message>
+    <message>
+        <source>File changes on network drives may not be synced automatically. You can set sync intervals to enable periodic sync. Do you want to sync with this folder?</source>
+        <translation>Изменения файлов на сетевых дисках могут не синхронизироваться автоматически. Вы можете установить интервалы синхронизации, чтобы включить периодическую синхронизацию. Вы хотите выполнить синхронизацию с этой папкой?</translation>
     </message>
 </context>
 <context>
@@ -881,6 +901,10 @@ failed to upload.</source>
     <message>
         <source>Do you really want to delete folder &quot;%1&quot;?</source>
         <translation>Вы действительно хотите удалить папку &quot;%1&quot;?</translation>
+    </message>
+    <message>
+        <source>File count limit exceeded</source>
+        <translation>Превышен лимит количества файлов</translation>
     </message>
 </context>
 <context>
@@ -1497,6 +1521,22 @@ Do you like to download your default library?</source>
         <source>Automatic Login</source>
         <translation>Автоматический вход</translation>
     </message>
+    <message>
+        <source>Failed to get server info. Please check the server address.</source>
+        <translation>Не удалось получить информацию о сервере. Проверьте адрес сервера.</translation>
+    </message>
+    <message>
+        <source>Failed to get client sso link.</source>
+        <translation>Не удалось получить ссылку единого входа клиента.</translation>
+    </message>
+    <message>
+        <source>SSO login failed.</source>
+        <translation>Не удалось войти в систему единого входа.</translation>
+    </message>
+    <message>
+        <source>Failed to get client sso status.</source>
+        <translation>Не удалось получить статус единого входа клиента.</translation>
+    </message>
 </context>
 <context>
     <name>LogoutView</name>
@@ -1616,7 +1656,7 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     </message>
     <message>
         <source>Failed to download file %1. Please check disk space or folder permissions</source>
-        <translation type="unfinished"/>
+        <translation>Не удалось скачать файл %1. Проверьте место на диске или права доступа к папке</translation>
     </message>
 </context>
 <context>
@@ -2278,11 +2318,11 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     </message>
     <message>
         <source>Failed to download file. Please check disk space or folder permissions</source>
-        <translation type="unfinished"/>
+        <translation>Не удалось скачать файл. Проверьте место на диске или права доступа к папке</translation>
     </message>
     <message>
         <source>Failed to upload file blocks. Please check network or firewall</source>
-        <translation type="unfinished"/>
+        <translation>Не удалось загрузить блоки файлов. Проверьте сеть или брандмауэр</translation>
     </message>
 </context>
 <context>
@@ -2881,6 +2921,40 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     </message>
 </context>
 <context>
+    <name>ServerRepoItem</name>
+    <message>
+        <source>Form</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>repoicon</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>reponame</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>download</source>
+        <translation type="unfinished"/>
+    </message>
+</context>
+<context>
+    <name>ServerReposView</name>
+    <message>
+        <source>Form</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Refresh</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Add a repo</source>
+        <translation type="unfinished"/>
+    </message>
+</context>
+<context>
     <name>ServerStatusDialog</name>
     <message>
         <source>Servers connection status</source>
@@ -3174,10 +3248,6 @@ File path contains invalid characters. It is not synced to this computer.</sourc
         <translation>Копировать в буфер обмена</translation>
     </message>
     <message>
-        <source>Password(At least 8 characters)</source>
-        <translation>Пароль (Не менее 8 символов)</translation>
-    </message>
-    <message>
         <source>Show password</source>
         <translation>Показать пароль</translation>
     </message>
@@ -3188,6 +3258,25 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     <message>
         <source>Generate link</source>
         <translation>Создать ссылку</translation>
+    </message>
+    <message>
+        <source>Password</source>
+        <translation>Пароль</translation>
+    </message>
+    <message>
+        <source>Failed to generate share link: %1</source>
+        <translation>Не удалось создать ссылку общего доступа: %1</translation>
+    </message>
+    <message>
+        <source>Failed to generate share link: Invalid input</source>
+        <translation>Не удалось создать ссылку для общего доступа: Неверный ввод</translation>
+    </message>
+</context>
+<context>
+    <name>ShibLoginDialog</name>
+    <message>
+        <source>Login with Shibboleth</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -3387,6 +3476,29 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     <message>
         <source>OK</source>
         <translation>OK</translation>
+    </message>
+</context>
+<context>
+    <name>WelcomeDialog</name>
+    <message>
+        <source>Dialog</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Welcome to the seafile client</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>HelpImage</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;To sync files with a Seafile server:&lt;br/&gt;&lt;/p&gt;&lt;p&gt;1. Add an account (with server address and your email)&lt;/p&gt;&lt;p&gt;2. Download a library&lt;/p&gt;&lt;p&gt;3. Put files into the library and they will be uploaded to server automatically&lt;br/&gt;&lt;/p&gt;&lt;p&gt;You can also create a library from any local folder. See &lt;a href=&quot;http://www.seafile.com/en/help/install_v2/&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;seafile online help&lt;/span&gt;&lt;/a&gt; for more information.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Next</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 </TS>

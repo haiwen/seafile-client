@@ -2911,25 +2911,6 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     </message>
 </context>
 <context>
-    <name>ServerRepoItem</name>
-    <message>
-        <source>Form</source>
-        <translation>表单</translation>
-    </message>
-    <message>
-        <source>repoicon</source>
-        <translation>资料库图标</translation>
-    </message>
-    <message>
-        <source>reponame</source>
-        <translation>资料库名称</translation>
-    </message>
-    <message>
-        <source>download</source>
-        <translation>下载</translation>
-    </message>
-</context>
-<context>
     <name>ServerReposView</name>
     <message>
         <source>Form</source>
@@ -3266,7 +3247,7 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     <name>ShibLoginDialog</name>
     <message>
         <source>Login with Shibboleth</source>
-        <translation>使用 Shibboleth 登录</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -3466,29 +3447,6 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     <message>
         <source>OK</source>
         <translation>确定</translation>
-    </message>
-</context>
-<context>
-    <name>WelcomeDialog</name>
-    <message>
-        <source>Dialog</source>
-        <translation>对话框</translation>
-    </message>
-    <message>
-        <source>Welcome to the seafile client</source>
-        <translation>欢迎使用 Seafile 客户端</translation>
-    </message>
-    <message>
-        <source>HelpImage</source>
-        <translation>帮助图片</translation>
-    </message>
-    <message>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;To sync files with a Seafile server:&lt;br/&gt;&lt;/p&gt;&lt;p&gt;1. Add an account (with server address and your email)&lt;/p&gt;&lt;p&gt;2. Download a library&lt;/p&gt;&lt;p&gt;3. Put files into the library and they will be uploaded to server automatically&lt;br/&gt;&lt;/p&gt;&lt;p&gt;You can also create a library from any local folder. See &lt;a href=&quot;http://www.seafile.com/en/help/install_v2/&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;seafile online help&lt;/span&gt;&lt;/a&gt; for more information.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;与 Seafile 服务器同步文件：&lt;br/&gt;&lt;/p&gt;&lt;p&gt;1. 添加一个账号（包含服务器地址和您的邮箱）&lt;/p&gt;&lt;p&gt;2. 同步一个资料库&lt;/p&gt;&lt;p&gt;3. 将文件放入本地资料库，它们会被自动上传到服务器&lt;br/&gt;&lt;/p&gt;&lt;p&gt;您也可以从任意一个本地文件夹创建资料库。更多内容请参考&lt;a href=&quot;http://www.seafile.com/en/help/install_v2/&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;Seafile 帮助文档&lt;/span&gt;&lt;/a&gt;。&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
-    </message>
-    <message>
-        <source>Next</source>
-        <translation>下一步</translation>
     </message>
 </context>
 </TS>

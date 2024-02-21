@@ -156,11 +156,11 @@
     </message>
     <message>
         <source>settings</source>
-        <translation type="unfinished"/>
+        <translation>Einstellungen</translation>
     </message>
     <message>
         <source>refresh</source>
-        <translation type="unfinished"/>
+        <translation>Aktualisieren</translation>
     </message>
 </context>
 <context>
@@ -218,7 +218,7 @@ wurde nicht hochgeladen.</translation>
     </message>
     <message>
         <source>File count limit exceeded</source>
-        <translation type="unfinished"/>
+        <translation>Das Limit für die Zeilenanzahl ist überschritten.</translation>
     </message>
 </context>
 <context>
@@ -525,7 +525,7 @@ wurde nicht hochgeladen.</translation>
     </message>
     <message>
         <source>File changes on network drives may not be synced automatically. You can set sync intervals to enable periodic sync. Do you want to sync with this folder?</source>
-        <translation type="unfinished"/>
+        <translation>Änderungen an Dateien auf Netzlaufwerken werden ggf. nicht automatisch mit dem Server synchronisiert. In diesem Fall setzen Sie die Sync-Intervalle auf periodischen Sync. Wollen Sie mit diesem Ordner synchronisieren?</translation>
     </message>
 </context>
 <context>
@@ -650,7 +650,7 @@ Bitte %1</translation>
     </message>
     <message>
         <source>File changes on network drives may not be synced automatically. You can set sync intervals to enable periodic sync. Do you want to sync with this folder?</source>
-        <translation type="unfinished"/>
+        <translation>Änderungen an Dateien auf Netzlaufwerken werden ggf. nicht automatisch mit dem Server synchronisiert. In diesem Fall setzen Sie die Sync-Intervalle auf periodischen Sync. Wollen Sie mit diesem Ordner synchronisieren?</translation>
     </message>
 </context>
 <context>
@@ -902,7 +902,7 @@ Bitte %1</translation>
     </message>
     <message>
         <source>File count limit exceeded</source>
-        <translation type="unfinished"/>
+        <translation>Das Limit für die Zeilenanzahl ist überschritten.</translation>
     </message>
 </context>
 <context>
@@ -1521,19 +1521,19 @@ Möchten Sie Ihre Standardbibliothek herunterladen?</translation>
     </message>
     <message>
         <source>Failed to get server info. Please check the server address.</source>
-        <translation type="unfinished"/>
+        <translation>Die Server-Informationen konnten nicht abgerufen werden. Prüfen Sie die Server-Adresse.</translation>
     </message>
     <message>
         <source>Failed to get client sso link.</source>
-        <translation type="unfinished"/>
+        <translation>Der Abruf des SSO-Links ist fehlgeschlagen.</translation>
     </message>
     <message>
         <source>SSO login failed.</source>
-        <translation type="unfinished"/>
+        <translation>Der Login mittels SSO ist fehlgeschlagen.</translation>
     </message>
     <message>
         <source>Failed to get client sso status.</source>
-        <translation type="unfinished"/>
+        <translation>Der Abruf des SSO-Statuses des Clients ist fehlgeschlagen.</translation>
     </message>
 </context>
 <context>
@@ -2921,37 +2921,18 @@ Die Ordnerstruktur enthält ungültige Zeichen. Synchronisieren mit diesem Compu
     </message>
 </context>
 <context>
-    <name>ServerRepoItem</name>
-    <message>
-        <source>Form</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>repoicon</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>reponame</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>download</source>
-        <translation type="unfinished"/>
-    </message>
-</context>
-<context>
     <name>ServerReposView</name>
     <message>
         <source>Form</source>
-        <translation type="unfinished"/>
+        <translation>Formular</translation>
     </message>
     <message>
         <source>Refresh</source>
-        <translation type="unfinished"/>
+        <translation>Aktualisieren</translation>
     </message>
     <message>
         <source>Add a repo</source>
-        <translation type="unfinished"/>
+        <translation>Bibliothek suchen</translation>
     </message>
 </context>
 <context>
@@ -3261,22 +3242,22 @@ Die Ordnerstruktur enthält ungültige Zeichen. Synchronisieren mit diesem Compu
     </message>
     <message>
         <source>Password</source>
-        <translation type="unfinished"/>
+        <translation>Passwort</translation>
     </message>
     <message>
         <source>Failed to generate share link: %1</source>
-        <translation type="unfinished"/>
+        <translation>Die Erstellung des Freigabe-Links ist fehlgeschlagen: %1</translation>
     </message>
     <message>
         <source>Failed to generate share link: Invalid input</source>
-        <translation type="unfinished"/>
+        <translation>Die Erstellung des Freigabe-Links ist fehlgeschlagen: Ungültige Eingabe.</translation>
     </message>
 </context>
 <context>
     <name>ShibLoginDialog</name>
     <message>
         <source>Login with Shibboleth</source>
-        <translation type="unfinished"/>
+        <translation>Login mit Shibboleth</translation>
     </message>
 </context>
 <context>
@@ -3476,29 +3457,6 @@ Die Ordnerstruktur enthält ungültige Zeichen. Synchronisieren mit diesem Compu
     <message>
         <source>OK</source>
         <translation>OK</translation>
-    </message>
-</context>
-<context>
-    <name>WelcomeDialog</name>
-    <message>
-        <source>Dialog</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Welcome to the seafile client</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>HelpImage</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;To sync files with a Seafile server:&lt;br/&gt;&lt;/p&gt;&lt;p&gt;1. Add an account (with server address and your email)&lt;/p&gt;&lt;p&gt;2. Download a library&lt;/p&gt;&lt;p&gt;3. Put files into the library and they will be uploaded to server automatically&lt;br/&gt;&lt;/p&gt;&lt;p&gt;You can also create a library from any local folder. See &lt;a href=&quot;http://www.seafile.com/en/help/install_v2/&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;seafile online help&lt;/span&gt;&lt;/a&gt; for more information.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Next</source>
-        <translation type="unfinished"/>
     </message>
 </context>
 </TS>

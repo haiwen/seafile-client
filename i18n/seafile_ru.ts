@@ -2921,25 +2921,6 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     </message>
 </context>
 <context>
-    <name>ServerRepoItem</name>
-    <message>
-        <source>Form</source>
-        <translation>Форма</translation>
-    </message>
-    <message>
-        <source>repoicon</source>
-        <translation>repoicon</translation>
-    </message>
-    <message>
-        <source>reponame</source>
-        <translation>reponame</translation>
-    </message>
-    <message>
-        <source>download</source>
-        <translation>скачать</translation>
-    </message>
-</context>
-<context>
     <name>ServerReposView</name>
     <message>
         <source>Form</source>
@@ -3476,29 +3457,6 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     <message>
         <source>OK</source>
         <translation>OK</translation>
-    </message>
-</context>
-<context>
-    <name>WelcomeDialog</name>
-    <message>
-        <source>Dialog</source>
-        <translation>Диалог</translation>
-    </message>
-    <message>
-        <source>Welcome to the seafile client</source>
-        <translation>Добро пожаловать в клиент Seafile</translation>
-    </message>
-    <message>
-        <source>HelpImage</source>
-        <translation>Картинка помощи</translation>
-    </message>
-    <message>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;To sync files with a Seafile server:&lt;br/&gt;&lt;/p&gt;&lt;p&gt;1. Add an account (with server address and your email)&lt;/p&gt;&lt;p&gt;2. Download a library&lt;/p&gt;&lt;p&gt;3. Put files into the library and they will be uploaded to server automatically&lt;br/&gt;&lt;/p&gt;&lt;p&gt;You can also create a library from any local folder. See &lt;a href=&quot;http://www.seafile.com/en/help/install_v2/&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;seafile online help&lt;/span&gt;&lt;/a&gt; for more information.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Для синхронизации файлов с сервером Seafile:&lt;br/&gt;&lt;/p&gt;&lt;p&gt;1. Добавьте аккаунт (с адресом сервера и вашей почтой)&lt;/p&gt;&lt;p&gt;2. Скачайте библиотеку&lt;/p&gt;&lt;p&gt;3. Поместите файлы в библиотеку и они автоматически загрузятся на сервер&lt;br/&gt;&lt;/p&gt;&lt;p&gt;Вы можете создать библиотеку из любой папки на ПК. Смотрите &lt;a href=&quot;http://www.seafile.com/en/help/install_v2/&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;Справка Seafile&lt;/span&gt;&lt;/a&gt; для получения информации.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
-    </message>
-    <message>
-        <source>Next</source>
-        <translation>Далее</translation>
     </message>
 </context>
 </TS>

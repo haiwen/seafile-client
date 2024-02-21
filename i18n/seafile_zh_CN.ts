@@ -3266,7 +3266,7 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     <name>ShibLoginDialog</name>
     <message>
         <source>Login with Shibboleth</source>
-        <translation>单点登录</translation>
+        <translation>使用 Shibboleth 登录</translation>
     </message>
 </context>
 <context>

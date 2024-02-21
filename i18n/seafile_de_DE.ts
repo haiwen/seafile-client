@@ -154,6 +154,14 @@
         <source>server</source>
         <translation>Server</translation>
     </message>
+    <message>
+        <source>settings</source>
+        <translation>Einstellungen</translation>
+    </message>
+    <message>
+        <source>refresh</source>
+        <translation>Aktualisieren</translation>
+    </message>
 </context>
 <context>
     <name>ActivitiesTab</name>
@@ -207,6 +215,10 @@ wurde nicht hochgeladen.</translation>
     <message>
         <source>Upload Failure: %1</source>
         <translation>Fehler beim Hochladen: %1</translation>
+    </message>
+    <message>
+        <source>File count limit exceeded</source>
+        <translation>Das Limit für die Zeilenanzahl ist überschritten.</translation>
     </message>
 </context>
 <context>
@@ -511,6 +523,10 @@ wurde nicht hochgeladen.</translation>
         <source>TextLabel</source>
         <translation>Tag</translation>
     </message>
+    <message>
+        <source>File changes on network drives may not be synced automatically. You can set sync intervals to enable periodic sync. Do you want to sync with this folder?</source>
+        <translation>Änderungen an Dateien auf Netzlaufwerken werden ggf. nicht automatisch mit dem Server synchronisiert. In diesem Fall setzen Sie die Sync-Intervalle auf periodischen Sync. Wollen Sie mit diesem Ordner synchronisieren?</translation>
+    </message>
 </context>
 <context>
     <name>DaemonManager</name>
@@ -631,6 +647,10 @@ Bitte %1</translation>
     <message>
         <source>Cancel</source>
         <translation>Abbrechen</translation>
+    </message>
+    <message>
+        <source>File changes on network drives may not be synced automatically. You can set sync intervals to enable periodic sync. Do you want to sync with this folder?</source>
+        <translation>Änderungen an Dateien auf Netzlaufwerken werden ggf. nicht automatisch mit dem Server synchronisiert. In diesem Fall setzen Sie die Sync-Intervalle auf periodischen Sync. Wollen Sie mit diesem Ordner synchronisieren?</translation>
     </message>
 </context>
 <context>
@@ -879,6 +899,10 @@ Bitte %1</translation>
     <message>
         <source>Do you really want to delete folder &quot;%1&quot;?</source>
         <translation>Möchten Sie den Ordner „%1“ wirklich löschen?</translation>
+    </message>
+    <message>
+        <source>File count limit exceeded</source>
+        <translation>Das Limit für die Zeilenanzahl ist überschritten.</translation>
     </message>
 </context>
 <context>
@@ -1495,6 +1519,22 @@ Möchten Sie Ihre Standardbibliothek herunterladen?</translation>
         <source>Automatic Login</source>
         <translation>Automatisch anmelden</translation>
     </message>
+    <message>
+        <source>Failed to get server info. Please check the server address.</source>
+        <translation>Die Server-Informationen konnten nicht abgerufen werden. Prüfen Sie die Server-Adresse.</translation>
+    </message>
+    <message>
+        <source>Failed to get client sso link.</source>
+        <translation>Der Abruf des SSO-Links ist fehlgeschlagen.</translation>
+    </message>
+    <message>
+        <source>SSO login failed.</source>
+        <translation>Der Login mittels SSO ist fehlgeschlagen.</translation>
+    </message>
+    <message>
+        <source>Failed to get client sso status.</source>
+        <translation>Der Abruf des SSO-Statuses des Clients ist fehlgeschlagen.</translation>
+    </message>
 </context>
 <context>
     <name>LogoutView</name>
@@ -1614,7 +1654,7 @@ Die Ordnerstruktur enthält ungültige Zeichen. Synchronisieren mit diesem Compu
     </message>
     <message>
         <source>Failed to download file %1. Please check disk space or folder permissions</source>
-        <translation type="unfinished"/>
+        <translation>Datei %1 konnte nicht heruntergeladen werden. Bitte überprüfen Sie den freien Speicherplatz und die Schreibrechte in den Ordnern</translation>
     </message>
 </context>
 <context>
@@ -2276,11 +2316,11 @@ Die Ordnerstruktur enthält ungültige Zeichen. Synchronisieren mit diesem Compu
     </message>
     <message>
         <source>Failed to download file. Please check disk space or folder permissions</source>
-        <translation type="unfinished"/>
+        <translation>Datei konnte nicht heruntergeladen werden. Bitte überprüfen Sie den freien Speicherplatz und die Schreibrechte in den Ordnern</translation>
     </message>
     <message>
         <source>Failed to upload file blocks. Please check network or firewall</source>
-        <translation type="unfinished"/>
+        <translation>Datenblöcke konnten nicht hochgeladen werden. Bitte überprüfen Sie das Netzwerk oder die Firewall</translation>
     </message>
 </context>
 <context>
@@ -3174,10 +3214,6 @@ Die Ordnerstruktur enthält ungültige Zeichen. Synchronisieren mit diesem Compu
         <translation>Kopieren</translation>
     </message>
     <message>
-        <source>Password(At least 8 characters)</source>
-        <translation>Passwort (mindestens 8 Zeichen)</translation>
-    </message>
-    <message>
         <source>Show password</source>
         <translation>Passwort anzeigen</translation>
     </message>
@@ -3188,6 +3224,21 @@ Die Ordnerstruktur enthält ungültige Zeichen. Synchronisieren mit diesem Compu
     <message>
         <source>Generate link</source>
         <translation>Link erstellen</translation>
+    </message>
+    <message>
+        <source>Password</source>
+        <translation>Passwort</translation>
+    </message>
+    <message>
+        <source>Failed to generate share link: %1</source>
+        <translation>Die Erstellung des Freigabe-Links ist fehlgeschlagen: %1</translation>
+    </message>
+</context>
+<context>
+    <name>ShibLoginDialog</name>
+    <message>
+        <source>Single Sign On</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>

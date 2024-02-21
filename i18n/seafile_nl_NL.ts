@@ -154,6 +154,14 @@
         <source>server</source>
         <translation>server</translation>
     </message>
+    <message>
+        <source>settings</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>refresh</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>ActivitiesTab</name>
@@ -207,6 +215,10 @@ kon niet worden geüpload.</translation>
     <message>
         <source>Upload Failure: %1</source>
         <translation>Upload Fout: %1</translation>
+    </message>
+    <message>
+        <source>File count limit exceeded</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -512,6 +524,10 @@ kon niet worden geüpload.</translation>
         <source>TextLabel</source>
         <translation type="unfinished"/>
     </message>
+    <message>
+        <source>File changes on network drives may not be synced automatically. You can set sync intervals to enable periodic sync. Do you want to sync with this folder?</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>DaemonManager</name>
@@ -631,6 +647,10 @@ kon niet worden geüpload.</translation>
     <message>
         <source>Cancel</source>
         <translation>Annuleren</translation>
+    </message>
+    <message>
+        <source>File changes on network drives may not be synced automatically. You can set sync intervals to enable periodic sync. Do you want to sync with this folder?</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -878,6 +898,10 @@ kon niet worden geüpload.</translation>
     </message>
     <message>
         <source>Do you really want to delete folder &quot;%1&quot;?</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>File count limit exceeded</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -1492,6 +1516,22 @@ Do you like to download your default library?</source>
     <message>
         <source>Automatic Login</source>
         <translation>Automatisch Inloggen</translation>
+    </message>
+    <message>
+        <source>Failed to get server info. Please check the server address.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Failed to get client sso link.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>SSO login failed.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Failed to get client sso status.</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -3167,10 +3207,6 @@ File path contains invalid characters. It is not synced to this computer.</sourc
         <translation>Kopiëren naar klembord</translation>
     </message>
     <message>
-        <source>Password(At least 8 characters)</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
         <source>Show password</source>
         <translation type="unfinished"/>
     </message>
@@ -3180,6 +3216,21 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     </message>
     <message>
         <source>Generate link</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Password</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Failed to generate share link: %1</source>
+        <translation type="unfinished"/>
+    </message>
+</context>
+<context>
+    <name>ShibLoginDialog</name>
+    <message>
+        <source>Single Sign On</source>
         <translation type="unfinished"/>
     </message>
 </context>

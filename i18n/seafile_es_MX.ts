@@ -154,6 +154,14 @@
         <source>server</source>
         <translation>servidor</translation>
     </message>
+    <message>
+        <source>settings</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>refresh</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>ActivitiesTab</name>
@@ -207,6 +215,10 @@ falló la subida.</translation>
     <message>
         <source>Upload Failure: %1</source>
         <translation>Fallo al subir: %1</translation>
+    </message>
+    <message>
+        <source>File count limit exceeded</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -512,6 +524,10 @@ falló la subida.</translation>
         <source>TextLabel</source>
         <translation>TextLabel</translation>
     </message>
+    <message>
+        <source>File changes on network drives may not be synced automatically. You can set sync intervals to enable periodic sync. Do you want to sync with this folder?</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>DaemonManager</name>
@@ -632,6 +648,10 @@ falló la subida.</translation>
     <message>
         <source>Cancel</source>
         <translation>Cancelar</translation>
+    </message>
+    <message>
+        <source>File changes on network drives may not be synced automatically. You can set sync intervals to enable periodic sync. Do you want to sync with this folder?</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -879,6 +899,10 @@ falló la subida.</translation>
     </message>
     <message>
         <source>Do you really want to delete folder &quot;%1&quot;?</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>File count limit exceeded</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -1495,6 +1519,22 @@ Do you like to download your default library?</source>
     <message>
         <source>Automatic Login</source>
         <translation>Ingreso automático</translation>
+    </message>
+    <message>
+        <source>Failed to get server info. Please check the server address.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Failed to get client sso link.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>SSO login failed.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Failed to get client sso status.</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -3175,10 +3215,6 @@ La ruta al archivo contiene caracteres invalidos. No se sincroniza a esta comput
         <translation>Copiar al portapapeles</translation>
     </message>
     <message>
-        <source>Password(At least 8 characters)</source>
-        <translation>Contraseña (Al menos 8 caracteres)</translation>
-    </message>
-    <message>
         <source>Show password</source>
         <translation>Mostrar contraseña</translation>
     </message>
@@ -3189,6 +3225,21 @@ La ruta al archivo contiene caracteres invalidos. No se sincroniza a esta comput
     <message>
         <source>Generate link</source>
         <translation>Generar enlace</translation>
+    </message>
+    <message>
+        <source>Password</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Failed to generate share link: %1</source>
+        <translation type="unfinished"/>
+    </message>
+</context>
+<context>
+    <name>ShibLoginDialog</name>
+    <message>
+        <source>Single Sign On</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>

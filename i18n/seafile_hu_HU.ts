@@ -154,6 +154,14 @@
         <source>server</source>
         <translation>Szerver</translation>
     </message>
+    <message>
+        <source>settings</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>refresh</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>ActivitiesTab</name>
@@ -207,6 +215,10 @@ feltöltése nem sikerült.</translation>
     <message>
         <source>Upload Failure: %1</source>
         <translation>Feltöltési hiba: %1</translation>
+    </message>
+    <message>
+        <source>File count limit exceeded</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -512,6 +524,10 @@ feltöltése nem sikerült.</translation>
         <source>TextLabel</source>
         <translation>Szövegcímke</translation>
     </message>
+    <message>
+        <source>File changes on network drives may not be synced automatically. You can set sync intervals to enable periodic sync. Do you want to sync with this folder?</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>DaemonManager</name>
@@ -632,6 +648,10 @@ feltöltése nem sikerült.</translation>
     <message>
         <source>Cancel</source>
         <translation>Mégsem</translation>
+    </message>
+    <message>
+        <source>File changes on network drives may not be synced automatically. You can set sync intervals to enable periodic sync. Do you want to sync with this folder?</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -879,6 +899,10 @@ feltöltése nem sikerült.</translation>
     </message>
     <message>
         <source>Do you really want to delete folder &quot;%1&quot;?</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>File count limit exceeded</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -1494,6 +1518,22 @@ Letölti az alapértelmezett kötetet?</translation>
     </message>
     <message>
         <source>Automatic Login</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Failed to get server info. Please check the server address.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Failed to get client sso link.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>SSO login failed.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Failed to get client sso status.</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -3169,10 +3209,6 @@ File path contains invalid characters. It is not synced to this computer.</sourc
         <translation>Vágólapra másol</translation>
     </message>
     <message>
-        <source>Password(At least 8 characters)</source>
-        <translation>Jelszó (Legalább 8 karakter)</translation>
-    </message>
-    <message>
         <source>Show password</source>
         <translation>Jelszó mutatása</translation>
     </message>
@@ -3183,6 +3219,21 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     <message>
         <source>Generate link</source>
         <translation>Link generálása</translation>
+    </message>
+    <message>
+        <source>Password</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Failed to generate share link: %1</source>
+        <translation type="unfinished"/>
+    </message>
+</context>
+<context>
+    <name>ShibLoginDialog</name>
+    <message>
+        <source>Single Sign On</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>

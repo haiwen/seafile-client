@@ -154,6 +154,14 @@
         <source>server</source>
         <translation>servidor</translation>
     </message>
+    <message>
+        <source>settings</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>refresh</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>ActivitiesTab</name>
@@ -207,6 +215,10 @@ falhou ao enviar.</translation>
     <message>
         <source>Upload Failure: %1</source>
         <translation>Falha no Upload: %1</translation>
+    </message>
+    <message>
+        <source>File count limit exceeded</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -510,6 +522,10 @@ falhou ao enviar.</translation>
         <source>TextLabel</source>
         <translation type="unfinished"/>
     </message>
+    <message>
+        <source>File changes on network drives may not be synced automatically. You can set sync intervals to enable periodic sync. Do you want to sync with this folder?</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>DaemonManager</name>
@@ -631,6 +647,10 @@ Incapaz de encontrar um nome alternativo para a pasta</translation>
     <message>
         <source>Cancel</source>
         <translation>Cancelar</translation>
+    </message>
+    <message>
+        <source>File changes on network drives may not be synced automatically. You can set sync intervals to enable periodic sync. Do you want to sync with this folder?</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -878,6 +898,10 @@ Incapaz de encontrar um nome alternativo para a pasta</translation>
     </message>
     <message>
         <source>Do you really want to delete folder &quot;%1&quot;?</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>File count limit exceeded</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -1491,6 +1515,22 @@ Do you like to download your default library?</source>
     </message>
     <message>
         <source>Automatic Login</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Failed to get server info. Please check the server address.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Failed to get client sso link.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>SSO login failed.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Failed to get client sso status.</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -3167,10 +3207,6 @@ Abrir % 1 ajuda on-line</translation>
         <translation>Copiar para a área de transferência</translation>
     </message>
     <message>
-        <source>Password(At least 8 characters)</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
         <source>Show password</source>
         <translation type="unfinished"/>
     </message>
@@ -3180,6 +3216,21 @@ Abrir % 1 ajuda on-line</translation>
     </message>
     <message>
         <source>Generate link</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Password</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Failed to generate share link: %1</source>
+        <translation type="unfinished"/>
+    </message>
+</context>
+<context>
+    <name>ShibLoginDialog</name>
+    <message>
+        <source>Single Sign On</source>
         <translation type="unfinished"/>
     </message>
 </context>

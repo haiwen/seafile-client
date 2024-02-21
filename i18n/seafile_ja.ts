@@ -154,6 +154,14 @@
         <source>server</source>
         <translation>サーバ</translation>
     </message>
+    <message>
+        <source>settings</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>refresh</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>ActivitiesTab</name>
@@ -207,6 +215,10 @@ failed to upload.</source>
     <message>
         <source>Upload Failure: %1</source>
         <translation>アップロードの失敗：％1</translation>
+    </message>
+    <message>
+        <source>File count limit exceeded</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -512,6 +524,10 @@ failed to upload.</source>
         <source>TextLabel</source>
         <translation>テキストラベル</translation>
     </message>
+    <message>
+        <source>File changes on network drives may not be synced automatically. You can set sync intervals to enable periodic sync. Do you want to sync with this folder?</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>DaemonManager</name>
@@ -632,6 +648,10 @@ failed to upload.</source>
     <message>
         <source>Cancel</source>
         <translation>キャンセル</translation>
+    </message>
+    <message>
+        <source>File changes on network drives may not be synced automatically. You can set sync intervals to enable periodic sync. Do you want to sync with this folder?</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -879,6 +899,10 @@ failed to upload.</source>
     </message>
     <message>
         <source>Do you really want to delete folder &quot;%1&quot;?</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>File count limit exceeded</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -1494,6 +1518,22 @@ Do you like to download your default library?</source>
     <message>
         <source>Automatic Login</source>
         <translation>自動ログイン</translation>
+    </message>
+    <message>
+        <source>Failed to get server info. Please check the server address.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Failed to get client sso link.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>SSO login failed.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Failed to get client sso status.</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -3174,10 +3214,6 @@ File path contains invalid characters. It is not synced to this computer.</sourc
         <translation>クリップボードにコピー</translation>
     </message>
     <message>
-        <source>Password(At least 8 characters)</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
         <source>Show password</source>
         <translation type="unfinished"/>
     </message>
@@ -3187,6 +3223,21 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     </message>
     <message>
         <source>Generate link</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Password</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Failed to generate share link: %1</source>
+        <translation type="unfinished"/>
+    </message>
+</context>
+<context>
+    <name>ShibLoginDialog</name>
+    <message>
+        <source>Single Sign On</source>
         <translation type="unfinished"/>
     </message>
 </context>

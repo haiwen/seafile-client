@@ -154,6 +154,14 @@
         <source>server</source>
         <translation>服务器</translation>
     </message>
+    <message>
+        <source>settings</source>
+        <translation>设置</translation>
+    </message>
+    <message>
+        <source>refresh</source>
+        <translation>刷新</translation>
+    </message>
 </context>
 <context>
     <name>ActivitiesTab</name>
@@ -207,6 +215,10 @@ failed to upload.</source>
     <message>
         <source>Upload Failure: %1</source>
         <translation>上传失败：%1</translation>
+    </message>
+    <message>
+        <source>File count limit exceeded</source>
+        <translation>文件数量超出了限制</translation>
     </message>
 </context>
 <context>
@@ -507,6 +519,10 @@ failed to upload.</source>
         <source>TextLabel</source>
         <translation>文本标签</translation>
     </message>
+    <message>
+        <source>File changes on network drives may not be synced automatically. You can set sync intervals to enable periodic sync. Do you want to sync with this folder?</source>
+        <translation>网络驱动器上的文件改动可能不会被自动同步。您可以设置资料库的同步间隔以启用定时同步。您想要继续与此文件夹同步吗？</translation>
+    </message>
 </context>
 <context>
     <name>DaemonManager</name>
@@ -626,6 +642,10 @@ failed to upload.</source>
     <message>
         <source>Cancel</source>
         <translation>取消</translation>
+    </message>
+    <message>
+        <source>File changes on network drives may not be synced automatically. You can set sync intervals to enable periodic sync. Do you want to sync with this folder?</source>
+        <translation>网络驱动器上的文件改动可能不会被自动同步。您可以设置资料库的同步间隔以启用定时同步。您想要继续与此文件夹同步吗？</translation>
     </message>
 </context>
 <context>
@@ -874,6 +894,10 @@ failed to upload.</source>
     <message>
         <source>Do you really want to delete folder &quot;%1&quot;?</source>
         <translation>您真的想删除文件夹 “%1” ？</translation>
+    </message>
+    <message>
+        <source>File count limit exceeded</source>
+        <translation>文件数量超出了限制</translation>
     </message>
 </context>
 <context>
@@ -1486,6 +1510,22 @@ Do you like to download your default library?</source>
     <message>
         <source>Automatic Login</source>
         <translation>自动登录</translation>
+    </message>
+    <message>
+        <source>Failed to get server info. Please check the server address.</source>
+        <translation>获取服务器数据失败。请检查服务器地址。</translation>
+    </message>
+    <message>
+        <source>Failed to get client sso link.</source>
+        <translation>获取客户端单点登录链接失败。</translation>
+    </message>
+    <message>
+        <source>SSO login failed.</source>
+        <translation>单点登录失败。</translation>
+    </message>
+    <message>
+        <source>Failed to get client sso status.</source>
+        <translation>获取客户端单点登录状态失败。</translation>
     </message>
 </context>
 <context>
@@ -3164,10 +3204,6 @@ File path contains invalid characters. It is not synced to this computer.</sourc
         <translation>复制至剪贴板</translation>
     </message>
     <message>
-        <source>Password(At least 8 characters)</source>
-        <translation>密码（至少 8 个字符）</translation>
-    </message>
-    <message>
         <source>Show password</source>
         <translation>显示密码</translation>
     </message>
@@ -3178,6 +3214,21 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     <message>
         <source>Generate link</source>
         <translation>生成链接</translation>
+    </message>
+    <message>
+        <source>Password</source>
+        <translation>密码</translation>
+    </message>
+    <message>
+        <source>Failed to generate share link: %1</source>
+        <translation>生成共享链接失败：%1</translation>
+    </message>
+</context>
+<context>
+    <name>ShibLoginDialog</name>
+    <message>
+        <source>Single Sign On</source>
+        <translation>单点登录或微信登录</translation>
     </message>
 </context>
 <context>

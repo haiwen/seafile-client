@@ -123,3 +123,8 @@ const QNetworkReply* SeafileApiRequest::reply() const
 {
     return api_client_->reply();
 }
+
+const QByteArray SeafileApiRequest::replyBody() const
+{
+    return api_client_->replyBody();
+}

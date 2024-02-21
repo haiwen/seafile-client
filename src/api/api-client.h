@@ -29,6 +29,7 @@ public:
     void setUseCache(bool use_cache) { use_cache_ = use_cache; }
 
     const QNetworkReply* reply() const { return reply_; }
+    const QByteArray replyBody() const { return reply_body_; }
 
     static QNetworkAccessManager *qnam_;
     static void resetQNAM();
@@ -57,6 +58,8 @@ private:
     QByteArray body_;
 
     QNetworkReply *reply_;
+
+    QByteArray reply_body_;
 
     int redirect_count_;
     bool use_cache_;

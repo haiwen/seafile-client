@@ -2914,21 +2914,6 @@ Abrir % 1 ajuda on-line</translation>
     </message>
 </context>
 <context>
-    <name>ServerReposView</name>
-    <message>
-        <source>Form</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Refresh</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Add a repo</source>
-        <translation type="unfinished"/>
-    </message>
-</context>
-<context>
     <name>ServerStatusDialog</name>
     <message>
         <source>Servers connection status</source>
@@ -3245,7 +3230,7 @@ Abrir % 1 ajuda on-line</translation>
 <context>
     <name>ShibLoginDialog</name>
     <message>
-        <source>Login with Shibboleth</source>
+        <source>Single Sign On</source>
         <translation type="unfinished"/>
     </message>
 </context>

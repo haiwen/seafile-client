@@ -2922,21 +2922,6 @@ La ruta al archivo contiene caracteres invalidos. No se sincroniza a esta comput
     </message>
 </context>
 <context>
-    <name>ServerReposView</name>
-    <message>
-        <source>Form</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Refresh</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Add a repo</source>
-        <translation type="unfinished"/>
-    </message>
-</context>
-<context>
     <name>ServerStatusDialog</name>
     <message>
         <source>Servers connection status</source>
@@ -3253,7 +3238,7 @@ La ruta al archivo contiene caracteres invalidos. No se sincroniza a esta comput
 <context>
     <name>ShibLoginDialog</name>
     <message>
-        <source>Login with Shibboleth</source>
+        <source>Single Sign On</source>
         <translation type="unfinished"/>
     </message>
 </context>

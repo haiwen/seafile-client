@@ -40,7 +40,7 @@ ShibLoginDialog::ShibLoginDialog(const QUrl& url,
       url_(url),
       cookie_seen_(false)
 {
-    setWindowTitle(tr("Login with Shibboleth"));
+    setWindowTitle(tr("Single Sign On"));
     setWindowIcon(QIcon(":/images/seafile.png"));
     setWindowFlags(windowFlags() & ~Qt::WindowContextHelpButtonHint);
 

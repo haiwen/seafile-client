@@ -23,7 +23,6 @@
     <QtUic Include="ui\login-dialog.ui" />
     <QtUic Include="ui\private-share-dialog.ui" />
     <QtUic Include="ui\repo-detail-dialog.ui" />
-    <QtUic Include="ui\server-repos-view.ui" />
     <QtUic Include="ui\server-status-dialog.ui" />
     <QtUic Include="ui\set-repo-password-dialog.ui" />
     <QtUic Include="ui\settings-dialog.ui" />

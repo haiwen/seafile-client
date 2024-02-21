@@ -2921,21 +2921,6 @@ Die Ordnerstruktur enthält ungültige Zeichen. Synchronisieren mit diesem Compu
     </message>
 </context>
 <context>
-    <name>ServerReposView</name>
-    <message>
-        <source>Form</source>
-        <translation>Formular</translation>
-    </message>
-    <message>
-        <source>Refresh</source>
-        <translation>Aktualisieren</translation>
-    </message>
-    <message>
-        <source>Add a repo</source>
-        <translation>Bibliothek suchen</translation>
-    </message>
-</context>
-<context>
     <name>ServerStatusDialog</name>
     <message>
         <source>Servers connection status</source>
@@ -3252,8 +3237,8 @@ Die Ordnerstruktur enthält ungültige Zeichen. Synchronisieren mit diesem Compu
 <context>
     <name>ShibLoginDialog</name>
     <message>
-        <source>Login with Shibboleth</source>
-        <translation>Login mit Shibboleth</translation>
+        <source>Single Sign On</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>

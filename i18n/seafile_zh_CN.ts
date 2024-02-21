@@ -2911,21 +2911,6 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     </message>
 </context>
 <context>
-    <name>ServerReposView</name>
-    <message>
-        <source>Form</source>
-        <translation>表单</translation>
-    </message>
-    <message>
-        <source>Refresh</source>
-        <translation>刷新</translation>
-    </message>
-    <message>
-        <source>Add a repo</source>
-        <translation>新增一个资料库</translation>
-    </message>
-</context>
-<context>
     <name>ServerStatusDialog</name>
     <message>
         <source>Servers connection status</source>
@@ -3242,8 +3227,8 @@ File path contains invalid characters. It is not synced to this computer.</sourc
 <context>
     <name>ShibLoginDialog</name>
     <message>
-        <source>Login with Shibboleth</source>
-        <translation type="unfinished"/>
+        <source>Single Sign On</source>
+        <translation>单点登录或微信登录</translation>
     </message>
 </context>
 <context>

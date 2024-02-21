@@ -99,9 +99,6 @@
     <QtUic Include="ui\repo-detail-dialog.ui">
       <Filter>Form Files</Filter>
     </QtUic>
-    <QtUic Include="ui\server-repos-view.ui">
-      <Filter>Form Files</Filter>
-    </QtUic>
     <QtUic Include="ui\server-status-dialog.ui">
       <Filter>Form Files</Filter>
     </QtUic>

@@ -259,14 +259,14 @@ void SeafileApiClient::httpRequestFinished()
 
     if ((code / 100) == 4 || (code / 100) == 5) {
         if (!shouldIgnoreRequestError(reply_)) {
-            QByteArray content = reply_->readAll();
+            reply_body_ = reply_->readAll();
             qWarning("request failed for %s: %s\n",
                      reply_->url().toString().toUtf8().data(),
-                     content.left(kMaxHttpErrorLogLen).data());
-            if (content.length() > kMaxHttpErrorLogLen) {
+                     reply_body_.left(kMaxHttpErrorLogLen).data());
+            if (reply_body_.length() > kMaxHttpErrorLogLen) {
                 qDebug("request failed for %s: %s\n",
                        reply_->url().toString().toUtf8().data(),
-                       content.data());
+                       reply_body_.data());
             }
         }
         emit requestFailed(code);

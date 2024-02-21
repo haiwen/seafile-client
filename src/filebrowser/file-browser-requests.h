@@ -188,14 +188,19 @@ public:
                             const QString &password,
                             const QString &expire_days);
 
+    const QString errorMsg() { return error_msg_; }
+
 signals:
     void success(const QString& url);
 
 protected slots:
     void requestSuccess(QNetworkReply& reply);
+    void onHttpError(int code);
 
 private:
     Q_DISABLE_COPY(CreateSharedLinkRequest)
+
+    QString error_msg_;
 };
 
 

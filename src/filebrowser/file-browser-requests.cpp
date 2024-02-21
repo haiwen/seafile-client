@@ -197,6 +197,13 @@ void CreateSharedLinkRequest::requestSuccess(QNetworkReply& reply)
     emit success(share_link);
 }
 
+void CreateSharedLinkRequest::onHttpError(int code)
+{
+    QJsonDocument doc(QJsonDocument::fromJson(replyBody()));
+    error_msg_ = doc["error_msg"].toString();
+
+    emit failed(ApiError::fromHttpError(code));
+}
 
 CreateDirectoryRequest::CreateDirectoryRequest(const Account &account,
                                                const QString &repo_id,

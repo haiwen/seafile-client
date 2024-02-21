@@ -2,6 +2,7 @@
 
 #include <QScopedPointer>
 #include <QtNetwork>
+#include <QJsonDocument>
 
 #include "account.h"
 

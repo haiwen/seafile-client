@@ -3251,10 +3251,6 @@ File path contains invalid characters. It is not synced to this computer.</sourc
         <source>Failed to generate share link: %1</source>
         <translation type="unfinished"/>
     </message>
-    <message>
-        <source>Failed to generate share link: Invalid input</source>
-        <translation type="unfinished"/>
-    </message>
 </context>
 <context>
     <name>ShibLoginDialog</name>

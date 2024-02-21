@@ -3248,10 +3248,6 @@ File path contains invalid characters. It is not synced to this computer.</sourc
         <source>Failed to generate share link: %1</source>
         <translation>Не удалось создать ссылку общего доступа: %1</translation>
     </message>
-    <message>
-        <source>Failed to generate share link: Invalid input</source>
-        <translation>Не удалось создать ссылку для общего доступа: Неверный ввод</translation>
-    </message>
 </context>
 <context>
     <name>ShibLoginDialog</name>

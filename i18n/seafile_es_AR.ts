@@ -3249,10 +3249,6 @@ La ruta al archivo contiene caracteres invalidos. No se sincroniza a esta comput
         <source>Failed to generate share link: %1</source>
         <translation type="unfinished"/>
     </message>
-    <message>
-        <source>Failed to generate share link: Invalid input</source>
-        <translation type="unfinished"/>
-    </message>
 </context>
 <context>
     <name>ShibLoginDialog</name>

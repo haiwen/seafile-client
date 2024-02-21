@@ -3248,10 +3248,6 @@ Die Ordnerstruktur enthält ungültige Zeichen. Synchronisieren mit diesem Compu
         <source>Failed to generate share link: %1</source>
         <translation>Die Erstellung des Freigabe-Links ist fehlgeschlagen: %1</translation>
     </message>
-    <message>
-        <source>Failed to generate share link: Invalid input</source>
-        <translation>Die Erstellung des Freigabe-Links ist fehlgeschlagen: Ungültige Eingabe.</translation>
-    </message>
 </context>
 <context>
     <name>ShibLoginDialog</name>

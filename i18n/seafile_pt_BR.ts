@@ -3241,10 +3241,6 @@ Abrir % 1 ajuda on-line</translation>
         <source>Failed to generate share link: %1</source>
         <translation type="unfinished"/>
     </message>
-    <message>
-        <source>Failed to generate share link: Invalid input</source>
-        <translation type="unfinished"/>
-    </message>
 </context>
 <context>
     <name>ShibLoginDialog</name>

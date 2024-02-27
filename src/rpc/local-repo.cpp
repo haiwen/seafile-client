@@ -54,9 +54,13 @@ LocalRepo LocalRepo::fromGObject(GObject *obj)
     return repo;
 }
 
-void LocalRepo::setSyncInfo(const QString &state)
+void LocalRepo::setSyncInfo(const QString &state, const int error)
 {
-    translateSyncState(state);
+    if (error == SYNC_ERROR_ID_NO_ERROR) {
+        translateSyncState(state);
+    } else {
+        translateSyncError(error);
+    }
 }
 
 void LocalRepo::translateSyncState(const QString &status)
@@ -120,6 +124,12 @@ void LocalRepo::translateSyncState(const QString &status)
         sync_state = SYNC_STATE_DISABLED;
         return;
     }
+}
+
+void LocalRepo::translateSyncError(const int error)
+{
+    sync_error_str = translateSyncErrorCode(error);
+    sync_state = SYNC_STATE_ERROR;
 }
 
 QString LocalRepo::getErrorString() const

@@ -374,13 +374,13 @@ void SeafileRpcClient::getSyncStatus(LocalRepo &repo)
                                     &error, 1,
                                     "string", toCStr(repo.id));
     if (error) {
-        repo.setSyncInfo("unknown");
+        repo.setSyncState("unknown");
         g_error_free(error);
         return;
     }
 
     if (!task) {
-        repo.setSyncInfo("waiting for sync");
+        repo.setSyncState("waiting for sync");
         return;
     }
 
@@ -388,7 +388,7 @@ void SeafileRpcClient::getSyncStatus(LocalRepo &repo)
     int err = SYNC_ERROR_ID_NO_ERROR;
     g_object_get(task, "state", &state, "error", &err, NULL);
 
-    repo.setSyncInfo(state);
+    repo.setSyncState(state, err);
 
     if (repo.sync_state == LocalRepo::SYNC_STATE_ING) {
         getRepoTransferInfo(repo.id, &repo.transfer_rate, &repo.transfer_percentage, &repo.rt_state);

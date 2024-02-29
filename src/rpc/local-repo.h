@@ -86,10 +86,11 @@ public:
 
     QString getErrorString() const;
 
-    void setSyncInfo(const QString &state);
+    void setSyncState(const QString &state, const int error = SYNC_ERROR_ID_NO_ERROR);
 
 private:
     void translateSyncState(const QString &state);
+    void translateSyncError(const int error);
 };
 
 Q_DECLARE_METATYPE(LocalRepo)

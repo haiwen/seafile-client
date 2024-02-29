@@ -54,67 +54,65 @@ LocalRepo LocalRepo::fromGObject(GObject *obj)
     return repo;
 }
 
-void LocalRepo::setSyncInfo(const QString &state, const int error)
-{
-    if (error == SYNC_ERROR_ID_NO_ERROR) {
-        translateSyncState(state);
-    } else {
-        translateSyncError(error);
-    }
-}
-
-void LocalRepo::translateSyncState(const QString &status)
-{
-    if (status == "synchronized") {
+void LocalRepo::setSyncState(const QString &state, const int error) {
+    if (state == "synchronized") {
         sync_state_str = QObject::tr("synchronized");
         sync_state = SYNC_STATE_DONE;
 
-    } else if (status == "committing") {
+    } else if (state == "committing") {
         sync_state_str = QObject::tr("indexing files");
         sync_state = SYNC_STATE_ING;
         has_data_transfer = false;
 
-    } else if (status == "initializing") {
+    } else if (state == "initializing") {
         sync_state_str = QObject::tr("sync initializing");
         sync_state = SYNC_STATE_INIT;
 
-    } else if (status == "downloading") {
+    } else if (state == "downloading") {
         sync_state_str = QObject::tr("downloading");
         sync_state = SYNC_STATE_ING;
         has_data_transfer = true;
 
-    } else if (status == "uploading") {
+    } else if (state == "uploading") {
         sync_state_str = QObject::tr("uploading");
         sync_state = SYNC_STATE_ING;
         has_data_transfer = true;
 
-    } else if (status == "merging") {
+    } else if (state == "merging") {
         sync_state_str = QObject::tr("sync merging");
         sync_state = SYNC_STATE_ING;
         has_data_transfer = false;
 
-    } else if (status == "waiting for sync") {
+    } else if (state == "waiting for sync") {
         sync_state_str = QObject::tr("waiting for sync");
         sync_state = SYNC_STATE_WAITING;
 
-    } else if (status == "relay not connected") {
+    } else if (state == "relay not connected") {
         sync_state_str = QObject::tr("server not connected");
         sync_state = SYNC_STATE_WAITING;
 
-    } else if (status == "relay authenticating") {
+    } else if (state == "relay authenticating") {
         sync_state_str = QObject::tr("server authenticating");
         sync_state = SYNC_STATE_WAITING;
 
-    } else if (status == "auto sync is turned off") {
+    } else if (state == "auto sync is turned off") {
         sync_state_str = QObject::tr("auto sync is turned off");
         sync_state = SYNC_STATE_DISABLED;
 
-    } else if (status == "cancel pending") {
+    } else if (state == "cancel pending") {
         sync_state_str = QObject::tr("sync initializing");
         sync_state = SYNC_STATE_INIT;
 
+    } else if (state == "error") {
+        if (error != SYNC_ERROR_ID_NO_ERROR) {
+            sync_error_str = translateSyncErrorCode(error);
+        } else {
+            sync_error_str = QObject::tr("unknown error");
+        }
+        sync_state = SYNC_STATE_ERROR;
+
     } else {
-        qWarning("unknown sync status: %s\n", toCStr(status));
+        qWarning("unknown sync status: %s\n", toCStr(state));
         sync_state_str = QObject::tr("unknown");
         sync_state = SYNC_STATE_UNKNOWN;
     }
@@ -124,12 +122,6 @@ void LocalRepo::translateSyncState(const QString &status)
         sync_state = SYNC_STATE_DISABLED;
         return;
     }
-}
-
-void LocalRepo::translateSyncError(const int error)
-{
-    sync_error_str = translateSyncErrorCode(error);
-    sync_state = SYNC_STATE_ERROR;
 }
 
 QString LocalRepo::getErrorString() const

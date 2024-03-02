@@ -59,6 +59,11 @@ IF (BUILD_SPARKLE_SUPPORT)
     ENDIF()
 ENDIF()
 
+option(BUILD_LOG_UPLOADER "Enable log directory uploader" OFF)
+IF (BUILD_LOG_UPLOADER)
+    ADD_DEFINITIONS(-DHAVE_LOG_UPLOADER -DQUAZIP_STATIC)
+ENDIF()
+
 MESSAGE("Build type: ${CMAKE_BUILD_TYPE}")
 
 ## build in PIC mode
@@ -200,8 +205,6 @@ if (APPLE)
     SET(CMAKE_XCODE_ATTRIBUTE_CLANG_CXX_LIBRARY "libc++")
 endif()
 
-ADD_DEFINITIONS(-DQUAZIP_STATIC)
-
 # MOC FILES
 SET(moc_headers
   src/seafile-applet.h
@@ -222,7 +225,6 @@ SET(moc_headers
   src/settings-mgr.h
   src/traynotificationwidget.h
   src/traynotificationmanager.h
-  src/log-uploader.h
   src/api/api-client.h
   src/api/api-request.h
   src/api/requests.h
@@ -288,7 +290,6 @@ SET(moc_headers
   src/filebrowser/transfer-mgr.h
   src/filebrowser/thumbnail-service.h
   third_party/QtAwesome/QtAwesome.h
-  third_party/quazip/quazipfile.h
   ${platform_specific_moc_headers}
 )
 
@@ -298,6 +299,13 @@ ENDIF()
 
 IF (BUILD_SHIBBOLETH_SUPPORT)
   SET(moc_headers ${moc_headers} src/shib/shib-login-dialog.h ${SHIB_EXTRA_HEADER})
+ENDIF()
+
+IF (BUILD_LOG_UPLOADER)
+  SET(moc_headers ${moc_headers}
+    src/log-uploader.h
+    third_party/quazip/quazipfile.h
+  )
 ENDIF()
 
 # UI FILES
@@ -419,7 +427,6 @@ SET(seafile_client_sources
   src/traynotificationwidget.cpp
   src/traynotificationmanager.cpp
   src/certs-mgr.cpp
-  src/log-uploader.cpp
   src/sync-error-service.cpp
   src/api/api-client.cpp
   src/api/api-request.cpp
@@ -508,13 +515,20 @@ IF (BUILD_SHIBBOLETH_SUPPORT)
   SET(seafile_client_sources ${seafile_client_sources} src/shib/shib-login-dialog.cpp)
 ENDIF()
 
+IF (BUILD_LOG_UPLOADER)
+  SET(seafile_client_sources ${seafile_client_sources} src/log-uploader.cpp)
+ENDIF()
+
 INCLUDE_DIRECTORIES(
   ${CMAKE_CURRENT_SOURCE_DIR}
   ${CMAKE_CURRENT_BINARY_DIR}
   ${CMAKE_CURRENT_SOURCE_DIR}/src
   ${CMAKE_CURRENT_SOURCE_DIR}/third_party/QtAwesome
-  ${CMAKE_CURRENT_SOURCE_DIR}/third_party/quazip
   )
+
+IF (BUILD_LOG_UPLOADER)
+  INCLUDE_DIRECTORIES(${CMAKE_CURRENT_SOURCE_DIR}/third_party/quazip)
+ENDIF()
 
 FOREACH(USE_QT_LIBRARY ${USE_QT_LIBRARIES})
 INCLUDE_DIRECTORIES(
@@ -613,8 +627,11 @@ ENDIF()
 
 ADD_SC_LIBRARY(utils ${utils_sources})
 
+SET(SC_LIBS utils)
+
 # library quazip
-LIST(APPEND quazip_sources
+IF (BUILD_LOG_UPLOADER)
+  LIST(APPEND quazip_sources
     third_party/quazip/JlCompress.cpp
     third_party/quazip/quazip.cpp
     third_party/quazip/quazipfile.cpp
@@ -630,10 +647,10 @@ LIST(APPEND quazip_sources
     third_party/quazip/unzip.c
     )
 
-ADD_SC_LIBRARY(quazip ${quazip_sources})
+  ADD_SC_LIBRARY(quazip ${quazip_sources})
 
-SET(SC_LIBS utils quazip)
-#SET(SC_LIBS utils)
+  SET(SC_LIBS ${SC_LIBS} quazip)
+ENDIF()
 
 ####################
 ###### end: lib

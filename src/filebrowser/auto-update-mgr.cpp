@@ -123,16 +123,21 @@ void AutoUpdateManager::cleanCachedFile()
     QThreadPool::globalInstance()->start(cleaner);
 }
 
-void AutoUpdateManager::uploadFile(const QString& local_path)
+void AutoUpdateManager::uploadFile(const QString& local_path, bool replace_previous)
 {
     WatchedFileInfo &info = watch_infos_[local_path];
 
     FileCache::CacheEntry entry;
     FileCache::instance()->getCacheEntry(info.repo_id, info.path_in_repo, &entry);
 
+    // If the replace_previous is true, entry.commit_id will be ignored to
+    // force replace existing files on server. Otherwise, a conflict file may
+    // be generated.
+    auto commit_id = replace_previous ? "" : entry.commit_id;
+
     FileNetworkTask *task = seafApplet->dataManager()->createUploadTask(
         info.repo_id, ::getParentPath(info.path_in_repo), local_path,
-        entry.commit_id, ::getBaseName(local_path), true);
+        commit_id, ::getBaseName(local_path), true);
 
     ((FileUploadTask *)task)->setAcceptUserConfirmation(false);
 
@@ -196,7 +201,7 @@ void AutoUpdateManager::onFileChanged(const QString& local_path)
     qInfo() << "[AutoUpdateManager] uploading file" << local_path
             << ", size =" << finfo.size() << ", mtime =" << finfo.lastModified();
 
-    uploadFile(local_path);
+    uploadFile(local_path, false);
 }
 
 void AutoUpdateManager::onUpdateTaskFinished(bool success)

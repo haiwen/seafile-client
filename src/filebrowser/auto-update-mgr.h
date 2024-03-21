@@ -39,7 +39,7 @@ public:
         const QString &path,
         const QList<SeafDirent>& dirents);
     void cleanCachedFile();
-    void uploadFile(const QString& local_path);
+    void uploadFile(const QString& local_path, bool replace_previous = true);
     void dumpCacheStatus();
 
 signals:

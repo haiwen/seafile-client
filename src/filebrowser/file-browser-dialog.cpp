@@ -351,7 +351,7 @@ void FileBrowserDialog::createToolBar()
     toolbar_->widgetForAction(gohome_action_)->setObjectName("goHomeButton");
 
     path_navigator_ = new QButtonGroup(this);
-    connect(path_navigator_, SIGNAL(buttonClicked(int)),
+    connect(path_navigator_, SIGNAL(idClicked(int)),
             this, SLOT(onNavigatorClick(int)));
 
     search_toolbar_ = new QToolBar;
@@ -1596,7 +1596,7 @@ void FileBrowserDialog::onGetSyncSubdirectory(const QString &folder_name)
 void FileBrowserDialog::onDeleteLocalVersion(const SeafDirent &dirent)
 {
     QString fpath = ::pathJoin(current_path_, dirent.name);
-    QString cached_file = data_mgr_->getLocalCachedFile(repo_.id, fpath, dirent.id);
+    QString cached_file = data_mgr_->getLocalCacheFilePath(repo_.id, fpath);
     if (!cached_file.isEmpty() && QFileInfo(cached_file).exists()) {
         QFile::remove(cached_file);
         return;
@@ -1610,7 +1610,7 @@ void FileBrowserDialog::onLocalVersionSaveAs(const SeafDirent &dirent)
        download_dir = QDir::home();
 
      QString fpath = ::pathJoin(current_path_, dirent.name);
-     QString cached_file = data_mgr_->getLocalCachedFile(repo_.id, fpath, dirent.id);
+     QString cached_file = data_mgr_->getLocalCacheFilePath(repo_.id, fpath);
      if (!cached_file.isEmpty() && QFileInfo(cached_file).exists()) {
          QString local_path = QFileDialog::getSaveFileName(this, tr("Enter name of file to save to..."), download_dir.filePath(dirent.name));
          QFile::copy(cached_file, local_path);

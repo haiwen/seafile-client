@@ -167,21 +167,24 @@ bool get_auto_start()
 #if (__MAC_OS_X_VERSION_MIN_REQUIRED >= MAC_OS_X_VERSION_10_10)
             outURL = LSSharedFileListItemCopyResolvedURL(item, resolutionFlags, /*outError*/ NULL);
             if (outURL == NULL) {
+                continue;
+            }
 #else
             OSStatus err = LSSharedFileListItemResolve(item, resolutionFlags, &outURL, /*outRef*/ NULL);
             if (err != noErr || outURL == NULL) {
-#endif
                 if (outURL)
                     CFRelease(outURL);
                 continue;
             }
+#endif
             found = CFEqual(outURL, URLToToggle);
             CFRelease(outURL);
 
             if (found)
                 break;
         }
-        CFRelease(currentLoginItems);
+        if (currentLoginItems)
+            CFRelease(currentLoginItems);
         CFRelease(loginItems);
     }
     return found;
@@ -209,14 +212,16 @@ void set_auto_start(bool enabled)
 #if (__MAC_OS_X_VERSION_MIN_REQUIRED >= MAC_OS_X_VERSION_10_10)
             outURL = LSSharedFileListItemCopyResolvedURL(item, resolutionFlags, /*outError*/ NULL);
             if (outURL == NULL) {
+                continue;
+            }
 #else
             OSStatus err = LSSharedFileListItemResolve(item, resolutionFlags, &outURL, /*outRef*/ NULL);
             if (err != noErr || outURL == NULL) {
-#endif
                 if (outURL)
                     CFRelease(outURL);
                 continue;
             }
+#endif
             found = CFEqual(outURL, URLToToggle);
             CFRelease(outURL);
 
@@ -258,7 +263,8 @@ void set_auto_start(bool enabled)
             LSSharedFileListItemRemove(loginItems, existingItem);
         }
 
-        CFRelease(currentLoginItems);
+        if (currentLoginItems)
+            CFRelease(currentLoginItems);
         CFRelease(loginItems);
     }
 }

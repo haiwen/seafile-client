@@ -105,7 +105,7 @@ QString translateSyncErrorCode(const int error_code)
             break;
 #endif
         case SYNC_ERROR_ID_LIBRARY_TOO_LARGE:
-            error_str = QObject::tr("Library is too large to sync.");
+            error_str = QObject::tr("Library contains too many files.");
             break;
         case SYNC_ERROR_ID_DEL_CONFIRMATION_PENDING:
             error_str = QObject::tr("Waiting for confirmation to delete files");

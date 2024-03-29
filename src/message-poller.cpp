@@ -200,7 +200,7 @@ void MessagePoller::processNotification(const SyncNotification& notification)
             break;
 #endif
         case SYNC_ERROR_ID_LIBRARY_TOO_LARGE:
-            msg = tr("Library is too large to sync.");
+            msg = tr("Library contains too many files.");
             break;
         case SYNC_ERROR_ID_DEL_CONFIRMATION_PENDING:
             msg = tr("Waiting for confirmation to delete files");

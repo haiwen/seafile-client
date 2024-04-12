@@ -40,15 +40,18 @@ private:
     Q_DISABLE_COPY(AccountView)
 
     QAction *makeAccountAction(const Account& account);
+    void setupSortingMenu();
     bool eventFilter(QObject *obj, QEvent *event);
 
     // Account operations
     QAction *add_account_action_;
     QAction *account_settings_action_;
     QMenu *account_menu_;
+    QMenu *sorting_menu_;
 
 signals:
     void refresh();
+    void sortOrderUpdated();
 };
 
 #endif // SEAFILE_CLIENT_UI_ACCOUNT_VIEW_H

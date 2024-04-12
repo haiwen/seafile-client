@@ -99,6 +99,9 @@ public:
     bool isEnableSyncingWithExistingFolder() const;
     void setEnableSyncingWithExistingFolder(bool enabled);
 
+    void setRepoSortOrder(int category, int order);
+    int repoSortOrder(int category) const;
+
 #ifdef HAVE_SHIBBOLETH_SUPPORT
     QString getLastShibUrl();
     void setLastShibUrl(const QString& url);
@@ -160,6 +163,7 @@ private:
     QNetworkProxy last_system_proxy_;
 
     QTimer *check_system_proxy_timer_;
+    QMap<int, int> repo_sort_orders_;
 };
 
 

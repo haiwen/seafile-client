@@ -47,6 +47,11 @@ public:
         CAT_INDEX_SYNCED_REPOS,
     };
 
+    enum RepoSortOrders {
+        SORT_BY_LAST_UPDATED = 0,
+        SORT_BY_NAME         = 1,
+    };
+
     RepoTreeModel(QObject *parent=0);
     ~RepoTreeModel();
     void setRepos(const std::vector<ServerRepo>& repos);

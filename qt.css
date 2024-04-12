@@ -725,3 +725,18 @@ AccountView QPushButton:hover#mSettingsPushButton {
     image: url(:/images/toolbar/settings-orange.png);
 }
 
+AccountView QPushButton#mSortPushButton {
+    border: 0;
+    border-radius: 0;
+    width: 20px;
+    height: 20px;
+    image: url(:/images/toolbar/settings.png);
+}
+
+AccountView QPushButton:hover#mSortPushButton {
+    border: 0;
+    border-radius: 0;
+    width: 20px;
+    height: 20px;
+    image: url(:/images/toolbar/settings-orange.png);
+}

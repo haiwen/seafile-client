@@ -17,6 +17,7 @@
 #include "rpc/rpc-client.h"
 #include "rpc/clone-task.h"
 #include "repo-service.h"
+#include "settings-mgr.h"
 
 #include "repo-item.h"
 #include "repo-tree-view.h"
@@ -185,7 +186,7 @@ void RepoTreeModel::setRepos(const std::vector<ServerRepo>& repos)
 
     n = qMin(list.size(), kMaxRecentUpdatedRepos);
     for (i = 0; i < n; i++) {
-        RepoItem *item = new RepoItem(list[i]);
+        RepoItem *item = new RepoItem(list[i], CAT_INDEX_RECENT_UPDATED);
         recent_updated_category_->appendRow(item);
     }
     updateLocalReposPerm(list);
@@ -270,7 +271,7 @@ void RepoTreeModel::checkPersonalRepo(const ServerRepo& repo)
     }
 
     // The repo is new
-    RepoItem *item = new RepoItem(repo);
+    RepoItem *item = new RepoItem(repo, CAT_INDEX_MY_REPOS);
     my_repos_category_->appendRow(item);
 }
 
@@ -290,7 +291,7 @@ void RepoTreeModel::checkVirtualRepo(const ServerRepo& repo)
     }
 
     // The repo is new
-    RepoItem *item = new RepoItem(repo);
+    RepoItem *item = new RepoItem(repo, CAT_INDEX_VIRTUAL_REPOS);
     virtual_repos_category_->appendRow(item);
 }
 
@@ -306,7 +307,7 @@ void RepoTreeModel::checkSharedRepo(const ServerRepo& repo)
     }
 
     // the repo is a new one
-    RepoItem *item = new RepoItem(repo);
+    RepoItem *item = new RepoItem(repo, CAT_INDEX_SHARED_REPOS);
     shared_repos_category_->appendRow(item);
 }
 
@@ -326,7 +327,7 @@ void RepoTreeModel::checkOrgRepo(const ServerRepo& repo)
     }
 
     // the repo is a new one
-    RepoItem *item = new RepoItem(repo);
+    RepoItem *item = new RepoItem(repo, CAT_INDEX_SHARED_REPOS);
     org_repos_category_->appendRow(item);
 }
 
@@ -363,7 +364,7 @@ void RepoTreeModel::checkGroupRepo(const ServerRepo &repo)
     }
 
     // Current repo not in this group yet
-    RepoItem *item = new RepoItem(repo);
+    RepoItem *item = new RepoItem(repo, CAT_INDEX_GROUP_REPOS);
     item->setLevel(2);
     group->appendRow(item);
 }
@@ -380,7 +381,7 @@ void RepoTreeModel::checkSyncedRepo(const ServerRepo& repo)
     }
 
     // The repo is new
-    RepoItem *item = new RepoItem(repo);
+    RepoItem *item = new RepoItem(repo, CAT_INDEX_SYNCED_REPOS);
     synced_repos_category_->appendRow(item);
 }
 
@@ -618,7 +619,12 @@ bool RepoFilterProxyModel::lessThan(const QModelIndex &left,
         // repos
         RepoItem *cl = (RepoItem *)item_l;
         RepoItem *cr = (RepoItem *)item_r;
-        if (cl->repo().mtime != cr->repo().mtime) {
+
+        int order = seafApplet->settingsManager()->repoSortOrder(cl->categoryIndex());
+
+        if (order == RepoTreeModel::SORT_BY_NAME) {
+            return cl->repo().name < cr->repo().name;
+        } else if (cl->repo().mtime != cr->repo().mtime) {
             return cl->repo().mtime > cr->repo().mtime;
         } else {
             return cl->repo().name > cr->repo().name;

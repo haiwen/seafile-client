@@ -730,7 +730,11 @@ AccountView QPushButton#mSortPushButton {
     border-radius: 0;
     width: 20px;
     height: 20px;
-    image: url(:/images/toolbar/settings.png);
+    image: url(:/images/toolbar/sorts.png);
+}
+
+AccountView QPushButton#mSortPushButton::menu-indicator {
+    image: "";
 }
 
 AccountView QPushButton:hover#mSortPushButton {
@@ -738,5 +742,5 @@ AccountView QPushButton:hover#mSortPushButton {
     border-radius: 0;
     width: 20px;
     height: 20px;
-    image: url(:/images/toolbar/settings-orange.png);
+    image: url(:/images/toolbar/sorts-orange.png);
 }

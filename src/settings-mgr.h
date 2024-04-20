@@ -99,8 +99,8 @@ public:
     bool isEnableSyncingWithExistingFolder() const;
     void setEnableSyncingWithExistingFolder(bool enabled);
 
-    void setRepoSortOrder(int category, int order);
-    int repoSortOrder(int category) const;
+    void setRepoSortOrder(int order);
+    int repoSortOrder() const;
 
 #ifdef HAVE_SHIBBOLETH_SUPPORT
     QString getLastShibUrl();
@@ -157,13 +157,13 @@ private:
     bool verify_http_sync_cert_disabled_;
     bool shell_ext_enabled_;
     int delete_confirm_threshold_;
+    int repo_sort_orders_;
 
     // proxy settings
     SeafileProxy current_proxy_;
     QNetworkProxy last_system_proxy_;
 
     QTimer *check_system_proxy_timer_;
-    QMap<int, int> repo_sort_orders_;
 };
 
 

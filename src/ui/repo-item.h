@@ -40,7 +40,7 @@ private:
  */
 class RepoItem : public SeafileRepoBaseItem {
 public:
-    RepoItem(const ServerRepo& repo, int category);
+    RepoItem(const ServerRepo& repo);
 
     void setRepo(const ServerRepo& repo);
     void setLocalRepo(const LocalRepo& repo);
@@ -79,10 +79,7 @@ public:
     void setSyncNowClicked(bool val) { sync_now_clicked_ = val; }
     bool syncNowClicked() const { return sync_now_clicked_; }
 
-    int categoryIndex() const { return category_; }
-
 private:
-    int category_;
     ServerRepo repo_;
     LocalRepo local_repo_;
 

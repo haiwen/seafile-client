@@ -165,16 +165,7 @@ void SettingsManager::loadSettings()
     autoStart_ = get_seafile_auto_start();
 
     QSettings settings;
-    settings.beginGroup(kRepoSortOrdersGroup);
-
-    auto keys = settings.allKeys();
-    for (int i = 0; i < keys.size(); i++) {
-        int category = keys[i].toInt();
-        int order = settings.value(keys[i]).toInt();
-        repo_sort_orders_.insert(category, order);
-    }
-
-    settings.endGroup();
+    repo_sort_orders_ = settings.value(kRepoSortOrdersGroup).toInt();
 
 #ifdef HAVE_FINDER_SYNC_SUPPORT
     // try to do a reinstall, or we may use findersync somewhere else
@@ -634,18 +625,17 @@ void SettingsManager::setComputerName(const QString &computerName)
     seafApplet->rpcClient()->seafileSetConfig("client_name", computerName);
 }
 
-void SettingsManager::setRepoSortOrder(int category, int order)
+void SettingsManager::setRepoSortOrder(int order)
 {
     QSettings settings;
-    settings.beginGroup(kRepoSortOrdersGroup);
-    settings.setValue(QString::number(category), order);
+    settings.setValue(kRepoSortOrdersGroup, order);
 
-    repo_sort_orders_.insert(category, order);
+    repo_sort_orders_ = order;
 }
 
-int SettingsManager::repoSortOrder(int category) const
+int SettingsManager::repoSortOrder() const
 {
-    return repo_sort_orders_.value(category, RepoTreeModel::SORT_BY_LAST_UPDATED);
+    return repo_sort_orders_;
 }
 
 #ifdef HAVE_SHIBBOLETH_SUPPORT

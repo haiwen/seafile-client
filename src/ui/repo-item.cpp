@@ -2,9 +2,8 @@
 #include "rpc/rpc-client.h"
 #include "repo-item.h"
 
-RepoItem::RepoItem(const ServerRepo& repo, int category)
+RepoItem::RepoItem(const ServerRepo& repo)
     : SeafileRepoBaseItem(),
-      category_(category),
       repo_(repo)
 {
     setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);

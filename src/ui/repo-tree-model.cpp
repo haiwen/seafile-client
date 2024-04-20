@@ -186,7 +186,7 @@ void RepoTreeModel::setRepos(const std::vector<ServerRepo>& repos)
 
     n = qMin(list.size(), kMaxRecentUpdatedRepos);
     for (i = 0; i < n; i++) {
-        RepoItem *item = new RepoItem(list[i], CAT_INDEX_RECENT_UPDATED);
+        RepoItem *item = new RepoItem(list[i]);
         recent_updated_category_->appendRow(item);
     }
     updateLocalReposPerm(list);
@@ -271,7 +271,7 @@ void RepoTreeModel::checkPersonalRepo(const ServerRepo& repo)
     }
 
     // The repo is new
-    RepoItem *item = new RepoItem(repo, CAT_INDEX_MY_REPOS);
+    RepoItem *item = new RepoItem(repo);
     my_repos_category_->appendRow(item);
 }
 
@@ -291,7 +291,7 @@ void RepoTreeModel::checkVirtualRepo(const ServerRepo& repo)
     }
 
     // The repo is new
-    RepoItem *item = new RepoItem(repo, CAT_INDEX_VIRTUAL_REPOS);
+    RepoItem *item = new RepoItem(repo);
     virtual_repos_category_->appendRow(item);
 }
 
@@ -307,7 +307,7 @@ void RepoTreeModel::checkSharedRepo(const ServerRepo& repo)
     }
 
     // the repo is a new one
-    RepoItem *item = new RepoItem(repo, CAT_INDEX_SHARED_REPOS);
+    RepoItem *item = new RepoItem(repo);
     shared_repos_category_->appendRow(item);
 }
 
@@ -327,7 +327,7 @@ void RepoTreeModel::checkOrgRepo(const ServerRepo& repo)
     }
 
     // the repo is a new one
-    RepoItem *item = new RepoItem(repo, CAT_INDEX_SHARED_REPOS);
+    RepoItem *item = new RepoItem(repo);
     org_repos_category_->appendRow(item);
 }
 
@@ -364,7 +364,7 @@ void RepoTreeModel::checkGroupRepo(const ServerRepo &repo)
     }
 
     // Current repo not in this group yet
-    RepoItem *item = new RepoItem(repo, CAT_INDEX_GROUP_REPOS);
+    RepoItem *item = new RepoItem(repo);
     item->setLevel(2);
     group->appendRow(item);
 }
@@ -381,7 +381,7 @@ void RepoTreeModel::checkSyncedRepo(const ServerRepo& repo)
     }
 
     // The repo is new
-    RepoItem *item = new RepoItem(repo, CAT_INDEX_SYNCED_REPOS);
+    RepoItem *item = new RepoItem(repo);
     synced_repos_category_->appendRow(item);
 }
 
@@ -619,15 +619,20 @@ bool RepoFilterProxyModel::lessThan(const QModelIndex &left,
         // repos
         RepoItem *cl = (RepoItem *)item_l;
         RepoItem *cr = (RepoItem *)item_r;
-
-        int order = seafApplet->settingsManager()->repoSortOrder(cl->categoryIndex());
+        int order = seafApplet->settingsManager()->repoSortOrder();
 
         if (order == RepoTreeModel::SORT_BY_NAME) {
-            return cl->repo().name < cr->repo().name;
-        } else if (cl->repo().mtime != cr->repo().mtime) {
-            return cl->repo().mtime > cr->repo().mtime;
+            if (cl->repo().name != cr->repo().name) {
+                return cl->repo().name < cr->repo().name;
+            } else {
+                return cl->repo().mtime < cr->repo().mtime;
+            }
         } else {
-            return cl->repo().name > cr->repo().name;
+            if (cl->repo().mtime != cr->repo().mtime) {
+                return cl->repo().mtime > cr->repo().mtime;
+            } else {
+                return cl->repo().name < cr->repo().name;
+            }
         }
     }
 

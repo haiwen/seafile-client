@@ -382,51 +382,37 @@ void AccountView::setupSortingMenu()
 {
     sorting_menu_ = new QMenu;
 
-    QMap<RepoTreeModel::RepoCategoryIndex, QString> sub_menus;
-    sub_menus[RepoTreeModel::CAT_INDEX_MY_REPOS] = tr("My Libraries");
-    sub_menus[RepoTreeModel::CAT_INDEX_SHARED_REPOS] = tr("Shared with me");
-    sub_menus[RepoTreeModel::CAT_INDEX_GROUP_REPOS] = tr("Shared with groups");
-    sub_menus[RepoTreeModel::CAT_INDEX_SYNCED_REPOS] = tr("Synced Libraries");
+    QAction *title = new QAction(tr("Sort Libraries by"));
+    title->setEnabled(false);
+    sorting_menu_->addAction(title);
+    sorting_menu_->addSeparator();
 
-    for (auto it = sub_menus.begin(); it != sub_menus.end(); it++) {
-        auto category = it.key();
-        auto order = seafApplet->settingsManager()->repoSortOrder(category);
-
-        QMenu *menu = new QMenu(it.value());
-        sorting_menu_->addMenu(menu);
-
-        QAction *action = new QAction("Sort by");
-        action->setEnabled(false);
-        menu->addAction(action);
-        menu->addSeparator();
-
-        QAction *order_by_mtime = new QAction("Last updated");
-        if (order == RepoTreeModel::SORT_BY_LAST_UPDATED) {
-            order_by_mtime->setIcon(QIcon(":/images/account-checked.png"));
-        } else {
-            order_by_mtime->setIcon(QIcon(":/images/account-else.png"));
-        }
-        menu->addAction(order_by_mtime);
-
-        QAction *order_by_name = new QAction("Name");
-        if (order == RepoTreeModel::SORT_BY_NAME) {
-            order_by_name->setIcon(QIcon(":/images/account-checked.png"));
-        } else {
-            order_by_name->setIcon(QIcon(":/images/account-else.png"));
-        }
-        menu->addAction(order_by_name);
-
-        connect(order_by_mtime, &QAction::triggered, [=]() {
-            order_by_mtime->setIcon(QIcon(":/images/account-checked.png"));
-            order_by_name->setIcon(QIcon(":/images/account-else.png"));
-            seafApplet->settingsManager()->setRepoSortOrder(category, RepoTreeModel::SORT_BY_LAST_UPDATED);
-            emit sortOrderUpdated();
-        });
-        connect(order_by_name, &QAction::triggered, [=]() {
-            order_by_mtime->setIcon(QIcon(":/images/account-else.png"));
-            order_by_name->setIcon(QIcon(":/images/account-checked.png"));
-            seafApplet->settingsManager()->setRepoSortOrder(category, RepoTreeModel::SORT_BY_NAME);
-            emit sortOrderUpdated();
-        });
+    auto order = seafApplet->settingsManager()->repoSortOrder();
+    QAction *order_by_mtime = new QAction(tr("Default Orders"));
+    if (order == RepoTreeModel::SORT_BY_LAST_UPDATED) {
+        order_by_mtime->setIcon(QIcon(":/images/account-checked.png"));
+    } else {
+        order_by_mtime->setIcon(QIcon(":/images/account-else.png"));
     }
+    sorting_menu_->addAction(order_by_mtime);
+    QAction *order_by_name = new QAction(tr("Library Names"));
+    if (order == RepoTreeModel::SORT_BY_NAME) {
+        order_by_name->setIcon(QIcon(":/images/account-checked.png"));
+    } else {
+        order_by_name->setIcon(QIcon(":/images/account-else.png"));
+    }
+    sorting_menu_->addAction(order_by_name);
+
+    connect(order_by_mtime, &QAction::triggered, [=]() {
+        order_by_mtime->setIcon(QIcon(":/images/account-checked.png"));
+        order_by_name->setIcon(QIcon(":/images/account-else.png"));
+        seafApplet->settingsManager()->setRepoSortOrder(RepoTreeModel::SORT_BY_LAST_UPDATED);
+        emit sortOrderUpdated();
+    });
+    connect(order_by_name, &QAction::triggered, [=]() {
+        order_by_mtime->setIcon(QIcon(":/images/account-else.png"));
+        order_by_name->setIcon(QIcon(":/images/account-checked.png"));
+        seafApplet->settingsManager()->setRepoSortOrder(RepoTreeModel::SORT_BY_NAME);
+        emit sortOrderUpdated();
+    });
 };

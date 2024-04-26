@@ -382,20 +382,20 @@ void AccountView::setupSortingMenu()
 {
     sorting_menu_ = new QMenu;
 
-    QAction *title = new QAction(tr("Sort Libraries by"));
+    QAction *title = new QAction(tr("Sort libraries by"));
     title->setEnabled(false);
     sorting_menu_->addAction(title);
     sorting_menu_->addSeparator();
 
     auto order = seafApplet->settingsManager()->repoSortOrder();
-    QAction *order_by_mtime = new QAction(tr("Default Orders"));
+    QAction *order_by_mtime = new QAction(tr("Modification time"));
     if (order == RepoTreeModel::SORT_BY_LAST_UPDATED) {
         order_by_mtime->setIcon(QIcon(":/images/account-checked.png"));
     } else {
         order_by_mtime->setIcon(QIcon(":/images/account-else.png"));
     }
     sorting_menu_->addAction(order_by_mtime);
-    QAction *order_by_name = new QAction(tr("Library Names"));
+    QAction *order_by_name = new QAction(tr("Library names"));
     if (order == RepoTreeModel::SORT_BY_NAME) {
         order_by_name->setIcon(QIcon(":/images/account-checked.png"));
     } else {

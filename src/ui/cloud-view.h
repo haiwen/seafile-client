@@ -44,6 +44,7 @@ private slots:
     void refreshStatusBar();
     void showServerStatusDialog();
     void onRefreshClicked();
+    void onSortOrderUpdated();
     void onMinimizeBtnClicked();
     void onCloseBtnClicked();
     void chooseFolderToSync();

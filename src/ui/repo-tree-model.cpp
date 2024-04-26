@@ -17,6 +17,7 @@
 #include "rpc/rpc-client.h"
 #include "rpc/clone-task.h"
 #include "repo-service.h"
+#include "settings-mgr.h"
 
 #include "repo-item.h"
 #include "repo-tree-view.h"
@@ -618,10 +619,20 @@ bool RepoFilterProxyModel::lessThan(const QModelIndex &left,
         // repos
         RepoItem *cl = (RepoItem *)item_l;
         RepoItem *cr = (RepoItem *)item_r;
-        if (cl->repo().mtime != cr->repo().mtime) {
-            return cl->repo().mtime > cr->repo().mtime;
+        int order = seafApplet->settingsManager()->repoSortOrder();
+
+        if (order == RepoTreeModel::SORT_BY_NAME) {
+            if (cl->repo().name != cr->repo().name) {
+                return cl->repo().name < cr->repo().name;
+            } else {
+                return cl->repo().mtime < cr->repo().mtime;
+            }
         } else {
-            return cl->repo().name > cr->repo().name;
+            if (cl->repo().mtime != cr->repo().mtime) {
+                return cl->repo().mtime > cr->repo().mtime;
+            } else {
+                return cl->repo().name < cr->repo().name;
+            }
         }
     }
 

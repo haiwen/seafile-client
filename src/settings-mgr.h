@@ -99,6 +99,9 @@ public:
     bool isEnableSyncingWithExistingFolder() const;
     void setEnableSyncingWithExistingFolder(bool enabled);
 
+    void setRepoSortOrder(int order);
+    int repoSortOrder() const;
+
 #ifdef HAVE_SHIBBOLETH_SUPPORT
     QString getLastShibUrl();
     void setLastShibUrl(const QString& url);
@@ -154,6 +157,7 @@ private:
     bool verify_http_sync_cert_disabled_;
     bool shell_ext_enabled_;
     int delete_confirm_threshold_;
+    int repo_sort_orders_;
 
     // proxy settings
     SeafileProxy current_proxy_;

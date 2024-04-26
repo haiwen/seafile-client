@@ -6,6 +6,7 @@
 #include <QTimer>
 
 #include "utils/utils.h"
+#include "ui/repo-tree-model.h"
 #include "utils/utils-mac.h"
 #include "seafile-applet.h"
 #include "ui/tray-icon.h"
@@ -56,9 +57,9 @@ const char *kProxyPort = "proxy_port";
 const char *kProxyUsername = "proxy_username";
 const char *kProxyPassword = "proxy_password";
 const char *kHideWindowsIncompatiblePathNotification = "hide_windows_incompatible_path_notification";
+const char *kRepoSortOrdersGroup = "repo_sort_orders";
 
 const int kCheckSystemProxyIntervalMSecs = 5 * 1000;
-
 
 #ifdef Q_OS_WIN32
 QString softwareSeafile()
@@ -162,6 +163,9 @@ void SettingsManager::loadSettings()
     applyProxySettings();
 
     autoStart_ = get_seafile_auto_start();
+
+    QSettings settings;
+    repo_sort_orders_ = settings.value(kRepoSortOrdersGroup).toInt();
 
 #ifdef HAVE_FINDER_SYNC_SUPPORT
     // try to do a reinstall, or we may use findersync somewhere else
@@ -619,6 +623,19 @@ void SettingsManager::setComputerName(const QString &computerName)
     settings.endGroup();
 
     seafApplet->rpcClient()->seafileSetConfig("client_name", computerName);
+}
+
+void SettingsManager::setRepoSortOrder(int order)
+{
+    QSettings settings;
+    settings.setValue(kRepoSortOrdersGroup, order);
+
+    repo_sort_orders_ = order;
+}
+
+int SettingsManager::repoSortOrder() const
+{
+    return repo_sort_orders_;
 }
 
 #ifdef HAVE_SHIBBOLETH_SUPPORT

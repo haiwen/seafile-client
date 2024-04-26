@@ -166,6 +166,8 @@ void CloudView::createAccountView()
 // #endif
     connect(account_view_, SIGNAL(refresh()),
             this, SLOT(onRefreshClicked()));
+    connect(account_view_, SIGNAL(sortOrderUpdated()),
+            this, SLOT(onSortOrderUpdated()));
 }
 
 void CloudView::createTabs()
@@ -460,6 +462,11 @@ void CloudView::onRefreshClicked()
     else if (tabs_->currentIndex() == TAB_INDEX_SEARCH) {
         search_tab_->refresh();
     }
+}
+
+void CloudView::onSortOrderUpdated()
+{
+    repos_tab_->refresh();
 }
 
 void CloudView::resizeEvent(QResizeEvent* event)

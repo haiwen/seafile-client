@@ -227,6 +227,10 @@
     <file>images/toolbar/refresh-new@2x.png</file>
     <file>images/toolbar/refresh-orange.png</file>
     <file>images/toolbar/refresh-orange@2x.png</file>
+    <file>images/toolbar/sorts-orange.png</file>
+    <file>images/toolbar/sorts-orange@2x.png</file>
+    <file>images/toolbar/sorts.png</file>
+    <file>images/toolbar/sorts@2x.png</file>
     <file>qt.css</file>
     <file>qt-win.css</file>
     <file>qt-mac.css</file>

@@ -30,6 +30,7 @@
 #include "api/requests.h"
 #include "filebrowser/auto-update-mgr.h"
 #include "repo-service.h"
+#include "ui/repo-tree-model.h"
 
 #include "account-view.h"
 #include "settings-dialog.h"
@@ -66,6 +67,10 @@ AccountView::AccountView(QWidget *parent)
     // automatically.
     mRefreshLabel->setPixmap(QIcon(":/images/toolbar/refresh-new.png").pixmap(20));
     mRefreshLabel->installEventFilter(this);
+
+    setupSortingMenu();
+    mSortPushButton->setMenu(sorting_menu_);
+
     connect(mSettingsPushButton, &QPushButton::clicked, this, &AccountView::slotShowSettingsDialog);
 }
 
@@ -373,3 +378,41 @@ void AccountView::slotShowSettingsDialog()
     seafApplet->settingsDialog()->activateWindow();
 }
 
+void AccountView::setupSortingMenu()
+{
+    sorting_menu_ = new QMenu;
+
+    QAction *title = new QAction(tr("Sort libraries by"));
+    title->setEnabled(false);
+    sorting_menu_->addAction(title);
+    sorting_menu_->addSeparator();
+
+    auto order = seafApplet->settingsManager()->repoSortOrder();
+    QAction *order_by_mtime = new QAction(tr("Modification time"));
+    if (order == RepoTreeModel::SORT_BY_LAST_UPDATED) {
+        order_by_mtime->setIcon(QIcon(":/images/account-checked.png"));
+    } else {
+        order_by_mtime->setIcon(QIcon(":/images/account-else.png"));
+    }
+    sorting_menu_->addAction(order_by_mtime);
+    QAction *order_by_name = new QAction(tr("Library names"));
+    if (order == RepoTreeModel::SORT_BY_NAME) {
+        order_by_name->setIcon(QIcon(":/images/account-checked.png"));
+    } else {
+        order_by_name->setIcon(QIcon(":/images/account-else.png"));
+    }
+    sorting_menu_->addAction(order_by_name);
+
+    connect(order_by_mtime, &QAction::triggered, [=]() {
+        order_by_mtime->setIcon(QIcon(":/images/account-checked.png"));
+        order_by_name->setIcon(QIcon(":/images/account-else.png"));
+        seafApplet->settingsManager()->setRepoSortOrder(RepoTreeModel::SORT_BY_LAST_UPDATED);
+        emit sortOrderUpdated();
+    });
+    connect(order_by_name, &QAction::triggered, [=]() {
+        order_by_mtime->setIcon(QIcon(":/images/account-else.png"));
+        order_by_name->setIcon(QIcon(":/images/account-checked.png"));
+        seafApplet->settingsManager()->setRepoSortOrder(RepoTreeModel::SORT_BY_NAME);
+        emit sortOrderUpdated();
+    });
+};

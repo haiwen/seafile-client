@@ -625,7 +625,7 @@ bool RepoFilterProxyModel::lessThan(const QModelIndex &left,
             if (cl->repo().name != cr->repo().name) {
                 return cl->repo().name < cr->repo().name;
             } else {
-                return cl->repo().mtime < cr->repo().mtime;
+                return cl->repo().mtime > cr->repo().mtime;
             }
         } else {
             if (cl->repo().mtime != cr->repo().mtime) {

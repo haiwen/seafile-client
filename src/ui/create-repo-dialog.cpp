@@ -124,7 +124,11 @@ void CreateRepoDialog::createAction()
             seafApplet->warningBox(tr("Failed to generate encryption key for this library"), this);
             return;
         }
-        // printf ("magic is %s, random_key is %s salt is %s\n", toCStr(magic), toCStr(random_key), toCStr(salt));
+
+        if (enc_version < 2) {
+            seafApplet->warningBox(tr("Creating a library with encryption version less than 2 is not supported"), this);
+            return;
+        }
 
         if (enc_version == 3 || enc_version == 4) {
             request_ = new CreateRepoRequest(

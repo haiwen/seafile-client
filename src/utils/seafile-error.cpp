@@ -119,6 +119,9 @@ QString translateSyncErrorCode(const int error_code)
         case SYNC_ERROR_ID_BLOCK_MISSING:
             error_str = QObject::tr("Failed to upload file blocks. Please check network or firewall");
             break;
+        case SYNC_ERROR_ID_CASE_CONFLICT:
+            error_str = QObject::tr("Path has character case conflict with existing file or folder. Will not be downloaded");
+            break;
         default:
             qWarning("Unknown sync error");
     }

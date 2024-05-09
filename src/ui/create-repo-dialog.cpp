@@ -119,14 +119,14 @@ void CreateRepoDialog::createAction()
 
         int enc_version = seafApplet->accountManager()->currentAccount().getEncryptedLibraryVersion();
 
-        if (seafApplet->rpcClient()->generateMagicAndRandomKey(
-                enc_version, repo_id, passwd_, &magic, &random_key, &salt) < 0) {
-            seafApplet->warningBox(tr("Failed to generate encryption key for this library"), this);
+        if (enc_version < 2) {
+            seafApplet->warningBox(tr("Creating a library with encryption version less than 2 is not supported"), this);
             return;
         }
 
-        if (enc_version < 2) {
-            seafApplet->warningBox(tr("Creating a library with encryption version less than 2 is not supported"), this);
+        if (seafApplet->rpcClient()->generateMagicAndRandomKey(
+                enc_version, repo_id, passwd_, &magic, &random_key, &salt) < 0) {
+            seafApplet->warningBox(tr("Failed to generate encryption key for this library"), this);
             return;
         }
 

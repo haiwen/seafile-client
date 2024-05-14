@@ -243,7 +243,7 @@ void AutoUpdateManager::onUpdateTaskFinished(bool success)
         } else if (task->httpErrorCode() == 442) {
             error_msg = tr("File size exceeds limit");
         } else if (task->httpErrorCode() == 447) {
-            error_msg = tr("File quantity exceeds limit");
+            error_msg = tr("Number of file exceeds limit");
         } else {
             error_msg = task->errorString();
         }

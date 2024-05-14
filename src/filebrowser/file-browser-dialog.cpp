@@ -1076,7 +1076,9 @@ void FileBrowserDialog::onUploadFinished(bool success)
         } else if (task->httpErrorCode() == 401) {
             _error = tr("Authorization expired");
         } else if (task->httpErrorCode() == 442) {
-            _error = tr("File count limit exceeded");
+            _error = tr("File size exceeds limit");
+        } else if (task->httpErrorCode() == 447) {
+            _error = tr("Number of file exceeds limit");
         } else {
             _error = task->errorString();
         }

@@ -162,6 +162,22 @@
         <source>refresh</source>
         <translation type="unfinished"/>
     </message>
+    <message>
+        <source>sort</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Sort libraries by</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Modification time</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Library names</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>ActivitiesTab</name>
@@ -217,7 +233,11 @@ n&apos;a pu être envoyé.</translation>
         <translation>Échec de l&apos;envoi : %1</translation>
     </message>
     <message>
-        <source>File count limit exceeded</source>
+        <source>File size exceeds limit</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Number of file exceeds limit</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -526,6 +546,10 @@ n&apos;a pu être envoyé.</translation>
     </message>
     <message>
         <source>File changes on network drives may not be synced automatically. You can set sync intervals to enable periodic sync. Do you want to sync with this folder?</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Creating a library with encryption version less than 2 is not supported</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -902,7 +926,11 @@ n&apos;a pu être envoyé.</translation>
         <translation>Souhaitez vous vraiment supprimer le dossier &quot;%1&quot; ?</translation>
     </message>
     <message>
-        <source>File count limit exceeded</source>
+        <source>File size exceeds limit</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Number of file exceeds limit</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -1633,10 +1661,6 @@ Le nom de fichier contient des caractères invalides. Il n&apos;est pas synchron
         <translation>Le chemin du fichier %1 contient des symboles qui ne sont pas supportés par le système Windows.</translation>
     </message>
     <message>
-        <source>Library is too large to sync.</source>
-        <translation>La bibliothèque est trop grande pour être synchronisée.</translation>
-    </message>
-    <message>
         <source>Waiting for confirmation to delete files</source>
         <translation>En attente de confirmation d&apos;effacement des fichiers</translation>
     </message>
@@ -1655,6 +1679,10 @@ Le nom de fichier contient des caractères invalides. Il n&apos;est pas synchron
     <message>
         <source>Failed to download file %1. Please check disk space or folder permissions</source>
         <translation>Impossible de télécharger le fichier %1. Vérifiez l&apos;espace disque ou les permissions.</translation>
+    </message>
+    <message>
+        <source>Library contains too many files.</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -2295,10 +2323,6 @@ Le nom de fichier contient des caractères invalides. Il n&apos;est pas synchron
         <translation>Le chemin du fichier contient des symboles qui ne sont pas supportés par le système Windows.</translation>
     </message>
     <message>
-        <source>Library is too large to sync.</source>
-        <translation>La bibliothèque est trop grande pour être synchronisée.</translation>
-    </message>
-    <message>
         <source>no permissions to create a shared link</source>
         <translation>Aucune autorisation pour créer un lien partagé</translation>
     </message>
@@ -2321,6 +2345,14 @@ Le nom de fichier contient des caractères invalides. Il n&apos;est pas synchron
     <message>
         <source>Failed to upload file blocks. Please check network or firewall</source>
         <translation>Impossible d&apos;envoyer les blocs de fichiers. Veuillez vérifier le réseau ou le pare-feu.</translation>
+    </message>
+    <message>
+        <source>Library contains too many files.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Path has character case conflict with existing file or folder. Will not be downloaded</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>

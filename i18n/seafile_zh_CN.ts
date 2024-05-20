@@ -162,6 +162,22 @@
         <source>refresh</source>
         <translation>刷新</translation>
     </message>
+    <message>
+        <source>sort</source>
+        <translation>排序</translation>
+    </message>
+    <message>
+        <source>Sort libraries by</source>
+        <translation>资料库排序方式</translation>
+    </message>
+    <message>
+        <source>Modification time</source>
+        <translation>最后更新时间</translation>
+    </message>
+    <message>
+        <source>Library names</source>
+        <translation>资料库名称</translation>
+    </message>
 </context>
 <context>
     <name>ActivitiesTab</name>
@@ -217,8 +233,12 @@ failed to upload.</source>
         <translation>上传失败：%1</translation>
     </message>
     <message>
-        <source>File count limit exceeded</source>
-        <translation>文件数量超出了限制</translation>
+        <source>File size exceeds limit</source>
+        <translation>文件大小超出限制</translation>
+    </message>
+    <message>
+        <source>Number of file exceeds limit</source>
+        <translation>文件数量超出限制</translation>
     </message>
 </context>
 <context>
@@ -522,6 +542,10 @@ failed to upload.</source>
     <message>
         <source>File changes on network drives may not be synced automatically. You can set sync intervals to enable periodic sync. Do you want to sync with this folder?</source>
         <translation>网络驱动器上的文件改动可能不会被自动同步。您可以设置资料库的同步间隔以启用定时同步。您想要继续与此文件夹同步吗？</translation>
+    </message>
+    <message>
+        <source>Creating a library with encryption version less than 2 is not supported</source>
+        <translation>不支持创建加密版本低于 2 的资料库</translation>
     </message>
 </context>
 <context>
@@ -896,8 +920,12 @@ failed to upload.</source>
         <translation>您真的想删除文件夹 “%1” ？</translation>
     </message>
     <message>
-        <source>File count limit exceeded</source>
-        <translation>文件数量超出了限制</translation>
+        <source>File size exceeds limit</source>
+        <translation>文件大小超出限制</translation>
+    </message>
+    <message>
+        <source>Number of file exceeds limit</source>
+        <translation>文件数量超出限制</translation>
     </message>
 </context>
 <context>
@@ -1625,10 +1653,6 @@ File path contains invalid characters. It is not synced to this computer.</sourc
         <translation>文件路径 %1 包含 Windows 系统不支持的符号。</translation>
     </message>
     <message>
-        <source>Library is too large to sync.</source>
-        <translation>资料库太大不能同步。</translation>
-    </message>
-    <message>
         <source>Waiting for confirmation to delete files</source>
         <translation>等待确认文件删除操作</translation>
     </message>
@@ -1647,6 +1671,10 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     <message>
         <source>Failed to download file %1. Please check disk space or folder permissions</source>
         <translation>下载文件失败：%1 ，请检查磁盘可用空间以及文件夹权限。</translation>
+    </message>
+    <message>
+        <source>Library contains too many files.</source>
+        <translation>资料库文件数过多。</translation>
     </message>
 </context>
 <context>
@@ -2287,10 +2315,6 @@ File path contains invalid characters. It is not synced to this computer.</sourc
         <translation>文件路径中包含 Windows 系统不支持的符号</translation>
     </message>
     <message>
-        <source>Library is too large to sync.</source>
-        <translation>资料库太大不能同步。</translation>
-    </message>
-    <message>
         <source>no permissions to create a shared link</source>
         <translation>没有权限创建共享链接</translation>
     </message>
@@ -2313,6 +2337,14 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     <message>
         <source>Failed to upload file blocks. Please check network or firewall</source>
         <translation>上传文件块失败，请检查网络或防火墙设置。</translation>
+    </message>
+    <message>
+        <source>Library contains too many files.</source>
+        <translation>资料库文件数过多。</translation>
+    </message>
+    <message>
+        <source>Path has character case conflict with existing file or folder. Will not be downloaded</source>
+        <translation>同步路径与现存文件或目录存在大小写冲突，下载已跳过</translation>
     </message>
 </context>
 <context>

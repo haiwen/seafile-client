@@ -162,6 +162,22 @@
         <source>refresh</source>
         <translation>обновить</translation>
     </message>
+    <message>
+        <source>sort</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Sort libraries by</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Modification time</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Library names</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>ActivitiesTab</name>
@@ -217,8 +233,12 @@ failed to upload.</source>
         <translation>Ошибка загрузки: %1</translation>
     </message>
     <message>
-        <source>File count limit exceeded</source>
-        <translation>Превышен лимит количества файлов</translation>
+        <source>File size exceeds limit</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Number of file exceeds limit</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -527,6 +547,10 @@ failed to upload.</source>
     <message>
         <source>File changes on network drives may not be synced automatically. You can set sync intervals to enable periodic sync. Do you want to sync with this folder?</source>
         <translation>Изменения файлов на сетевых дисках могут не синхронизироваться автоматически. Вы можете установить интервалы синхронизации, чтобы включить периодическую синхронизацию. Вы хотите выполнить синхронизацию с этой папкой?</translation>
+    </message>
+    <message>
+        <source>Creating a library with encryption version less than 2 is not supported</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -903,8 +927,12 @@ failed to upload.</source>
         <translation>Вы действительно хотите удалить папку &quot;%1&quot;?</translation>
     </message>
     <message>
-        <source>File count limit exceeded</source>
-        <translation>Превышен лимит количества файлов</translation>
+        <source>File size exceeds limit</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Number of file exceeds limit</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -1635,10 +1663,6 @@ File path contains invalid characters. It is not synced to this computer.</sourc
         <translation>Путь к файлу %1 содержит символы, не поддерживаемые системой Windows.</translation>
     </message>
     <message>
-        <source>Library is too large to sync.</source>
-        <translation>Библиотека слишком велика для синхронизации.</translation>
-    </message>
-    <message>
         <source>Waiting for confirmation to delete files</source>
         <translation>Ожидание подтверждения удаления файлов</translation>
     </message>
@@ -1657,6 +1681,10 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     <message>
         <source>Failed to download file %1. Please check disk space or folder permissions</source>
         <translation>Не удалось скачать файл %1. Проверьте место на диске или права доступа к папке</translation>
+    </message>
+    <message>
+        <source>Library contains too many files.</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -2297,10 +2325,6 @@ File path contains invalid characters. It is not synced to this computer.</sourc
         <translation>Путь к файлу содержит символы, не поддерживаемые системой Windows.</translation>
     </message>
     <message>
-        <source>Library is too large to sync.</source>
-        <translation>Библиотека слишком велика для синхронизации.</translation>
-    </message>
-    <message>
         <source>no permissions to create a shared link</source>
         <translation>нет прав на создание общедоступной ссылки</translation>
     </message>
@@ -2323,6 +2347,14 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     <message>
         <source>Failed to upload file blocks. Please check network or firewall</source>
         <translation>Не удалось загрузить блоки файлов. Проверьте сеть или брандмауэр</translation>
+    </message>
+    <message>
+        <source>Library contains too many files.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Path has character case conflict with existing file or folder. Will not be downloaded</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -3238,7 +3270,7 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     <name>ShibLoginDialog</name>
     <message>
         <source>Single Sign On</source>
-        <translation type="unfinished"/>
+        <translation>Единая точка входа</translation>
     </message>
 </context>
 <context>

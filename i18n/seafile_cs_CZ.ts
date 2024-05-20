@@ -162,6 +162,22 @@
         <source>refresh</source>
         <translation type="unfinished"/>
     </message>
+    <message>
+        <source>sort</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Sort libraries by</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Modification time</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Library names</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>ActivitiesTab</name>
@@ -217,7 +233,11 @@ nahrání selhalo.</translation>
         <translation>Chyba nahrávání: %1</translation>
     </message>
     <message>
-        <source>File count limit exceeded</source>
+        <source>File size exceeds limit</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Number of file exceeds limit</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -526,6 +546,10 @@ nahrání selhalo.</translation>
     </message>
     <message>
         <source>File changes on network drives may not be synced automatically. You can set sync intervals to enable periodic sync. Do you want to sync with this folder?</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Creating a library with encryption version less than 2 is not supported</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -903,7 +927,11 @@ Prosím %1</translation>
         <translation type="unfinished"/>
     </message>
     <message>
-        <source>File count limit exceeded</source>
+        <source>File size exceeds limit</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Number of file exceeds limit</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -1636,10 +1664,6 @@ Cesta k souboru obsahuje nepovolený znak. Není synchronizovaný do tohoto poč
         <translation>Popis umístění souboru %1 obsahuje znaky, které nejsou systémem Windows podporovány.</translation>
     </message>
     <message>
-        <source>Library is too large to sync.</source>
-        <translation>Knihovna je příliš velká na to, aby šla synchronizovat.</translation>
-    </message>
-    <message>
         <source>Waiting for confirmation to delete files</source>
         <translation type="unfinished"/>
     </message>
@@ -1657,6 +1681,10 @@ Cesta k souboru obsahuje nepovolený znak. Není synchronizovaný do tohoto poč
     </message>
     <message>
         <source>Failed to download file %1. Please check disk space or folder permissions</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Library contains too many files.</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -2298,10 +2326,6 @@ Cesta k souboru obsahuje nepovolený znak. Není synchronizovaný do tohoto poč
         <translation>Popis umístění souboru obsahuje znaky, které nejsou systémem Windows podporovány</translation>
     </message>
     <message>
-        <source>Library is too large to sync.</source>
-        <translation>Knihovna je příliš velká na to, aby šla synchronizovat.</translation>
-    </message>
-    <message>
         <source>no permissions to create a shared link</source>
         <translation type="unfinished"/>
     </message>
@@ -2323,6 +2347,14 @@ Cesta k souboru obsahuje nepovolený znak. Není synchronizovaný do tohoto poč
     </message>
     <message>
         <source>Failed to upload file blocks. Please check network or firewall</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Library contains too many files.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Path has character case conflict with existing file or folder. Will not be downloaded</source>
         <translation type="unfinished"/>
     </message>
 </context>

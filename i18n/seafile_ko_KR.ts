@@ -38,7 +38,7 @@
     </message>
     <message>
         <source>Failed to get repo sync information from server: %1</source>
-        <translation>서버에서 저장소 동기화 정보 가져오기에 실패했습니다: %1</translation>
+        <translation>서버에서 저장소 동기화 정보 확인에 실패했습니다: %1</translation>
     </message>
 </context>
 <context>
@@ -156,10 +156,26 @@
     </message>
     <message>
         <source>settings</source>
-        <translation type="unfinished"/>
+        <translation>설정</translation>
     </message>
     <message>
         <source>refresh</source>
+        <translation>새로 고침</translation>
+    </message>
+    <message>
+        <source>sort</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Sort libraries by</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Modification time</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Library names</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -175,7 +191,7 @@
     </message>
     <message>
         <source>Failed to get actvities information. Please %1</source>
-        <translation>활동 정보 가져오기에 실패했습니다. %1 해주세요</translation>
+        <translation>활동 정보 확인에 실패했습니다. %1 해주세요</translation>
     </message>
 </context>
 <context>
@@ -217,7 +233,11 @@ failed to upload.</source>
         <translation>업로드 실패: %1</translation>
     </message>
     <message>
-        <source>File count limit exceeded</source>
+        <source>File size exceeds limit</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Number of file exceeds limit</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -526,6 +546,10 @@ failed to upload.</source>
     </message>
     <message>
         <source>File changes on network drives may not be synced automatically. You can set sync intervals to enable periodic sync. Do you want to sync with this folder?</source>
+        <translation>네트워크 드라이브에서 바뀐 파일은 자동으로 동기화하지 않습니다. 주기적으로 동기화하도록 동기화 주기 시간을 설정할 수 있습니다. 이 폴더와 동기화를 진행할까요?</translation>
+    </message>
+    <message>
+        <source>Creating a library with encryption version less than 2 is not supported</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -626,7 +650,7 @@ failed to upload.</source>
     <message>
         <source>Failed to get repo download information:
 %1</source>
-        <translation>저장소 다운로드 정보 가져오기에 실패했습니다:
+        <translation>저장소 다운로드 정보 확인에 실패했습니다:
 %1</translation>
     </message>
     <message>
@@ -651,7 +675,7 @@ failed to upload.</source>
     </message>
     <message>
         <source>File changes on network drives may not be synced automatically. You can set sync intervals to enable periodic sync. Do you want to sync with this folder?</source>
-        <translation type="unfinished"/>
+        <translation>네트워크 드라이브에서 바뀐 파일은 자동으로 동기화하지 않습니다. 주기적으로 동기화하도록 동기화 주기 시간을 설정할 수 있습니다. 이 폴더와 동기화를 진행할까요?</translation>
     </message>
 </context>
 <context>
@@ -755,7 +779,7 @@ failed to upload.</source>
     </message>
     <message>
         <source>Failed to get files information&lt;br/&gt;Please %1</source>
-        <translation>파일 정보 가져오기에 실패했습니다&lt;br/&gt;
+        <translation>파일 정보 확인에 실패했습니다&lt;br/&gt;
 %1 해주세요</translation>
     </message>
     <message>
@@ -888,11 +912,11 @@ failed to upload.</source>
     </message>
     <message>
         <source>Failed to get link</source>
-        <translation>링크 가져오기에 실패했습니다</translation>
+        <translation>링크 확인에 실패했습니다</translation>
     </message>
     <message>
         <source>Failed to get upload link information for file &quot;%1&quot;</source>
-        <translation>&quot;%1&quot; 파일 업로드 링크 정보 가져오기에 실패했습니다</translation>
+        <translation>&quot;%1&quot; 파일 업로드 링크 정보 확인에 실패했습니다</translation>
     </message>
     <message>
         <source>Do you really want to delete file &quot;%1&quot;?</source>
@@ -903,7 +927,11 @@ failed to upload.</source>
         <translation>&quot;%1&quot; 폴더를 정말로 삭제할까요?</translation>
     </message>
     <message>
-        <source>File count limit exceeded</source>
+        <source>File size exceeds limit</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Number of file exceeds limit</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -1142,7 +1170,7 @@ failed to upload.</source>
     </message>
     <message>
         <source>Failed to get lock information for file &quot;%1&quot;</source>
-        <translation>&quot;%1&quot; 파일 잠금 정보 가져오기에 실패했습니다</translation>
+        <translation>&quot;%1&quot; 파일 잠금 정보 확인에 실패했습니다</translation>
     </message>
     <message>
         <source>No permissions to create a shared link</source>
@@ -1150,15 +1178,15 @@ failed to upload.</source>
     </message>
     <message>
         <source>Failed to get shared link: %1</source>
-        <translation>공유 링크 가져오기에 실패했습니다: %1</translation>
+        <translation>공유 링크 확인에 실패했습니다: %1</translation>
     </message>
     <message>
         <source>Failed to get upload link for file &quot;%1&quot;: </source>
-        <translation>&quot;%1&quot; 파일 업로드 링크 가져오기에 실패했습니다:</translation>
+        <translation>&quot;%1&quot; 파일 업로드 링크 확인에 실패했습니다:</translation>
     </message>
     <message>
         <source>Failed to get internal link: %1</source>
-        <translation>내부 링크 가져오기에 실패했습니다: %1</translation>
+        <translation>내부 링크 확인에 실패했습니다: %1</translation>
     </message>
 </context>
 <context>
@@ -1262,7 +1290,7 @@ The server version must be 2.1 or higher to support this.</source>
     <message>
         <source>Failed to get default library:
 %1</source>
-        <translation>기본 라이브러리 가져오기에 실패했습니다:
+        <translation>기본 라이브러리 확인에 실패했습니다:
 %1</translation>
     </message>
     <message>
@@ -1523,19 +1551,19 @@ Do you like to download your default library?</source>
     </message>
     <message>
         <source>Failed to get server info. Please check the server address.</source>
-        <translation type="unfinished"/>
+        <translation>서버 정보 확인에 실패했습니다. 서버 주소를 확인하세요.</translation>
     </message>
     <message>
         <source>Failed to get client sso link.</source>
-        <translation type="unfinished"/>
+        <translation>클라이언트 SSO 링크 확인에 실패했습니다.</translation>
     </message>
     <message>
         <source>SSO login failed.</source>
-        <translation type="unfinished"/>
+        <translation>SSO 로그인에 실패했습니다.</translation>
     </message>
     <message>
         <source>Failed to get client sso status.</source>
-        <translation type="unfinished"/>
+        <translation>클라이언트 SSO 상태 확인에 실패했습니다.</translation>
     </message>
 </context>
 <context>
@@ -1635,10 +1663,6 @@ File path contains invalid characters. It is not synced to this computer.</sourc
         <translation>%1 파일 경로에 윈도우 시스템에서 지원하지 않는 기호 문자가 들어있습니다.</translation>
     </message>
     <message>
-        <source>Library is too large to sync.</source>
-        <translation>라이브러리 용량이 동기화하기에 너무 큽니다.</translation>
-    </message>
-    <message>
         <source>Waiting for confirmation to delete files</source>
         <translation>파일 삭제 확인을 기다리는 중</translation>
     </message>
@@ -1656,6 +1680,10 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     </message>
     <message>
         <source>Failed to download file %1. Please check disk space or folder permissions</source>
+        <translation>%1 파일 다운로드에 실패했습니다. 디스크 공간 또는 폴더 권한을 확인하세요</translation>
+    </message>
+    <message>
+        <source>Library contains too many files.</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -1687,11 +1715,11 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     </message>
     <message>
         <source>Failed to get share information of the folder</source>
-        <translation>폴더의 공유 정보 가져오기에 실패했습니다</translation>
+        <translation>폴더의 공유 정보 확인에 실패했습니다</translation>
     </message>
     <message>
         <source>Failed to get your groups and contacts information</source>
-        <translation>그룹 및 연락처 정보 가져오기에 실패했습니다</translation>
+        <translation>그룹 및 연락처 정보 확인에 실패했습니다</translation>
     </message>
     <message>
         <source>Please enter the username</source>
@@ -2297,10 +2325,6 @@ File path contains invalid characters. It is not synced to this computer.</sourc
         <translation>파일 경로에 윈도우 시스템에서 지원하지 않는 기호 문자가 들어있습니다</translation>
     </message>
     <message>
-        <source>Library is too large to sync.</source>
-        <translation>라이브러리 용량이 동기화하기에 너무 큽니다.</translation>
-    </message>
-    <message>
         <source>no permissions to create a shared link</source>
         <translation>공유 링크를 만들 권한이 없습니다</translation>
     </message>
@@ -2318,10 +2342,18 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     </message>
     <message>
         <source>Failed to download file. Please check disk space or folder permissions</source>
-        <translation type="unfinished"/>
+        <translation>파일 다운로드에 실패했습니다. 디스크 공간 또는 폴더 권한을 확인하세요</translation>
     </message>
     <message>
         <source>Failed to upload file blocks. Please check network or firewall</source>
+        <translation>파일 블록 업로드에 실패했습니다. 네트워크 또는 방화벽을 확인하세요</translation>
+    </message>
+    <message>
+        <source>Library contains too many files.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Path has character case conflict with existing file or folder. Will not be downloaded</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -2728,11 +2760,11 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     <name>SeafileExtensionHandler</name>
     <message>
         <source>Failed to get internal link: %1</source>
-        <translation>내부 링크 가져오기에 실패했습니다: %1</translation>
+        <translation>내부 링크 확인에 실패했습니다: %1</translation>
     </message>
     <message>
         <source>failed to get share link: %1</source>
-        <translation>공유 링크 가져오기에 실패했습니다: %1</translation>
+        <translation>공유 링크 확인에 실패했습니다: %1</translation>
     </message>
     <message>
         <source>Failed to lock file</source>
@@ -2744,7 +2776,7 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     </message>
     <message>
         <source>Failed to get upload link: %1</source>
-        <translation>업로드 링크 가져오기에 실패했습니다: %1</translation>
+        <translation>업로드 링크 확인에 실패했습니다: %1</translation>
     </message>
     <message>
         <source>File &quot;%1&quot; is locked by %2</source>
@@ -2752,7 +2784,7 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     </message>
     <message>
         <source>Failed to get lock information for file &quot;%1&quot;</source>
-        <translation>&quot;%1&quot; 파일 잠금 정보 가져오기에 실패했습니다</translation>
+        <translation>&quot;%1&quot; 파일 잠금 정보 확인에 실패했습니다</translation>
     </message>
 </context>
 <context>
@@ -3230,18 +3262,18 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     </message>
     <message>
         <source>Password</source>
-        <translation type="unfinished"/>
+        <translation>암호</translation>
     </message>
     <message>
         <source>Failed to generate share link: %1</source>
-        <translation type="unfinished"/>
+        <translation>공유 링크 만들기 실패: %1</translation>
     </message>
 </context>
 <context>
     <name>ShibLoginDialog</name>
     <message>
         <source>Single Sign On</source>
-        <translation type="unfinished"/>
+        <translation>단일 로그온</translation>
     </message>
 </context>
 <context>
@@ -3306,7 +3338,7 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     </message>
     <message>
         <source>Failed to get starred files information&lt;br/&gt;Please %1</source>
-        <translation>별표 표시한 파일 정보 가져오기에 실패했습니다&lt;br/&gt; %1 해주세요</translation>
+        <translation>별표 표시한 파일 정보 확인에 실패했습니다&lt;br/&gt; %1 해주세요</translation>
     </message>
     <message>
         <source>You have no starred files yet.</source>

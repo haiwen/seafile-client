@@ -162,6 +162,22 @@
         <source>refresh</source>
         <translation>Aktualisieren</translation>
     </message>
+    <message>
+        <source>sort</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Sort libraries by</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Modification time</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Library names</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>ActivitiesTab</name>
@@ -217,8 +233,12 @@ wurde nicht hochgeladen.</translation>
         <translation>Fehler beim Hochladen: %1</translation>
     </message>
     <message>
-        <source>File count limit exceeded</source>
-        <translation>Das Limit für die Zeilenanzahl ist überschritten.</translation>
+        <source>File size exceeds limit</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Number of file exceeds limit</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -526,6 +546,10 @@ wurde nicht hochgeladen.</translation>
     <message>
         <source>File changes on network drives may not be synced automatically. You can set sync intervals to enable periodic sync. Do you want to sync with this folder?</source>
         <translation>Änderungen an Dateien auf Netzlaufwerken werden ggf. nicht automatisch mit dem Server synchronisiert. In diesem Fall setzen Sie die Sync-Intervalle auf periodischen Sync. Wollen Sie mit diesem Ordner synchronisieren?</translation>
+    </message>
+    <message>
+        <source>Creating a library with encryption version less than 2 is not supported</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -901,8 +925,12 @@ Bitte %1</translation>
         <translation>Möchten Sie den Ordner „%1“ wirklich löschen?</translation>
     </message>
     <message>
-        <source>File count limit exceeded</source>
-        <translation>Das Limit für die Zeilenanzahl ist überschritten.</translation>
+        <source>File size exceeds limit</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Number of file exceeds limit</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -1633,10 +1661,6 @@ Die Ordnerstruktur enthält ungültige Zeichen. Synchronisieren mit diesem Compu
         <translation>Der Dateipfad %1 enthält Zeichen, die von Windows nicht unterstützt werden.</translation>
     </message>
     <message>
-        <source>Library is too large to sync.</source>
-        <translation>Die Bibliothek ist für die Synchronisation zu groß.</translation>
-    </message>
-    <message>
         <source>Waiting for confirmation to delete files</source>
         <translation>Die Löschbestätigung wir abgewartet.</translation>
     </message>
@@ -1655,6 +1679,10 @@ Die Ordnerstruktur enthält ungültige Zeichen. Synchronisieren mit diesem Compu
     <message>
         <source>Failed to download file %1. Please check disk space or folder permissions</source>
         <translation>Datei %1 konnte nicht heruntergeladen werden. Bitte überprüfen Sie den freien Speicherplatz und die Schreibrechte in den Ordnern</translation>
+    </message>
+    <message>
+        <source>Library contains too many files.</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -2295,10 +2323,6 @@ Die Ordnerstruktur enthält ungültige Zeichen. Synchronisieren mit diesem Compu
         <translation>Der Dateipfad enthält Zeichen, die von Windows nicht unterstützt werden.</translation>
     </message>
     <message>
-        <source>Library is too large to sync.</source>
-        <translation>Die Bibliothek ist für die Synchronisation zu groß.</translation>
-    </message>
-    <message>
         <source>no permissions to create a shared link</source>
         <translation>Sie haben nicht die Berechtigung für die Erstellung eines Freigabe-Links.</translation>
     </message>
@@ -2321,6 +2345,14 @@ Die Ordnerstruktur enthält ungültige Zeichen. Synchronisieren mit diesem Compu
     <message>
         <source>Failed to upload file blocks. Please check network or firewall</source>
         <translation>Datenblöcke konnten nicht hochgeladen werden. Bitte überprüfen Sie das Netzwerk oder die Firewall</translation>
+    </message>
+    <message>
+        <source>Library contains too many files.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Path has character case conflict with existing file or folder. Will not be downloaded</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -3238,7 +3270,7 @@ Die Ordnerstruktur enthält ungültige Zeichen. Synchronisieren mit diesem Compu
     <name>ShibLoginDialog</name>
     <message>
         <source>Single Sign On</source>
-        <translation type="unfinished"/>
+        <translation>Single Sign-On</translation>
     </message>
 </context>
 <context>

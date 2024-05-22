@@ -152,6 +152,7 @@ void MessagePoller::processNotification(const SyncNotification& notification)
 #if !defined(Q_OS_WIN32)
         case SYNC_ERROR_ID_INVALID_PATH_ON_WINDOWS:
 #endif
+        case SYNC_ERROR_ID_CASE_CONFLICT:
             LastSyncError::instance()->flagRepoSyncError(repo_id, err_id);
             break;
         }
@@ -210,6 +211,9 @@ void MessagePoller::processNotification(const SyncNotification& notification)
             break;
         case SYNC_ERROR_ID_CHECKOUT_FILE:
             msg = tr("Failed to download file %1. Please check disk space or folder permissions").arg(path);
+            break;
+        case SYNC_ERROR_ID_CASE_CONFLICT:
+            msg = tr("Path has character case conflict with existing file or folder. Will not be downloaded");
             break;
         default:
             qWarning("Unknown sync error id %d", err_id);

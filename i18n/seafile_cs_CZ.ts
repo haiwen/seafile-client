@@ -1511,10 +1511,6 @@ Chceš stáhnout svoji výchozí knihovnu ?</translation>
         <translation>Server:</translation>
     </message>
     <message>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;For example: https://seacloud.cc&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Například: https://seacloud.cc&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
-    </message>
-    <message>
         <source>or http://192.168.1.24:8000</source>
         <translation>nebo http://192.168.1.24:8000</translation>
     </message>
@@ -1564,6 +1560,10 @@ Chceš stáhnout svoji výchozí knihovnu ?</translation>
     </message>
     <message>
         <source>Failed to get client sso status.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;For example: https://example.your-server.com&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -1685,6 +1685,10 @@ Cesta k souboru obsahuje nepovolený znak. Není synchronizovaný do tohoto poč
     </message>
     <message>
         <source>Library contains too many files.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Path has character case conflict with existing file or folder. Will not be downloaded</source>
         <translation type="unfinished"/>
     </message>
 </context>

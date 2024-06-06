@@ -1509,10 +1509,6 @@ Letölti az alapértelmezett kötetet?</translation>
         <translation>Szerver:</translation>
     </message>
     <message>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;For example: https://seacloud.cc&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Példa: https://seacloud.cc&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
-    </message>
-    <message>
         <source>or http://192.168.1.24:8000</source>
         <translation>vagy: http://192.168.1.24:8000</translation>
     </message>
@@ -1562,6 +1558,10 @@ Letölti az alapértelmezett kötetet?</translation>
     </message>
     <message>
         <source>Failed to get client sso status.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;For example: https://example.your-server.com&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -1677,6 +1677,10 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     </message>
     <message>
         <source>Library contains too many files.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Path has character case conflict with existing file or folder. Will not be downloaded</source>
         <translation type="unfinished"/>
     </message>
 </context>

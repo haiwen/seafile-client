@@ -164,19 +164,19 @@
     </message>
     <message>
         <source>sort</source>
-        <translation type="unfinished"/>
+        <translation>Sortieren</translation>
     </message>
     <message>
         <source>Sort libraries by</source>
-        <translation type="unfinished"/>
+        <translation>Bibliotheken sortieren nach</translation>
     </message>
     <message>
         <source>Modification time</source>
-        <translation type="unfinished"/>
+        <translation>Letzte Bearbeitung</translation>
     </message>
     <message>
         <source>Library names</source>
-        <translation type="unfinished"/>
+        <translation>Bibliotheken</translation>
     </message>
 </context>
 <context>
@@ -234,11 +234,11 @@ wurde nicht hochgeladen.</translation>
     </message>
     <message>
         <source>File size exceeds limit</source>
-        <translation type="unfinished"/>
+        <translation>Datei ist größer als das Limit</translation>
     </message>
     <message>
         <source>Number of file exceeds limit</source>
-        <translation type="unfinished"/>
+        <translation>Menge der Dateien ist größer als das Limit</translation>
     </message>
 </context>
 <context>
@@ -549,7 +549,7 @@ wurde nicht hochgeladen.</translation>
     </message>
     <message>
         <source>Creating a library with encryption version less than 2 is not supported</source>
-        <translation type="unfinished"/>
+        <translation>Verschlüsselte Bibliotheken müssen mindestens Sicherheitsstufe 2 haben</translation>
     </message>
 </context>
 <context>
@@ -926,11 +926,11 @@ Bitte %1</translation>
     </message>
     <message>
         <source>File size exceeds limit</source>
-        <translation type="unfinished"/>
+        <translation>Datei ist größer als das Limit</translation>
     </message>
     <message>
         <source>Number of file exceeds limit</source>
-        <translation type="unfinished"/>
+        <translation>Menge der Dateien ist größer als das Limit</translation>
     </message>
 </context>
 <context>
@@ -1508,10 +1508,6 @@ Möchten Sie Ihre Standardbibliothek herunterladen?</translation>
         <translation>Server:</translation>
     </message>
     <message>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;For example: https://seacloud.cc&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Zum Beispiel: https://seacloud.cc&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
-    </message>
-    <message>
         <source>or http://192.168.1.24:8000</source>
         <translation>oder http://192.168.1.24:8000</translation>
     </message>
@@ -1562,6 +1558,10 @@ Möchten Sie Ihre Standardbibliothek herunterladen?</translation>
     <message>
         <source>Failed to get client sso status.</source>
         <translation>Der Abruf des SSO-Statuses des Clients ist fehlgeschlagen.</translation>
+    </message>
+    <message>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;For example: https://example.your-server.com&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -1682,6 +1682,10 @@ Die Ordnerstruktur enthält ungültige Zeichen. Synchronisieren mit diesem Compu
     </message>
     <message>
         <source>Library contains too many files.</source>
+        <translation>Bibliothek enthält zu viele Dateien.</translation>
+    </message>
+    <message>
+        <source>Path has character case conflict with existing file or folder. Will not be downloaded</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -2348,11 +2352,11 @@ Die Ordnerstruktur enthält ungültige Zeichen. Synchronisieren mit diesem Compu
     </message>
     <message>
         <source>Library contains too many files.</source>
-        <translation type="unfinished"/>
+        <translation>Bibliothek enthält zu viele Dateien.</translation>
     </message>
     <message>
         <source>Path has character case conflict with existing file or folder. Will not be downloaded</source>
-        <translation type="unfinished"/>
+        <translation>Der Dateipfad enthält einen Zeichenkonflikt mit dem bestehenden Ordner oder einer Datei. Herunterladen nicht möglich</translation>
     </message>
 </context>
 <context>

@@ -1500,10 +1500,6 @@ Do you like to download your default library?</source>
         <translation>云盘网址：</translation>
     </message>
     <message>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;For example: https://seacloud.cc&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;例如： https://seacloud.cc&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
-    </message>
-    <message>
         <source>or http://192.168.1.24:8000</source>
         <translation>或者 http://192.168.1.24:8000</translation>
     </message>
@@ -1554,6 +1550,10 @@ Do you like to download your default library?</source>
     <message>
         <source>Failed to get client sso status.</source>
         <translation>获取客户端单点登录状态失败。</translation>
+    </message>
+    <message>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;For example: https://example.your-server.com&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;例如：https://cloud.seafile.com&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
 </context>
 <context>
@@ -1675,6 +1675,10 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     <message>
         <source>Library contains too many files.</source>
         <translation>资料库文件数过多。</translation>
+    </message>
+    <message>
+        <source>Path has character case conflict with existing file or folder. Will not be downloaded</source>
+        <translation>同步路径与现存文件或目录存在大小写冲突，下载已跳过</translation>
     </message>
 </context>
 <context>

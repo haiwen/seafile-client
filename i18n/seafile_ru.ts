@@ -164,19 +164,19 @@
     </message>
     <message>
         <source>sort</source>
-        <translation type="unfinished"/>
+        <translation>сортировка</translation>
     </message>
     <message>
         <source>Sort libraries by</source>
-        <translation type="unfinished"/>
+        <translation>Сортировать библиотеки по</translation>
     </message>
     <message>
         <source>Modification time</source>
-        <translation type="unfinished"/>
+        <translation>Время изменения</translation>
     </message>
     <message>
         <source>Library names</source>
-        <translation type="unfinished"/>
+        <translation>Название библиотеки</translation>
     </message>
 </context>
 <context>
@@ -234,11 +234,11 @@ failed to upload.</source>
     </message>
     <message>
         <source>File size exceeds limit</source>
-        <translation type="unfinished"/>
+        <translation>Размер файла превышает лимит</translation>
     </message>
     <message>
         <source>Number of file exceeds limit</source>
-        <translation type="unfinished"/>
+        <translation>Количество файлов превышает лимит</translation>
     </message>
 </context>
 <context>
@@ -550,7 +550,7 @@ failed to upload.</source>
     </message>
     <message>
         <source>Creating a library with encryption version less than 2 is not supported</source>
-        <translation type="unfinished"/>
+        <translation>Создание библиотеки с версией шифрования ниже 2 не поддерживается</translation>
     </message>
 </context>
 <context>
@@ -928,11 +928,11 @@ failed to upload.</source>
     </message>
     <message>
         <source>File size exceeds limit</source>
-        <translation type="unfinished"/>
+        <translation>Размер файла превышает лимит</translation>
     </message>
     <message>
         <source>Number of file exceeds limit</source>
-        <translation type="unfinished"/>
+        <translation>Количество файлов превышает лимит</translation>
     </message>
 </context>
 <context>
@@ -1510,10 +1510,6 @@ Do you like to download your default library?</source>
         <translation>Сервер:</translation>
     </message>
     <message>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;For example: https://seacloud.cc&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Например: https://seacloud.cc&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
-    </message>
-    <message>
         <source>or http://192.168.1.24:8000</source>
         <translation>или http://192.168.1.24:8000</translation>
     </message>
@@ -1564,6 +1560,10 @@ Do you like to download your default library?</source>
     <message>
         <source>Failed to get client sso status.</source>
         <translation>Не удалось получить статус единого входа клиента.</translation>
+    </message>
+    <message>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;For example: https://example.your-server.com&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -1684,6 +1684,10 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     </message>
     <message>
         <source>Library contains too many files.</source>
+        <translation>Библиотека содержит слишком много файлов.</translation>
+    </message>
+    <message>
+        <source>Path has character case conflict with existing file or folder. Will not be downloaded</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -2350,11 +2354,11 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     </message>
     <message>
         <source>Library contains too many files.</source>
-        <translation type="unfinished"/>
+        <translation>Библиотека содержит слишком много файлов.</translation>
     </message>
     <message>
         <source>Path has character case conflict with existing file or folder. Will not be downloaded</source>
-        <translation type="unfinished"/>
+        <translation>Путь конфликтует с регистром символов существующего файла или папки. Не будет загружено</translation>
     </message>
 </context>
 <context>

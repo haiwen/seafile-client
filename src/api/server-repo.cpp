@@ -35,10 +35,12 @@ ServerRepo ServerRepo::fromJSON(const json_t *json, json_error_t */* error */)
     repo._virtual = json_is_true(json_object_get(json, "virtual"));
 
     if (repo.type == "grepo") {
+        repo.owner_name = getStringFromJson(json, "share_from_name");
         repo.owner = getStringFromJson(json, "share_from");
         repo.group_name = getStringFromJson(json, "owner");
         repo.group_id = json_integer_value(json_object_get(json, "groupid"));
     } else {
+        repo.owner_name = getStringFromJson(json, "owner_name");
         repo.owner = getStringFromJson(json, "owner");
         repo.group_name = QString();
         repo.group_id = 0;

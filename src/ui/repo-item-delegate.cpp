@@ -309,7 +309,7 @@ void RepoItemDelegate::paintRepoItem(QPainter *painter,
     // Paint repo sharing owner for private share
     if (static_cast<RepoCategoryItem*>(item->parent())->categoryIndex() ==
         RepoTreeModel::CAT_INDEX_SHARED_REPOS)
-        extra_description += tr(", %1").arg(repo.owner.split('@').front());
+        extra_description += QString(", %1").arg(repo.owner_name);
     if (!extra_description.isEmpty()) {
         int width = option.rect.topRight().x() - 40 - repo_desc_rect.topRight().x();
         if (width < 3)

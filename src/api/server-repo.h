@@ -38,6 +38,7 @@ public:
     QString parent_path;
 
     QString type;
+    QString owner_name;
     QString owner;
     QString permission;
     QString group_name;

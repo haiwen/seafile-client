@@ -526,9 +526,8 @@ void SeafileTrayIcon::openHelp()
     if (QLocale::system().name() == "zh_CN") {
         url = "https://cloud.seafile.com/published/seafile-user-manual/syncing_client/install_syncing_client.md";
     } else {
-        url = "https://download.seafile.com/published/seafile-user-manual/syncing_client/install_sync.md";
+        url = "https://help.seafile.com/syncing_client/install_sync/";
     }
-
     QDesktopServices::openUrl(QUrl(url));
 }
 

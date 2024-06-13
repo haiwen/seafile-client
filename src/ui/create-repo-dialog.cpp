@@ -130,7 +130,10 @@ void CreateRepoDialog::createAction()
             return;
         }
 
-        if (enc_version == 3 || enc_version == 4) {
+        if (enc_version == 5) {
+            request_ = new CreateRepoRequest(
+                account_, name_, name_, enc_version, repo_id, magic, random_key, salt, 1000);
+        } else if (enc_version == 3 || enc_version == 4) {
             request_ = new CreateRepoRequest(
                 account_, name_, name_, enc_version, repo_id, magic, random_key, salt);
         } else {

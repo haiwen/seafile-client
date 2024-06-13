@@ -181,6 +181,8 @@ RepoDownloadInfo RepoDownloadInfo::fromDict(QMap<QString, QVariant>& dict,
     map.insert("is_readonly", read_only ? 1 : 0);
     map.insert("server_url", url.toString());
     map.insert("repo_salt", salt);
+    int key_iter = dict.value("key_iter", 1000).toInt();
+    map.insert("key_iter", key_iter);
 
     info.more_info = ::mapToJson(map);
 
@@ -291,6 +293,29 @@ CreateRepoRequest::CreateRepoRequest(const Account& account,
     setFormParam("magic", magic);
     setFormParam("random_key", random_key);
     setFormParam("salt", salt);
+}
+
+CreateRepoRequest::CreateRepoRequest(const Account& account,
+                                     const QString& name,
+                                     const QString& desc,
+                                     int enc_version,
+                                     const QString& repo_id,
+                                     const QString& magic,
+                                     const QString& random_key,
+                                     const QString& salt,
+                                     int key_iter)
+    : SeafileApiRequest(account.getAbsoluteUrl(kCreateRepoUrl),
+                        SeafileApiRequest::METHOD_POST,
+                        account.token)
+{
+    setFormParam("name", name);
+    setFormParam("desc", desc);
+    setFormParam("enc_version", QString::number(enc_version));
+    setFormParam("repo_id", repo_id);
+    setFormParam("magic", magic);
+    setFormParam("random_key", random_key);
+    setFormParam("salt", salt);
+    setFormParam("key_iter", QString::number(key_iter));
 }
 
 void CreateRepoRequest::requestSuccess(QNetworkReply& reply)

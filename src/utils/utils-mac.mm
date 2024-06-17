@@ -246,7 +246,7 @@ void set_auto_start(bool enabled)
                     /*outLabel*/ NULL);
                 if (err != noErr) {
                     if (icon)
-                        CFRelease(icon);
+                        ReleaseIconRef(icon);
                     icon = NULL;
                 }
             }
@@ -258,7 +258,7 @@ void set_auto_start(bool enabled)
             if (newItem)
                 CFRelease(newItem);
             if (icon)
-                CFRelease(icon);
+                ReleaseIconRef(icon);
         } else if (!enabled && found) {
             LSSharedFileListItemRemove(loginItems, existingItem);
         }

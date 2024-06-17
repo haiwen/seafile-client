@@ -179,7 +179,7 @@ RepoDownloadInfo RepoDownloadInfo::fromDict(QMap<QString, QVariant>& dict,
     QString salt = dict.value("salt").toString();
     QMap<QString, QVariant> map;
     map.insert("is_readonly", read_only ? 1 : 0);
-    map.insert("server_url", url.toString());
+    map.insert("server_url", url.toEncoded().data());
     map.insert("repo_salt", salt);
 
     info.more_info = ::mapToJson(map);

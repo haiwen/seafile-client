@@ -34,7 +34,7 @@ RepoDetailDialog::RepoDetailDialog(const ServerRepo &repo, QWidget *parent)
     setWindowIcon(QIcon(":/images/seafile.png"));
 
     mTimeLabel->setText(translateCommitTime(repo.mtime));
-    mOwnerLabel->setText(repo.owner);
+    mOwnerLabel->setText(QString("%1 (%2)").arg(repo.owner_name).arg(repo.owner));
     mSizeLabel->setText(readableFileSize(repo.size));
 
     LocalRepo lrepo;

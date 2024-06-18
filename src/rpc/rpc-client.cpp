@@ -870,7 +870,10 @@ int SeafileRpcClient::markFileLockState(const QString &repo_id,
 int SeafileRpcClient::generateMagicAndRandomKey(int enc_version,
                                                 const QString &repo_id,
                                                 const QString &passwd,
+                                                const QString &pwd_hash_algo,
+                                                const QString &pwd_hash_params,
                                                 QString *magic,
+                                                QString *pwd_hash,
                                                 QString *random_key,
                                                 QString *salt)
 {
@@ -879,10 +882,12 @@ int SeafileRpcClient::generateMagicAndRandomKey(int enc_version,
         seafile_rpc_client_,
         "seafile_generate_magic_and_random_key",
         SEAFILE_TYPE_ENCRYPTION_INFO,
-        &error, 3,
+        &error, 5,
         "int", enc_version,
         "string", toCStr(repo_id),
-        "string", toCStr(passwd));
+        "string", toCStr(passwd),
+        "string", toCStr(pwd_hash_algo),
+        "string", toCStr(pwd_hash_params));
     if (error) {
         qWarning("failed to generate magic and random_key : %s\n", error->message);
         g_error_free(error);
@@ -892,9 +897,11 @@ int SeafileRpcClient::generateMagicAndRandomKey(int enc_version,
     char *c_magic = NULL;
     char *c_random_key = NULL;
     char *c_salt = NULL;
+    char *c_pwd_hash = NULL;
     if (enc_version == 3 || enc_version == 4) {
         g_object_get (obj,
                     "magic", &c_magic,
+                    "pwd_hash", &c_pwd_hash,
                     "random_key", &c_random_key,
                     "salt", &c_salt,
                     NULL);
@@ -903,11 +910,13 @@ int SeafileRpcClient::generateMagicAndRandomKey(int enc_version,
     } else {
         g_object_get (obj,
             "magic", &c_magic,
+            "pwd_hash", &c_pwd_hash,
             "random_key", &c_random_key,
             NULL);
     }
 
     *magic = QString(c_magic);
+    *pwd_hash = QString(c_pwd_hash);
     *random_key = QString(c_random_key);
 
     g_object_unref (obj);

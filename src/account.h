@@ -114,6 +114,15 @@ public:
     int getEncryptedLibraryVersion() const {
         return serverInfo.encryptedLibraryVersion;
     }
+
+    QString getEncryptedLibraryPwdHashAlgo() const {
+        return serverInfo.pwdHashAlgo; 
+    }
+
+    QString getEncryptedLibraryPwdHashParams() const {
+        return serverInfo.pwdHashParams;
+    }
+
     // require pro edtions and version at least at ...
     // excluding OSS Version
     bool isAtLeastProVersion(unsigned majorVersion, unsigned minorVersion, unsigned patchVersion) const {

@@ -116,6 +116,10 @@ void CreateRepoDialog::createAction()
         // TODO: check server version is at least 4.3.x ?
         QString repo_id = QUuid::createUuid().toString().mid(1, 36);
         QString magic, random_key, salt;
+        QString pwd_hash_algo, pwd_hash_params, pwd_hash;
+
+        pwd_hash_algo = seafApplet->accountManager()->currentAccount().getEncryptedLibraryPwdHashAlgo();
+        pwd_hash_params = seafApplet->accountManager()->currentAccount().getEncryptedLibraryPwdHashAlgo();
 
         int enc_version = seafApplet->accountManager()->currentAccount().getEncryptedLibraryVersion();
 
@@ -125,17 +129,17 @@ void CreateRepoDialog::createAction()
         }
 
         if (seafApplet->rpcClient()->generateMagicAndRandomKey(
-                enc_version, repo_id, passwd_, &magic, &random_key, &salt) < 0) {
+                enc_version, repo_id, passwd_, pwd_hash_algo, pwd_hash_params, &magic, &pwd_hash, &random_key, &salt) < 0) {
             seafApplet->warningBox(tr("Failed to generate encryption key for this library"), this);
             return;
         }
 
         if (enc_version == 3 || enc_version == 4) {
             request_ = new CreateRepoRequest(
-                account_, name_, name_, enc_version, repo_id, magic, random_key, salt);
+                account_, name_, name_, enc_version, repo_id, magic, random_key, salt, pwd_hash_algo, pwd_hash_params, pwd_hash);
         } else {
             request_ = new CreateRepoRequest(
-                account_, name_, name_, enc_version, repo_id, magic, random_key);
+                account_, name_, name_, enc_version, repo_id, magic, random_key, pwd_hash_algo, pwd_hash_params, pwd_hash);
         }
     } else {
         request_ = new CreateRepoRequest(account_, name_, name_, passwd_);

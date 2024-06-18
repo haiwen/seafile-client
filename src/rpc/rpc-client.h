@@ -115,7 +115,10 @@ public:
     int generateMagicAndRandomKey(int enc_version,
                                   const QString& repo_id,
                                   const QString& passwd,
+                                  const QString& pwd_hash_algo,
+                                  const QString& pwd_hash_params,
                                   QString *magic,
+                                  QString *pwd_hash,
                                   QString *random_key,
                                   QString *salt);
 

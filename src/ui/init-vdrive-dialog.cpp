@@ -162,13 +162,15 @@ void InitVirtualDriveDialog::onDownloadRepoSuccess(const RepoDownloadInfo& info)
     int ret;
     QString worktree = seafApplet->configurator()->worktreeDir();
     QString error;
+    QString username = account_.accountInfo.name;
+    QString more_info = rebuildMoreInfo(info.more_info, "username", toCStr(username));
 
     ret = seafApplet->rpcClient()->downloadRepo(info.repo_id,
                                                 info.repo_version, info.repo_name,
                                                 worktree, info.token,
                                                 QString(), info.magic,
                                                 info.email, info.random_key,
-                                                info.enc_version, info.more_info,
+                                                info.enc_version, more_info,
                                                 &error);
 
     if (ret < 0) {

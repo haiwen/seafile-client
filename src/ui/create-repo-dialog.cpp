@@ -208,6 +208,8 @@ bool CreateRepoDialog::validateInputs()
 void CreateRepoDialog::createSuccess(const RepoDownloadInfo& info)
 {
     QString error;
+    QString username = account_.accountInfo.name;
+    QString more_info = rebuildMoreInfo(info.more_info, "username", toCStr(username));
 
     int ret = seafApplet->rpcClient()->cloneRepo(
         info.repo_id,
@@ -220,7 +222,7 @@ void CreateRepoDialog::createSuccess(const RepoDownloadInfo& info)
         info.email,
         info.random_key,
         info.enc_version,
-        info.more_info,
+        more_info,
         &error);
 
     if (ret < 0) {

@@ -838,3 +838,25 @@ QString trimNULL(QString& s) {
     }
     return s;
 }
+
+QString rebuildMoreInfo (const QString& more_info, const char *key, const char *value)
+{
+    json_error_t error;
+    json_t *object = NULL;
+    QString ret = more_info;
+    if (!more_info.isEmpty()) {
+        object = json_loads(toCStr(more_info), 0, &error);
+    }
+    if (!object) {
+        object = json_object(); 
+    }
+    json_object_set_new(object, key, json_string(value));
+    char *data = json_dumps(object, 0);
+    if (data) {
+        ret = QString(data); 
+    }
+    json_decref(object);
+    g_free (data);
+
+    return ret;
+}

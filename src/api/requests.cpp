@@ -153,13 +153,15 @@ DownloadRepoRequest::DownloadRepoRequest(const Account& account,
           account.getAbsoluteUrl("api2/repos/" + repo_id + "/download-info/"),
           SeafileApiRequest::METHOD_GET,
           account.token),
-      read_only_(read_only)
+      read_only_(read_only),
+      account_(account)
 {
 }
 
 RepoDownloadInfo RepoDownloadInfo::fromDict(QMap<QString, QVariant>& dict,
                                             const QUrl& url_in,
-                                            bool read_only)
+                                            bool read_only,
+                                            const QString& username)
 {
     RepoDownloadInfo info;
     info.repo_version = dict["repo_version"].toInt();
@@ -181,6 +183,7 @@ RepoDownloadInfo RepoDownloadInfo::fromDict(QMap<QString, QVariant>& dict,
     map.insert("is_readonly", read_only ? 1 : 0);
     map.insert("server_url", url.toEncoded().data());
     map.insert("repo_salt", salt);
+    map.insert("username", username);
 
     info.more_info = ::mapToJson(map);
 
@@ -200,7 +203,7 @@ void DownloadRepoRequest::requestSuccess(QNetworkReply& reply)
     QScopedPointer<json_t, JsonPointerCustomDeleter> json(root);
     QMap<QString, QVariant> dict = mapFromJSON(json.data(), &error);
 
-    RepoDownloadInfo info = RepoDownloadInfo::fromDict(dict, url(), read_only_);
+    RepoDownloadInfo info = RepoDownloadInfo::fromDict(dict, url(), read_only_, account_.accountInfo.name);
 
     emit success(info);
 }
@@ -243,7 +246,9 @@ CreateRepoRequest::CreateRepoRequest(const Account& account,
                                      const QString& passwd)
     : SeafileApiRequest(account.getAbsoluteUrl(kCreateRepoUrl),
                         SeafileApiRequest::METHOD_POST,
-                        account.token)
+                        account.token),
+      account_(account)
+
 {
     setFormParam(QString("name"), name);
     setFormParam(QString("desc"), desc);
@@ -305,7 +310,7 @@ void CreateRepoRequest::requestSuccess(QNetworkReply& reply)
 
     QScopedPointer<json_t, JsonPointerCustomDeleter> json(root);
     QMap<QString, QVariant> dict = mapFromJSON(json.data(), &error);
-    RepoDownloadInfo info = RepoDownloadInfo::fromDict(dict, url(), false);
+    RepoDownloadInfo info = RepoDownloadInfo::fromDict(dict, url(), false, account_.accountInfo.name);
 
     emit success(info);
 }

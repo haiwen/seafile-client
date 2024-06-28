@@ -350,8 +350,6 @@ void DownloadRepoDialog::onDownloadRepoRequestSuccess(const RepoDownloadInfo& in
 {
     QString worktree = mDirectory->text();
     QString password = repo_.encrypted ? mPassword->text() : QString();
-    QString username = account_.accountInfo.name;
-    QString more_info = rebuildMoreInfo(info.more_info, "username", toCStr(username));
     int ret = 0;
     QString error;
 
@@ -365,7 +363,7 @@ void DownloadRepoDialog::onDownloadRepoRequestSuccess(const RepoDownloadInfo& in
                                                  info.token, password,
                                                  info.magic, info.email,
                                                  info.random_key, info.enc_version,
-                                                 more_info,
+                                                 info.more_info,
                                                  &error);
     } else {
         ret = seafApplet->rpcClient()->downloadRepo(info.repo_id, info.repo_version,
@@ -373,7 +371,7 @@ void DownloadRepoDialog::onDownloadRepoRequestSuccess(const RepoDownloadInfo& in
                                                     info.token, password,
                                                     info.magic, info.email,
                                                     info.random_key, info.enc_version,
-                                                    more_info,
+                                                    info.more_info,
                                                     &error);
     }
 

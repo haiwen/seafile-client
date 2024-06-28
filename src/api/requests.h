@@ -91,7 +91,8 @@ public:
 
     static RepoDownloadInfo fromDict(QMap<QString, QVariant>& dict,
                                      const QUrl& url,
-                                     bool read_only);
+                                     bool read_only,
+                                     const QString& username);
 };
 
 class DownloadRepoRequest : public SeafileApiRequest
@@ -113,6 +114,7 @@ private:
     Q_DISABLE_COPY(DownloadRepoRequest)
 
     bool read_only_;
+    Account account_;
 };
 
 class GetRepoRequest : public SeafileApiRequest
@@ -171,6 +173,7 @@ signals:
 
 private:
     Q_DISABLE_COPY(CreateRepoRequest)
+    Account account_;
 };
 
 class CreateSubrepoRequest : public SeafileApiRequest

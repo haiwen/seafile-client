@@ -99,6 +99,4 @@ const QRect getScreenSize(int index);
 
 QString trimNULL(QString& s);
 
-QString rebuildMoreInfo (const QString& more_info, const char *key, const char *value);
-
 #endif

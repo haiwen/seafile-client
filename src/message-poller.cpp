@@ -201,13 +201,13 @@ void MessagePoller::processNotification(const SyncNotification& notification)
             break;
 #endif
         case SYNC_ERROR_ID_LIBRARY_TOO_LARGE:
-            msg = tr("Library contains too many files.");
+            msg = tr("Library cannot be synced since it has too many files.");
             break;
         case SYNC_ERROR_ID_DEL_CONFIRMATION_PENDING:
             msg = tr("Waiting for confirmation to delete files");
             break;
         case SYNC_ERROR_ID_TOO_MANY_FILES:
-            msg = tr("Too many files in library");
+            msg = tr("Files cannot be uploaded to this library due to file number limit settings.");
             break;
         case SYNC_ERROR_ID_CHECKOUT_FILE:
             msg = tr("Failed to download file %1. Please check disk space or folder permissions").arg(path);

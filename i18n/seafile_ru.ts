@@ -487,7 +487,7 @@ failed to upload.</source>
     <message>
         <source>Failed to add download task:
  %1</source>
-        <translation>Не удалось добавить задачу на скачивание: 
+        <translation>Не удалось добавить задачу на скачивание:
 %1</translation>
     </message>
     <message>
@@ -1330,9 +1330,9 @@ You can click the &quot;Open&quot; button to view it.</source>
         <translation>Диалог</translation>
     </message>
     <message>
-        <source>%1 organizes files by libraries. 
+        <source>%1 organizes files by libraries.
 Do you like to download your default library?</source>
-        <translation>%1 хранит файлы в библиотеках. 
+        <translation>%1 хранит файлы в библиотеках.
 Хотите скачать библиотеку по умолчанию?</translation>
     </message>
     <message>
@@ -2677,7 +2677,7 @@ File path contains invalid characters. It is not synced to this computer.</sourc
         <translation>Интервал синхронизации (в секундах):</translation>
     </message>
     <message>
-        <source>Set Sync Internval For Library &quot;%1&quot;</source>
+        <source>Set Sync Interval For Library &quot;%1&quot;</source>
         <translation>Установить интервал синхронизации для библиотеки &quot;%1&quot;</translation>
     </message>
     <message>

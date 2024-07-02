@@ -1113,7 +1113,7 @@ void RepoTreeView::setRepoSyncInterval()
     dialog.setObjectName("syncIntervalDialog");
     dialog.setLabelText(tr("Sync Interval (In seconds):"));
     dialog.setWindowTitle(
-        tr("Set Sync Internval For Library \"%1\"").arg(local_repo.name));
+        tr("Set Sync Interval For Library \"%1\"").arg(local_repo.name));
     dialog.setWindowIcon(QIcon(":/images/seafile.png"));
     dialog.setWindowFlags(dialog.windowFlags() & ~Qt::WindowContextHelpButtonHint);
     dialog.resize(400, 100);

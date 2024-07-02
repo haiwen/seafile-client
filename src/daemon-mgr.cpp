@@ -20,7 +20,7 @@ namespace {
 const int kConnDaemonIntervalMilli = 1000;
 const int kMaxDaemonReadyCheck = 15;
 
-const int kDaemonRestartInternvalMSecs = 2000;
+const int kDaemonRestartIntervalMSecs = 2000;
 const int kDaemonRestartMaxRetries = 10;
 
 #if defined(Q_OS_WIN32)
@@ -205,7 +205,7 @@ void DaemonManager::scheduleRestartDaemon()
         seafApplet->errorAndExit(tr("%1 exited unexpectedly").arg(getBrand()));
         return;
     }
-    QTimer::singleShot(kDaemonRestartInternvalMSecs, this, SLOT(restartSeafileDaemon()));
+    QTimer::singleShot(kDaemonRestartIntervalMSecs, this, SLOT(restartSeafileDaemon()));
 }
 
 void DaemonManager::transitionState(int new_state)

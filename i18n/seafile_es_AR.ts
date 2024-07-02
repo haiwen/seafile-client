@@ -1329,7 +1329,7 @@ Puede hacer click en &quot;Abrir&quot; para verla.</translation>
         <translation>Detalles</translation>
     </message>
     <message>
-        <source>%1 organizes files by libraries. 
+        <source>%1 organizes files by libraries.
 Do you like to download your default library?</source>
         <translation>%1 organiza los archivos en bibliotecas
 ¿Desea descargar la biblioteca predefinida?</translation>
@@ -2678,7 +2678,7 @@ La ruta al archivo contiene caracteres invalidos. No se sincroniza a esta comput
         <translation>Intervalo de Sincronización (en segundos):</translation>
     </message>
     <message>
-        <source>Set Sync Internval For Library &quot;%1&quot;</source>
+        <source>Set Sync Interval For Library &quot;%1&quot;</source>
         <translation>Establecer Intervalo de Sincronización para la Biblioteca &quot;%1&quot;</translation>
     </message>
     <message>

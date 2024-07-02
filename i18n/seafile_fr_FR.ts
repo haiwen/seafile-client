@@ -1289,13 +1289,13 @@ La version de votre serveur doit être 2.1 ou plus.</translation>
     <message>
         <source>Failed to get default library:
 %1</source>
-        <translation>Impossible de récupérer la bibliothèque par défaut : 
+        <translation>Impossible de récupérer la bibliothèque par défaut :
 %1</translation>
     </message>
     <message>
         <source>Failed to create default library:
 %1</source>
-        <translation>Impossible de créer la bibliothèque par défaut : 
+        <translation>Impossible de créer la bibliothèque par défaut :
 %1</translation>
     </message>
     <message>
@@ -1305,7 +1305,7 @@ La version de votre serveur doit être 2.1 ou plus.</translation>
     <message>
         <source>Failed to download default library:
 %1</source>
-        <translation>Impossible de télécharger la bibliothèque par défaut : 
+        <translation>Impossible de télécharger la bibliothèque par défaut :
 %1</translation>
     </message>
     <message>
@@ -1329,7 +1329,7 @@ Vous pouvez cliquer sur le bouton &quot;Ouvrir&quot; pour la voir.</translation>
         <translation>Dialogue</translation>
     </message>
     <message>
-        <source>%1 organizes files by libraries. 
+        <source>%1 organizes files by libraries.
 Do you like to download your default library?</source>
         <translation>%1 organise les fichiers par bibliothèques.
 Voulez-vous télécharger la bibliothèque par défaut ?</translation>
@@ -2677,7 +2677,7 @@ Le nom de fichier contient des caractères invalides. Il n&apos;est pas synchron
         <translation>Intervalle de synchro (en secondes) :</translation>
     </message>
     <message>
-        <source>Set Sync Internval For Library &quot;%1&quot;</source>
+        <source>Set Sync Interval For Library &quot;%1&quot;</source>
         <translation>Paramétrer l&apos;intervalle de synchro pour la bibliothèque &quot;%1&quot;</translation>
     </message>
     <message>

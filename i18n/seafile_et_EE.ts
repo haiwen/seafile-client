@@ -1310,7 +1310,7 @@ You can click the &quot;Open&quot; button to view it.</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <source>%1 organizes files by libraries. 
+        <source>%1 organizes files by libraries.
 Do you like to download your default library?</source>
         <translation type="unfinished"/>
     </message>
@@ -2649,7 +2649,7 @@ File path contains invalid characters. It is not synced to this computer.</sourc
         <translation type="unfinished"/>
     </message>
     <message>
-        <source>Set Sync Internval For Library &quot;%1&quot;</source>
+        <source>Set Sync Interval For Library &quot;%1&quot;</source>
         <translation type="unfinished"/>
     </message>
     <message>

@@ -1310,7 +1310,7 @@ The server version must be 2.1 or higher to support this.</source>
     <message>
         <source>The default library has been downloaded.
 You can click the &quot;Open&quot; button to view it.</source>
-        <translation>デフォルトのライブラリがダウンロードされました。 
+        <translation>デフォルトのライブラリがダウンロードされました。
 「開く」ボタンをクリックすると表示されます。</translation>
     </message>
     <message>
@@ -1328,7 +1328,7 @@ You can click the &quot;Open&quot; button to view it.</source>
         <translation>ダイアログ</translation>
     </message>
     <message>
-        <source>%1 organizes files by libraries. 
+        <source>%1 organizes files by libraries.
 Do you like to download your default library?</source>
         <translation>%1はファイルをライブラリごとに整理します。
 デフォルトのライブラリをダウンロードしますか？</translation>
@@ -2677,7 +2677,7 @@ File path contains invalid characters. It is not synced to this computer.</sourc
         <translation>同期間隔（秒単位）：</translation>
     </message>
     <message>
-        <source>Set Sync Internval For Library &quot;%1&quot;</source>
+        <source>Set Sync Interval For Library &quot;%1&quot;</source>
         <translation>ライブラリ &quot;％1&quot;の同期間隔を設定します</translation>
     </message>
     <message>

@@ -1320,7 +1320,7 @@ You can click the &quot;Open&quot; button to view it.</source>
         <translation>对话框</translation>
     </message>
     <message>
-        <source>%1 organizes files by libraries. 
+        <source>%1 organizes files by libraries.
 Do you like to download your default library?</source>
         <translation>%1用资料库的方式来组织文件。
 您想要下载您的默认资料库吗？</translation>
@@ -2667,7 +2667,7 @@ File path contains invalid characters. It is not synced to this computer.</sourc
         <translation>同步间隔 (秒)</translation>
     </message>
     <message>
-        <source>Set Sync Internval For Library &quot;%1&quot;</source>
+        <source>Set Sync Interval For Library &quot;%1&quot;</source>
         <translation>设置资料库 “%1” 的同步间隔</translation>
     </message>
     <message>

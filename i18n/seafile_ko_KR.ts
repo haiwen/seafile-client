@@ -203,7 +203,7 @@
     <message>
         <source>File &quot;%1&quot;
 uploaded successfully.</source>
-        <translation>&quot;%1&quot; 파일 
+        <translation>&quot;%1&quot; 파일
 업로드에 성공했습니다.</translation>
     </message>
     <message>
@@ -1330,7 +1330,7 @@ You can click the &quot;Open&quot; button to view it.</source>
         <translation>대화상자</translation>
     </message>
     <message>
-        <source>%1 organizes files by libraries. 
+        <source>%1 organizes files by libraries.
 Do you like to download your default library?</source>
         <translation>%1 에서 라이브러리로 파일을 모아둡니다.
 기본 라이브러리를 다운로드할까요?</translation>
@@ -2679,7 +2679,7 @@ File path contains invalid characters. It is not synced to this computer.</sourc
         <translation>동기화 시간 간격(초 단위):</translation>
     </message>
     <message>
-        <source>Set Sync Internval For Library &quot;%1&quot;</source>
+        <source>Set Sync Interval For Library &quot;%1&quot;</source>
         <translation>&quot;%1&quot; 라이브러리 동기화 시간 간격을 설정합니다</translation>
     </message>
     <message>

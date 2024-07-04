@@ -1329,7 +1329,7 @@ A kötet böngészéséhez kattintson a &quot;Megnyitás&quot; gombra.</translat
         <translation>Párbeszédablak</translation>
     </message>
     <message>
-        <source>%1 organizes files by libraries. 
+        <source>%1 organizes files by libraries.
 Do you like to download your default library?</source>
         <translation>%1 kötetekbe szervezi a fájlokat.
 Letölti az alapértelmezett kötetet?</translation>
@@ -2672,7 +2672,7 @@ File path contains invalid characters. It is not synced to this computer.</sourc
         <translation>Szinkronizálási időköz (másodpercben):</translation>
     </message>
     <message>
-        <source>Set Sync Internval For Library &quot;%1&quot;</source>
+        <source>Set Sync Interval For Library &quot;%1&quot;</source>
         <translation>&quot;%1&quot; kötet szinkronizálási időközének beállítása</translation>
     </message>
     <message>

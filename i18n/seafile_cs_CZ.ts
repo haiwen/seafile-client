@@ -1331,7 +1331,7 @@ Klikněte na tlačítko &quot;Otevřít&quot; pro zobrazení.</translation>
         <translation>Dialog</translation>
     </message>
     <message>
-        <source>%1 organizes files by libraries. 
+        <source>%1 organizes files by libraries.
 Do you like to download your default library?</source>
         <translation>%1 organizuje soubory dle knihoven.
 Chceš stáhnout svoji výchozí knihovnu ?</translation>
@@ -2680,7 +2680,7 @@ Cesta k souboru obsahuje nepovolený znak. Není synchronizovaný do tohoto poč
         <translation>Interval synchronizace (ve vteřinách):</translation>
     </message>
     <message>
-        <source>Set Sync Internval For Library &quot;%1&quot;</source>
+        <source>Set Sync Interval For Library &quot;%1&quot;</source>
         <translation>Nastavit interval synchronizace pro knihovnu &quot;%1&quot;</translation>
     </message>
     <message>

@@ -1108,7 +1108,7 @@ Bitte %1</translation>
     <message>
         <source>This feature is available in pro version only
 </source>
-        <translation>Dieses Feature ist nur in der Pro-Version verfügbar 
+        <translation>Dieses Feature ist nur in der Pro-Version verfügbar
 </translation>
     </message>
     <message>
@@ -1328,7 +1328,7 @@ Klicken Sie auf „Öffnen“, um sie anzusehen.</translation>
         <translation>Dialog</translation>
     </message>
     <message>
-        <source>%1 organizes files by libraries. 
+        <source>%1 organizes files by libraries.
 Do you like to download your default library?</source>
         <translation>%1 organisiert Dateien in Bibliotheken.
 Möchten Sie Ihre Standardbibliothek herunterladen?</translation>
@@ -2677,7 +2677,7 @@ Die Ordnerstruktur enthält ungültige Zeichen. Synchronisieren mit diesem Compu
         <translation>Sync-Intervall (in Sekunden):</translation>
     </message>
     <message>
-        <source>Set Sync Internval For Library &quot;%1&quot;</source>
+        <source>Set Sync Interval For Library &quot;%1&quot;</source>
         <translation>Sync-Intervall für Bibliothek „%1“ festlegen</translation>
     </message>
     <message>

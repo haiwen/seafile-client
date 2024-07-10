@@ -37,7 +37,8 @@ SINGLETON_IMPL(DataManager)
 
 DataManager::DataManager()
     : filecache_(FileCache::instance()),
-      dirents_cache_(DirentsCache::instance())
+      dirents_cache_(DirentsCache::instance()),
+      copy_move_in_progress_(false)
 {
 }
 

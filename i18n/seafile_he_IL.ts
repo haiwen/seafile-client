@@ -1320,11 +1320,6 @@ You can click the &quot;Open&quot; button to view it.</source>
         <translation>דיאלוג</translation>
     </message>
     <message>
-        <source>%1 organizes files by libraries.
-Do you like to download your default library?</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
         <source>Skip</source>
         <translation>דלג</translation>
     </message>
@@ -1351,6 +1346,11 @@ Do you like to download your default library?</source>
     <message>
         <source>logo</source>
         <translation>לוגו</translation>
+    </message>
+    <message>
+        <source>%1 organizes files by libraries. 
+Do you like to download your default library?</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -1654,10 +1654,6 @@ File path contains invalid characters. It is not synced to this computer.</sourc
         <translation type="unfinished"/>
     </message>
     <message>
-        <source>Too many files in library</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
         <source>Do you want to delete files in library &quot;%1&quot; ?</source>
         <translation type="unfinished"/>
     </message>
@@ -1666,11 +1662,15 @@ File path contains invalid characters. It is not synced to this computer.</sourc
         <translation type="unfinished"/>
     </message>
     <message>
-        <source>Library contains too many files.</source>
+        <source>Path has character case conflict with existing file or folder. Will not be downloaded</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <source>Path has character case conflict with existing file or folder. Will not be downloaded</source>
+        <source>Library cannot be synced since it has too many files.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Files cannot be uploaded to this library due to file number limit settings.</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -2324,10 +2324,6 @@ File path contains invalid characters. It is not synced to this computer.</sourc
         <translation type="unfinished"/>
     </message>
     <message>
-        <source>Too many files in library</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
         <source>Failed to download file. Please check disk space or folder permissions</source>
         <translation type="unfinished"/>
     </message>
@@ -2336,11 +2332,15 @@ File path contains invalid characters. It is not synced to this computer.</sourc
         <translation type="unfinished"/>
     </message>
     <message>
-        <source>Library contains too many files.</source>
+        <source>Path has character case conflict with existing file or folder. Will not be downloaded</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <source>Path has character case conflict with existing file or folder. Will not be downloaded</source>
+        <source>Library cannot be synced since it has too many files.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Files cannot be uploaded to this library due to file number limit settings.</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -2430,10 +2430,6 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     <name>RepoItemDelegate</name>
     <message>
         <source>, %1%2</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>, %1</source>
         <translation type="unfinished"/>
     </message>
     <message>

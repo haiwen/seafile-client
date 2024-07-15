@@ -487,7 +487,7 @@ failed to upload.</source>
     <message>
         <source>Failed to add download task:
  %1</source>
-        <translation>Не удалось добавить задачу на скачивание:
+        <translation>Не удалось добавить задачу на скачивание: 
 %1</translation>
     </message>
     <message>
@@ -1330,12 +1330,6 @@ You can click the &quot;Open&quot; button to view it.</source>
         <translation>Диалог</translation>
     </message>
     <message>
-        <source>%1 organizes files by libraries.
-Do you like to download your default library?</source>
-        <translation>%1 хранит файлы в библиотеках.
-Хотите скачать библиотеку по умолчанию?</translation>
-    </message>
-    <message>
         <source>Skip</source>
         <translation>Пропустить</translation>
     </message>
@@ -1362,6 +1356,12 @@ Do you like to download your default library?</source>
     <message>
         <source>logo</source>
         <translation>заставка</translation>
+    </message>
+    <message>
+        <source>%1 organizes files by libraries. 
+Do you like to download your default library?</source>
+        <translation>%1 хранит файлы в библиотеках. 
+Хотите скачать библиотеку по умолчанию?</translation>
     </message>
 </context>
 <context>
@@ -1563,7 +1563,7 @@ Do you like to download your default library?</source>
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;For example: https://example.your-server.com&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Например: https://example.your-server.com&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
 </context>
 <context>
@@ -1671,10 +1671,6 @@ File path contains invalid characters. It is not synced to this computer.</sourc
         <translation>Удалено &quot;%1&quot; и еще %2 файлов.</translation>
     </message>
     <message>
-        <source>Too many files in library</source>
-        <translation>Слишком много файлов в библиотеке</translation>
-    </message>
-    <message>
         <source>Do you want to delete files in library &quot;%1&quot; ?</source>
         <translation>Вы хотите удалить файлы в библиотеке &quot;%1&quot; ?</translation>
     </message>
@@ -1683,11 +1679,15 @@ File path contains invalid characters. It is not synced to this computer.</sourc
         <translation>Не удалось скачать файл %1. Проверьте место на диске или права доступа к папке</translation>
     </message>
     <message>
-        <source>Library contains too many files.</source>
-        <translation>Библиотека содержит слишком много файлов.</translation>
+        <source>Path has character case conflict with existing file or folder. Will not be downloaded</source>
+        <translation>Путь конфликтует с регистром символов существующего файла или папки. Не будет загружено</translation>
     </message>
     <message>
-        <source>Path has character case conflict with existing file or folder. Will not be downloaded</source>
+        <source>Library cannot be synced since it has too many files.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Files cannot be uploaded to this library due to file number limit settings.</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -2341,10 +2341,6 @@ File path contains invalid characters. It is not synced to this computer.</sourc
         <translation>Ожидание подтверждения удаления файлов</translation>
     </message>
     <message>
-        <source>Too many files in library</source>
-        <translation>Слишком много файлов в библиотеке</translation>
-    </message>
-    <message>
         <source>Failed to download file. Please check disk space or folder permissions</source>
         <translation>Не удалось скачать файл. Проверьте место на диске или права доступа к папке</translation>
     </message>
@@ -2353,12 +2349,16 @@ File path contains invalid characters. It is not synced to this computer.</sourc
         <translation>Не удалось загрузить блоки файлов. Проверьте сеть или брандмауэр</translation>
     </message>
     <message>
-        <source>Library contains too many files.</source>
-        <translation>Библиотека содержит слишком много файлов.</translation>
-    </message>
-    <message>
         <source>Path has character case conflict with existing file or folder. Will not be downloaded</source>
         <translation>Путь конфликтует с регистром символов существующего файла или папки. Не будет загружено</translation>
+    </message>
+    <message>
+        <source>Library cannot be synced since it has too many files.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Files cannot be uploaded to this library due to file number limit settings.</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -2448,10 +2448,6 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     <message>
         <source>, %1%2</source>
         <translation>, %1%2</translation>
-    </message>
-    <message>
-        <source>, %1</source>
-        <translation>, %1</translation>
     </message>
     <message>
         <source>This library has not been downloaded</source>
@@ -2678,7 +2674,7 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     </message>
     <message>
         <source>Set Sync Interval For Library &quot;%1&quot;</source>
-        <translation>Установить интервал синхронизации для библиотеки &quot;%1&quot;</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Show sync errors</source>

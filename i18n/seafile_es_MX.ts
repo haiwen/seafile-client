@@ -1329,12 +1329,6 @@ Puede hacer click en &quot;Abrir&quot; para verla.</translation>
         <translation>Detalles</translation>
     </message>
     <message>
-        <source>%1 organizes files by libraries.
-Do you like to download your default library?</source>
-        <translation>%1 organiza los archivos en bibliotecas
-¿Desea descargar la biblioteca predefinida?</translation>
-    </message>
-    <message>
         <source>Skip</source>
         <translation>Saltear</translation>
     </message>
@@ -1361,6 +1355,12 @@ Do you like to download your default library?</source>
     <message>
         <source>logo</source>
         <translation>logo</translation>
+    </message>
+    <message>
+        <source>%1 organizes files by libraries. 
+Do you like to download your default library?</source>
+        <translation>%1 organiza los archivos en bibliotecas
+¿Desea descargar la biblioteca predefinida?</translation>
     </message>
 </context>
 <context>
@@ -1670,10 +1670,6 @@ La ruta al archivo contiene caracteres invalidos. No se sincroniza a esta comput
         <translation type="unfinished"/>
     </message>
     <message>
-        <source>Too many files in library</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
         <source>Do you want to delete files in library &quot;%1&quot; ?</source>
         <translation type="unfinished"/>
     </message>
@@ -1682,11 +1678,15 @@ La ruta al archivo contiene caracteres invalidos. No se sincroniza a esta comput
         <translation type="unfinished"/>
     </message>
     <message>
-        <source>Library contains too many files.</source>
+        <source>Path has character case conflict with existing file or folder. Will not be downloaded</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <source>Path has character case conflict with existing file or folder. Will not be downloaded</source>
+        <source>Library cannot be synced since it has too many files.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Files cannot be uploaded to this library due to file number limit settings.</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -2340,10 +2340,6 @@ La ruta al archivo contiene caracteres invalidos. No se sincroniza a esta comput
         <translation type="unfinished"/>
     </message>
     <message>
-        <source>Too many files in library</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
         <source>Failed to download file. Please check disk space or folder permissions</source>
         <translation type="unfinished"/>
     </message>
@@ -2352,11 +2348,15 @@ La ruta al archivo contiene caracteres invalidos. No se sincroniza a esta comput
         <translation type="unfinished"/>
     </message>
     <message>
-        <source>Library contains too many files.</source>
+        <source>Path has character case conflict with existing file or folder. Will not be downloaded</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <source>Path has character case conflict with existing file or folder. Will not be downloaded</source>
+        <source>Library cannot be synced since it has too many files.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Files cannot be uploaded to this library due to file number limit settings.</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -2447,10 +2447,6 @@ La ruta al archivo contiene caracteres invalidos. No se sincroniza a esta comput
     <message>
         <source>, %1%2</source>
         <translation>, %1%2</translation>
-    </message>
-    <message>
-        <source>, %1</source>
-        <translation>, %1</translation>
     </message>
     <message>
         <source>This library has not been downloaded</source>
@@ -2679,7 +2675,7 @@ La ruta al archivo contiene caracteres invalidos. No se sincroniza a esta comput
     </message>
     <message>
         <source>Set Sync Interval For Library &quot;%1&quot;</source>
-        <translation>Establecer Intervalo de Sincronización para la Biblioteca &quot;%1&quot;</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Show sync errors</source>

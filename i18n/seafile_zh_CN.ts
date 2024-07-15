@@ -1320,12 +1320,6 @@ You can click the &quot;Open&quot; button to view it.</source>
         <translation>对话框</translation>
     </message>
     <message>
-        <source>%1 organizes files by libraries.
-Do you like to download your default library?</source>
-        <translation>%1用资料库的方式来组织文件。
-您想要下载您的默认资料库吗？</translation>
-    </message>
-    <message>
         <source>Skip</source>
         <translation>跳过</translation>
     </message>
@@ -1352,6 +1346,12 @@ Do you like to download your default library?</source>
     <message>
         <source>logo</source>
         <translation>标志</translation>
+    </message>
+    <message>
+        <source>%1 organizes files by libraries. 
+Do you like to download your default library?</source>
+        <translation>%1用资料库的方式来组织文件。
+您想要下载您的默认资料库吗？</translation>
     </message>
 </context>
 <context>
@@ -1661,10 +1661,6 @@ File path contains invalid characters. It is not synced to this computer.</sourc
         <translation>删除了 “%1” 以及其它 %2 个文件</translation>
     </message>
     <message>
-        <source>Too many files in library</source>
-        <translation>资料库的文件太多</translation>
-    </message>
-    <message>
         <source>Do you want to delete files in library &quot;%1&quot; ?</source>
         <translation>确认删除 “%1” 资料库中的文件？</translation>
     </message>
@@ -1673,12 +1669,16 @@ File path contains invalid characters. It is not synced to this computer.</sourc
         <translation>下载文件失败：%1 ，请检查磁盘可用空间以及文件夹权限。</translation>
     </message>
     <message>
-        <source>Library contains too many files.</source>
-        <translation>资料库文件数过多。</translation>
-    </message>
-    <message>
         <source>Path has character case conflict with existing file or folder. Will not be downloaded</source>
         <translation>同步路径与现存文件或目录存在大小写冲突，下载已跳过</translation>
+    </message>
+    <message>
+        <source>Library cannot be synced since it has too many files.</source>
+        <translation>资料库文件太多，无法进行同步。</translation>
+    </message>
+    <message>
+        <source>Files cannot be uploaded to this library due to file number limit settings.</source>
+        <translation>由于资料库文件数限制，文件无法上传。</translation>
     </message>
 </context>
 <context>
@@ -2331,10 +2331,6 @@ File path contains invalid characters. It is not synced to this computer.</sourc
         <translation>等待确认文件删除操作</translation>
     </message>
     <message>
-        <source>Too many files in library</source>
-        <translation>资料库的文件太多</translation>
-    </message>
-    <message>
         <source>Failed to download file. Please check disk space or folder permissions</source>
         <translation>下载文件失败，请检查磁盘可用空间以及文件夹权限。</translation>
     </message>
@@ -2343,12 +2339,16 @@ File path contains invalid characters. It is not synced to this computer.</sourc
         <translation>上传文件块失败，请检查网络或防火墙设置。</translation>
     </message>
     <message>
-        <source>Library contains too many files.</source>
-        <translation>资料库文件数过多。</translation>
-    </message>
-    <message>
         <source>Path has character case conflict with existing file or folder. Will not be downloaded</source>
         <translation>同步路径与现存文件或目录存在大小写冲突，下载已跳过</translation>
+    </message>
+    <message>
+        <source>Library cannot be synced since it has too many files.</source>
+        <translation>资料库文件太多，无法进行同步。</translation>
+    </message>
+    <message>
+        <source>Files cannot be uploaded to this library due to file number limit settings.</source>
+        <translation>由于资料库文件数限制，文件无法上传。</translation>
     </message>
 </context>
 <context>
@@ -2438,10 +2438,6 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     <message>
         <source>, %1%2</source>
         <translation>, %1%2</translation>
-    </message>
-    <message>
-        <source>, %1</source>
-        <translation>, %1</translation>
     </message>
     <message>
         <source>This library has not been downloaded</source>
@@ -2610,7 +2606,7 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     </message>
     <message>
         <source>set sync interval for this library</source>
-        <translation>设置资料库 “%1” 的同步间隔</translation>
+        <translation>设置这个资料库的同步间隔</translation>
     </message>
     <message>
         <source>Are you sure to unsync the library &quot;%1&quot;?</source>

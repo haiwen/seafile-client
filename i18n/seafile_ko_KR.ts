@@ -203,7 +203,7 @@
     <message>
         <source>File &quot;%1&quot;
 uploaded successfully.</source>
-        <translation>&quot;%1&quot; 파일
+        <translation>&quot;%1&quot; 파일 
 업로드에 성공했습니다.</translation>
     </message>
     <message>
@@ -1330,12 +1330,6 @@ You can click the &quot;Open&quot; button to view it.</source>
         <translation>대화상자</translation>
     </message>
     <message>
-        <source>%1 organizes files by libraries.
-Do you like to download your default library?</source>
-        <translation>%1 에서 라이브러리로 파일을 모아둡니다.
-기본 라이브러리를 다운로드할까요?</translation>
-    </message>
-    <message>
         <source>Skip</source>
         <translation>건너뛰기</translation>
     </message>
@@ -1362,6 +1356,12 @@ Do you like to download your default library?</source>
     <message>
         <source>logo</source>
         <translation>로고</translation>
+    </message>
+    <message>
+        <source>%1 organizes files by libraries. 
+Do you like to download your default library?</source>
+        <translation>%1 에서 라이브러리로 파일을 모아둡니다.
+기본 라이브러리를 다운로드할까요?</translation>
     </message>
 </context>
 <context>
@@ -1671,10 +1671,6 @@ File path contains invalid characters. It is not synced to this computer.</sourc
         <translation>&quot;%1&quot; 파일 및 파일 %2 개를 삭제했습니다.</translation>
     </message>
     <message>
-        <source>Too many files in library</source>
-        <translation>라이브러리에 파일이 너무 많습니다</translation>
-    </message>
-    <message>
         <source>Do you want to delete files in library &quot;%1&quot; ?</source>
         <translation>&quot;%1&quot; 라이브러리 파일을 삭제할까요?</translation>
     </message>
@@ -1683,11 +1679,15 @@ File path contains invalid characters. It is not synced to this computer.</sourc
         <translation>%1 파일 다운로드에 실패했습니다. 디스크 공간 또는 폴더 권한을 확인하세요</translation>
     </message>
     <message>
-        <source>Library contains too many files.</source>
+        <source>Path has character case conflict with existing file or folder. Will not be downloaded</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <source>Path has character case conflict with existing file or folder. Will not be downloaded</source>
+        <source>Library cannot be synced since it has too many files.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Files cannot be uploaded to this library due to file number limit settings.</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -2341,10 +2341,6 @@ File path contains invalid characters. It is not synced to this computer.</sourc
         <translation>파일 삭제 확인을 기다리는 중</translation>
     </message>
     <message>
-        <source>Too many files in library</source>
-        <translation>라이브러리에 파일이 너무 많습니다</translation>
-    </message>
-    <message>
         <source>Failed to download file. Please check disk space or folder permissions</source>
         <translation>파일 다운로드에 실패했습니다. 디스크 공간 또는 폴더 권한을 확인하세요</translation>
     </message>
@@ -2353,11 +2349,15 @@ File path contains invalid characters. It is not synced to this computer.</sourc
         <translation>파일 블록 업로드에 실패했습니다. 네트워크 또는 방화벽을 확인하세요</translation>
     </message>
     <message>
-        <source>Library contains too many files.</source>
+        <source>Path has character case conflict with existing file or folder. Will not be downloaded</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <source>Path has character case conflict with existing file or folder. Will not be downloaded</source>
+        <source>Library cannot be synced since it has too many files.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Files cannot be uploaded to this library due to file number limit settings.</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -2448,10 +2448,6 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     <message>
         <source>, %1%2</source>
         <translation>, %1%2</translation>
-    </message>
-    <message>
-        <source>, %1</source>
-        <translation>, %1</translation>
     </message>
     <message>
         <source>This library has not been downloaded</source>
@@ -2680,7 +2676,7 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     </message>
     <message>
         <source>Set Sync Interval For Library &quot;%1&quot;</source>
-        <translation>&quot;%1&quot; 라이브러리 동기화 시간 간격을 설정합니다</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Show sync errors</source>

@@ -1331,12 +1331,6 @@ Klikněte na tlačítko &quot;Otevřít&quot; pro zobrazení.</translation>
         <translation>Dialog</translation>
     </message>
     <message>
-        <source>%1 organizes files by libraries.
-Do you like to download your default library?</source>
-        <translation>%1 organizuje soubory dle knihoven.
-Chceš stáhnout svoji výchozí knihovnu ?</translation>
-    </message>
-    <message>
         <source>Skip</source>
         <translation>Přeskočit</translation>
     </message>
@@ -1363,6 +1357,12 @@ Chceš stáhnout svoji výchozí knihovnu ?</translation>
     <message>
         <source>logo</source>
         <translation>logo</translation>
+    </message>
+    <message>
+        <source>%1 organizes files by libraries. 
+Do you like to download your default library?</source>
+        <translation>%1 organizuje soubory dle knihoven.
+Chceš stáhnout svoji výchozí knihovnu ?</translation>
     </message>
 </context>
 <context>
@@ -1672,10 +1672,6 @@ Cesta k souboru obsahuje nepovolený znak. Není synchronizovaný do tohoto poč
         <translation type="unfinished"/>
     </message>
     <message>
-        <source>Too many files in library</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
         <source>Do you want to delete files in library &quot;%1&quot; ?</source>
         <translation type="unfinished"/>
     </message>
@@ -1684,11 +1680,15 @@ Cesta k souboru obsahuje nepovolený znak. Není synchronizovaný do tohoto poč
         <translation type="unfinished"/>
     </message>
     <message>
-        <source>Library contains too many files.</source>
+        <source>Path has character case conflict with existing file or folder. Will not be downloaded</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <source>Path has character case conflict with existing file or folder. Will not be downloaded</source>
+        <source>Library cannot be synced since it has too many files.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Files cannot be uploaded to this library due to file number limit settings.</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -2342,10 +2342,6 @@ Cesta k souboru obsahuje nepovolený znak. Není synchronizovaný do tohoto poč
         <translation type="unfinished"/>
     </message>
     <message>
-        <source>Too many files in library</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
         <source>Failed to download file. Please check disk space or folder permissions</source>
         <translation type="unfinished"/>
     </message>
@@ -2354,11 +2350,15 @@ Cesta k souboru obsahuje nepovolený znak. Není synchronizovaný do tohoto poč
         <translation type="unfinished"/>
     </message>
     <message>
-        <source>Library contains too many files.</source>
+        <source>Path has character case conflict with existing file or folder. Will not be downloaded</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <source>Path has character case conflict with existing file or folder. Will not be downloaded</source>
+        <source>Library cannot be synced since it has too many files.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Files cannot be uploaded to this library due to file number limit settings.</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -2449,10 +2449,6 @@ Cesta k souboru obsahuje nepovolený znak. Není synchronizovaný do tohoto poč
     <message>
         <source>, %1%2</source>
         <translation>, %1%2</translation>
-    </message>
-    <message>
-        <source>, %1</source>
-        <translation>, %1</translation>
     </message>
     <message>
         <source>This library has not been downloaded</source>
@@ -2681,7 +2677,7 @@ Cesta k souboru obsahuje nepovolený znak. Není synchronizovaný do tohoto poč
     </message>
     <message>
         <source>Set Sync Interval For Library &quot;%1&quot;</source>
-        <translation>Nastavit interval synchronizace pro knihovnu &quot;%1&quot;</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Show sync errors</source>

@@ -1108,7 +1108,7 @@ Bitte %1</translation>
     <message>
         <source>This feature is available in pro version only
 </source>
-        <translation>Dieses Feature ist nur in der Pro-Version verfügbar
+        <translation>Dieses Feature ist nur in der Pro-Version verfügbar 
 </translation>
     </message>
     <message>
@@ -1328,12 +1328,6 @@ Klicken Sie auf „Öffnen“, um sie anzusehen.</translation>
         <translation>Dialog</translation>
     </message>
     <message>
-        <source>%1 organizes files by libraries.
-Do you like to download your default library?</source>
-        <translation>%1 organisiert Dateien in Bibliotheken.
-Möchten Sie Ihre Standardbibliothek herunterladen?</translation>
-    </message>
-    <message>
         <source>Skip</source>
         <translation>Überspringen</translation>
     </message>
@@ -1360,6 +1354,12 @@ Möchten Sie Ihre Standardbibliothek herunterladen?</translation>
     <message>
         <source>logo</source>
         <translation>Logo</translation>
+    </message>
+    <message>
+        <source>%1 organizes files by libraries. 
+Do you like to download your default library?</source>
+        <translation>%1 organisiert Dateien in Bibliotheken.
+Möchten Sie Ihre Standardbibliothek herunterladen?</translation>
     </message>
 </context>
 <context>
@@ -1561,7 +1561,7 @@ Möchten Sie Ihre Standardbibliothek herunterladen?</translation>
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;For example: https://example.your-server.com&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Zum Beispiel: https://example.your-server.com&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
 </context>
 <context>
@@ -1669,10 +1669,6 @@ Die Ordnerstruktur enthält ungültige Zeichen. Synchronisieren mit diesem Compu
         <translation>Die Datei &quot;%1&quot; und %2 weitere Dateien wurden gelöscht.</translation>
     </message>
     <message>
-        <source>Too many files in library</source>
-        <translation>Bibliothek enthält zu viele Dateien</translation>
-    </message>
-    <message>
         <source>Do you want to delete files in library &quot;%1&quot; ?</source>
         <translation>Möchten Sie die Dateien in Bibliothek „%1“ löschen?</translation>
     </message>
@@ -1681,11 +1677,15 @@ Die Ordnerstruktur enthält ungültige Zeichen. Synchronisieren mit diesem Compu
         <translation>Datei %1 konnte nicht heruntergeladen werden. Bitte überprüfen Sie den freien Speicherplatz und die Schreibrechte in den Ordnern</translation>
     </message>
     <message>
-        <source>Library contains too many files.</source>
-        <translation>Bibliothek enthält zu viele Dateien.</translation>
+        <source>Path has character case conflict with existing file or folder. Will not be downloaded</source>
+        <translation>Der Dateipfad enthält einen Zeichenkonflikt mit dem bestehenden Ordner oder einer Datei. Herunterladen nicht möglich</translation>
     </message>
     <message>
-        <source>Path has character case conflict with existing file or folder. Will not be downloaded</source>
+        <source>Library cannot be synced since it has too many files.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Files cannot be uploaded to this library due to file number limit settings.</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -2339,10 +2339,6 @@ Die Ordnerstruktur enthält ungültige Zeichen. Synchronisieren mit diesem Compu
         <translation>Die Löschbestätigung wir abgewartet.</translation>
     </message>
     <message>
-        <source>Too many files in library</source>
-        <translation>Bibliothek enthält zu viele Dateien</translation>
-    </message>
-    <message>
         <source>Failed to download file. Please check disk space or folder permissions</source>
         <translation>Datei konnte nicht heruntergeladen werden. Bitte überprüfen Sie den freien Speicherplatz und die Schreibrechte in den Ordnern</translation>
     </message>
@@ -2351,12 +2347,16 @@ Die Ordnerstruktur enthält ungültige Zeichen. Synchronisieren mit diesem Compu
         <translation>Datenblöcke konnten nicht hochgeladen werden. Bitte überprüfen Sie das Netzwerk oder die Firewall</translation>
     </message>
     <message>
-        <source>Library contains too many files.</source>
-        <translation>Bibliothek enthält zu viele Dateien.</translation>
-    </message>
-    <message>
         <source>Path has character case conflict with existing file or folder. Will not be downloaded</source>
         <translation>Der Dateipfad enthält einen Zeichenkonflikt mit dem bestehenden Ordner oder einer Datei. Herunterladen nicht möglich</translation>
+    </message>
+    <message>
+        <source>Library cannot be synced since it has too many files.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Files cannot be uploaded to this library due to file number limit settings.</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -2446,10 +2446,6 @@ Die Ordnerstruktur enthält ungültige Zeichen. Synchronisieren mit diesem Compu
     <message>
         <source>, %1%2</source>
         <translation>, %1%2</translation>
-    </message>
-    <message>
-        <source>, %1</source>
-        <translation>, %1</translation>
     </message>
     <message>
         <source>This library has not been downloaded</source>
@@ -2678,7 +2674,7 @@ Die Ordnerstruktur enthält ungültige Zeichen. Synchronisieren mit diesem Compu
     </message>
     <message>
         <source>Set Sync Interval For Library &quot;%1&quot;</source>
-        <translation>Sync-Intervall für Bibliothek „%1“ festlegen</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Show sync errors</source>

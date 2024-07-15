@@ -1289,13 +1289,13 @@ La version de votre serveur doit être 2.1 ou plus.</translation>
     <message>
         <source>Failed to get default library:
 %1</source>
-        <translation>Impossible de récupérer la bibliothèque par défaut :
+        <translation>Impossible de récupérer la bibliothèque par défaut : 
 %1</translation>
     </message>
     <message>
         <source>Failed to create default library:
 %1</source>
-        <translation>Impossible de créer la bibliothèque par défaut :
+        <translation>Impossible de créer la bibliothèque par défaut : 
 %1</translation>
     </message>
     <message>
@@ -1305,7 +1305,7 @@ La version de votre serveur doit être 2.1 ou plus.</translation>
     <message>
         <source>Failed to download default library:
 %1</source>
-        <translation>Impossible de télécharger la bibliothèque par défaut :
+        <translation>Impossible de télécharger la bibliothèque par défaut : 
 %1</translation>
     </message>
     <message>
@@ -1327,12 +1327,6 @@ Vous pouvez cliquer sur le bouton &quot;Ouvrir&quot; pour la voir.</translation>
     <message>
         <source>Dialog</source>
         <translation>Dialogue</translation>
-    </message>
-    <message>
-        <source>%1 organizes files by libraries.
-Do you like to download your default library?</source>
-        <translation>%1 organise les fichiers par bibliothèques.
-Voulez-vous télécharger la bibliothèque par défaut ?</translation>
     </message>
     <message>
         <source>Skip</source>
@@ -1361,6 +1355,12 @@ Voulez-vous télécharger la bibliothèque par défaut ?</translation>
     <message>
         <source>logo</source>
         <translation>logo</translation>
+    </message>
+    <message>
+        <source>%1 organizes files by libraries. 
+Do you like to download your default library?</source>
+        <translation>%1 organise les fichiers par bibliothèques.
+Voulez-vous télécharger la bibliothèque par défaut ?</translation>
     </message>
 </context>
 <context>
@@ -1669,10 +1669,6 @@ Le nom de fichier contient des caractères invalides. Il n&apos;est pas synchron
         <translation>Suppression de &quot;%1&quot; et de %2 autres fichiers.</translation>
     </message>
     <message>
-        <source>Too many files in library</source>
-        <translation>Trop de fichiers dans la bibliothèque</translation>
-    </message>
-    <message>
         <source>Do you want to delete files in library &quot;%1&quot; ?</source>
         <translation>Voulez-vous supprimer les fichiers dans la bibliothèque &quot;%1&quot; ?</translation>
     </message>
@@ -1681,11 +1677,15 @@ Le nom de fichier contient des caractères invalides. Il n&apos;est pas synchron
         <translation>Impossible de télécharger le fichier %1. Vérifiez l&apos;espace disque ou les permissions.</translation>
     </message>
     <message>
-        <source>Library contains too many files.</source>
+        <source>Path has character case conflict with existing file or folder. Will not be downloaded</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <source>Path has character case conflict with existing file or folder. Will not be downloaded</source>
+        <source>Library cannot be synced since it has too many files.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Files cannot be uploaded to this library due to file number limit settings.</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -2339,10 +2339,6 @@ Le nom de fichier contient des caractères invalides. Il n&apos;est pas synchron
         <translation>En attente de confirmation d&apos;effacement des fichiers</translation>
     </message>
     <message>
-        <source>Too many files in library</source>
-        <translation>Trop de fichiers dans la bibliothèque</translation>
-    </message>
-    <message>
         <source>Failed to download file. Please check disk space or folder permissions</source>
         <translation>Impossible de télécharger le fichier. Vérifiez l&apos;espace disque ou les permissions.</translation>
     </message>
@@ -2351,11 +2347,15 @@ Le nom de fichier contient des caractères invalides. Il n&apos;est pas synchron
         <translation>Impossible d&apos;envoyer les blocs de fichiers. Veuillez vérifier le réseau ou le pare-feu.</translation>
     </message>
     <message>
-        <source>Library contains too many files.</source>
+        <source>Path has character case conflict with existing file or folder. Will not be downloaded</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <source>Path has character case conflict with existing file or folder. Will not be downloaded</source>
+        <source>Library cannot be synced since it has too many files.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Files cannot be uploaded to this library due to file number limit settings.</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -2446,10 +2446,6 @@ Le nom de fichier contient des caractères invalides. Il n&apos;est pas synchron
     <message>
         <source>, %1%2</source>
         <translation>, %1%2</translation>
-    </message>
-    <message>
-        <source>, %1</source>
-        <translation>, %1</translation>
     </message>
     <message>
         <source>This library has not been downloaded</source>
@@ -2678,7 +2674,7 @@ Le nom de fichier contient des caractères invalides. Il n&apos;est pas synchron
     </message>
     <message>
         <source>Set Sync Interval For Library &quot;%1&quot;</source>
-        <translation>Paramétrer l&apos;intervalle de synchro pour la bibliothèque &quot;%1&quot;</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Show sync errors</source>

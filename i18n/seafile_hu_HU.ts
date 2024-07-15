@@ -1329,12 +1329,6 @@ A kötet böngészéséhez kattintson a &quot;Megnyitás&quot; gombra.</translat
         <translation>Párbeszédablak</translation>
     </message>
     <message>
-        <source>%1 organizes files by libraries.
-Do you like to download your default library?</source>
-        <translation>%1 kötetekbe szervezi a fájlokat.
-Letölti az alapértelmezett kötetet?</translation>
-    </message>
-    <message>
         <source>Skip</source>
         <translation>Kihagyás</translation>
     </message>
@@ -1361,6 +1355,12 @@ Letölti az alapértelmezett kötetet?</translation>
     <message>
         <source>logo</source>
         <translation>Embléma</translation>
+    </message>
+    <message>
+        <source>%1 organizes files by libraries. 
+Do you like to download your default library?</source>
+        <translation>%1 kötetekbe szervezi a fájlokat.
+Letölti az alapértelmezett kötetet?</translation>
     </message>
 </context>
 <context>
@@ -1664,10 +1664,6 @@ File path contains invalid characters. It is not synced to this computer.</sourc
         <translation type="unfinished"/>
     </message>
     <message>
-        <source>Too many files in library</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
         <source>Do you want to delete files in library &quot;%1&quot; ?</source>
         <translation type="unfinished"/>
     </message>
@@ -1676,11 +1672,15 @@ File path contains invalid characters. It is not synced to this computer.</sourc
         <translation type="unfinished"/>
     </message>
     <message>
-        <source>Library contains too many files.</source>
+        <source>Path has character case conflict with existing file or folder. Will not be downloaded</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <source>Path has character case conflict with existing file or folder. Will not be downloaded</source>
+        <source>Library cannot be synced since it has too many files.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Files cannot be uploaded to this library due to file number limit settings.</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -2334,10 +2334,6 @@ File path contains invalid characters. It is not synced to this computer.</sourc
         <translation type="unfinished"/>
     </message>
     <message>
-        <source>Too many files in library</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
         <source>Failed to download file. Please check disk space or folder permissions</source>
         <translation type="unfinished"/>
     </message>
@@ -2346,11 +2342,15 @@ File path contains invalid characters. It is not synced to this computer.</sourc
         <translation type="unfinished"/>
     </message>
     <message>
-        <source>Library contains too many files.</source>
+        <source>Path has character case conflict with existing file or folder. Will not be downloaded</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <source>Path has character case conflict with existing file or folder. Will not be downloaded</source>
+        <source>Library cannot be synced since it has too many files.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Files cannot be uploaded to this library due to file number limit settings.</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -2441,10 +2441,6 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     <message>
         <source>, %1%2</source>
         <translation>, %1%2</translation>
-    </message>
-    <message>
-        <source>, %1</source>
-        <translation>, %1</translation>
     </message>
     <message>
         <source>This library has not been downloaded</source>
@@ -2673,7 +2669,7 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     </message>
     <message>
         <source>Set Sync Interval For Library &quot;%1&quot;</source>
-        <translation>&quot;%1&quot; kötet szinkronizálási időközének beállítása</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Show sync errors</source>

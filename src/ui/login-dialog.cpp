@@ -475,7 +475,7 @@ void LoginDialog::clientSSOLinkSuccess(const QString& link)
     QString sso_link(link);
 
     qInfo() << "open sso link in browser:" << sso_link;
-    QDesktopServices::openUrl(QUrl(sso_link));
+    openUrl(QUrl(sso_link));
 
     QRegularExpression re("/client-sso/([^/]+)");
     QRegularExpressionMatch match = re.match(sso_link);

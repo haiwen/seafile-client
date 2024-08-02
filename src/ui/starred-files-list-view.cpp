@@ -72,7 +72,7 @@ void StarredFilesListView::viewFileOnWeb()
             strurl = "lib/" + file.repo_id + "/file" + file.path;
         }
         QUrl url = account.getAbsoluteUrl(strurl);
-        QDesktopServices::openUrl(url);
+        openUrl(url);
     }
 }
 

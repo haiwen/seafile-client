@@ -491,7 +491,7 @@ void RepoTreeView::showRepoDetail()
 void RepoTreeView::openLocalFolder()
 {
     LocalRepo repo = qvariant_cast<LocalRepo>(open_local_folder_action_->data());
-    QDesktopServices::openUrl(QUrl::fromLocalFile(repo.worktree));
+    openUrl(QUrl::fromLocalFile(repo.worktree));
 }
 
 void RepoTreeView::toggleRepoAutoSync()
@@ -557,7 +557,7 @@ void RepoTreeView::onItemDoubleClicked(const QModelIndex& index)
         const LocalRepo& local_repo = it->localRepo();
         if (local_repo.isValid()) {
             // open local folder for downloaded repo
-            QDesktopServices::openUrl(QUrl::fromLocalFile(local_repo.worktree));
+            openUrl(QUrl::fromLocalFile(local_repo.worktree));
         } else {
             // open seahub repo page for not downloaded repo
             FileBrowserManager::getInstance()->openOrActivateDialog(
@@ -573,7 +573,7 @@ void RepoTreeView::viewRepoOnWeb()
     if (account.isValid()) {
         // we adopt a new format of cloud view url from server version 4.2.0
         if (!account.isAtLeastVersion(4, 2, 0)) {
-            QDesktopServices::openUrl(account.getAbsoluteUrl("repo/" + selected_repo_.id));
+            openUrl(account.getAbsoluteUrl("repo/" + selected_repo_.id));
         } else {
             AutoLoginService::instance()->startAutoLogin("/library/" + selected_repo_.id + "/" + selected_repo_.name + "/");
         }

@@ -123,7 +123,7 @@ QString defaultDownloadDir() {
 bool openInNativeExtension(const QString &path) {
 #if defined(Q_OS_WIN32)
     //call ShellExecute internally
-    return QDesktopServices::openUrl(QUrl::fromLocalFile(path));
+    return openUrl(QUrl::fromLocalFile(path));
 #elif defined(Q_OS_MAC)
     // mac's open program, it will fork to open the file in a subprocess
     // so we will wait for it to check whether it succeeds or not
@@ -177,7 +177,7 @@ bool showInGraphicalShell(const QString& path) {
     QProcess::execute("/usr/bin/osascript", scriptArgs);
     return true;
 #else
-    return QDesktopServices::openUrl(QUrl::fromLocalFile(QFileInfo(path).absolutePath()));
+    return openUrl(QUrl::fromLocalFile(QFileInfo(path).absolutePath()));
 #endif
 }
 
@@ -837,4 +837,19 @@ QString trimNULL(QString& s) {
         s.chop(1);
     }
     return s;
+}
+
+bool openUrl(QUrl url) {
+#ifdef Q_OS_LINUX
+    // On linux openUrl will open the default browser via xgd-open, at this time LD_LIBRARY_PATH may affect xdg-open.
+    // We should unset this environment variable before openUrl, and reset it after openUrl.
+    QByteArray ldPath = qgetenv("LD_LIBRARY_PATH");
+    qunsetenv("LD_LIBRARY_PATH");
+#endif
+    QDesktopServices::openUrl(url);
+#ifdef Q_OS_LINUX
+    if (!ldPath.isEmpty()) {
+        qputenv("LD_LIBRARY_PATH", ldPath);
+    }
+#endif
 }

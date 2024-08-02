@@ -192,7 +192,7 @@ void InitVirtualDriveDialog::onDownloadRepoFailure(const ApiError& error)
 
 void InitVirtualDriveDialog::openVirtualDisk()
 {
-    QDesktopServices::openUrl(QUrl::fromLocalFile(default_repo_path_));
+    openUrl(QUrl::fromLocalFile(default_repo_path_));
     accept();
 }
 

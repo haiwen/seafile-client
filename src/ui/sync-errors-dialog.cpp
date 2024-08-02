@@ -235,7 +235,7 @@ void SyncErrorsTableView::onItemDoubleClicked(const QModelIndex& index)
         LocalRepo repo;
         seafApplet->rpcClient()->getLocalRepo(error.repo_id, &repo);
         if (repo.isValid()) {
-            QDesktopServices::openUrl(QUrl::fromLocalFile(repo.worktree));
+            openUrl(QUrl::fromLocalFile(repo.worktree));
         }
     }
 }

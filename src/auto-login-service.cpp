@@ -27,7 +27,7 @@ void AutoLoginService::startAutoLogin(const QString& next_url)
                             ? account.getAbsoluteUrl(next_url)
                             : next_url;
     if (!account.isValid() || !account.isAtLeastVersion(4, 2, 0)) {
-        QDesktopServices::openUrl(absolute_url);
+        openUrl(absolute_url);
         return;
     }
 
@@ -59,7 +59,7 @@ void AutoLoginService::onGetLoginTokenSuccess(const QString& token)
     params.insert("next", req->nextUrl());
     url = includeQueryParams(url, params);
 
-    QDesktopServices::openUrl(url);
+    openUrl(url);
     req->deleteLater();
 }
 
@@ -69,6 +69,6 @@ void AutoLoginService::onGetLoginTokenFailed(const ApiError& error)
     qWarning("get login token failed: %s\n", error.toString().toUtf8().data());
     // server doesn't support client directly login, or other errors happened.
     // We open the server url directly in this case;
-    QDesktopServices::openUrl(req->account().getAbsoluteUrl(req->nextUrl()));
+    openUrl(req->account().getAbsoluteUrl(req->nextUrl()));
     req->deleteLater();
 }

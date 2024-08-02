@@ -1628,7 +1628,7 @@ void FileBrowserDialog::onOpenLocalCacheFolder()
          seafApplet->warningBox(tr("Unable to create cache folder"), this);
          return;
      }
-     if (!QDesktopServices::openUrl(QUrl::fromLocalFile(folder)))
+     if (!openUrl(QUrl::fromLocalFile(folder)))
          seafApplet->warningBox(tr("Unable to open cache folder"), this);
 }
 

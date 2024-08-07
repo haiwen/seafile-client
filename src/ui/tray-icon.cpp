@@ -528,12 +528,12 @@ void SeafileTrayIcon::openHelp()
     } else {
         url = "https://help.seafile.com/syncing_client/install_sync/";
     }
-    QDesktopServices::openUrl(QUrl(url));
+    openUrl(QUrl(url));
 }
 
 void SeafileTrayIcon::openSeafileFolder()
 {
-    QDesktopServices::openUrl(QUrl::fromLocalFile(QFileInfo(seafApplet->configurator()->seafileDir()).path()));
+    openUrl(QUrl::fromLocalFile(QFileInfo(seafApplet->configurator()->seafileDir()).path()));
 }
 
 void SeafileTrayIcon::shellExtFix()
@@ -565,7 +565,7 @@ void SeafileTrayIcon::shellExtFix()
 void SeafileTrayIcon::openLogDirectory()
 {
     QString log_path = QDir(seafApplet->configurator()->ccnetDir()).absoluteFilePath("logs");
-    QDesktopServices::openUrl(QUrl::fromLocalFile(log_path));
+    openUrl(QUrl::fromLocalFile(log_path));
 }
 
 void SeafileTrayIcon::uploadLogDirectory()

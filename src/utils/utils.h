@@ -99,4 +99,6 @@ const QRect getScreenSize(int index);
 
 QString trimNULL(QString& s);
 
+bool openUrl(QUrl url);
+
 #endif

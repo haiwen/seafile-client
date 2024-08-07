@@ -841,8 +841,8 @@ QString trimNULL(QString& s) {
 
 bool openUrl(QUrl url) {
 #ifdef Q_OS_LINUX
-    // On linux openUrl will open the default browser via xgd-open, at this time LD_LIBRARY_PATH may affect xdg-open.
-    // We should unset this environment variable before openUrl, and reset it after openUrl.
+    // On linux openUrl will open the default browser via xgd-open.
+    // If the client is packaged as AppImage format, LD_LIBRARY_PATH is set to package location and may affect xdg-open.
     QByteArray ldPath = qgetenv("LD_LIBRARY_PATH");
     qunsetenv("LD_LIBRARY_PATH");
 #endif

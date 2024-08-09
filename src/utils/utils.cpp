@@ -846,10 +846,11 @@ bool openUrl(QUrl url) {
     QByteArray ldPath = qgetenv("LD_LIBRARY_PATH");
     qunsetenv("LD_LIBRARY_PATH");
 #endif
-    QDesktopServices::openUrl(url);
+    bool ret = QDesktopServices::openUrl(url);
 #ifdef Q_OS_LINUX
     if (!ldPath.isEmpty()) {
         qputenv("LD_LIBRARY_PATH", ldPath);
     }
 #endif
+    return ret;
 }

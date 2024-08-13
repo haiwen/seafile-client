@@ -284,6 +284,19 @@ void RepoService::onRefreshSuccess(const std::vector<ServerRepo>& repos)
         if (!found)
             startGetRequestFor(synced_subfolders_[i].repoId());
     }
+    for (size_t i = 0; i < local_repos_.size(); ++i) {
+        bool found = false;
+        const LocalRepo& repo = local_repos_[i];
+        for (size_t j = 0; j < server_repos_.size(); ++j) {
+            if (repo.id == server_repos_[j].id) {
+                found = true;
+                break;
+            }
+        }
+        if (!found) {
+            seafApplet->rpcClient()->unsync(repo.id);
+        }
+    }
 
     if (get_repo_reqs_.empty())
         emit refreshSuccess(repos);

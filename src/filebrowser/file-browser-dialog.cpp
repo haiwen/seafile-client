@@ -65,7 +65,18 @@ void openFile(const QString& path)
     g_setenv("QT_SCREEN_SCALE_FACTORS", "1", 1);
 #endif
 
+#ifdef Q_OS_LINUX
+    QByteArray ldPath = qgetenv("LD_LIBRARY_PATH");
+    qunsetenv("LD_LIBRARY_PATH");
+#endif
+
     ::openInNativeExtension(path) || ::showInGraphicalShell(path);
+
+#ifdef Q_OS_LINUX
+    if (!ldPath.isEmpty()) {
+        qputenv("LD_LIBRARY_PATH", ldPath);
+    }
+#endif
 
 #if defined(Q_OS_WIN32)
     g_setenv("QT_SCREEN_SCALE_FACTORS", factors, 1);

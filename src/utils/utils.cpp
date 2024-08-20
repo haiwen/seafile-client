@@ -472,7 +472,7 @@ QList<QVariant> listFromJSON(json_t *array)
         } else if (json_is_string(value)) {
             v = QString::fromUtf8(json_string_value(value));
         } else if (json_is_integer(value)) {
-            v = json_integer_value(value);
+            v = QVariant::fromValue(json_integer_value(value));
         } else if (json_is_real(value)) {
             v = json_real_value(value);
         } else if (json_is_boolean(value)) {
@@ -514,7 +514,7 @@ QMap<QString, QVariant> mapFromJSON(json_t *json, json_error_t *error)
         } else if (json_is_string(value)) {
             v = QString::fromUtf8(json_string_value(value));
         } else if (json_is_integer(value)) {
-            v = json_integer_value(value);
+            v = QVariant::fromValue(json_integer_value(value));
         } else if (json_is_real(value)) {
             v = json_real_value(value);
         } else if (json_is_boolean(value)) {

@@ -29,6 +29,24 @@ void filecache_entry_from_sqlite3_result(sqlite3_stmt *stmt, FileCache::CacheEnt
     entry->commit_id = (const char *)sqlite3_column_text (stmt, 6);
 }
 
+struct ColumnInfo {
+    QString name;
+    bool exists;
+};
+
+bool getColumnInfoCallback(sqlite3_stmt *stmt, void *data)
+{
+    ColumnInfo *info = reinterpret_cast<ColumnInfo *>(data);
+    const char *column_name = (const char *)sqlite3_column_text (stmt, 1);
+
+    if (info->name == QString(column_name)) {
+        info->exists = true;
+        return false;
+    }
+    return true;
+}
+
+
 } // namespace
 
 SINGLETON_IMPL(DirentsCache)
@@ -178,8 +196,16 @@ void FileCache::start()
         "     seafile_size integer NOT NULL, "
         "     PRIMARY KEY (repo_id, path))";
     sqlite_query_exec (db, sql);
-    sql = "ALTER TABLE FileCacheV2 ADD COLUMN commit_id TEXT";
-    sqlite_query_exec (db, sql);
+
+    ColumnInfo info;
+    info.name = "commit_id";
+    info.exists = false;
+    sql = "PRAGMA table_info(FileCacheV2);";
+    sqlite_foreach_selected_row (db, sql, getColumnInfoCallback, &info);
+    if (!info.exists) {
+        sql = "ALTER TABLE FileCacheV2 ADD COLUMN commit_id TEXT;";
+        sqlite_query_exec (db, sql);
+    }
 
     db_ = db;
 }

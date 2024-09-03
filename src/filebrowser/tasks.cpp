@@ -32,6 +32,7 @@ const char *kFileDownloadTmpDirName = "fcachetmp";
 const int kMaxRedirects = 3;
 const int kFileServerTaskMaxRetry = 3;
 const int kFileServerTaskRetryIntervalSecs = 10;
+const int kDefaultHttpTimeout = 30000; // 30 second
 
 class QNAMWrapper {
 public:
@@ -55,6 +56,7 @@ public:
 
     QNetworkAccessManager *createQNAM() {
         QNetworkAccessManager *manager = new QNetworkAccessManager;
+        manager->setTransferTimeout(kDefaultHttpTimeout);
         NetworkManager::instance()->addWatch(manager);
         return manager;
     }
@@ -648,6 +650,7 @@ void GetFileTask::prepare()
 void GetFileTask::sendRequest()
 {
     QNetworkRequest request(url_);
+    request.setTransferTimeout(0);
     reply_ = getQNAM()->get(request);
 
     connect(reply_, SIGNAL(sslErrors(const QList<QSslError>&)),

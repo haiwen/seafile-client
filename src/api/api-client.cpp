@@ -24,6 +24,7 @@ const char *kSeafileClientVersionHeader = "X-Seafile-Client-Version";
 
 const int kMaxRedirects = 3;
 const int kMaxHttpErrorLogLen = 300;
+const int kDefaultHttpTimeout = 30000; // 30 second
 
 bool shouldIgnoreRequestError(const QNetworkReply* reply)
 {
@@ -41,6 +42,7 @@ QNetworkAccessManager *createQNAM() {
     QNetworkAccessManager *manager = new QNetworkAccessManager(qApp);
     NetworkManager::instance()->addWatch(manager);
     manager->setCache(CustomizationService::instance()->diskCache());
+    manager->setTransferTimeout(kDefaultHttpTimeout);
 
     return manager;
 }

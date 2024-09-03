@@ -83,7 +83,7 @@ private slots:
     void goHome();
     void chooseFileToUpload();
     void chooseDirectoryToUpload();
-    void onDownloadFinished(bool success, bool is_file_locked);
+    void onDownloadFinished(bool success, bool is_file_locked = false);
     void onUploadFinished(bool success);
 
     // prompt a menu for user to choose a upload action

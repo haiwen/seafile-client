@@ -7,4 +7,4 @@ brew up
 brew install qt4
 
 brew tap Chilledheart/seafile
-brew install --HEAD libsearpc ccnet seafile
+brew install --HEAD libsearpc seafile

@@ -439,6 +439,7 @@ void PostFileTask::sendRequest()
         setContentRangeHeader(&request);
     }
 
+    request.setTransferTimeout(0);
     reply_ = getQNAM()->post(request, multipart);
 
     connect(reply_, SIGNAL(sslErrors(const QList<QSslError>&)),

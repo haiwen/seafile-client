@@ -70,6 +70,7 @@ private:
 };
 
 const int kRefreshReposInterval = 1000 * 60 * 5; // 5 min
+const int kRetryRefreshReposInterval = 1000 * 10; // 10 seconds
 
 bool loadSyncedFolderCB(sqlite3_stmt *stmt, void *data)
 {
@@ -202,8 +203,10 @@ void RepoService::refresh()
 
     const Account *account = &accounts.front();
 
-    if (!account->isValid())
+    if (!account->isValid()) {
+        in_refresh_ = false;
         return;
+    }
 
     in_refresh_ = true;
 
@@ -251,10 +254,8 @@ void RepoService::refresh()
     }
 
     list_repo_req_ = new ListReposRequest(*account);
-
     connect(list_repo_req_, SIGNAL(success(const std::vector<ServerRepo>&)),
             this, SLOT(onRefreshSuccess(const std::vector<ServerRepo>&)));
-
     connect(list_repo_req_, SIGNAL(failed(const ApiError&)),
             this, SLOT(onRefreshFailed(const ApiError&)));
     list_repo_req_->send();
@@ -328,6 +329,7 @@ void RepoService::onRefreshFailed(const ApiError& error)
         return;
     }
 
+    QTimer::singleShot(kRetryRefreshReposInterval, this, SLOT(refresh()));
     emit refreshFailed(error);
 }
 

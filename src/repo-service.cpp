@@ -294,6 +294,7 @@ void RepoService::onRefreshSuccess(const std::vector<ServerRepo>& repos)
             }
         }
         if (!found) {
+            qWarning ("unsync local library %s because you don't have permission to access it\n", repo.id.toUtf8().data());
             seafApplet->rpcClient()->unsync(repo.id);
         }
     }

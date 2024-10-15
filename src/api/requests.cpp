@@ -184,6 +184,18 @@ RepoDownloadInfo RepoDownloadInfo::fromDict(QMap<QString, QVariant>& dict,
     map.insert("server_url", url.toString(QUrl::FullyEncoded));
     map.insert("repo_salt", salt);
     map.insert("username", username);
+    QString pwd_hash_algo = dict.value("pwd_hash_algo").toString();
+    QString pwd_hash_params = dict.value("pwd_hash_params").toString();
+    QString pwd_hash = dict.value("pwd_hash").toString();
+    if (!pwd_hash_algo.isEmpty()) {
+        map.insert("pwd_hash_algo", pwd_hash_algo);
+    }
+    if (!pwd_hash_params.isEmpty()) {
+        map.insert("pwd_hash_params", pwd_hash_params);
+    }
+    if (!pwd_hash.isEmpty()) {
+        map.insert("pwd_hash", pwd_hash);
+    }
 
     info.more_info = ::mapToJson(map);
 

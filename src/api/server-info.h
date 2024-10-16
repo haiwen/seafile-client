@@ -16,6 +16,8 @@ public:
     bool clientSSOViaLocalBrowser;
     QString customBrand;
     QString customLogo;
+    QString pwdHashAlgo;
+    QString pwdHashParams;
 
     ServerInfo() :
         majorVersion(0),
@@ -39,7 +41,9 @@ public:
             fileSearch == rhs.fileSearch &&
             disableSyncWithAnyFolder == rhs.disableSyncWithAnyFolder &&
             customBrand == rhs.customBrand &&
-            customLogo == rhs.customLogo;
+            customLogo == rhs.customLogo &&
+            pwdHashAlgo == rhs.pwdHashAlgo &&
+            pwdHashParams == rhs.pwdHashParams;
     }
 
     bool operator!= (const ServerInfo &rhs) const {

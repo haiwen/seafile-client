@@ -184,6 +184,18 @@ RepoDownloadInfo RepoDownloadInfo::fromDict(QMap<QString, QVariant>& dict,
     map.insert("server_url", url.toString(QUrl::FullyEncoded));
     map.insert("repo_salt", salt);
     map.insert("username", username);
+    QString pwd_hash_algo = dict.value("pwd_hash_algo").toString();
+    QString pwd_hash_params = dict.value("pwd_hash_params").toString();
+    QString pwd_hash = dict.value("pwd_hash").toString();
+    if (!pwd_hash_algo.isEmpty()) {
+        map.insert("pwd_hash_algo", pwd_hash_algo);
+    }
+    if (!pwd_hash_params.isEmpty()) {
+        map.insert("pwd_hash_params", pwd_hash_params);
+    }
+    if (!pwd_hash.isEmpty()) {
+        map.insert("pwd_hash", pwd_hash);
+    }
 
     info.more_info = ::mapToJson(map);
 
@@ -264,7 +276,10 @@ CreateRepoRequest::CreateRepoRequest(const Account& account,
                                      int enc_version,
                                      const QString& repo_id,
                                      const QString& magic,
-                                     const QString& random_key)
+                                     const QString& random_key,
+                                     const QString& pwd_hash_algo,
+                                     const QString& pwd_hash_params,
+                                     const QString& pwd_hash)
     : SeafileApiRequest(account.getAbsoluteUrl(kCreateRepoUrl),
                         SeafileApiRequest::METHOD_POST,
                         account.token)
@@ -275,6 +290,16 @@ CreateRepoRequest::CreateRepoRequest(const Account& account,
     setFormParam("repo_id", repo_id);
     setFormParam("magic", magic);
     setFormParam("random_key", random_key);
+
+    if (!pwd_hash_algo.isEmpty()) {
+        setFormParam("pwd_hash_algo", pwd_hash_algo);
+    }
+    if (!pwd_hash_params.isEmpty()) {
+        setFormParam("pwd_hash_params", pwd_hash_params);
+    }
+    if (!pwd_hash.isEmpty()) {
+        setFormParam("pwd_hash", pwd_hash);
+    }
 }
 
 CreateRepoRequest::CreateRepoRequest(const Account& account,
@@ -284,7 +309,10 @@ CreateRepoRequest::CreateRepoRequest(const Account& account,
                                      const QString& repo_id,
                                      const QString& magic,
                                      const QString& random_key,
-                                     const QString& salt)
+                                     const QString& salt,
+                                     const QString& pwd_hash_algo,
+                                     const QString& pwd_hash_params,
+                                     const QString& pwd_hash)
     : SeafileApiRequest(account.getAbsoluteUrl(kCreateRepoUrl),
                         SeafileApiRequest::METHOD_POST,
                         account.token)
@@ -296,6 +324,16 @@ CreateRepoRequest::CreateRepoRequest(const Account& account,
     setFormParam("magic", magic);
     setFormParam("random_key", random_key);
     setFormParam("salt", salt);
+
+    if (!pwd_hash_algo.isEmpty()) {
+        setFormParam("pwd_hash_algo", pwd_hash_algo);
+    }
+    if (!pwd_hash_params.isEmpty()) {
+        setFormParam("pwd_hash_params", pwd_hash_params);
+    }
+    if (!pwd_hash.isEmpty()) {
+        setFormParam("pwd_hash", pwd_hash);
+    }
 }
 
 void CreateRepoRequest::requestSuccess(QNetworkReply& reply)
@@ -762,6 +800,14 @@ void ServerInfoRequest::requestSuccess(QNetworkReply& reply)
 
     if (dict.contains("desktop-custom-brand")) {
         ret.customBrand = dict["desktop-custom-brand"].toString();
+    }
+
+    if (dict.contains("encrypted_library_pwd_hash_algo")) {
+        ret.pwdHashAlgo = dict["encrypted_library_pwd_hash_algo"].toString();
+    }
+
+    if (dict.contains("encrypted_library_pwd_params")) {
+        ret.pwdHashParams = dict["encrypted_library_pwd_params"].toString();
     }
 
     emit success(ret);

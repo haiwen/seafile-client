@@ -134,6 +134,7 @@ void CreateRepoDialog::createAction()
             return;
         }
 
+        qWarning ("create enc repo: algo: %s, magic: %s, random_key: %s, pwd_hash: %s\n", pwd_hash_algo.toUtf8().data(), magic.toUtf8().data(), random_key.toUtf8().data(), pwd_hash.toUtf8().data());
         if (enc_version == 3 || enc_version == 4) {
             request_ = new CreateRepoRequest(
                 account_, name_, name_, enc_version, repo_id, magic, random_key, salt, pwd_hash_algo, pwd_hash_params, pwd_hash);

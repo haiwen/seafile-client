@@ -294,6 +294,13 @@ void RepoService::onRefreshSuccess(const std::vector<ServerRepo>& repos)
                 break;
             }
         }
+        // skip synced subfolders
+        for (size_t j = 0; j < synced_subfolders_.size(); ++j) {
+            if (synced_subfolders_[j].repoId() == repo.id) {
+                found = true;
+                break;
+            }
+        }
         if (!found) {
             qWarning ("unsync local library %s/%s because you don't have permission to access it\n", repo.id.toUtf8().data(), repo.name.toUtf8().data());
             seafApplet->rpcClient()->unsync(repo.id);

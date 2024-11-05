@@ -285,9 +285,18 @@ void RepoService::onRefreshSuccess(const std::vector<ServerRepo>& repos)
         if (!found)
             startGetRequestFor(synced_subfolders_[i].repoId());
     }
+
+    const std::vector<Account>& accounts = seafApplet->accountManager()->accounts();
+    if (accounts.empty())
+        return;
     for (size_t i = 0; i < local_repos_.size(); ++i) {
         bool found = false;
         const LocalRepo& repo = local_repos_[i];
+
+        // skip repos that do not belong to the current account
+        if (repo.account != accounts.front()) {
+            continue;
+        }
         for (size_t j = 0; j < server_repos_.size(); ++j) {
             if (repo.id == server_repos_[j].id) {
                 found = true;

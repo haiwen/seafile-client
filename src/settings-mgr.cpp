@@ -712,7 +712,7 @@ bool SettingsManager::getHideWindowsIncompatibilityPathMsg()
 {
     QString str;
     seafApplet->rpcClient()->seafileGetConfig(kHideWindowsIncompatiblePathNotification, &str);
-    return str == "true";
+    return str != "false";
 }
 
 void SettingsManager::setHideWindowsIncompatibilityPathMsg(bool enabled)

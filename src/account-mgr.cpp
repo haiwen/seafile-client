@@ -104,10 +104,17 @@ QStringList collectSyncedReposForAccount(const Account& account)
     for (size_t i = 0; i < repos.size(); i++) {
         LocalRepo repo = repos[i];
         QString repo_server_url;
+        QString username;
         if (rpc->getRepoProperty(repo.id, kRepoServerUrlProperty, &repo_server_url) < 0) {
             continue;
         }
+        if (rpc->getRepoProperty(repo.id, "username", &username) < 0) {
+            continue;
+        }
         if (QUrl(repo_server_url).host() != account.serverUrl.host()) {
+            continue;
+        }
+        if (username != account.accountInfo.name) {
             continue;
         }
         QString token;
@@ -649,13 +656,17 @@ Account AccountManager::getAccountByRepo(const QString& repo_id, SeafileRpcClien
 
     if (!accounts_cache_.contains(repo_id)) {
         QString server_url;
+        QString username;
         if (rpc->getRepoProperty(repo_id, kRepoServerUrlProperty, &server_url) < 0) {
+            return Account();
+        }
+        if (rpc->getRepoProperty(repo_id, "username", &username) < 0) {
             return Account();
         }
         QString server_host = QUrl(server_url).host();
         for (size_t i = 0; i < accounts.size(); i++) {
             const Account& account = accounts[i];
-            if (account.serverUrl.host() == server_host) {
+            if (account.serverUrl.host() == server_host && account.accountInfo.name == username) {
                 accounts_cache_[repo_id] = account;
                 break;
             }

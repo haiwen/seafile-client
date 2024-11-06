@@ -16,6 +16,7 @@
 #include "seafile-applet.h"
 #include "configurator.h"
 #include "settings-mgr.h"
+#include "account-mgr.h"
 
 #include "utils/utils.h"
 #include "local-repo.h"
@@ -131,6 +132,11 @@ int SeafileRpcClient::listLocalRepos(std::vector<LocalRepo> *result)
     result->clear();
     for (GList *ptr = repos; ptr; ptr = ptr->next) {
         result->push_back(LocalRepo::fromGObject((GObject*)ptr->data));
+    }
+
+    for (size_t i = 0; i < (*result).size(); i++) {
+        LocalRepo& repo = (*result)[i];
+        repo.account = seafApplet->accountManager()->getAccountByRepo(repo.id);
     }
 
     g_list_foreach (repos, (GFunc)g_object_unref, NULL);

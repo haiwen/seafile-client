@@ -104,10 +104,17 @@ QStringList collectSyncedReposForAccount(const Account& account)
     for (size_t i = 0; i < repos.size(); i++) {
         LocalRepo repo = repos[i];
         QString repo_server_url;
+        QString username;
         if (rpc->getRepoProperty(repo.id, kRepoServerUrlProperty, &repo_server_url) < 0) {
             continue;
         }
+        if (rpc->getRepoProperty(repo.id, "username", &username) < 0) {
+            continue;
+        }
         if (QUrl(repo_server_url).host() != account.serverUrl.host()) {
+            continue;
+        }
+        if (username != account.accountInfo.name) {
             continue;
         }
         QString token;

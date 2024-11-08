@@ -42,6 +42,7 @@
 #include <QCryptographicHash>
 #include <QSslCipher>
 #include <QSslCertificate>
+#include <QCollator>
 
 #include "seafile-applet.h"
 #include "rpc/rpc-client.h"
@@ -771,6 +772,9 @@ int digitalCompare(const QString &left, const QString &right)
     if (right.size() == 0)
         return 1;
 
+    QCollator collator(QLocale::Chinese);
+    collator.setCaseSensitivity(Qt::CaseInsensitive);
+
     QString left_sub = left;
     QString right_sub = right;
     const uint min_size = left.size() < right.size()
@@ -780,7 +784,7 @@ int digitalCompare(const QString &left, const QString &right)
         if (left[i].isDigit() && right[i].isDigit())
             break;
         if (left[i] != right[i])
-            return left.compare(right, Qt::CaseInsensitive);
+            return collator.compare(left, right);
     }
     left_sub = left_sub.right(left_sub.size() - i);
     right_sub = right_sub.right(right_sub.size() - i);
@@ -801,7 +805,7 @@ int digitalCompare(const QString &left, const QString &right)
         }
         return left_digit - right_digit;
     }
-    return left.compare(right, Qt::CaseInsensitive);
+    return collator.compare(left, right);
 }
 
 bool shouldUseFramelessWindow()

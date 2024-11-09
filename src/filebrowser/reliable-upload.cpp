@@ -255,7 +255,7 @@ void ReliablePostFileTask::onPostFileTaskFinished(bool result)
     error_string_ = task_->errorString();
     error_ = task_->error();
 
-    if (http_error_code_ == 442) {
+    if (http_error_code_ == 442 || http_error_code_ == 443) {
         emit finished(false);
         return;
     }

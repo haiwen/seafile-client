@@ -286,34 +286,36 @@ void RepoService::onRefreshSuccess(const std::vector<ServerRepo>& repos)
             startGetRequestFor(synced_subfolders_[i].repoId());
     }
 
-    const Account account = seafApplet->accountManager()->currentAccount();
-    if (!account.isValid()) {
-        return;
-    }
-    for (size_t i = 0; i < local_repos_.size(); ++i) {
-        bool found = false;
-        const LocalRepo& repo = local_repos_[i];
+    if (synced_subfolder_db_) {
+        const Account account = seafApplet->accountManager()->currentAccount();
+        if (!account.isValid()) {
+            return;
+        }
+        for (size_t i = 0; i < local_repos_.size(); ++i) {
+            bool found = false;
+            const LocalRepo& repo = local_repos_[i];
 
-        // skip repos that do not belong to the current account
-        if (repo.account != account) {
-            continue;
-        }
-        for (size_t j = 0; j < server_repos_.size(); ++j) {
-            if (repo.id == server_repos_[j].id) {
-                found = true;
-                break;
+            // skip repos that do not belong to the current account
+            if (repo.account != account) {
+                continue;
             }
-        }
-        // skip synced subfolders
-        for (size_t j = 0; j < synced_subfolders_.size(); ++j) {
-            if (synced_subfolders_[j].repoId() == repo.id) {
-                found = true;
-                break;
+            for (size_t j = 0; j < server_repos_.size(); ++j) {
+                if (repo.id == server_repos_[j].id) {
+                    found = true;
+                    break;
+                }
             }
-        }
-        if (!found) {
-            qWarning ("unsync local library %s/%s because you don't have permission to access it\n", repo.id.toUtf8().data(), repo.name.toUtf8().data());
-            seafApplet->rpcClient()->unsync(repo.id);
+            // skip synced subfolders
+            for (size_t j = 0; j < synced_subfolders_.size(); ++j) {
+                if (synced_subfolders_[j].repoId() == repo.id) {
+                    found = true;
+                    break;
+                }
+            }
+            if (!found) {
+                qWarning ("unsync local library %s/%s because you don't have permission to access it\n", repo.id.toUtf8().data(), repo.name.toUtf8().data());
+                seafApplet->rpcClient()->unsync(repo.id);
+            }
         }
     }
 

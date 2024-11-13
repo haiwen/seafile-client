@@ -136,7 +136,7 @@ int SeafileRpcClient::listLocalRepos(std::vector<LocalRepo> *result)
 
     for (size_t i = 0; i < (*result).size(); i++) {
         LocalRepo& repo = (*result)[i];
-        repo.account = seafApplet->accountManager()->getAccountByRepo(repo.id);
+        repo.account = seafApplet->accountManager()->getAccountByRepo(repo.id, this);
     }
 
     g_list_foreach (repos, (GFunc)g_object_unref, NULL);

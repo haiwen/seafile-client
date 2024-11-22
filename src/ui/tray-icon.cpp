@@ -555,8 +555,8 @@ void SeafileTrayIcon::shellExtFix()
         seafApplet->warningBox(tr("Successfully fixed sync status icons for Explorer"));
 
     } else {
-        seafApplet->warningBox(tr("Faild to fix sync status icons for Explorer"));
-        qWarning("faild to fix sync status icons for explorer");
+        seafApplet->warningBox(tr("Failed to fix sync status icons for Explorer"));
+        qWarning("failed to fix sync status icons for explorer");
     }
 
 #endif

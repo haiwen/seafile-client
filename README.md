@@ -39,7 +39,7 @@ You are welcome to add translation in your language.
 
 ### Contribute your translation
 
-Please submit translations via Transifex: https://www.transifex.com/projects/p/seafile-client/
+Please submit translations via Transifex: https://explore.transifex.com/haiwen/seafile-client/
 
 Steps:
 

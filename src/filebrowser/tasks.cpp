@@ -650,7 +650,10 @@ void GetFileTask::prepare()
 void GetFileTask::sendRequest()
 {
     QNetworkRequest request(url_);
-    request.setTransferTimeout(0);
+    // The download and upload request should skip the global timeout. However
+    // a zero timeout won't override the global timeout, so it's set to 10
+    // hours.
+    request.setTransferTimeout(10 * 60 * 60 * 1000);
     reply_ = getQNAM()->get(request);
 
     connect(reply_, SIGNAL(sslErrors(const QList<QSslError>&)),

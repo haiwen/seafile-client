@@ -81,6 +81,13 @@
         </widget>
        </item>
        <item>
+        <widget class="QCheckBox" name="mIgnoreSymbolLinkCheckBox">
+         <property name="text">
+          <string>Ingore symbol link</string>
+         </property>
+        </widget>
+       </item>
+       <item>
         <layout class="QFormLayout" name="formLayout">
          <property name="labelAlignment">
           <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>

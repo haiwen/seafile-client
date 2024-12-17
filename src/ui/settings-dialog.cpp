@@ -80,7 +80,8 @@ void SettingsDialog::updateSettings()
         mgr->setFinderSyncExtension(mFinderSyncCheckBox->checkState() == Qt::Checked);
 #endif
 #if defined(Q_OS_LINUX) || defined(Q_OS_MAC)
-    mgr -> setHideWindowsIncompatibilityPathMsg(mHideWindowsIncompatibilityCheckBox->checkState() == Qt::Checked);
+    mgr->setHideWindowsIncompatibilityPathMsg(mHideWindowsIncompatibilityCheckBox->checkState() == Qt::Checked);
+    mgr->setIgnoreSymbolLink(mIgnoreSymbolLinkCheckBox->checkState() == Qt::Checked);
 #endif
 
 #ifdef Q_OS_WIN32
@@ -156,8 +157,12 @@ void SettingsDialog::showEvent(QShowEvent *event)
 #if defined(Q_OS_LINUX) || defined(Q_OS_MAC)
     state = mgr->getHideWindowsIncompatibilityPathMsg() ? Qt::Checked : Qt::Unchecked;
     mHideWindowsIncompatibilityCheckBox->setCheckState(state);
+
+    state = mgr->getIgnoreSymbolLink() ? Qt::Checked : Qt::Unchecked;
+    mIgnoreSymbolLinkCheckBox->setCheckState(state);
 #else
     mHideWindowsIncompatibilityCheckBox->hide();
+    mIgnoreSymbolLinkCheckBox->hide();
 #endif
 
 #if defined(Q_OS_WIN32)

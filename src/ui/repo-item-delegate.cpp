@@ -272,7 +272,7 @@ void RepoItemDelegate::paintRepoItem(QPainter *painter,
         } else if (r.sync_state == LocalRepo::SYNC_STATE_ERROR) {
             description = r.getErrorString();
         } else if (r.sync_state == LocalRepo::SYNC_STATE_DONE && repo_err_id >= 0) {
-            description = translateSyncErrorCode(repo_err_id);
+            description = translateLastSyncErrorCode(repo_err_id);
         }
     } else {
         const CloneTask& task = item->cloneTask();

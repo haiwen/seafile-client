@@ -439,7 +439,10 @@ void PostFileTask::sendRequest()
         setContentRangeHeader(&request);
     }
 
-    request.setTransferTimeout(0);
+    // The download and upload request should skip the global timeout. However
+    // a zero timeout won't override the global timeout, so it's set to 10
+    // hours.
+    request.setTransferTimeout(10 * 60 * 60 * 1000);
     reply_ = getQNAM()->post(request, multipart);
 
     connect(reply_, SIGNAL(sslErrors(const QList<QSslError>&)),

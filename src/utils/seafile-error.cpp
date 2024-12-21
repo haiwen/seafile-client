@@ -130,7 +130,7 @@ QString translateSyncErrorCode(const int error_code)
 
 // The error related to partial persistence may have been resolved.
 // Continuing to display the error could confuse users. Add a description to inform users that this error can be ignored.
-QString translateLastSyncErrorCode(const int error_code)
+QString translateFileSyncErrorCode(const int error_code)
 {
     QString error_str;
     switch (error_code) {

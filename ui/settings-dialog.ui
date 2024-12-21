@@ -81,6 +81,13 @@
         </widget>
        </item>
        <item>
+        <widget class="QCheckBox" name="mIgnoreSymlinksCheckBox">
+         <property name="text">
+          <string>Don't sync symbolic links</string>
+         </property>
+        </widget>
+       </item>
+       <item>
         <layout class="QFormLayout" name="formLayout">
          <property name="labelAlignment">
           <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>

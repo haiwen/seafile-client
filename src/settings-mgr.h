@@ -116,6 +116,8 @@ public:
 #if defined(Q_OS_LINUX) || defined(Q_OS_MAC)
     bool getHideWindowsIncompatibilityPathMsg();
     void setHideWindowsIncompatibilityPathMsg(bool enabled);
+    bool getIgnoreSymlinks();
+    void setIgnoreSymlinks(bool enabled);
 #endif
 
 #ifdef Q_OS_WIN32

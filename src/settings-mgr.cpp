@@ -57,6 +57,7 @@ const char *kProxyPort = "proxy_port";
 const char *kProxyUsername = "proxy_username";
 const char *kProxyPassword = "proxy_password";
 const char *kHideWindowsIncompatiblePathNotification = "hide_windows_incompatible_path_notification";
+const char *kIgnoreSymlinks = "ignore_symlinks";
 const char *kRepoSortOrdersGroup = "repo_sort_orders";
 
 const int kCheckSystemProxyIntervalMSecs = 5 * 1000;
@@ -719,6 +720,20 @@ void SettingsManager::setHideWindowsIncompatibilityPathMsg(bool enabled)
 {
     QString set_value = enabled == true ? "true" : "false";
     seafApplet->rpcClient()->seafileSetConfig(kHideWindowsIncompatiblePathNotification, set_value);
+    return;
+}
+
+bool SettingsManager::getIgnoreSymlinks()
+{
+    QString str;
+    seafApplet->rpcClient()->seafileGetConfig(kIgnoreSymlinks, &str);
+    return str == "true";
+}
+
+void SettingsManager::setIgnoreSymlinks(bool enabled)
+{
+    QString set_value = enabled == true ? "true" : "false";
+    seafApplet->rpcClient()->seafileSetConfig(kIgnoreSymlinks, set_value);
     return;
 }
 #endif

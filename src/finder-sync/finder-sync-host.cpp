@@ -243,7 +243,7 @@ void FinderSyncHost::doInternalLink(const QString &path)
         return;
     }
 
-    GetSmartLinkRequest *req = new GetSmartLinkRequest(account, repo_id, path_in_repo, path_in_repo.endsWith('/'));
+    GetSmartLinkRequest *req = new GetSmartLinkRequest(account, repo_id, path_in_repo, path.endsWith("/"));
     connect(req, SIGNAL(success(const QString&, const QString&)),
             this, SLOT(onGetSmartLinkSuccess(const QString&, const QString&)));
     connect(req, SIGNAL(failed(const ApiError&)),

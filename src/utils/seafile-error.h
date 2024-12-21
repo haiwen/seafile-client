@@ -7,4 +7,7 @@
 QString
 translateSyncErrorCode(const int error_code);
 
+QString
+translateFileSyncErrorCode(const int error_code);
+
 #endif //SEAFILE_CLIENT_SEAFILE_ERROR_H

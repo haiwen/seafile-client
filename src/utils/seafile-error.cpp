@@ -127,3 +127,44 @@ QString translateSyncErrorCode(const int error_code)
     }
     return error_str;
 }
+
+// We'll keep file sync error messages in the main window, to inform users that some errors have happened.
+// But such errors may confuse the users as they don't know how to check them. So we add a tip to the message.
+QString translateFileSyncErrorCode(const int error_code)
+{
+    QString error_str;
+    switch (error_code) {
+        case SYNC_ERROR_ID_FILE_LOCKED_BY_APP:
+            error_str = QObject::tr("File is locked by another application. Right click and choose \"Show sync errors\" to find details");
+            break;
+        case SYNC_ERROR_ID_INDEX_ERROR:
+            error_str = QObject::tr("Error when indexing. Right click and choose \"Show sync errors\" to find details");
+            break;
+        case SYNC_ERROR_ID_PATH_END_SPACE_PERIOD:
+            error_str = QObject::tr("Path ends with space or period character. Right click and choose \"Show sync errors\" to find details");
+            break;
+        case SYNC_ERROR_ID_PATH_INVALID_CHARACTER:
+            error_str = QObject::tr("Path contains invalid characters like '|' or ':'. Right click and choose \"Show sync errors\" to find details");
+            break;
+        case SYNC_ERROR_ID_UPDATE_TO_READ_ONLY_REPO:
+            error_str = QObject::tr("Created or updated a file in a non-writable library or folder. Right click and choose \"Show sync errors\" to find details");
+            break;
+        case SYNC_ERROR_ID_REMOVE_UNCOMMITTED_FOLDER:
+            error_str = QObject::tr("A folder that may contain not-yet-uploaded files is moved to seafile-recycle-bin folder. Right click and choose \"Show sync errors\" to find details");
+            break;
+#if !defined(Q_OS_WIN32)
+        case SYNC_ERROR_ID_INVALID_PATH_ON_WINDOWS:
+            error_str = QObject::tr("The file path contains symbols that are not supported by the Windows system. Right click and choose \"Show sync errors\" to find details");
+            break;
+#endif
+        case SYNC_ERROR_ID_CHECKOUT_FILE:
+            error_str = QObject::tr("Failed to download file. Please check disk space or folder permissions. Right click and choose \"Show sync errors\" to find details");
+            break;
+        case SYNC_ERROR_ID_CASE_CONFLICT:
+            error_str = QObject::tr("Path has character case conflict with existing file or folder. Will not be downloaded. Right click and choose \"Show sync errors\" to find details");
+            break;
+        default:
+            return translateSyncErrorCode(error_code);
+    }
+    return error_str;
+}

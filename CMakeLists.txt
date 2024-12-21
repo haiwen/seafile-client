@@ -745,7 +745,7 @@ install(DIRECTORY
 )
 
 install(FILES
-  ${CMAKE_SOURCE_DIR}/data/seafile.desktop
+  ${CMAKE_SOURCE_DIR}/data/com.seafile.seafile-applet.desktop
   DESTINATION share/applications
 )
 

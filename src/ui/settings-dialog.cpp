@@ -81,7 +81,7 @@ void SettingsDialog::updateSettings()
 #endif
 #if defined(Q_OS_LINUX) || defined(Q_OS_MAC)
     mgr->setHideWindowsIncompatibilityPathMsg(mHideWindowsIncompatibilityCheckBox->checkState() == Qt::Checked);
-    mgr->setIgnoreSymbolLink(mIgnoreSymbolLinkCheckBox->checkState() == Qt::Checked);
+    mgr->setIgnoreSymlinks(mIgnoreSymlinksCheckBox->checkState() == Qt::Checked);
 #endif
 
 #ifdef Q_OS_WIN32
@@ -158,11 +158,11 @@ void SettingsDialog::showEvent(QShowEvent *event)
     state = mgr->getHideWindowsIncompatibilityPathMsg() ? Qt::Checked : Qt::Unchecked;
     mHideWindowsIncompatibilityCheckBox->setCheckState(state);
 
-    state = mgr->getIgnoreSymbolLink() ? Qt::Checked : Qt::Unchecked;
-    mIgnoreSymbolLinkCheckBox->setCheckState(state);
+    state = mgr->getIgnoreSymlinks() ? Qt::Checked : Qt::Unchecked;
+    mIgnoreSymlinksCheckBox->setCheckState(state);
 #else
     mHideWindowsIncompatibilityCheckBox->hide();
-    mIgnoreSymbolLinkCheckBox->hide();
+    mIgnoreSymlinksCheckBox->hide();
 #endif
 
 #if defined(Q_OS_WIN32)

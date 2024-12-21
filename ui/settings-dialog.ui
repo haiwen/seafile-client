@@ -81,9 +81,9 @@
         </widget>
        </item>
        <item>
-        <widget class="QCheckBox" name="mIgnoreSymbolLinkCheckBox">
+        <widget class="QCheckBox" name="mIgnoreSymlinksCheckBox">
          <property name="text">
-          <string>Ingore symbol link</string>
+          <string>Don't sync symbolic links</string>
          </property>
         </widget>
        </item>

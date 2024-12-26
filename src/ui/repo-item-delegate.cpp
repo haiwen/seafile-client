@@ -85,17 +85,6 @@ const char *kRepoCategoryBackgroundColor = "white";
 const int kRepoCategoryCountMarginRightAlpha = 20;
 const char *kRepoCategoryCountColor = "#AAAAAA";
 
-static void showTooltip(const QString &text,
-                        QWidget *viewport,
-                        const QRect &rect,
-                        const QRect &small_rect)
-{
-    QPoint tool_tip_pos =
-        viewport->mapToGlobal(small_rect.center() + rect.topLeft());
-    QToolTip::showText(
-        tool_tip_pos, text, viewport, small_rect.translated(rect.topLeft()));
-}
-
 } // namespace
 
 RepoItemDelegate::RepoItemDelegate(QObject *parent)
@@ -516,37 +505,28 @@ void RepoItemDelegate::showRepoItemToolTip(const RepoItem *item,
                                            QWidget *viewport,
                                            const QRect& rect) const
 {
-    const RepoItem::Metrics& metrics = item->metrics();
+    const LocalRepo& local_repo = item->localRepo();
+    int repo_err_id = LastSyncError::instance()->getRepoSyncError(local_repo.id);
 
-    const QRect& status_icon_rect = metrics.status_icon_rect;
-    const QRect& subtitle_rect = metrics.subtitle_rect;
-
-    QPoint viewpos = viewport->mapFromGlobal(global_pos);
-    viewpos -= rect.topLeft();
-
-    if (status_icon_rect.contains(viewpos)) {
-        QString text = "<p style='white-space:pre'>";
-        const LocalRepo& local_repo = item->localRepo();
-        if (!local_repo.isValid()) {
-            text += tr("This library has not been downloaded");
+    QString text;
+    if (local_repo.isValid()) {
+        if (local_repo.sync_state == LocalRepo::SYNC_STATE_ERROR) {
+            text = local_repo.getErrorString();
+        } else if (local_repo.sync_state == LocalRepo::SYNC_STATE_DONE && repo_err_id >= 0) {
+            text = translateFileSyncErrorCode(repo_err_id);
         } else {
-            if (local_repo.sync_state == LocalRepo::SYNC_STATE_ERROR) {
-                text += local_repo.getErrorString();
+            text = local_repo.sync_state_str;
+        }
+    } else {
+        const CloneTask& task = item->cloneTask();
+        if (task.isValid() && task.isDisplayable()) {
+            if (task.error_str.length() > 0) {
+                text = task.error_str;
             } else {
-                text += local_repo.sync_state_str;
+                text = task.state_str;
             }
         }
-        text += "</p>";
-
-        showTooltip(text, viewport, rect, status_icon_rect);
-
-    } else if (subtitle_rect.contains(viewpos)) {
-        QString text = "<p style='white-space:pre'>";
-        const LocalRepo& local_repo = item->localRepo();
-        if (local_repo.isValid() && local_repo.sync_state == LocalRepo::SYNC_STATE_ERROR) {
-            text += local_repo.getErrorString();
-            text += "</p>";
-            showTooltip(text, viewport, rect, subtitle_rect);
-        }
     }
+
+    QToolTip::showText(global_pos, text, viewport, rect);
 }

@@ -2350,6 +2350,42 @@ File path contains invalid characters. It is not synced to this computer.</sourc
         <source>Files cannot be uploaded to this library due to file number limit settings.</source>
         <translation>由于资料库文件数限制，文件无法上传。</translation>
     </message>
+    <message>
+        <source>File is locked by another application. Right click and choose &quot;Show sync errors&quot; to find details</source>
+        <translation>文件被另一个应用程序锁定。请右击并选择“查看同步错误”以检查详细信息。</translation>
+    </message>
+    <message>
+        <source>Error when indexing. Right click and choose &quot;Show sync errors&quot; to find details</source>
+        <translation>索引文件错误。请右击并选择“查看同步错误”以检查详细信息。</translation>
+    </message>
+    <message>
+        <source>Path ends with space or period character. Right click and choose &quot;Show sync errors&quot; to find details</source>
+        <translation>路径以空格或句号字符结尾。请右击并选择“查看同步错误”以检查详细信息。</translation>
+    </message>
+    <message>
+        <source>Path contains invalid characters like &apos;|&apos; or &apos;:&apos;. Right click and choose &quot;Show sync errors&quot; to find details</source>
+        <translation>路径包含无效字符，如“|”或“:”。请右击并选择“查看同步错误”以检查详细信息。</translation>
+    </message>
+    <message>
+        <source>Created or updated a file in a non-writable library or folder. Right click and choose &quot;Show sync errors&quot; to find details</source>
+        <translation>在只读资料库库或文件夹中创建或更新了文件。请右击并选择“查看同步错误”以检查详细信息。</translation>
+    </message>
+    <message>
+        <source>A folder that may contain not-yet-uploaded files is moved to seafile-recycle-bin folder. Right click and choose &quot;Show sync errors&quot; to find details</source>
+        <translation>一个包含尚未上传文件的文件夹被移动到了 seafile-recycle-bin 文件夹里。请右击并选择“查看同步错误”以检查详细信息。</translation>
+    </message>
+    <message>
+        <source>The file path contains symbols that are not supported by the Windows system. Right click and choose &quot;Show sync errors&quot; to find details</source>
+        <translation>文件路径包含 Windows 系统不支持的字符。请右击并选择“查看同步错误”以检查详细信息。</translation>
+    </message>
+    <message>
+        <source>Failed to download file. Please check disk space or folder permissions. Right click and choose &quot;Show sync errors&quot; to find details</source>
+        <translation>下载文件失败。请检查磁盘空间或文件夹权限。请右击并选择“查看同步错误”以检查详细信息。</translation>
+    </message>
+    <message>
+        <source>Path has character case conflict with existing file or folder. Will not be downloaded. Right click and choose &quot;Show sync errors&quot; to find details</source>
+        <translation>路径与现有文件或文件夹存在大小写冲突，不会被下载。请右击并选择“查看同步错误”以检查详细信息。</translation>
+    </message>
 </context>
 <context>
     <name>ReliablePostFileTask</name>
@@ -2438,10 +2474,6 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     <message>
         <source>, %1%2</source>
         <translation>, %1%2</translation>
-    </message>
-    <message>
-        <source>This library has not been downloaded</source>
-        <translation>这个资料库还没有下载</translation>
     </message>
 </context>
 <context>
@@ -2908,12 +2940,12 @@ File path contains invalid characters. It is not synced to this computer.</sourc
         <translation>修复文件管理器扩展成功</translation>
     </message>
     <message>
-        <source>Faild to fix sync status icons for Explorer</source>
-        <translation>修复文件管理器扩展失败</translation>
-    </message>
-    <message>
         <source>have some sync error</source>
         <translation>存在一些同步错误</translation>
+    </message>
+    <message>
+        <source>Failed to fix sync status icons for Explorer</source>
+        <translation>修复文件管理器同步状态图标失败</translation>
     </message>
 </context>
 <context>
@@ -3165,6 +3197,10 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     <message>
         <source>Confirm before deleting files more than</source>
         <translation>提示确认操作，当删除的文件数大于</translation>
+    </message>
+    <message>
+        <source>Don&apos;t sync symbolic links</source>
+        <translation>不要同步符号链接</translation>
     </message>
 </context>
 <context>

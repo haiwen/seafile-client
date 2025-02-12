@@ -164,19 +164,19 @@
     </message>
     <message>
         <source>sort</source>
-        <translation type="unfinished"/>
+        <translation>정렬</translation>
     </message>
     <message>
         <source>Sort libraries by</source>
-        <translation type="unfinished"/>
+        <translation>다음 기준으로 라이브러리 정렬</translation>
     </message>
     <message>
         <source>Modification time</source>
-        <translation type="unfinished"/>
+        <translation>수정 일시</translation>
     </message>
     <message>
         <source>Library names</source>
-        <translation type="unfinished"/>
+        <translation>라이브러리 이름</translation>
     </message>
 </context>
 <context>
@@ -234,11 +234,11 @@ failed to upload.</source>
     </message>
     <message>
         <source>File size exceeds limit</source>
-        <translation type="unfinished"/>
+        <translation>파일 크기가 한계를 초과했습니다</translation>
     </message>
     <message>
         <source>Number of file exceeds limit</source>
-        <translation type="unfinished"/>
+        <translation>파일 갯수가 한계를 초과했습니다</translation>
     </message>
 </context>
 <context>
@@ -550,7 +550,7 @@ failed to upload.</source>
     </message>
     <message>
         <source>Creating a library with encryption version less than 2 is not supported</source>
-        <translation type="unfinished"/>
+        <translation>암호화 버전 2 미만의 라이브러리 만들기는 지원하지 않습니다</translation>
     </message>
 </context>
 <context>
@@ -928,11 +928,11 @@ failed to upload.</source>
     </message>
     <message>
         <source>File size exceeds limit</source>
-        <translation type="unfinished"/>
+        <translation>파일 크기가 한계를 초과했습니다</translation>
     </message>
     <message>
         <source>Number of file exceeds limit</source>
-        <translation type="unfinished"/>
+        <translation>파일 갯수가 한계를 초과했습니다</translation>
     </message>
 </context>
 <context>
@@ -1563,7 +1563,7 @@ Do you like to download your default library?</source>
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;For example: https://example.your-server.com&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;예: https://example.your-server.com&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
 </context>
 <context>
@@ -1680,15 +1680,15 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     </message>
     <message>
         <source>Path has character case conflict with existing file or folder. Will not be downloaded</source>
-        <translation type="unfinished"/>
+        <translation>기존 파일 또는 폴더 경로에 동일한 대소문자 이름이 있습니다. 다운로드 하지 않습니다</translation>
     </message>
     <message>
         <source>Library cannot be synced since it has too many files.</source>
-        <translation type="unfinished"/>
+        <translation>라이브러리에 파일이 너무 많아 동기화할 수 없습니다</translation>
     </message>
     <message>
         <source>Files cannot be uploaded to this library due to file number limit settings.</source>
-        <translation type="unfinished"/>
+        <translation>파일 갯수 제한 설정으로 인해 이 라이브러리에 파일을 업로드할 수 없습니다</translation>
     </message>
 </context>
 <context>
@@ -2350,14 +2350,50 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     </message>
     <message>
         <source>Path has character case conflict with existing file or folder. Will not be downloaded</source>
-        <translation type="unfinished"/>
+        <translation>기존 파일 또는 폴더 경로에 동일한 대소문자 이름이 있습니다. 다운로드 하지 않습니다</translation>
     </message>
     <message>
         <source>Library cannot be synced since it has too many files.</source>
-        <translation type="unfinished"/>
+        <translation>라이브러리에 파일이 너무 많아 동기화할 수 없습니다</translation>
     </message>
     <message>
         <source>Files cannot be uploaded to this library due to file number limit settings.</source>
+        <translation>파일 갯수 제한 설정으로 인해 이 라이브러리에 파일을 업로드할 수 없습니다</translation>
+    </message>
+    <message>
+        <source>File is locked by another application. Right click and choose &quot;Show sync errors&quot; to find details</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Error when indexing. Right click and choose &quot;Show sync errors&quot; to find details</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Path ends with space or period character. Right click and choose &quot;Show sync errors&quot; to find details</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Path contains invalid characters like &apos;|&apos; or &apos;:&apos;. Right click and choose &quot;Show sync errors&quot; to find details</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Created or updated a file in a non-writable library or folder. Right click and choose &quot;Show sync errors&quot; to find details</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>A folder that may contain not-yet-uploaded files is moved to seafile-recycle-bin folder. Right click and choose &quot;Show sync errors&quot; to find details</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>The file path contains symbols that are not supported by the Windows system. Right click and choose &quot;Show sync errors&quot; to find details</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Failed to download file. Please check disk space or folder permissions. Right click and choose &quot;Show sync errors&quot; to find details</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Path has character case conflict with existing file or folder. Will not be downloaded. Right click and choose &quot;Show sync errors&quot; to find details</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -2448,10 +2484,6 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     <message>
         <source>, %1%2</source>
         <translation>, %1%2</translation>
-    </message>
-    <message>
-        <source>This library has not been downloaded</source>
-        <translation>이 라이브러리는 다운로드하지 않았습니다</translation>
     </message>
 </context>
 <context>
@@ -2676,7 +2708,7 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     </message>
     <message>
         <source>Set Sync Interval For Library &quot;%1&quot;</source>
-        <translation type="unfinished"/>
+        <translation>&quot;%1&quot; 라이브러리 동기화 시간 간격을 설정합니다</translation>
     </message>
     <message>
         <source>Show sync errors</source>
@@ -2920,12 +2952,12 @@ File path contains invalid characters. It is not synced to this computer.</sourc
         <translation>탐색기의 동기화 상태 아이콘 수정에 성공했습니다</translation>
     </message>
     <message>
-        <source>Faild to fix sync status icons for Explorer</source>
-        <translation>탐색기의 동기화 상태 아이콘 수정에 실패했습니다</translation>
-    </message>
-    <message>
         <source>have some sync error</source>
         <translation>동기화 과정에 일부 오류가 있습니다</translation>
+    </message>
+    <message>
+        <source>Failed to fix sync status icons for Explorer</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -3178,6 +3210,10 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     <message>
         <source>Confirm before deleting files more than</source>
         <translation>다음 보다 많은 수량의 파일을 삭제하기 전 확인</translation>
+    </message>
+    <message>
+        <source>Don&apos;t sync symbolic links</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>

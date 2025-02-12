@@ -156,27 +156,27 @@
     </message>
     <message>
         <source>settings</source>
-        <translation type="unfinished"/>
+        <translation>nastavení</translation>
     </message>
     <message>
         <source>refresh</source>
-        <translation type="unfinished"/>
+        <translation>obnovit</translation>
     </message>
     <message>
         <source>sort</source>
-        <translation type="unfinished"/>
+        <translation>třídit</translation>
     </message>
     <message>
         <source>Sort libraries by</source>
-        <translation type="unfinished"/>
+        <translation>Třídit knihovny podle</translation>
     </message>
     <message>
         <source>Modification time</source>
-        <translation type="unfinished"/>
+        <translation>Čas změny</translation>
     </message>
     <message>
         <source>Library names</source>
-        <translation type="unfinished"/>
+        <translation>Jména knihoven</translation>
     </message>
 </context>
 <context>
@@ -234,11 +234,11 @@ nahrání selhalo.</translation>
     </message>
     <message>
         <source>File size exceeds limit</source>
-        <translation type="unfinished"/>
+        <translation>Velikost souboru překročila limit</translation>
     </message>
     <message>
         <source>Number of file exceeds limit</source>
-        <translation type="unfinished"/>
+        <translation>Počet souborů překročil limit</translation>
     </message>
 </context>
 <context>
@@ -546,11 +546,11 @@ nahrání selhalo.</translation>
     </message>
     <message>
         <source>File changes on network drives may not be synced automatically. You can set sync intervals to enable periodic sync. Do you want to sync with this folder?</source>
-        <translation type="unfinished"/>
+        <translation>Změny souborů na síťových jednotkách se nemusí synchronizovat automaticky. Pro povolení periodické synchronizace můžete nastavit intervaly synchronizace. Chcete synchronizovat s touto složkou?</translation>
     </message>
     <message>
         <source>Creating a library with encryption version less than 2 is not supported</source>
-        <translation type="unfinished"/>
+        <translation>Vytvoření knihovny s verzí šifrování nižší než 2 není podporováno</translation>
     </message>
 </context>
 <context>
@@ -675,7 +675,7 @@ nahrání selhalo.</translation>
     </message>
     <message>
         <source>File changes on network drives may not be synced automatically. You can set sync intervals to enable periodic sync. Do you want to sync with this folder?</source>
-        <translation type="unfinished"/>
+        <translation>Změny souborů na síťových jednotkách se nemusí synchronizovat automaticky. Pro povolení periodické synchronizace můžete nastavit intervaly synchronizace. Chcete synchronizovat s touto složkou?</translation>
     </message>
 </context>
 <context>
@@ -832,7 +832,7 @@ Prosím %1</translation>
     </message>
     <message>
         <source>Do you really want to delete these items</source>
-        <translation type="unfinished"/>
+        <translation>Opravdu chcete smazat tyto položky</translation>
     </message>
     <message>
         <source>Create folder failed</source>
@@ -920,7 +920,7 @@ Prosím %1</translation>
     </message>
     <message>
         <source>Do you really want to delete file &quot;%1&quot;?</source>
-        <translation type="unfinished"/>
+        <translation>Opravdu chcete smazat soubor &quot;%1&quot;?</translation>
     </message>
     <message>
         <source>Do you really want to delete folder &quot;%1&quot;?</source>
@@ -928,11 +928,11 @@ Prosím %1</translation>
     </message>
     <message>
         <source>File size exceeds limit</source>
-        <translation type="unfinished"/>
+        <translation>Velikost souboru překročila limit</translation>
     </message>
     <message>
         <source>Number of file exceeds limit</source>
-        <translation type="unfinished"/>
+        <translation>Počet souborů překročil limit</translation>
     </message>
 </context>
 <context>
@@ -1174,7 +1174,7 @@ Prosím %1</translation>
     </message>
     <message>
         <source>No permissions to create a shared link</source>
-        <translation type="unfinished"/>
+        <translation>Není oprávnění k vytvoření odkazu pro sdílení</translation>
     </message>
     <message>
         <source>Failed to get shared link: %1</source>
@@ -1665,7 +1665,7 @@ Cesta k souboru obsahuje nepovolený znak. Není synchronizovaný do tohoto poč
     </message>
     <message>
         <source>Waiting for confirmation to delete files</source>
-        <translation type="unfinished"/>
+        <translation>Čekání na potvrzení smazání souborů</translation>
     </message>
     <message>
         <source>Deleted &quot;%1&quot; and %2 more files.</source>
@@ -2315,11 +2315,11 @@ Cesta k souboru obsahuje nepovolený znak. Není synchronizovaný do tohoto poč
     </message>
     <message>
         <source>internal Server Error</source>
-        <translation type="unfinished"/>
+        <translation>vnitřní chyba serveru</translation>
     </message>
     <message>
         <source>unknown error</source>
-        <translation type="unfinished"/>
+        <translation>neznámá chyba</translation>
     </message>
     <message>
         <source>Syncing is denied by cloud-only permission settings</source>
@@ -2359,6 +2359,42 @@ Cesta k souboru obsahuje nepovolený znak. Není synchronizovaný do tohoto poč
     </message>
     <message>
         <source>Files cannot be uploaded to this library due to file number limit settings.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>File is locked by another application. Right click and choose &quot;Show sync errors&quot; to find details</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Error when indexing. Right click and choose &quot;Show sync errors&quot; to find details</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Path ends with space or period character. Right click and choose &quot;Show sync errors&quot; to find details</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Path contains invalid characters like &apos;|&apos; or &apos;:&apos;. Right click and choose &quot;Show sync errors&quot; to find details</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Created or updated a file in a non-writable library or folder. Right click and choose &quot;Show sync errors&quot; to find details</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>A folder that may contain not-yet-uploaded files is moved to seafile-recycle-bin folder. Right click and choose &quot;Show sync errors&quot; to find details</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>The file path contains symbols that are not supported by the Windows system. Right click and choose &quot;Show sync errors&quot; to find details</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Failed to download file. Please check disk space or folder permissions. Right click and choose &quot;Show sync errors&quot; to find details</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Path has character case conflict with existing file or folder. Will not be downloaded. Right click and choose &quot;Show sync errors&quot; to find details</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -2449,10 +2485,6 @@ Cesta k souboru obsahuje nepovolený znak. Není synchronizovaný do tohoto poč
     <message>
         <source>, %1%2</source>
         <translation>, %1%2</translation>
-    </message>
-    <message>
-        <source>This library has not been downloaded</source>
-        <translation>Tato knihovna nebyla stažena</translation>
     </message>
 </context>
 <context>
@@ -2754,7 +2786,7 @@ Cesta k souboru obsahuje nepovolený znak. Není synchronizovaný do tohoto poč
     </message>
     <message>
         <source>Settings</source>
-        <translation type="unfinished"/>
+        <translation>Nastavení</translation>
     </message>
 </context>
 <context>
@@ -2921,12 +2953,12 @@ Cesta k souboru obsahuje nepovolený znak. Není synchronizovaný do tohoto poč
         <translation>Ikony v Průzkumníku byli úspěšně opraveny.</translation>
     </message>
     <message>
-        <source>Faild to fix sync status icons for Explorer</source>
-        <translation>Nepovedlo se opravit ikony synchronizace v Průzkumníku</translation>
-    </message>
-    <message>
         <source>have some sync error</source>
         <translation>máš nějaké problémy se synchronizací</translation>
+    </message>
+    <message>
+        <source>Failed to fix sync status icons for Explorer</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -3179,6 +3211,10 @@ Cesta k souboru obsahuje nepovolený znak. Není synchronizovaný do tohoto poč
         <source>Confirm before deleting files more than</source>
         <translation type="unfinished"/>
     </message>
+    <message>
+        <source>Don&apos;t sync symbolic links</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>SharedItemDelegate</name>
@@ -3262,7 +3298,7 @@ Cesta k souboru obsahuje nepovolený znak. Není synchronizovaný do tohoto poč
     </message>
     <message>
         <source>Password</source>
-        <translation type="unfinished"/>
+        <translation>Heslo</translation>
     </message>
     <message>
         <source>Failed to generate share link: %1</source>
@@ -3273,7 +3309,7 @@ Cesta k souboru obsahuje nepovolený znak. Není synchronizovaný do tohoto poč
     <name>ShibLoginDialog</name>
     <message>
         <source>Single Sign On</source>
-        <translation type="unfinished"/>
+        <translation>Single Sign On - SSO</translation>
     </message>
 </context>
 <context>

@@ -2359,6 +2359,42 @@ La ruta al archivo contiene caracteres invalidos. No se sincroniza a esta comput
         <source>Files cannot be uploaded to this library due to file number limit settings.</source>
         <translation type="unfinished"/>
     </message>
+    <message>
+        <source>File is locked by another application. Right click and choose &quot;Show sync errors&quot; to find details</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Error when indexing. Right click and choose &quot;Show sync errors&quot; to find details</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Path ends with space or period character. Right click and choose &quot;Show sync errors&quot; to find details</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Path contains invalid characters like &apos;|&apos; or &apos;:&apos;. Right click and choose &quot;Show sync errors&quot; to find details</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Created or updated a file in a non-writable library or folder. Right click and choose &quot;Show sync errors&quot; to find details</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>A folder that may contain not-yet-uploaded files is moved to seafile-recycle-bin folder. Right click and choose &quot;Show sync errors&quot; to find details</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>The file path contains symbols that are not supported by the Windows system. Right click and choose &quot;Show sync errors&quot; to find details</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Failed to download file. Please check disk space or folder permissions. Right click and choose &quot;Show sync errors&quot; to find details</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Path has character case conflict with existing file or folder. Will not be downloaded. Right click and choose &quot;Show sync errors&quot; to find details</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>ReliablePostFileTask</name>
@@ -2447,10 +2483,6 @@ La ruta al archivo contiene caracteres invalidos. No se sincroniza a esta comput
     <message>
         <source>, %1%2</source>
         <translation>, %1%2</translation>
-    </message>
-    <message>
-        <source>This library has not been downloaded</source>
-        <translation>Esta biblioteca no ha sido descargada</translation>
     </message>
 </context>
 <context>
@@ -2919,12 +2951,12 @@ La ruta al archivo contiene caracteres invalidos. No se sincroniza a esta comput
         <translation>Iconos de estado de sincronización para Explorer reparados con éxito</translation>
     </message>
     <message>
-        <source>Faild to fix sync status icons for Explorer</source>
-        <translation>Fallo al reparar iconos de estado de sincronización para Explorer</translation>
-    </message>
-    <message>
         <source>have some sync error</source>
         <translation>tiene algún error de sincronización</translation>
+    </message>
+    <message>
+        <source>Failed to fix sync status icons for Explorer</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -3175,6 +3207,10 @@ La ruta al archivo contiene caracteres invalidos. No se sincroniza a esta comput
     </message>
     <message>
         <source>Confirm before deleting files more than</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Don&apos;t sync symbolic links</source>
         <translation type="unfinished"/>
     </message>
 </context>

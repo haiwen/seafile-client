@@ -1682,11 +1682,11 @@ Die Ordnerstruktur enthält ungültige Zeichen. Synchronisieren mit diesem Compu
     </message>
     <message>
         <source>Library cannot be synced since it has too many files.</source>
-        <translation type="unfinished"/>
+        <translation>Die Bibliothek kann nicht synchronisiert werden, weil sie zu viele Dateien enthält.</translation>
     </message>
     <message>
         <source>Files cannot be uploaded to this library due to file number limit settings.</source>
-        <translation type="unfinished"/>
+        <translation>Die Dateien können nicht in diese Bibliothek hochgeladen, weil die Gesamtzahl der Dateien begrenzt ist.</translation>
     </message>
 </context>
 <context>
@@ -2352,10 +2352,46 @@ Die Ordnerstruktur enthält ungültige Zeichen. Synchronisieren mit diesem Compu
     </message>
     <message>
         <source>Library cannot be synced since it has too many files.</source>
-        <translation type="unfinished"/>
+        <translation>Die Bibliothek kann nicht synchronisiert werden, weil sie zu viele Dateien enthält.</translation>
     </message>
     <message>
         <source>Files cannot be uploaded to this library due to file number limit settings.</source>
+        <translation>Die Dateien können nicht in diese Bibliothek hochgeladen, weil die Gesamtzahl der Dateien begrenzt ist.</translation>
+    </message>
+    <message>
+        <source>File is locked by another application. Right click and choose &quot;Show sync errors&quot; to find details</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Error when indexing. Right click and choose &quot;Show sync errors&quot; to find details</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Path ends with space or period character. Right click and choose &quot;Show sync errors&quot; to find details</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Path contains invalid characters like &apos;|&apos; or &apos;:&apos;. Right click and choose &quot;Show sync errors&quot; to find details</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Created or updated a file in a non-writable library or folder. Right click and choose &quot;Show sync errors&quot; to find details</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>A folder that may contain not-yet-uploaded files is moved to seafile-recycle-bin folder. Right click and choose &quot;Show sync errors&quot; to find details</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>The file path contains symbols that are not supported by the Windows system. Right click and choose &quot;Show sync errors&quot; to find details</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Failed to download file. Please check disk space or folder permissions. Right click and choose &quot;Show sync errors&quot; to find details</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Path has character case conflict with existing file or folder. Will not be downloaded. Right click and choose &quot;Show sync errors&quot; to find details</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -2446,10 +2482,6 @@ Die Ordnerstruktur enthält ungültige Zeichen. Synchronisieren mit diesem Compu
     <message>
         <source>, %1%2</source>
         <translation>, %1%2</translation>
-    </message>
-    <message>
-        <source>This library has not been downloaded</source>
-        <translation>nicht heruntergeladen</translation>
     </message>
 </context>
 <context>
@@ -2674,7 +2706,7 @@ Die Ordnerstruktur enthält ungültige Zeichen. Synchronisieren mit diesem Compu
     </message>
     <message>
         <source>Set Sync Interval For Library &quot;%1&quot;</source>
-        <translation type="unfinished"/>
+        <translation>Sync-Intervall für Bibliothek „%1“ festlegen</translation>
     </message>
     <message>
         <source>Show sync errors</source>
@@ -2918,12 +2950,12 @@ Die Ordnerstruktur enthält ungültige Zeichen. Synchronisieren mit diesem Compu
         <translation>Icons im Explorer sind wiederhergestellt</translation>
     </message>
     <message>
-        <source>Faild to fix sync status icons for Explorer</source>
-        <translation>Fehler beim Wiederherstellen der Icons im Explorer</translation>
-    </message>
-    <message>
         <source>have some sync error</source>
         <translation>Fehler beim Synchronisieren</translation>
+    </message>
+    <message>
+        <source>Failed to fix sync status icons for Explorer</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -3175,6 +3207,10 @@ Die Ordnerstruktur enthält ungültige Zeichen. Synchronisieren mit diesem Compu
     <message>
         <source>Confirm before deleting files more than</source>
         <translation>Bestätigung bei Löschung von mehreren Dateien ab einer Zahl von</translation>
+    </message>
+    <message>
+        <source>Don&apos;t sync symbolic links</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>

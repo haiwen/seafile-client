@@ -1678,7 +1678,7 @@ Die Ordnerstruktur enthält ungültige Zeichen. Synchronisieren mit diesem Compu
     </message>
     <message>
         <source>Path has character case conflict with existing file or folder. Will not be downloaded</source>
-        <translation>Der Dateipfad enthält einen Zeichenkonflikt mit dem bestehenden Ordner oder einer Datei. Herunterladen nicht möglich</translation>
+        <translation>Der Dateipfad enthält einen Zeichenkonflikt in der Groß-/Kleinschreibung mit dem bestehenden Ordner oder einer Datei. Herunterladen nicht möglich</translation>
     </message>
     <message>
         <source>Library cannot be synced since it has too many files.</source>
@@ -2348,7 +2348,7 @@ Die Ordnerstruktur enthält ungültige Zeichen. Synchronisieren mit diesem Compu
     </message>
     <message>
         <source>Path has character case conflict with existing file or folder. Will not be downloaded</source>
-        <translation>Der Dateipfad enthält einen Zeichenkonflikt mit dem bestehenden Ordner oder einer Datei. Herunterladen nicht möglich</translation>
+        <translation>Der Dateipfad enthält einen Zeichenkonflikt in der Groß-/Kleinschreibung mit dem bestehenden Ordner oder einer Datei. Herunterladen nicht möglich</translation>
     </message>
     <message>
         <source>Library cannot be synced since it has too many files.</source>
@@ -2360,39 +2360,39 @@ Die Ordnerstruktur enthält ungültige Zeichen. Synchronisieren mit diesem Compu
     </message>
     <message>
         <source>File is locked by another application. Right click and choose &quot;Show sync errors&quot; to find details</source>
-        <translation type="unfinished"/>
+        <translation>Die Datei ist von einem anderen Programm gesperrt. Details im Kontextmenü &quot;Synchronisierungs-Fehler anzeigen&quot;.</translation>
     </message>
     <message>
         <source>Error when indexing. Right click and choose &quot;Show sync errors&quot; to find details</source>
-        <translation type="unfinished"/>
+        <translation>Fehler bei der Indizierung. Details im Kontextmenü &quot;Synchronisierungs-Fehler anzeigen&quot;.</translation>
     </message>
     <message>
         <source>Path ends with space or period character. Right click and choose &quot;Show sync errors&quot; to find details</source>
-        <translation type="unfinished"/>
+        <translation>Der Dateipfad endet mit einem Leerzeichen oder Punkt. Details im Kontextmenü &quot;Synchronisierungs-Fehler anzeigen&quot;.</translation>
     </message>
     <message>
         <source>Path contains invalid characters like &apos;|&apos; or &apos;:&apos;. Right click and choose &quot;Show sync errors&quot; to find details</source>
-        <translation type="unfinished"/>
+        <translation>Der Dateipfad enthält ungültige Zeichen wie &apos;|&apos; oder &apos;:&apos;. Details im Kontextmenü &quot;Synchronisierungs-Fehler anzeigen&quot;.</translation>
     </message>
     <message>
         <source>Created or updated a file in a non-writable library or folder. Right click and choose &quot;Show sync errors&quot; to find details</source>
-        <translation type="unfinished"/>
+        <translation>Die Bibliothek oder der Ordner erlaubt kein Anlegen oder Bearbeiten von Dateien. Details im Kontextmenü &quot;Synchronisierungs-Fehler anzeigen&quot;.</translation>
     </message>
     <message>
         <source>A folder that may contain not-yet-uploaded files is moved to seafile-recycle-bin folder. Right click and choose &quot;Show sync errors&quot; to find details</source>
-        <translation type="unfinished"/>
+        <translation>Ein Ordner, der noch nicht hochgeladene Dateien enthalten könnte, wurde in den Papierkorb von Seafile verschoben. Details im Kontextmenü &quot;Synchronisierungs-Fehler anzeigen&quot;.</translation>
     </message>
     <message>
         <source>The file path contains symbols that are not supported by the Windows system. Right click and choose &quot;Show sync errors&quot; to find details</source>
-        <translation type="unfinished"/>
+        <translation>Der Dateipfad enthält ungültige Zeichen, die von Windows nicht unterstützt werden. Details im Kontextmenü &quot;Synchronisierungs-Fehler anzeigen&quot;.</translation>
     </message>
     <message>
         <source>Failed to download file. Please check disk space or folder permissions. Right click and choose &quot;Show sync errors&quot; to find details</source>
-        <translation type="unfinished"/>
+        <translation>Fehler beim Herunterladen der Datei. Bitte den verfügbaren Platz und die Rechte des Ordners überprüfen Details im Kontextmenü &quot;Synchronisierungs-Fehler anzeigen&quot;.</translation>
     </message>
     <message>
         <source>Path has character case conflict with existing file or folder. Will not be downloaded. Right click and choose &quot;Show sync errors&quot; to find details</source>
-        <translation type="unfinished"/>
+        <translation>Der Dateipfad enthält einen Zeichenkonflikt in der Groß-/Kleinschreibung mit dem bestehenden Ordner oder einer Datei. Herunterladen nicht möglich. Details im Kontextmenü &quot;Synchronisierungs-Fehler anzeigen&quot;.</translation>
     </message>
 </context>
 <context>
@@ -2947,7 +2947,7 @@ Die Ordnerstruktur enthält ungültige Zeichen. Synchronisieren mit diesem Compu
     </message>
     <message>
         <source>Successfully fixed sync status icons for Explorer</source>
-        <translation>Icons im Explorer sind wiederhergestellt</translation>
+        <translation>Sync-Icons im Explorer sind wieder aktualisiert</translation>
     </message>
     <message>
         <source>have some sync error</source>
@@ -2955,7 +2955,7 @@ Die Ordnerstruktur enthält ungültige Zeichen. Synchronisieren mit diesem Compu
     </message>
     <message>
         <source>Failed to fix sync status icons for Explorer</source>
-        <translation type="unfinished"/>
+        <translation>Fehler beim Aktualisieren der Sync-Icons im Explorer</translation>
     </message>
 </context>
 <context>
@@ -3210,7 +3210,7 @@ Die Ordnerstruktur enthält ungültige Zeichen. Synchronisieren mit diesem Compu
     </message>
     <message>
         <source>Don&apos;t sync symbolic links</source>
-        <translation type="unfinished"/>
+        <translation>Symbolische Links nicht synchronisieren</translation>
     </message>
 </context>
 <context>

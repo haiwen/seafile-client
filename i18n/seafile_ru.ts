@@ -2362,39 +2362,39 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     </message>
     <message>
         <source>File is locked by another application. Right click and choose &quot;Show sync errors&quot; to find details</source>
-        <translation type="unfinished"/>
+        <translation>Файл заблокирован другим приложением. Щелкните правой кнопкой мыши и выберите &quot;Показать ошибки синхронизации&quot;, чтобы узнать подробности</translation>
     </message>
     <message>
         <source>Error when indexing. Right click and choose &quot;Show sync errors&quot; to find details</source>
-        <translation type="unfinished"/>
+        <translation>Ошибка при индексации. Щелкните правой кнопкой мыши и выберите &quot;Показать ошибки синхронизации&quot;, чтобы узнать подробности</translation>
     </message>
     <message>
         <source>Path ends with space or period character. Right click and choose &quot;Show sync errors&quot; to find details</source>
-        <translation type="unfinished"/>
+        <translation>Путь заканчивается пробелом или точкой. Щелкните правой кнопкой мыши и выберите &quot;Показать ошибки синхронизации&quot;, чтобы узнать подробности.</translation>
     </message>
     <message>
         <source>Path contains invalid characters like &apos;|&apos; or &apos;:&apos;. Right click and choose &quot;Show sync errors&quot; to find details</source>
-        <translation type="unfinished"/>
+        <translation>Путь содержит недопустимые символы, такие как &apos;|&apos; или &apos;:&apos;. Щелкните правой кнопкой мыши и выберите &quot;Показать ошибки синхронизации&quot;, чтобы узнать подробности</translation>
     </message>
     <message>
         <source>Created or updated a file in a non-writable library or folder. Right click and choose &quot;Show sync errors&quot; to find details</source>
-        <translation type="unfinished"/>
+        <translation>Создан или обновлен файл в недоступной для записи библиотеке или папке. Щелкните правой кнопкой мыши и выберите &quot;Показать ошибки синхронизации&quot;, чтобы узнать подробности</translation>
     </message>
     <message>
         <source>A folder that may contain not-yet-uploaded files is moved to seafile-recycle-bin folder. Right click and choose &quot;Show sync errors&quot; to find details</source>
-        <translation type="unfinished"/>
+        <translation>Папка, которая может содержать еще не загруженные файлы, перемещается в папку seafile-recycle-bin. Щелкните правой кнопкой мыши и выберите &quot;Показать ошибки синхронизации&quot;, чтобы узнать подробности</translation>
     </message>
     <message>
         <source>The file path contains symbols that are not supported by the Windows system. Right click and choose &quot;Show sync errors&quot; to find details</source>
-        <translation type="unfinished"/>
+        <translation>Путь к файлу содержит символы, которые не поддерживаются системой Windows. Щелкните правой кнопкой мыши и выберите &quot;Показать ошибки синхронизации&quot;, чтобы узнать подробности</translation>
     </message>
     <message>
         <source>Failed to download file. Please check disk space or folder permissions. Right click and choose &quot;Show sync errors&quot; to find details</source>
-        <translation type="unfinished"/>
+        <translation>Не удалось скачать файл. Проверьте место на диске или разрешения у папки. Щелкните правой кнопкой мыши и выберите &quot;Показать ошибки синхронизации&quot;, чтобы узнать подробности</translation>
     </message>
     <message>
         <source>Path has character case conflict with existing file or folder. Will not be downloaded. Right click and choose &quot;Show sync errors&quot; to find details</source>
-        <translation type="unfinished"/>
+        <translation>Путь конфликтует с регистром символов существующего файла или папки. Не будет скачан. Щелкните правой кнопкой мыши и выберите &quot;Показать ошибки синхронизации&quot;, чтобы узнать подробности</translation>
     </message>
 </context>
 <context>
@@ -2955,7 +2955,7 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     </message>
     <message>
         <source>Failed to fix sync status icons for Explorer</source>
-        <translation type="unfinished"/>
+        <translation>Не удалось исправить значки состояния синхронизации в Проводнике</translation>
     </message>
 </context>
 <context>
@@ -3210,7 +3210,7 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     </message>
     <message>
         <source>Don&apos;t sync symbolic links</source>
-        <translation type="unfinished"/>
+        <translation>Не синхронизировать символические ссылки</translation>
     </message>
 </context>
 <context>

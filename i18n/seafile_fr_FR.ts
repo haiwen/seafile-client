@@ -2915,7 +2915,7 @@ Le nom de fichier contient des caractères invalides. Il n&apos;est pas synchron
     </message>
     <message>
         <source>Downloading</source>
-        <translation>Téléhargement en cours</translation>
+        <translation>Téléchargement en cours</translation>
     </message>
     <message>
         <source>open %1 log folder</source>

@@ -109,9 +109,8 @@ void FileDownloadHelper::downloadFile(const QString &id)
         task->setAutoDelete(false);
         FileBrowserProgressDialog dialog(task.data(), parent_);
         if (dialog.exec()) {
-            QString full_path =
-                data_mgr->getLocalCachedFile(repo_.id, path_, task->fileId());
-            if (!full_path.isEmpty())
+            QString full_path = DataManager::getLocalCacheFilePath(repo_.id, path_);
+            if (!full_path.isEmpty() && QFileInfo(full_path).exists())
                 openFile(full_path, true);
             break;
         }

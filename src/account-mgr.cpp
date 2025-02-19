@@ -105,19 +105,22 @@ QStringList collectSyncedReposForAccount(const Account& account)
         LocalRepo repo = repos[i];
         QString repo_server_url;
         QString username;
+        QString token;
         if (rpc->getRepoProperty(repo.id, kRepoServerUrlProperty, &repo_server_url) < 0) {
-            continue;
-        }
-        if (rpc->getRepoProperty(repo.id, "username", &username) < 0) {
             continue;
         }
         if (QUrl(repo_server_url).host() != account.serverUrl.host()) {
             continue;
         }
+        if (rpc->getRepoProperty(repo.id, "username", &username) < 0) {
+            if (rpc->getRepoProperty(repo.id, "token", &token) < 0 || token.isEmpty()) {
+                repo_ids.append(repo.id);
+            }
+            continue;
+        }
         if (username != account.accountInfo.name) {
             continue;
         }
-        QString token;
         if (rpc->getRepoProperty(repo.id, "token", &token) < 0 || token.isEmpty()) {
             repo_ids.append(repo.id);
         }
@@ -660,10 +663,20 @@ Account AccountManager::getAccountByRepo(const QString& repo_id, SeafileRpcClien
         if (rpc->getRepoProperty(repo_id, kRepoServerUrlProperty, &server_url) < 0) {
             return Account();
         }
-        if (rpc->getRepoProperty(repo_id, "username", &username) < 0) {
-            return Account();
-        }
+
         QString server_host = QUrl(server_url).host();
+
+        if (rpc->getRepoProperty(repo_id, "username", &username) < 0) {
+            for (size_t i = 0; i < accounts.size(); i++) {
+                const Account& account = accounts[i];
+                // If the username is empty, then only compare the server_url.
+                if (account.serverUrl.host() == server_host) {
+                    accounts_cache_[repo_id] = account;
+                    break;
+                }
+            }
+            return accounts_cache_.value(repo_id, Account());
+        }
         for (size_t i = 0; i < accounts.size(); i++) {
             const Account& account = accounts[i];
             if (account.serverUrl.host() == server_host && account.accountInfo.name == username) {

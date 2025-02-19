@@ -109,6 +109,7 @@ void FileDownloadHelper::downloadFile(const QString &id)
         task->setAutoDelete(false);
         FileBrowserProgressDialog dialog(task.data(), parent_);
         if (dialog.exec()) {
+            // The progress dialog exits after the download task is finished. However, data_mgr->getLocalCachedFile() doesn't work here because the local cache will be updated afterwards in another callback.
             QString full_path = DataManager::getLocalCacheFilePath(repo_.id, path_);
             if (!full_path.isEmpty() && QFileInfo(full_path).exists())
                 openFile(full_path, true);

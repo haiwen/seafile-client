@@ -95,40 +95,6 @@ inline void setServerInfoKeyValue(struct sqlite3 *db, const Account &account, co
     sqlite3_free(zql);
 }
 
-QStringList collectSyncedReposForAccount(const Account& account)
-{
-    std::vector<LocalRepo> repos;
-    SeafileRpcClient *rpc = seafApplet->rpcClient();
-    rpc->listLocalRepos(&repos);
-    QStringList repo_ids;
-    for (size_t i = 0; i < repos.size(); i++) {
-        LocalRepo repo = repos[i];
-        QString repo_server_url;
-        QString username;
-        QString token;
-        if (rpc->getRepoProperty(repo.id, kRepoServerUrlProperty, &repo_server_url) < 0) {
-            continue;
-        }
-        if (QUrl(repo_server_url).host() != account.serverUrl.host()) {
-            continue;
-        }
-        if (rpc->getRepoProperty(repo.id, "username", &username) < 0) {
-            if (rpc->getRepoProperty(repo.id, "token", &token) < 0 || token.isEmpty()) {
-                repo_ids.append(repo.id);
-            }
-            continue;
-        }
-        if (username != account.accountInfo.name) {
-            continue;
-        }
-        if (rpc->getRepoProperty(repo.id, "token", &token) < 0 || token.isEmpty()) {
-            repo_ids.append(repo.id);
-        }
-    }
-
-    return repo_ids;
-}
-
 }
 
 AccountManager::AccountManager()
@@ -743,9 +709,43 @@ void AccountManager::reloginAccount(const Account &account_in)
     }
 }
 
+QStringList collectSyncedReposWithoutToken(const Account& account)
+{
+    std::vector<LocalRepo> repos;
+    SeafileRpcClient *rpc = seafApplet->rpcClient();
+    rpc->listLocalRepos(&repos);
+    QStringList repo_ids;
+    for (size_t i = 0; i < repos.size(); i++) {
+        LocalRepo repo = repos[i];
+        QString repo_server_url;
+        QString username;
+        QString token;
+        if (rpc->getRepoProperty(repo.id, kRepoServerUrlProperty, &repo_server_url) < 0) {
+            continue;
+        }
+        if (QUrl(repo_server_url).host() != account.serverUrl.host()) {
+            continue;
+        }
+        if (rpc->getRepoProperty(repo.id, "username", &username) < 0) {
+            if (rpc->getRepoProperty(repo.id, "token", &token) < 0 || token.isEmpty()) {
+                repo_ids.append(repo.id);
+            }
+            continue;
+        }
+        if (username != account.accountInfo.name) {
+            continue;
+        }
+        if (rpc->getRepoProperty(repo.id, "token", &token) < 0 || token.isEmpty()) {
+            repo_ids.append(repo.id);
+        }
+    }
+
+    return repo_ids;
+}
+
 void AccountManager::getSyncedReposToken(const Account& account)
 {
-    QStringList repo_ids = collectSyncedReposForAccount(account);
+    QStringList repo_ids = collectSyncedReposWithoutToken(account);
     if (repo_ids.empty()) {
         return;
     }

@@ -664,24 +664,24 @@ Account AccountManager::getAccountByRepo(const QString& repo_id, SeafileRpcClien
             return Account();
         }
 
+        // The repo synced before version 9.0.7 does not have the username attribute.
+        rpc->getRepoProperty(repo_id, "username", &username);
+
         QString server_host = QUrl(server_url).host();
 
-        if (rpc->getRepoProperty(repo_id, "username", &username) < 0) {
-            for (size_t i = 0; i < accounts.size(); i++) {
-                const Account& account = accounts[i];
+        for (size_t i = 0; i < accounts.size(); i++) {
+            const Account& account = accounts[i];
+            if (username.isEmpty()) {
                 // If the username is empty, then only compare the server_url.
                 if (account.serverUrl.host() == server_host) {
                     accounts_cache_[repo_id] = account;
                     break;
                 }
-            }
-            return accounts_cache_.value(repo_id, Account());
-        }
-        for (size_t i = 0; i < accounts.size(); i++) {
-            const Account& account = accounts[i];
-            if (account.serverUrl.host() == server_host && account.accountInfo.name == username) {
-                accounts_cache_[repo_id] = account;
-                break;
+            } else {
+                if (account.serverUrl.host() == server_host && account.accountInfo.name == username) {
+                    accounts_cache_[repo_id] = account;
+                    break;
+                }
             }
         }
     }

@@ -95,37 +95,6 @@ inline void setServerInfoKeyValue(struct sqlite3 *db, const Account &account, co
     sqlite3_free(zql);
 }
 
-QStringList collectSyncedReposForAccount(const Account& account)
-{
-    std::vector<LocalRepo> repos;
-    SeafileRpcClient *rpc = seafApplet->rpcClient();
-    rpc->listLocalRepos(&repos);
-    QStringList repo_ids;
-    for (size_t i = 0; i < repos.size(); i++) {
-        LocalRepo repo = repos[i];
-        QString repo_server_url;
-        QString username;
-        if (rpc->getRepoProperty(repo.id, kRepoServerUrlProperty, &repo_server_url) < 0) {
-            continue;
-        }
-        if (rpc->getRepoProperty(repo.id, "username", &username) < 0) {
-            continue;
-        }
-        if (QUrl(repo_server_url).host() != account.serverUrl.host()) {
-            continue;
-        }
-        if (username != account.accountInfo.name) {
-            continue;
-        }
-        QString token;
-        if (rpc->getRepoProperty(repo.id, "token", &token) < 0 || token.isEmpty()) {
-            repo_ids.append(repo.id);
-        }
-    }
-
-    return repo_ids;
-}
-
 }
 
 AccountManager::AccountManager()
@@ -660,15 +629,25 @@ Account AccountManager::getAccountByRepo(const QString& repo_id, SeafileRpcClien
         if (rpc->getRepoProperty(repo_id, kRepoServerUrlProperty, &server_url) < 0) {
             return Account();
         }
-        if (rpc->getRepoProperty(repo_id, "username", &username) < 0) {
-            return Account();
-        }
+
+        // The repo synced before version 9.0.7 does not have the username attribute.
+        rpc->getRepoProperty(repo_id, "username", &username);
+
         QString server_host = QUrl(server_url).host();
+
         for (size_t i = 0; i < accounts.size(); i++) {
             const Account& account = accounts[i];
-            if (account.serverUrl.host() == server_host && account.accountInfo.name == username) {
-                accounts_cache_[repo_id] = account;
-                break;
+            if (username.isEmpty()) {
+                // If the username is empty, then only compare the server_url.
+                if (account.serverUrl.host() == server_host) {
+                    accounts_cache_[repo_id] = account;
+                    break;
+                }
+            } else {
+                if (account.serverUrl.host() == server_host && account.accountInfo.name == username) {
+                    accounts_cache_[repo_id] = account;
+                    break;
+                }
             }
         }
     }
@@ -730,9 +709,43 @@ void AccountManager::reloginAccount(const Account &account_in)
     }
 }
 
+QStringList collectSyncedReposWithoutToken(const Account& account)
+{
+    std::vector<LocalRepo> repos;
+    SeafileRpcClient *rpc = seafApplet->rpcClient();
+    rpc->listLocalRepos(&repos);
+    QStringList repo_ids;
+    for (size_t i = 0; i < repos.size(); i++) {
+        LocalRepo repo = repos[i];
+        QString repo_server_url;
+        QString username;
+        QString token;
+        if (rpc->getRepoProperty(repo.id, kRepoServerUrlProperty, &repo_server_url) < 0) {
+            continue;
+        }
+        if (QUrl(repo_server_url).host() != account.serverUrl.host()) {
+            continue;
+        }
+        if (rpc->getRepoProperty(repo.id, "username", &username) < 0) {
+            if (rpc->getRepoProperty(repo.id, "token", &token) < 0 || token.isEmpty()) {
+                repo_ids.append(repo.id);
+            }
+            continue;
+        }
+        if (username != account.accountInfo.name) {
+            continue;
+        }
+        if (rpc->getRepoProperty(repo.id, "token", &token) < 0 || token.isEmpty()) {
+            repo_ids.append(repo.id);
+        }
+    }
+
+    return repo_ids;
+}
+
 void AccountManager::getSyncedReposToken(const Account& account)
 {
-    QStringList repo_ids = collectSyncedReposForAccount(account);
+    QStringList repo_ids = collectSyncedReposWithoutToken(account);
     if (repo_ids.empty()) {
         return;
     }

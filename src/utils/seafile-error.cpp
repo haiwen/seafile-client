@@ -122,6 +122,9 @@ QString translateSyncErrorCode(const int error_code)
         case SYNC_ERROR_ID_CASE_CONFLICT:
             error_str = QObject::tr("Path has character case conflict with existing file or folder. Will not be downloaded");
             break;
+        case SYNC_ERROR_ID_STOPPED_BY_LOGOUT:
+            error_str = QObject::tr("Syncing is stopped by logout. Please re-sync the library if needed");
+            break;
         default:
             qWarning("Unknown sync error");
     }

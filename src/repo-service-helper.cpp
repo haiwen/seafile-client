@@ -26,11 +26,38 @@ void FileDownloadHelper::openFile(const QString& path, bool work_around_mac_auto
         seafApplet->warningBox(msg);
         return;
     }
-    if (!::openInNativeExtension(path) && !::showInGraphicalShell(path)) {
+
+#if defined(Q_OS_WIN32)
+    // The QT_SCREEN_SCALE_FACTORS environment variable will be passed to the
+    // application invoked from here, which may cause scaling problems.
+    // So we temporary reset that and restore back.
+    const char *factors = g_getenv("QT_SCREEN_SCALE_FACTORS");
+    g_setenv("QT_SCREEN_SCALE_FACTORS", "1", 1);
+#endif
+
+#ifdef Q_OS_LINUX
+    QByteArray ldPath = qgetenv("LD_LIBRARY_PATH");
+    qunsetenv("LD_LIBRARY_PATH");
+#endif
+
+    bool ok = ::openInNativeExtension(path) || ::showInGraphicalShell(path);
+
+#ifdef Q_OS_LINUX
+    if (!ldPath.isEmpty()) {
+        qputenv("LD_LIBRARY_PATH", ldPath);
+    }
+#endif
+
+#if defined(Q_OS_WIN32)
+    g_setenv("QT_SCREEN_SCALE_FACTORS", factors, 1);
+#endif
+
+    if (!ok) {
         QString msg = QObject::tr("%1 couldn't find an application to open file %2").arg(getBrand()).arg(file_name);
         seafApplet->warningBox(msg);
         return;
     }
+
 #ifdef Q_OS_MAC
     MacImageFilesWorkAround::instance()->fileOpened(path);
 #endif

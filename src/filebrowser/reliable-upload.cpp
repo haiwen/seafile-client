@@ -461,7 +461,7 @@ void PostFileTask::setContentRangeHeader(QNetworkRequest *request)
     // printf("range_header = %s\n", range_header.toUtf8().data());
     request->setRawHeader("Content-Range", range_header.toUtf8());
     request->setRawHeader("Content-Disposition",
-                          QString(kFileNameHeaderTemplate).arg(QUrl::toPercentEncoding(name_)).toUtf8());
+                          QString(kFileNameHeaderTemplate).arg(QString(QUrl::toPercentEncoding(name_))).toUtf8());
 }
 
 void PostFileTask::onHttpRequestFinished()

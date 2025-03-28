@@ -393,7 +393,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
       <PreprocessorDefinitions>SEAFILE_CLIENT_VERSION=9.0.12;HAVE_SHIBBOLETH_SUPPORT;SEAFILE_CLIENT_HAS_CRASH_REPORTER;WIN32_LEAN_AND_MEAN;QUAZIP_BUILD;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(ProjectDir)..\libsearpc\lib;$(ProjectDir)..\seafile;$(ProjectDir)..\breakpad\src;$(ProjectDir)third_party\quazip;$(ProjectDir)third_party\QtAwesome;$(ProjectDir)third_party\WinSparkle-0.5.3\include;$(ProjectDir)src;$(ProjectDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)vcpkg_installed\x64-windows\x64-windows\include\glib-2.0;$(ProjectDir)vcpkg_installed\x64-windows\x64-windows\lib\glib-2.0\include;$(ProjectDir)..\libsearpc\lib;$(ProjectDir)..\seafile;$(ProjectDir)..\breakpad\src;$(ProjectDir)third_party\quazip;$(ProjectDir)third_party\QtAwesome;$(ProjectDir)third_party\WinSparkle-0.5.3\include;$(ProjectDir)src;$(ProjectDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
@@ -410,6 +410,7 @@ for /f "delims=. " %%a in ('dir /b /a-d /o-d "%FolderName%\*.ts"') do (
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
       <LanguageStandard>stdcpp17</LanguageStandard>
+      <AdditionalIncludeDirectories>$(ProjectDir)vcpkg_installed\x64-windows\x64-windows\include\glib-2.0;$(ProjectDir)vcpkg_installed\x64-windows\x64-windows\lib\glib-2.0\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
   </ItemDefinitionGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'" Label="QtSettings">
@@ -422,6 +423,9 @@ for /f "delims=. " %%a in ('dir /b /a-d /o-d "%FolderName%\*.ts"') do (
     <QtModules>core;gui;network;widgets;core5compat;webenginecore;webenginewidgets</QtModules>
     <QtBuildConfig>release</QtBuildConfig>
     <QtDeploy>true</QtDeploy>
+  </PropertyGroup>
+  <PropertyGroup Label="Vcpkg">
+    <VcpkgEnableManifest>true</VcpkgEnableManifest>
   </PropertyGroup>
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.props')">
     <Import Project="$(QtMsBuild)\qt.props" />

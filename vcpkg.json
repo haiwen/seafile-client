@@ -1,0 +1,30 @@
+{
+    "builtin-baseline": "f63682b9182187131b564c1395e4ac8ecb0c5ea8",
+    "dependencies": [
+        "getopt",
+        "glib",
+        "jansson",
+        "openssl",
+        "pthreads",
+        "sqlite3",
+        "zlib"
+    ],
+    "overrides": [
+        {
+            "name": "jansson",
+            "version": "2.12-1"
+        },
+        {
+            "name": "pthreads",
+            "version": "3.0.0-4"
+        },
+        {
+            "name": "sqlite3",
+            "version": "3.31.1"
+        },
+        {
+            "name": "zlib",
+            "version": "1.2.11-6"
+        }
+    ]
+}

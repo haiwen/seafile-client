@@ -1,0 +1,12 @@
+{
+    "builtin-baseline": "f63682b9182187131b564c1395e4ac8ecb0c5ea8",
+    "dependencies": [
+        "zlib"
+    ],
+    "overrides": [
+        {
+            "name": "zlib",
+            "version": "1.2.11-6"
+        }
+    ]
+}

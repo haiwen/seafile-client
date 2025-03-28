@@ -2388,7 +2388,7 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     </message>
     <message>
         <source>Syncing is stopped by logout. Please re-sync the library if needed</source>
-        <translation>退出登录后，资料库将停止同步。需要时请重新同步资料库。</translation>
+        <translation>同步由于退出登录而被暂停，如需同步请重新同步资料库。</translation>
     </message>
 </context>
 <context>

@@ -2362,38 +2362,42 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     </message>
     <message>
         <source>File is locked by another application. Right click and choose &quot;Show sync errors&quot; to find details</source>
-        <translation type="unfinished"/>
+        <translation>다른 앱에서 파일을 잠궜습니다. 자세한 내용을 보려면 오른쪽 단추를 누른 후 &quot;동기화 오류 보기&quot;를 선택하세요.</translation>
     </message>
     <message>
         <source>Error when indexing. Right click and choose &quot;Show sync errors&quot; to find details</source>
-        <translation type="unfinished"/>
+        <translation>색인 과정에서 오류가 발생했습니다. 자세한 내용을 보려면 오른쪽 단추를 누른 후 &quot;동기화 오류 보기&quot;를 선택하세요.</translation>
     </message>
     <message>
         <source>Path ends with space or period character. Right click and choose &quot;Show sync errors&quot; to find details</source>
-        <translation type="unfinished"/>
+        <translation>경로가 공백 문자 또는 구두 문자로 끝났습니다. 자세한 내용을 보려면 오른쪽 단추를 누른 후 &quot;동기화 오류 보기&quot;를 선택하세요.</translation>
     </message>
     <message>
         <source>Path contains invalid characters like &apos;|&apos; or &apos;:&apos;. Right click and choose &quot;Show sync errors&quot; to find details</source>
-        <translation type="unfinished"/>
+        <translation>경로에 &apos;|&apos; 또는 &apos;:&apos; 문자 같은 부적절한 문자가 들어있습니다. 자세한 내용을 보려면 오른쪽 단추를 누른 후 &quot;동기화 오류 보기&quot;를 선택하세요.</translation>
     </message>
     <message>
         <source>Created or updated a file in a non-writable library or folder. Right click and choose &quot;Show sync errors&quot; to find details</source>
-        <translation type="unfinished"/>
+        <translation>새로 만들었거나 최신 내용으로 고칠 파일이 쓸 수 없는 라이브러리 또는 폴더에 있습니다. 자세한 내용을 보려면 오른쪽 단추를 누른 후 &quot;동기화 오류 보기&quot;를 선택하세요.</translation>
     </message>
     <message>
         <source>A folder that may contain not-yet-uploaded files is moved to seafile-recycle-bin folder. Right click and choose &quot;Show sync errors&quot; to find details</source>
-        <translation type="unfinished"/>
+        <translation>아직 업로드하지 않은 파일이 들어간 폴더를 seafile 휴지통 폴더로 이동했습니다. 자세한 내용을 보려면 오른쪽 단추를 누른 후 &quot;동기화 오류 보기&quot;를 선택하세요.</translation>
     </message>
     <message>
         <source>The file path contains symbols that are not supported by the Windows system. Right click and choose &quot;Show sync errors&quot; to find details</source>
-        <translation type="unfinished"/>
+        <translation>윈도우 시스템에서 지원하지 않는 기호 문자가 파일 경로에 들어있습니다. 자세한 내용을 보려면 오른쪽 단추를 누른 후 &quot;동기화 오류 보기&quot;를 선택하세요.</translation>
     </message>
     <message>
         <source>Failed to download file. Please check disk space or folder permissions. Right click and choose &quot;Show sync errors&quot; to find details</source>
-        <translation type="unfinished"/>
+        <translation>파일 다운로드에 실패했습니다. 디스크 공간 또는 폴더 권한을 확인하세요. 자세한 내용을 보려면 오른쪽 단추를 누른 후 &quot;동기화 오류 보기&quot;를 선택하세요.</translation>
     </message>
     <message>
         <source>Path has character case conflict with existing file or folder. Will not be downloaded. Right click and choose &quot;Show sync errors&quot; to find details</source>
+        <translation>기존 파일 또는 폴더의 대소문자와 기존의 경로의 대소문자가 일치합니다. 다운로드할 수 없습니다. 자세한 내용을 보려면 오른쪽 단추를 누른 후 &quot;동기화 오류 보기&quot;를 선택하세요.</translation>
+    </message>
+    <message>
+        <source>Syncing is stopped by logout. Please re-sync the library if needed</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -2957,7 +2961,7 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     </message>
     <message>
         <source>Failed to fix sync status icons for Explorer</source>
-        <translation type="unfinished"/>
+        <translation>파일 탐색기의 동기화 상태 아이콘 수정에 실패했습니다</translation>
     </message>
 </context>
 <context>
@@ -3213,7 +3217,7 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     </message>
     <message>
         <source>Don&apos;t sync symbolic links</source>
-        <translation type="unfinished"/>
+        <translation>심볼릭 링크 동기화하지 않음</translation>
     </message>
 </context>
 <context>

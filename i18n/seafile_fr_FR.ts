@@ -2394,6 +2394,10 @@ Le nom de fichier contient des caractères invalides. Il n&apos;est pas synchron
         <source>Path has character case conflict with existing file or folder. Will not be downloaded. Right click and choose &quot;Show sync errors&quot; to find details</source>
         <translation type="unfinished"/>
     </message>
+    <message>
+        <source>Syncing is stopped by logout. Please re-sync the library if needed</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>ReliablePostFileTask</name>

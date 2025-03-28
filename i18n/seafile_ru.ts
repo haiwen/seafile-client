@@ -2396,6 +2396,10 @@ File path contains invalid characters. It is not synced to this computer.</sourc
         <source>Path has character case conflict with existing file or folder. Will not be downloaded. Right click and choose &quot;Show sync errors&quot; to find details</source>
         <translation>Путь конфликтует с регистром символов существующего файла или папки. Не будет скачан. Щелкните правой кнопкой мыши и выберите &quot;Показать ошибки синхронизации&quot;, чтобы узнать подробности</translation>
     </message>
+    <message>
+        <source>Syncing is stopped by logout. Please re-sync the library if needed</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>ReliablePostFileTask</name>

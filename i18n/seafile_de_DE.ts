@@ -2394,6 +2394,10 @@ Die Ordnerstruktur enthält ungültige Zeichen. Synchronisieren mit diesem Compu
         <source>Path has character case conflict with existing file or folder. Will not be downloaded. Right click and choose &quot;Show sync errors&quot; to find details</source>
         <translation>Der Dateipfad enthält einen Zeichenkonflikt in der Groß-/Kleinschreibung mit dem bestehenden Ordner oder einer Datei. Herunterladen nicht möglich. Details im Kontextmenü &quot;Synchronisierungs-Fehler anzeigen&quot;.</translation>
     </message>
+    <message>
+        <source>Syncing is stopped by logout. Please re-sync the library if needed</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>ReliablePostFileTask</name>

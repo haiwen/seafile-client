@@ -1,6 +1,8 @@
 #include <QScopedPointer>
 #include <QDir>
 
+#include <glib.h>
+
 #include "repo-service-helper.h"
 
 #include "filebrowser/data-mgr.h"

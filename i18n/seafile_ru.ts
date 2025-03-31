@@ -2398,7 +2398,7 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     </message>
     <message>
         <source>Syncing is stopped by logout. Please re-sync the library if needed</source>
-        <translation type="unfinished"/>
+        <translation>Синхронизация прекращается при выходе из системы. Пожалуйста, повторно синхронизируйте библиотеку, если это необходимо</translation>
     </message>
 </context>
 <context>

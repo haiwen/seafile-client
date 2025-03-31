@@ -2396,7 +2396,7 @@ Die Ordnerstruktur enthält ungültige Zeichen. Synchronisieren mit diesem Compu
     </message>
     <message>
         <source>Syncing is stopped by logout. Please re-sync the library if needed</source>
-        <translation type="unfinished"/>
+        <translation>Die Synchronisierung wird beim Abmelden gestoppt. Falls erforderlich, die Bibliothek später neu synchronisieren</translation>
     </message>
 </context>
 <context>

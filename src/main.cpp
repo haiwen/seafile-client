@@ -186,10 +186,23 @@ int main(int argc, char *argv[])
 
     // count if we have any instance running now. if more than one, exit
     if (count_process(APPNAME) > 1) {
+#if defined(Q_OS_LINUX)
+        if (argc > 1) {
+            QString argument = QString::fromUtf8(argv[1]);
+            if (argument.startsWith("seafile://openfile")) {
+                OpenLocalHelper::instance()->handleOpenLocalFromCommandLine(argv[1]);
+                return 0;
+            }
+        } else if (OpenLocalHelper::instance()->activateRunningInstance()) {
+            printf("Activated running instance of seafile client\n");
+            return 0;
+        }
+#else
         if (OpenLocalHelper::instance()->activateRunningInstance()) {
             printf("Activated running instance of seafile client\n");
             return 0;
         }
+#endif
         QMessageBox::warning(NULL, getBrand(),
                              QObject::tr("%1 Client is already running").arg(getBrand()),
                              QMessageBox::Ok);

@@ -2,7 +2,8 @@
 Name=Seafile
 Comment=Seafile desktop sync client
 TryExec=seafile-applet
-Exec=seafile-applet
+Exec=seafile-applet %u
 Icon=seafile
 Type=Application
+MimeType=x-scheme-handler/seafile;
 Categories=Network;FileTransfer;

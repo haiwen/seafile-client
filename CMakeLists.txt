@@ -157,7 +157,7 @@ ELSE()
 ENDIF()
 
 IF(QT_VERSION_MAJOR EQUAL 6)
-    SET(USE_QT_LIBRARIES Core Gui Widgets LinguistTools Network Core5Compat WebEngineCore WebEngineWidgets)
+    SET(USE_QT_LIBRARIES Core Gui Widgets LinguistTools Network Core5Compat)
 ELSE()
     SET(USE_QT_LIBRARIES Core Gui Widgets LinguistTools Network)
 ENDIF()

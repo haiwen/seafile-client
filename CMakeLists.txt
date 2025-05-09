@@ -387,8 +387,6 @@ PKG_CHECK_MODULES(OPENSSL REQUIRED openssl>=0.98)
 
 PKG_CHECK_MODULES(LIBSEAFILE REQUIRED libseafile>=1.7)
 
-PKG_CHECK_MODULES(LIBEVENT REQUIRED libevent>=2.0)
-
 PKG_CHECK_MODULES(ZLIB REQUIRED zlib>=1.2)
 ####################
 ###### END: other libraries configuration

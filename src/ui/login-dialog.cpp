@@ -309,7 +309,8 @@ void LoginDialog::onFetchAccountInfoSuccess(const AccountInfo& info)
 {
     Account account = account_info_req_->account();
     // The user may use the username to login, but we need to store the email
-    // to account database
+    // to account database. We prefer to use the contact email if it is
+    // available, because the info.email may be an internal email address.
     account.username = info.contact_email.isEmpty() ? info.email : info.contact_email;
     account.isAutomaticLogin =
         mAutomaticLogin->checkState() == Qt::Checked;

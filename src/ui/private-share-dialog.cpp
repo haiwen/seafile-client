@@ -517,7 +517,6 @@ SharedItemsHeadView::SharedItemsHeadView(QWidget* parent)
 {
     setDefaultAlignment(Qt::AlignLeft);
     setStretchLastSection(false);
-    setCascadingSectionResizes(true);
     setHighlightSections(false);
     setDefaultAlignment(Qt::AlignLeft | Qt::AlignVCenter);
     setSectionResizeMode(QHeaderView::Interactive);

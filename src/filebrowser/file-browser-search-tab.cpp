@@ -157,7 +157,6 @@ FileBrowserSearchView::FileBrowserSearchView(QWidget* parent)
     verticalHeader()->setDefaultSectionSize(kDefaultColumnHeight);
     horizontalHeader()->setSectionResizeMode(QHeaderView::Interactive);
     horizontalHeader()->setStretchLastSection(true);
-    horizontalHeader()->setCascadingSectionResizes(true);
     horizontalHeader()->setHighlightSections(false);
     horizontalHeader()->setSortIndicatorShown(true);
     horizontalHeader()->setDefaultAlignment(Qt::AlignLeft | Qt::AlignVCenter);

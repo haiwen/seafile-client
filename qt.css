@@ -516,12 +516,12 @@ FileTableView {
 FileTableView QHeaderView::section,
 FileBrowserSearchView QHeaderView::section{
     border: 0;
+    border-right: 1px solid #e0e0e0;
     padding: 8px;
     outline: 0px;
     color: #b3b3b3;
     background-color: white;
     font-size: 12px;
-    padding-top: 20px;
 }
 
 FileTableView QHeaderView::section:first,
@@ -533,13 +533,11 @@ FileTableView QHeaderView::down-arrow,
 FileBrowserSearchView QHeaderView::down-arrow{
     width: 15px;
     height: 5px;
-    padding-top: 15px;
     subcontrol-position: center right;
 }
 
 FileTableView QHeaderView::up-arrow,
 FileBrowserSearchView QHeaderView::up-arrow{
-    padding-top: 15px;
     subcontrol-position: center right;
 }
 

@@ -11,6 +11,7 @@ class AccountInfo {
 public:
     QString email;
     QString name;
+    QString contact_email;
     qint64 totalStorage;
     qint64 usedStorage;
 };
@@ -116,7 +117,7 @@ public:
     }
 
     QString getEncryptedLibraryPwdHashAlgo() const {
-        return serverInfo.pwdHashAlgo; 
+        return serverInfo.pwdHashAlgo;
     }
 
     QString getEncryptedLibraryPwdHashParams() const {
@@ -138,7 +139,7 @@ public:
     qint32 getTotalStorage() const {
         return accountInfo.totalStorage;
     }
-    
+
     qint32 getUsedStorage() const {
         return accountInfo.usedStorage;
     }

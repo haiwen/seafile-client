@@ -310,7 +310,7 @@ void LoginDialog::onFetchAccountInfoSuccess(const AccountInfo& info)
     Account account = account_info_req_->account();
     // The user may use the username to login, but we need to store the email
     // to account database
-    account.username = info.email;
+    account.username = info.contact_email.isEmpty() ? info.email : info.contact_email;
     account.isAutomaticLogin =
         mAutomaticLogin->checkState() == Qt::Checked;
     seafApplet->accountManager()->setCurrentAccount(account);

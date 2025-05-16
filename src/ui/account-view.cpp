@@ -103,7 +103,7 @@ void AccountView::deleteAccount()
                           "The account will be removed locally. All syncing "
                           "configuration will be removed too. The account at "
                           "the server will not be affected.")
-                           .arg(account.username);
+                           .arg(account.getDisplayEmail());
 
     if (seafApplet->yesOrNoBox(question, this, false)) {
         FileBrowserManager::getInstance()->closeAllDialogByAccount(account);
@@ -142,7 +142,7 @@ void AccountView::updateAccountInfoDisplay()
         if (!account.accountInfo.name.isEmpty()) {
             mEmail->setText(account.accountInfo.name);
         } else {
-            mEmail->setText(account.username);
+            mEmail->setText(account.getDisplayEmail());
         }
         // mServerAddr->setOpenExternalLinks(true);
         mServerAddr->setToolTip(tr("click to open the website"));
@@ -176,7 +176,7 @@ void AccountView::onAccountChanged()
         for (size_t i = 0, n = accounts.size(); i < n; i++) {
             const Account &account = accounts[i];
             QString text_name = account.accountInfo.name.isEmpty() ?
-                        account.username : account.accountInfo.name;
+                        account.getDisplayEmail() : account.accountInfo.name;
             QString text = text_name + " (" + account.serverUrl.host() + ")";
             if (!account.isValid()) {
                 text += ", " + tr("not logged in");
@@ -243,7 +243,7 @@ void AccountView::onAccountChanged()
 
 QAction* AccountView::makeAccountAction(const Account& account)
 {
-    QString text = account.username + "(" + account.serverUrl.host() + ")";
+    QString text = account.getDisplayEmail() + "(" + account.serverUrl.host() + ")";
     if (!account.isValid()) {
         text += ", " + tr("not logged in");
     }

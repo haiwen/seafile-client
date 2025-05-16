@@ -1357,7 +1357,6 @@ void FileBrowserDialog::onGetUploadLinkFailed(const ApiError&) {
 void FileBrowserDialog::onGetDirentShareSeafile(const SeafDirent& dirent)
 {
     QString repo_id = repo_.id;
-    QString email = account_.username;
     QString path = ::pathJoin(current_path_, dirent.name);
     if (dirent.isDir())
         path += "/";

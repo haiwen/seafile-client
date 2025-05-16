@@ -144,6 +144,11 @@ public:
         return accountInfo.usedStorage;
     }
 
+    // The accountInfo.email will be an internal email address if the contact_email exists.
+    QString getDisplayEmail() const {
+        return accountInfo.contact_email.isEmpty() ? accountInfo.email : accountInfo.contact_email;
+    }
+
     QUrl getAbsoluteUrl(const QString& relativeUrl) const;
     QString getSignature() const;
 };

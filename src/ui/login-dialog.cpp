@@ -127,9 +127,9 @@ void LoginDialog::initFromAccount(const Account& account)
     mServerAddr->setCurrentIndex(0);
     mServerAddr->setEditable(false);
 
-    mAutomaticLogin->setCheckState(account.isAutomaticLogin ? Qt::Checked : Qt::Unchecked);
-    mUsername->setText(account.username);
+    mUsername->setText(account.getDisplayEmail());
     mPassword->setFocus(Qt::OtherFocusReason);
+    mAutomaticLogin->setCheckState(account.isAutomaticLogin ? Qt::Checked : Qt::Unchecked);
 }
 
 void LoginDialog::doLogin()
@@ -309,7 +309,7 @@ void LoginDialog::onFetchAccountInfoSuccess(const AccountInfo& info)
 {
     Account account = account_info_req_->account();
     // The user may use the username to login, but we need to store the email
-    // to account database
+    // to account database.
     account.username = info.email;
     account.isAutomaticLogin =
         mAutomaticLogin->checkState() == Qt::Checked;

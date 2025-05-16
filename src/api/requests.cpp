@@ -1059,6 +1059,7 @@ void FetchAccountInfoRequest::requestSuccess(QNetworkReply& reply)
     AccountInfo info;
     info.email = dict["email"].toString();
     info.name = dict["name"].toString();
+    info.contact_email = dict["contact_email"].toString();
     info.totalStorage = dict["total"].toLongLong();
     info.usedStorage = dict["usage"].toLongLong();
     if (info.name.isEmpty()) {

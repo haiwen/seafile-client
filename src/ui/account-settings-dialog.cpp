@@ -20,7 +20,7 @@ AccountSettingsDialog::AccountSettingsDialog(const Account& account, QWidget *pa
     setWindowFlags(windowFlags() & ~Qt::WindowContextHelpButtonHint);
 
     mServerAddr->setText(account_.serverUrl.toString());
-    mUsername->setText(account_.username);
+    mUsername->setText(account_.getDisplayEmail());
     mUsername->setEnabled(false);
 
     #if defined(Q_OS_MAC)

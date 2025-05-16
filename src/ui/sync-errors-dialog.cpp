@@ -150,7 +150,6 @@ SyncErrorsTableView::SyncErrorsTableView(QWidget *parent)
     verticalHeader()->setDefaultSectionSize(36);
     horizontalHeader()->setSectionResizeMode(QHeaderView::Interactive);
     horizontalHeader()->setStretchLastSection(true);
-    horizontalHeader()->setCascadingSectionResizes(true);
     horizontalHeader()->setHighlightSections(false);
     horizontalHeader()->setDefaultAlignment(Qt::AlignLeft | Qt::AlignVCenter);
 

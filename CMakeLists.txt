@@ -157,7 +157,7 @@ ELSE()
 ENDIF()
 
 IF(QT_VERSION_MAJOR EQUAL 6)
-    SET(USE_QT_LIBRARIES Core Gui Widgets LinguistTools Network Core5Compat WebEngineCore WebEngineWidgets)
+    SET(USE_QT_LIBRARIES Core Gui Widgets LinguistTools Network Core5Compat)
 ELSE()
     SET(USE_QT_LIBRARIES Core Gui Widgets LinguistTools Network)
 ENDIF()
@@ -386,8 +386,6 @@ PKG_CHECK_MODULES(LIBSEARPC REQUIRED libsearpc>=1.0)
 PKG_CHECK_MODULES(OPENSSL REQUIRED openssl>=0.98)
 
 PKG_CHECK_MODULES(LIBSEAFILE REQUIRED libseafile>=1.7)
-
-PKG_CHECK_MODULES(LIBEVENT REQUIRED libevent>=2.0)
 
 PKG_CHECK_MODULES(ZLIB REQUIRED zlib>=1.2)
 ####################

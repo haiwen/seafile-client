@@ -95,7 +95,14 @@ SyncErrorsDialog::SyncErrorsDialog(QWidget *parent)
     stack_->insertWidget(INDEX_TABE_VIEW, table_);
     stack_->setContentsMargins(0, 0, 0, 0);
 
+    QLabel *label = new QLabel(tr("FAQ: <a href=\"https://help.seafile.com/faq/#meaning-file-syncing-errors\">https://help.seafile.com/faq/#meaning-file-syncing-errors</a>"));
+    label->setTextFormat(Qt::RichText);
+    label->setMargin(6);
+
+    connect(label, SIGNAL(linkActivated(QString)), this, SLOT(onLinkActivated(QString)));
+
     vlayout->addWidget(stack_);
+    vlayout->addWidget(label);
 
     onModelReset();
     connect(model_, SIGNAL(modelReset()), this, SLOT(onModelReset()));
@@ -128,6 +135,10 @@ void SyncErrorsDialog::onModelReset()
     }
 }
 
+void SyncErrorsDialog::onLinkActivated(const QString& link)
+{
+    openUrl(QUrl(link));
+}
 
 void SyncErrorsDialog::createEmptyView()
 {

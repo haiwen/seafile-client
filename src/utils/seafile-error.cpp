@@ -125,6 +125,9 @@ QString translateSyncErrorCode(const int error_code)
         case SYNC_ERROR_ID_STOPPED_BY_LOGOUT:
             error_str = QObject::tr("Syncing is stopped by logout. Please re-sync the library if needed");
             break;
+        case SYNC_ERROR_ID_CORRUPTED_ENC_KEY:
+            error_str = QObject::tr("Encryption key is corrupted. Please create a new library and upload files again");
+            break;
         default:
             qWarning("Unknown sync error");
     }

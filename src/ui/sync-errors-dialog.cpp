@@ -97,9 +97,9 @@ SyncErrorsDialog::SyncErrorsDialog(QWidget *parent)
 
     QString text;
     if (QLocale::system().name() == "zh_CN") {
-        text = "<a href=\"https://cloud.seafile.com/wiki/publish/seafile-user-manual/7he2/\">" + tr("Descriptions for sync errors.") + "</a>";
+        text = "<a href=\"https://cloud.seafile.com/wiki/publish/seafile-user-manual/7he2/\">" + tr("Descriptions for sync errors") + "</a>";
     } else {
-        text = "<a href=\"https://help.seafile.com/faq/#meaning-file-syncing-errors\">" + tr("Descriptions for sync errors.") + "</a>";
+        text = "<a href=\"https://help.seafile.com/faq/#meaning-file-syncing-errors\">" + tr("Descriptions for sync errors") + "</a>";
     }
     QLabel *label = new QLabel(text);
     label->setTextFormat(Qt::RichText);

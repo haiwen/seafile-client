@@ -285,22 +285,6 @@ private:
     Q_DISABLE_COPY(GetStarredFilesRequestV2);
 };
 
-class GetEventsRequest : public SeafileApiRequest
-{
-    Q_OBJECT
-public:
-    GetEventsRequest(const Account& account, int start = 0);
-
-signals:
-    void success(const std::vector<SeafEvent>& events, int more_offset);
-
-protected slots:
-    void requestSuccess(QNetworkReply& reply);
-
-private:
-    Q_DISABLE_COPY(GetEventsRequest);
-};
-
 class GetEventsRequestV2 : public SeafileApiRequest
 {
     Q_OBJECT

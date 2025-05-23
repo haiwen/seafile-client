@@ -25,11 +25,11 @@ const char kGetFileUpdateUrl[] = "api2/repos/%1/update-link/";
 const char kGetStarredFilesUrl[] = "api2/starredfiles/";
 const char kQueryAsyncOperationProgressUrl[] = "api/v2.1/query-copy-move-progress/";
 const char kCopyMoveSingleItemUrl[] = "api/v2.1/copy-move-task/";
-const char kFileOperationCopy[] = "api2/repos/%1/fileops/copy/";
+const char kSyncCopyMultipleItems[] = "api/v2.1/repos/sync-batch-copy-item/";
+const char kSyncMoveMultipleItems[] = "api/v2.1/repos/sync-batch-move-item/";
+const char kSyncDeleteMultipleItems[] = "api/v2.1/repos/batch-delete-item/";
 const char kAsyncCopyMultipleItems[] = "api/v2.1/repos/async-batch-copy-item/";
 const char kAsyncMoveMultipleItems[] = "api/v2.1/repos/async-batch-move-item/";
-const char kFileOperationMove[] = "api2/repos/%1/fileops/move/";
-const char kRemoveDirentsURL[] = "api2/repos/%1/fileops/delete/";
 const char kGetFileUploadedBytesUrl[] = "api/v2.1/repos/%1/file-uploaded-bytes/";
 const char kGetSmartLink[] = "api/v2.1/smart-link/";
 const char kGetUploadLinkUrl[] = "api/v2.1/upload-links/";
@@ -303,13 +303,23 @@ RemoveDirentsRequest::RemoveDirentsRequest(const Account &account,
                                            const QString &parent_path,
                                            const QStringList& filenames)
     : SeafileApiRequest(
-        account.getAbsoluteUrl(
-            QString(kRemoveDirentsURL).arg(repo_id)),
-        SeafileApiRequest::METHOD_POST, account.token),
+        account.getAbsoluteUrl(kSyncDeleteMultipleItems),
+        SeafileApiRequest::METHOD_DELETE, account.token),
       repo_id_(repo_id), parent_path_(parent_path), filenames_(filenames)
 {
-    setUrlParam("p", parent_path_);
-    setFormParam("file_names", filenames_.join(":"));
+    setHeader("Content-Type","application/json");
+    setHeader("Accept", "application/json");
+
+    QJsonObject json_obj;
+    json_obj.insert("repo_id", repo_id);
+    json_obj.insert("parent_dir", parent_path);
+    QJsonArray dirents_array;
+    for (const QString &filename : filenames) {
+        dirents_array.append(filename);
+    }
+    json_obj.insert("dirents", dirents_array);
+    QJsonDocument json_document(json_obj);
+    setRequestBody(json_document.toJson(QJsonDocument::Compact));
 }
 
 void RemoveDirentsRequest::requestSuccess(QNetworkReply& reply)
@@ -512,18 +522,19 @@ CopyMultipleFilesRequest::CopyMultipleFilesRequest(const Account &account,
                                                    const QString &dst_repo_id,
                                                    const QString &dst_dir_path)
     : SeafileApiRequest(
-        account.getAbsoluteUrl(QString(kFileOperationCopy).arg(repo_id)),
+        account.getAbsoluteUrl(kSyncCopyMultipleItems),
     SeafileApiRequest::METHOD_POST, account.token),
     repo_id_(repo_id),
     src_dir_path_(src_dir_path),
     src_file_names_(src_file_names),
     dst_repo_id_(dst_repo_id)
 {
-    setUrlParam("p", src_dir_path);
+    setHeader("Content-Type","application/json");
+    setHeader("Accept", "application/json");
 
-    setFormParam("file_names", src_file_names.join(":"));
-    setFormParam("dst_repo", dst_repo_id);
-    setFormParam("dst_dir", dst_dir_path);
+    QByteArray byte_array = assembleJsonReq(repo_id, src_dir_path, src_file_names,
+                                            dst_repo_id, dst_dir_path);
+    setRequestBody(byte_array);
 }
 
 void CopyMultipleFilesRequest::requestSuccess(QNetworkReply& reply)
@@ -538,18 +549,19 @@ MoveMultipleFilesRequest::MoveMultipleFilesRequest(const Account &account,
                                                    const QString &dst_repo_id,
                                                    const QString &dst_dir_path)
     : SeafileApiRequest(
-        account.getAbsoluteUrl(QString(kFileOperationMove).arg(repo_id)),
+        account.getAbsoluteUrl(kSyncMoveMultipleItems),
     SeafileApiRequest::METHOD_POST, account.token),
     repo_id_(repo_id),
     src_dir_path_(src_dir_path),
     src_file_names_(src_file_names),
     dst_repo_id_(dst_repo_id)
 {
-    setUrlParam("p", src_dir_path);
+    setHeader("Content-Type","application/json");
+    setHeader("Accept", "application/json");
 
-    setFormParam("file_names", src_file_names.join(":"));
-    setFormParam("dst_repo", dst_repo_id);
-    setFormParam("dst_dir", dst_dir_path);
+    QByteArray byte_array = assembleJsonReq(repo_id, src_dir_path, src_file_names,
+                                            dst_repo_id, dst_dir_path);
+    setRequestBody(byte_array);
 }
 
 void MoveMultipleFilesRequest::requestSuccess(QNetworkReply& reply)

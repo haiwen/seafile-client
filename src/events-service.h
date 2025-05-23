@@ -7,7 +7,6 @@
 #include "api/event.h"
 
 class ApiError;
-class GetEventsRequest;
 class GetEventsRequestV2;
 
 class EventsService : public QObject
@@ -49,8 +48,6 @@ private:
     static EventsService *singleton_;
 
     const std::vector<SeafEvent> handleEventsOffset(const std::vector<SeafEvent>& new_events);
-
-    GetEventsRequest *get_events_req_;
 
     GetEventsRequestV2 *get_file_activities_req_;
 

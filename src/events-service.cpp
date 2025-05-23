@@ -23,7 +23,6 @@ EventsService* EventsService::instance()
 EventsService::EventsService(QObject *parent)
     : QObject(parent)
 {
-    get_events_req_ = NULL;
     get_file_activities_req_ = NULL;
     next_ = -1;
     in_refresh_ = false;
@@ -56,52 +55,23 @@ void EventsService::sendRequest(bool is_load_more)
         return;
     }
 
-    // server version begin 7.0.0 support new api
-    bool is_support_new_file_activities_api = account.isAtLeastVersion(7, 0, 0);
     in_refresh_ = true;
 
-    if (!is_support_new_file_activities_api) {
-        if (get_events_req_) {
-            get_events_req_->deleteLater();
-        }
-
-        if (!is_load_more) {
-            events_.clear();
-            next_ = -1;
-        }
-
-        get_events_req_ = new GetEventsRequest(account, next_);
-
-        connect(get_events_req_, SIGNAL(success(const std::vector<SeafEvent>&, int)),
-                this, SLOT(onRefreshSuccess(const std::vector<SeafEvent>&, int)));
-
-        connect(get_events_req_, SIGNAL(failed(const ApiError&)),
-                this, SLOT(onRefreshFailed(const ApiError&)));
-
-        get_events_req_->send();
-    } else {
-        if (get_file_activities_req_) {
-            get_file_activities_req_->deleteLater();
-        }
-
-        if (!is_load_more) {
-            events_.clear();
-            next_ = 1;
-        } else {
-            ++next_;
-        }
-
-        get_file_activities_req_ = new GetEventsRequestV2(account, next_);
-
-        connect(get_file_activities_req_, SIGNAL(success(const std::vector<SeafEvent>&)),
-                this, SLOT(onRefreshSuccessV2(const std::vector<SeafEvent>&)));
-
-        connect(get_file_activities_req_, SIGNAL(failed(const ApiError&)),
-                this, SLOT(onRefreshFailed(const ApiError&)));
-
-        get_file_activities_req_->send();
+    if (get_file_activities_req_) {
+        get_file_activities_req_->deleteLater();
     }
 
+    if (!is_load_more) {
+        events_.clear();
+        next_ = 1;
+    } else {
+        ++next_;
+    }
+
+    get_file_activities_req_ = new GetEventsRequestV2(account, next_);
+    connect(get_file_activities_req_, SIGNAL(success(const std::vector<SeafEvent>&)), this, SLOT(onRefreshSuccessV2(const std::vector<SeafEvent>&)));
+    connect(get_file_activities_req_, SIGNAL(failed(const ApiError&)), this, SLOT(onRefreshFailed(const ApiError&)));
+    get_file_activities_req_->send();
 }
 
 void EventsService::loadMore()

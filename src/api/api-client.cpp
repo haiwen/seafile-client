@@ -26,11 +26,6 @@ const int kMaxRedirects = 3;
 const int kMaxHttpErrorLogLen = 300;
 const int kDefaultHttpTimeout = 30000; // 30 second
 
-bool shouldIgnoreRequestError(const QNetworkReply* reply)
-{
-    return reply->url().toString().contains("/api2/events");
-}
-
 QString getQueryValue(const QUrl& url, const QString& name)
 {
     QString v;
@@ -148,12 +143,13 @@ void SeafileApiClient::post(const QUrl& url, const QByteArray& data, bool is_put
             this, SLOT(onSslErrors(const QList<QSslError>&)));
 }
 
-void SeafileApiClient::deleteResource(const QUrl& url)
+void SeafileApiClient::deleteResource(const QUrl& url, const QByteArray& data)
 {
+    body_ = data;
     QNetworkRequest request(url);
     prepareRequest(&request);
 
-    reply_ = qnam_->deleteResource(request);
+    reply_ = qnam_->sendCustomRequest(request, "DELETE", body_);
     reply_->setParent(this);
 
     connect(reply_, SIGNAL(sslErrors(const QList<QSslError>&)),
@@ -244,10 +240,7 @@ void SeafileApiClient::httpRequestFinished()
         ServerStatusService::instance()->updateOnFailedRequest(reply_->url());
         NetworkStatusDetector::instance()->setNetworkFailure(reply_->error());
 
-        if (!shouldIgnoreRequestError(reply_)) {
-            qWarning("[api] network error for %s: %s\n", toCStr(reply_->url().toString()),
-                   reply_->errorString().toUtf8().data());
-        }
+        qWarning("[api] network error for %s: %s\n", toCStr(reply_->url().toString()), reply_->errorString().toUtf8().data());
         emit networkError(reply_->error(), reply_->errorString());
         return;
     }
@@ -260,16 +253,14 @@ void SeafileApiClient::httpRequestFinished()
     }
 
     if ((code / 100) == 4 || (code / 100) == 5) {
-        if (!shouldIgnoreRequestError(reply_)) {
-            reply_body_ = reply_->readAll();
-            qWarning("request failed for %s: %s\n",
-                     reply_->url().toString().toUtf8().data(),
-                     reply_body_.left(kMaxHttpErrorLogLen).data());
-            if (reply_body_.length() > kMaxHttpErrorLogLen) {
-                qDebug("request failed for %s: %s\n",
-                       reply_->url().toString().toUtf8().data(),
-                       reply_body_.data());
-            }
+        reply_body_ = reply_->readAll();
+        qWarning("request failed for %s: %s\n",
+                    reply_->url().toString().toUtf8().data(),
+                    reply_body_.left(kMaxHttpErrorLogLen).data());
+        if (reply_body_.length() > kMaxHttpErrorLogLen) {
+            qDebug("request failed for %s: %s\n",
+                    reply_->url().toString().toUtf8().data(),
+                    reply_body_.data());
         }
         emit requestFailed(code);
         return;
@@ -338,7 +329,7 @@ void SeafileApiClient::resendRequest(const QUrl& url)
         break;
     case QNetworkAccessManager::DeleteOperation:
         reply_->deleteLater();
-        deleteResource(url);
+        deleteResource(url, body_);
         break;
     default:
         reply_->deleteLater();

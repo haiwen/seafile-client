@@ -33,7 +33,6 @@ const char* kUnseenMessagesUrl = "api2/unseen_messages/";
 const char* kDefaultRepoUrl = "api2/default-repo/";
 const char* kStarredFilesUrl = "api2/starredfiles/";
 const char* kStarredItemsUrl = "api/v2.1/starred-items/";
-const char* kGetEventsUrl = "api2/events/";
 const char* kCommitDetailsUrl = "api2/repo_history_changes/";
 const char* kAvatarUrl = "api2/avatars/user/";
 const char* kSetRepoPasswordUrl = "api2/repos/";
@@ -578,43 +577,6 @@ void GetEventsRequestV2::requestSuccess(QNetworkReply& reply)
     std::vector<SeafEvent> events = SeafEvent::listFromJSON(array, &error, true);
 
     emit success(events);
-}
-
-GetEventsRequest::GetEventsRequest(const Account& account, int start)
-    : SeafileApiRequest(account.getAbsoluteUrl(kGetEventsUrl),
-                        SeafileApiRequest::METHOD_GET,
-                        account.token)
-{
-    if (start > 0) {
-        setUrlParam("start", QString::number(start));
-    }
-}
-
-void GetEventsRequest::requestSuccess(QNetworkReply& reply)
-{
-    json_error_t error;
-    json_t* root = parseJSON(reply, &error);
-    if (!root) {
-        qWarning("GetEventsRequest: failed to parse json:%s\n", error.text);
-        emit failed(ApiError::fromJsonError());
-        return;
-    }
-
-    QScopedPointer<json_t, JsonPointerCustomDeleter> json(root);
-
-    bool more = false;
-    int more_offset = -1;
-
-    json_t* array = json_object_get(json.data(), "events");
-    std::vector<SeafEvent> events = SeafEvent::listFromJSON(array, &error);
-
-    more = json_is_true(json_object_get(json.data(), "more"));
-    if (more) {
-        more_offset =
-            json_integer_value(json_object_get(json.data(), "more_offset"));
-    }
-
-    emit success(events, more_offset);
 }
 
 GetCommitDetailsRequest::GetCommitDetailsRequest(const Account& account,

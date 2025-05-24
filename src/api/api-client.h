@@ -25,7 +25,7 @@ public:
     void setHeader(const QString& key, const QString& value);
     void get(const QUrl& url);
     void post(const QUrl& url, const QByteArray& body, bool is_put);
-    void deleteResource(const QUrl& url);
+    void deleteResource(const QUrl& url, const QByteArray& body);
     void setUseCache(bool use_cache) { use_cache_ = use_cache; }
 
     const QNetworkReply* reply() const { return reply_; }

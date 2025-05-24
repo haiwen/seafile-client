@@ -40,7 +40,7 @@ void SeafileApiRequest::setFormParam(const QString& name, const QString& value)
 
 void SeafileApiRequest::setRequestBody(const QByteArray& content)
 {
-    if (method_ != METHOD_PUT && method_ != METHOD_POST) {
+    if (method_ != METHOD_PUT && method_ != METHOD_POST && method_ != METHOD_DELETE) {
         qWarning("warning: calling setRequestBody on a request with method %d\n", method_);
     }
     post_data_ = content;
@@ -73,7 +73,7 @@ void SeafileApiRequest::send()
         api_client_->get(url_);
         break;
     case METHOD_DELETE:
-        api_client_->deleteResource(url_);
+        api_client_->deleteResource(url_, post_data_);
         break;
     case METHOD_POST:
     case METHOD_PUT:

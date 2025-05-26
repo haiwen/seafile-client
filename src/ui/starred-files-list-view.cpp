@@ -67,7 +67,7 @@ void StarredFilesListView::viewFileOnWeb()
         if (file.type == StarredItem::REPO) {
             strurl = "library/" + file.repo_id + "/" + file.obj_name;
         } else if (file.type == StarredItem::DIR) {
-            strurl = "library/" + file.repo_id + file.path;
+            strurl = "library/" + file.repo_id + "/" + file.repo_name + file.path;
         } else {
             strurl = "lib/" + file.repo_id + "/file" + file.path;
         }

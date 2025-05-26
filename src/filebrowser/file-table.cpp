@@ -206,7 +206,7 @@ void FileTableViewDelegate::paint(QPainter *painter, const QStyleOptionViewItem 
 
             // Customize style using style-sheet..
             QProgressBar progressBar;
-            progressBar.resize(QSize(size.width() - 155, size.height() / 2 - 4));
+            progressBar.resize(QSize(qMax(30, option.rect.width() - 8), option.rect.height() / 2 - 4));
             progressBar.setMinimum(0);
             progressBar.setMaximum(100);
             progressBar.setValue(progress);
@@ -234,7 +234,7 @@ void FileTableViewDelegate::paint(QPainter *painter, const QStyleOptionViewItem 
             text = model->data(index, Qt::DisplayRole).toString();
         }
         QFont font = model->data(index, Qt::FontRole).value<QFont>();
-        QRect rect(option_rect.topLeft() + QPoint(9, -2), size - QSize(10, 0));
+        QRect rect = option.rect.adjusted(9, -2, -1, 0);
         painter->save();
         painter->setPen(kFontColor);
         painter->setFont(font);

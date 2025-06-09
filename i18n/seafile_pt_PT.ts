@@ -3,23 +3,23 @@
     <name>AboutDialog</name>
     <message>
         <source>About %1</source>
-        <translation type="unfinished"/>
+        <translation>Sobre %1</translation>
     </message>
     <message>
         <source>&lt;h2&gt;%1 Client %2&lt;/h2&gt;</source>
-        <translation type="unfinished"/>
+        <translation>%1 Cliente %2</translation>
     </message>
     <message>
         <source>&lt;h5&gt; REV %1 &lt;/h5&gt;</source>
-        <translation type="unfinished"/>
+        <translation>REV %1</translation>
     </message>
     <message>
         <source>About</source>
-        <translation type="unfinished"/>
+        <translation>Sobre</translation>
     </message>
     <message>
         <source>OK</source>
-        <translation type="unfinished"/>
+        <translation>OK</translation>
     </message>
 </context>
 <context>
@@ -30,231 +30,233 @@
     </message>
     <message>
         <source>Authorization expired, please re-login</source>
-        <translation type="unfinished"/>
+        <translation>Autorização expirada, por favor volte a iniciar sessão </translation>
     </message>
     <message>
         <source>Failed to remove local repos sync token: %1</source>
-        <translation type="unfinished"/>
+        <translation>Falha ao remover token do repositório local de sincronização: %1</translation>
     </message>
     <message>
         <source>Failed to get repo sync information from server: %1</source>
-        <translation type="unfinished"/>
+        <translation>Falha a obter do servidor informação de sincronização do repositório: %1</translation>
     </message>
 </context>
 <context>
     <name>AccountSettingsDialog</name>
     <message>
         <source>Account Settings</source>
-        <translation type="unfinished"/>
+        <translation>Configurações da Conta</translation>
     </message>
     <message>
         <source>Please enter the server address</source>
-        <translation type="unfinished"/>
+        <translation>Por favor introduza o endereço do servidor</translation>
     </message>
     <message>
         <source>%1 is not a valid server address</source>
-        <translation type="unfinished"/>
+        <translation>%1 não é um endereço de servidor válido</translation>
     </message>
     <message>
         <source>Failed to save account information</source>
-        <translation type="unfinished"/>
+        <translation>Falha a guardar informação da conta</translation>
     </message>
     <message>
         <source>Failed to save the changes: %1</source>
-        <translation type="unfinished"/>
+        <translation>Falha a guardar as alterações: %1</translation>
     </message>
     <message>
         <source>Successfully updated current account information</source>
-        <translation type="unfinished"/>
+        <translation>Informação atual da conta atualizada com sucesso</translation>
     </message>
     <message>
         <source>Dialog</source>
-        <translation type="unfinished"/>
+        <translation>Caixa de diálogo</translation>
     </message>
     <message>
         <source>Server Address</source>
-        <translation type="unfinished"/>
+        <translation>Endereço do Servidor</translation>
     </message>
     <message>
         <source>Email</source>
-        <translation type="unfinished"/>
+        <translation>Email</translation>
     </message>
     <message>
         <source>OK</source>
-        <translation type="unfinished"/>
+        <translation>OK</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation type="unfinished"/>
+        <translation>Cancelar</translation>
     </message>
 </context>
 <context>
     <name>AccountView</name>
     <message>
         <source>Are you sure you want to remove account %1?&lt;br&gt;&lt;br&gt;The account will be removed locally. All syncing configuration will be removed too. The account at the server will not be affected.</source>
-        <translation type="unfinished"/>
+        <translation>Tem a certeza que pretende remover a conta %1?&lt;br&gt;&lt;br&gt;A conta será removida localmente. Toda a configuração de sincronização será também removida. A conta presente no servidor não será afetada.</translation>
     </message>
     <message>
         <source>Failed to unsync libraries of this account: %1</source>
-        <translation type="unfinished"/>
+        <translation>Falha a dessincronizar as bibliotecas desta conta: %1 </translation>
     </message>
     <message>
         <source>click to open the website</source>
-        <translation type="unfinished"/>
+        <translation>clique para abrir o sítio web</translation>
     </message>
     <message>
         <source>pro version</source>
-        <translation type="unfinished"/>
+        <translation>versão pro</translation>
     </message>
     <message>
         <source>No account</source>
-        <translation type="unfinished"/>
+        <translation>Sem conta</translation>
     </message>
     <message>
         <source>Choose</source>
-        <translation type="unfinished"/>
+        <translation>Escolha</translation>
     </message>
     <message>
         <source>Account settings</source>
-        <translation type="unfinished"/>
+        <translation>Configurações da conta</translation>
     </message>
     <message>
         <source>Login</source>
-        <translation type="unfinished"/>
+        <translation>Iniciar sessão</translation>
     </message>
     <message>
         <source>Delete</source>
-        <translation type="unfinished"/>
+        <translation>Apagar</translation>
     </message>
     <message>
         <source>Add an account</source>
-        <translation type="unfinished"/>
+        <translation>Adicionar uma conta</translation>
     </message>
     <message>
         <source>Logout</source>
-        <translation type="unfinished"/>
+        <translation>Sair</translation>
     </message>
     <message>
         <source>not logged in</source>
-        <translation type="unfinished"/>
+        <translation>sem sessão iniciada</translation>
     </message>
     <message>
         <source>Form</source>
-        <translation type="unfinished"/>
+        <translation>Formulário</translation>
     </message>
     <message>
         <source>Account</source>
-        <translation type="unfinished"/>
+        <translation>Conta</translation>
     </message>
     <message>
         <source>email</source>
-        <translation type="unfinished"/>
+        <translation>email</translation>
     </message>
     <message>
         <source>server</source>
-        <translation type="unfinished"/>
+        <translation>servidor</translation>
     </message>
     <message>
         <source>settings</source>
-        <translation type="unfinished"/>
+        <translation>definições</translation>
     </message>
     <message>
         <source>refresh</source>
-        <translation type="unfinished"/>
+        <translation>atualizar</translation>
     </message>
     <message>
         <source>sort</source>
-        <translation type="unfinished"/>
+        <translation>ordenar</translation>
     </message>
     <message>
         <source>Sort libraries by</source>
-        <translation type="unfinished"/>
+        <translation>Ordenar bibliotecas por</translation>
     </message>
     <message>
         <source>Modification time</source>
-        <translation type="unfinished"/>
+        <translation>Data/hora da modificação</translation>
     </message>
     <message>
         <source>Library names</source>
-        <translation type="unfinished"/>
+        <translation>Nomes das bibliotecas</translation>
     </message>
 </context>
 <context>
     <name>ActivitiesTab</name>
     <message>
         <source>File Activities are only supported in %1 Server Professional Edition.</source>
-        <translation type="unfinished"/>
+        <translation>Atividades de Ficheiro são suportadas apenas na %1 Versão Profissional do Servidor.</translation>
     </message>
     <message>
         <source>retry</source>
-        <translation type="unfinished"/>
+        <translation>tentar novamente</translation>
     </message>
     <message>
         <source>Failed to get actvities information. Please %1</source>
-        <translation type="unfinished"/>
+        <translation>Falha a obter informação das atividades. Por favor %1</translation>
     </message>
 </context>
 <context>
     <name>AutoUpdateManager</name>
     <message>
         <source>Upload Success</source>
-        <translation type="unfinished"/>
+        <translation>Carregamento com sucesso</translation>
     </message>
     <message>
         <source>File &quot;%1&quot;
 uploaded successfully.</source>
-        <translation type="unfinished"/>
+        <translation>Ficheiro &quot;%1&quot;
+carregado com sucesso.</translation>
     </message>
     <message>
         <source>File &quot;%1&quot;
 failed to upload.</source>
-        <translation type="unfinished"/>
+        <translation>Ficheiro &quot;%1&quot;
+falhou ao carregar.</translation>
     </message>
     <message>
         <source>Permission Error!</source>
-        <translation type="unfinished"/>
+        <translation>Erro de Permissão!</translation>
     </message>
     <message>
         <source>Authorization expired</source>
-        <translation type="unfinished"/>
+        <translation>Autorização expirada</translation>
     </message>
     <message>
         <source>File does not exist</source>
-        <translation type="unfinished"/>
+        <translation>Ficheiro não existe</translation>
     </message>
     <message>
         <source>The file is locked by %1, please try again later</source>
-        <translation type="unfinished"/>
+        <translation>O ficheiro está bloqueado por %1, por favor tente novamente mais tarde</translation>
     </message>
     <message>
         <source>Upload Failure: %1</source>
-        <translation type="unfinished"/>
+        <translation>Falha no Carregamento: %1</translation>
     </message>
     <message>
         <source>File size exceeds limit</source>
-        <translation type="unfinished"/>
+        <translation>O tamanho do ficheiro ultrapassa o limite</translation>
     </message>
     <message>
         <source>Number of file exceeds limit</source>
-        <translation type="unfinished"/>
+        <translation>Número de ficheiros ultrapassa o limite</translation>
     </message>
 </context>
 <context>
     <name>AvatarService</name>
     <message>
         <source>Failed to create avatars folder</source>
-        <translation type="unfinished"/>
+        <translation>Falha ao criar pasta de avatares</translation>
     </message>
 </context>
 <context>
     <name>CheckRepoRootDirPermDialog</name>
     <message>
         <source>Checking Permission</source>
-        <translation type="unfinished"/>
+        <translation>A verificar permissão</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation type="unfinished"/>
+        <translation>Cancelar</translation>
     </message>
 </context>
 <context>
@@ -338,19 +340,19 @@ failed to upload.</source>
     </message>
     <message>
         <source>Libraries</source>
-        <translation type="unfinished"/>
+        <translation>Bibliotecas</translation>
     </message>
     <message>
         <source>Starred</source>
-        <translation type="unfinished"/>
+        <translation>Estrelado</translation>
     </message>
     <message>
         <source>Activities</source>
-        <translation type="unfinished"/>
+        <translation>Atividades</translation>
     </message>
     <message>
         <source>Search</source>
-        <translation type="unfinished"/>
+        <translation>Procurar</translation>
     </message>
     <message>
         <source>current download rate</source>
@@ -402,11 +404,11 @@ failed to upload.</source>
     </message>
     <message>
         <source>brand</source>
-        <translation type="unfinished"/>
+        <translation>marca</translation>
     </message>
     <message>
         <source>or Drop Folder to Sync</source>
-        <translation type="unfinished"/>
+        <translation>ou Largue a Pasta para Sincronizar</translation>
     </message>
     <message>
         <source>download rate</source>
@@ -414,7 +416,7 @@ failed to upload.</source>
     </message>
     <message>
         <source>downarrow</source>
-        <translation type="unfinished"/>
+        <translation>seta para baixo</translation>
     </message>
     <message>
         <source>upload rate</source>
@@ -422,7 +424,7 @@ failed to upload.</source>
     </message>
     <message>
         <source>uparrow</source>
-        <translation type="unfinished"/>
+        <translation>seta para cima</translation>
     </message>
 </context>
 <context>
@@ -433,7 +435,7 @@ failed to upload.</source>
     </message>
     <message>
         <source>Unable to create preconfigure directory &quot;%1&quot;</source>
-        <translation type="unfinished"/>
+        <translation>Não é possível criar um diretorio pré-configurado &quot;%1&quot;</translation>
     </message>
     <message>
         <source>failed to read %1</source>
@@ -456,7 +458,7 @@ failed to upload.</source>
     </message>
     <message>
         <source>Failed to generate encryption key for this library</source>
-        <translation type="unfinished"/>
+        <translation>Falha ao gerar chave de encriptação para esta biblioteca</translation>
     </message>
     <message>
         <source>Please choose the directory to sync</source>
@@ -491,7 +493,8 @@ failed to upload.</source>
     <message>
         <source>Failed to create library on the server:
 %1</source>
-        <translation type="unfinished"/>
+        <translation>Falha ao criar a biblioteca no servidor:
+%1</translation>
     </message>
     <message>
         <source>Dialog</source>
@@ -527,7 +530,7 @@ failed to upload.</source>
     </message>
     <message>
         <source>OK</source>
-        <translation type="unfinished"/>
+        <translation>OK</translation>
     </message>
     <message>
         <source>Cancel</source>
@@ -535,37 +538,37 @@ failed to upload.</source>
     </message>
     <message>
         <source>end-to-end encryption</source>
-        <translation type="unfinished"/>
+        <translation>encriptação ponta-a-ponta</translation>
     </message>
     <message>
         <source>TextLabel</source>
-        <translation type="unfinished"/>
+        <translation>Etiqueta</translation>
     </message>
     <message>
         <source>File changes on network drives may not be synced automatically. You can set sync intervals to enable periodic sync. Do you want to sync with this folder?</source>
-        <translation type="unfinished"/>
+        <translation>Modificações do ficheiro nos discos em rede podem não ser sincronizadas automaticamente. Pode definir intervalos de sincronização para ativar a sincronização periódica. Pretende sincronizar com esta pasta?</translation>
     </message>
     <message>
         <source>Creating a library with encryption version less than 2 is not supported</source>
-        <translation type="unfinished"/>
+        <translation>Não há suporte para a criação de uma biblioteca com versão de encriptação inferior a 2</translation>
     </message>
 </context>
 <context>
     <name>DaemonManager</name>
     <message>
         <source>%1 client failed to initialize</source>
-        <translation type="unfinished"/>
+        <translation>%1 cliente falhou a inicializar</translation>
     </message>
     <message>
         <source>%1 exited unexpectedly</source>
-        <translation type="unfinished"/>
+        <translation>%1 saiu inesperadamente</translation>
     </message>
 </context>
 <context>
     <name>DataManager</name>
     <message>
         <source>Another copy or move operation is in progress. Please wait until it finishes.</source>
-        <translation type="unfinished"/>
+        <translation>Outra operação de copiar ou mover está em progresso. Por favor aguarde até que termine.</translation>
     </message>
 </context>
 <context>
@@ -580,63 +583,63 @@ failed to upload.</source>
     </message>
     <message>
         <source>Sync folder &quot;%1&quot;</source>
-        <translation type="unfinished"/>
+        <translation>Sincronizar pasta &quot;%1&quot;</translation>
     </message>
     <message>
         <source>Sync to folder:</source>
-        <translation type="unfinished"/>
+        <translation>Sincronizar para a pasta:</translation>
     </message>
     <message>
         <source>or</source>
-        <translation type="unfinished"/>
+        <translation>ou</translation>
     </message>
     <message>
         <source>sync with an existing folder</source>
-        <translation type="unfinished"/>
+        <translation>sincronizar com uma pasta existente</translation>
     </message>
     <message>
         <source>create a new sync folder</source>
-        <translation type="unfinished"/>
+        <translation>criar uma nova pasta de sincronização</translation>
     </message>
     <message>
         <source>Sync with this existing folder:</source>
-        <translation type="unfinished"/>
+        <translation>Sincronizar com esta pasta existente:</translation>
     </message>
     <message>
         <source>Please choose a folder</source>
-        <translation type="unfinished"/>
+        <translation>Por favor escolha uma pasta</translation>
     </message>
     <message>
         <source>The folder does not exist</source>
-        <translation type="unfinished"/>
+        <translation>A pasta não existe</translation>
     </message>
     <message>
         <source>Please choose the folder to sync.</source>
-        <translation type="unfinished"/>
+        <translation>Por favor escolha a pasta a sincronizar.</translation>
     </message>
     <message>
         <source>Your organization disables putting a library outside %1 folder.</source>
-        <translation type="unfinished"/>
+        <translation>A sua organização desativou colocar a biblioteca fora da pasta %1.</translation>
     </message>
     <message>
         <source>Conflicting with existing file &quot;%1&quot;, please choose a different folder.</source>
-        <translation type="unfinished"/>
+        <translation>Conflito com um ficheiro existente &quot;%1&quot;, por favor escolha uma pasta diferente.</translation>
     </message>
     <message>
         <source>Conflicting with existing library &quot;%1&quot;, please choose a different folder.</source>
-        <translation type="unfinished"/>
+        <translation>Conflito com uma biblioteca existente &quot;%1&quot;, por favor escolha uma pasta diferente.</translation>
     </message>
     <message>
         <source>The folder &quot;%1&quot; already exists. Are you sure to sync with it (contents will be merged)?</source>
-        <translation type="unfinished"/>
+        <translation>A pasta &quot;% 1&quot; já existe. Tem a certeza que deseja sincronizá-las (os conteúdos serão juntos)?</translation>
     </message>
     <message>
         <source>Click No to sync with a new folder instead</source>
-        <translation type="unfinished"/>
+        <translation>Clique em Não para sincronizar com uma nova pasta.</translation>
     </message>
     <message>
         <source>Unable to find an alternative folder name</source>
-        <translation type="unfinished"/>
+        <translation>Não é possível encontrar um nome de pasta alternativo</translation>
     </message>
     <message>
         <source>Failed to add download task:
@@ -647,7 +650,8 @@ failed to upload.</source>
     <message>
         <source>Failed to get repo download information:
 %1</source>
-        <translation type="unfinished"/>
+        <translation>Falha a obter informação de descarga do repositório:
+%1</translation>
     </message>
     <message>
         <source>Download Library</source>
@@ -663,7 +667,7 @@ failed to upload.</source>
     </message>
     <message>
         <source>OK</source>
-        <translation type="unfinished"/>
+        <translation>OK</translation>
     </message>
     <message>
         <source>Cancel</source>
@@ -671,223 +675,223 @@ failed to upload.</source>
     </message>
     <message>
         <source>File changes on network drives may not be synced automatically. You can set sync intervals to enable periodic sync. Do you want to sync with this folder?</source>
-        <translation type="unfinished"/>
+        <translation>Modificações do ficheiro nos discos em rede podem não ser sincronizadas automaticamente. Pode definir intervalos de sincronização para ativar a sincronização periódica. Pretende sincronizar com esta pasta?</translation>
     </message>
 </context>
 <context>
     <name>EventDetailsDialog</name>
     <message>
         <source>Modification Details</source>
-        <translation type="unfinished"/>
+        <translation>Detalhes da Modificação</translation>
     </message>
 </context>
 <context>
     <name>EventDetailsListModel</name>
     <message>
         <source>Added files</source>
-        <translation type="unfinished"/>
+        <translation>Ficheiros adicionados</translation>
     </message>
     <message>
         <source>Deleted files</source>
-        <translation type="unfinished"/>
+        <translation>Ficheiros apagados</translation>
     </message>
     <message>
         <source>Modified files</source>
-        <translation type="unfinished"/>
+        <translation>Ficheiros modificados</translation>
     </message>
     <message>
         <source>Added folders</source>
-        <translation type="unfinished"/>
+        <translation>Pastas adicionadas</translation>
     </message>
     <message>
         <source>Deleted folders</source>
-        <translation type="unfinished"/>
+        <translation>Pastas apagadas</translation>
     </message>
 </context>
 <context>
     <name>EventDetailsListView</name>
     <message>
         <source>&amp;Open</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Abrir</translation>
     </message>
     <message>
         <source>Open &amp;parent folder</source>
-        <translation type="unfinished"/>
+        <translation>Abrir pasta &amp;pai</translation>
     </message>
 </context>
 <context>
     <name>FileBrowserDialog</name>
     <message>
         <source>Cloud File Browser</source>
-        <translation type="unfinished"/>
+        <translation>Navegador de Ficheiros na Nuvem</translation>
     </message>
     <message>
         <source>Back</source>
-        <translation type="unfinished"/>
+        <translation>Voltar</translation>
     </message>
     <message>
         <source>Forward</source>
-        <translation type="unfinished"/>
+        <translation>Avançar</translation>
     </message>
     <message>
         <source>Home</source>
-        <translation type="unfinished"/>
+        <translation>Início</translation>
     </message>
     <message>
         <source>Upload files</source>
-        <translation type="unfinished"/>
+        <translation>Carregar ficheiros</translation>
     </message>
     <message>
         <source>Upload a directory</source>
-        <translation type="unfinished"/>
+        <translation>Carregar um diretório</translation>
     </message>
     <message>
         <source>You don&apos;t have permission to upload files to this library</source>
-        <translation type="unfinished"/>
+        <translation>Não tem permissão para carregar ficheiros para esta biblioteca</translation>
     </message>
     <message>
         <source>Create a folder</source>
-        <translation type="unfinished"/>
+        <translation>Criar uma pasta</translation>
     </message>
     <message>
         <source>Refresh</source>
-        <translation type="unfinished"/>
+        <translation>Atualizar</translation>
     </message>
     <message>
         <source>%1 items</source>
-        <translation type="unfinished"/>
+        <translation>%1 itens</translation>
     </message>
     <message>
         <source>Folder name</source>
-        <translation type="unfinished"/>
+        <translation>Nome da pasta</translation>
     </message>
     <message>
         <source>Invalid folder name!</source>
-        <translation type="unfinished"/>
+        <translation>Nome da pasta inválido!</translation>
     </message>
     <message>
         <source>The name &quot;%1&quot; is already taken.</source>
-        <translation type="unfinished"/>
+        <translation>O nome &quot;%1&quot; já está a ser utilizado.</translation>
     </message>
     <message>
         <source>retry</source>
-        <translation type="unfinished"/>
+        <translation>tentar novamente</translation>
     </message>
     <message>
         <source>Failed to get files information&lt;br/&gt;Please %1</source>
-        <translation type="unfinished"/>
+        <translation>Falha a obter informação dos ficheiros&lt;br/&gt;Por favor %1</translation>
     </message>
     <message>
         <source>This folder is empty.</source>
-        <translation type="unfinished"/>
+        <translation>Esta pasta está vazia.</translation>
     </message>
     <message>
         <source>Enter name of file to save to...</source>
-        <translation type="unfinished"/>
+        <translation>Digite o nome do ficheiro para guardar em...</translation>
     </message>
     <message>
         <source>Unable to remove file &quot;%1&quot;</source>
-        <translation type="unfinished"/>
+        <translation>Não foi possível remover o ficheiro &quot;%1&quot;</translation>
     </message>
     <message>
         <source>Enter the path of the folder you want to save to...</source>
-        <translation type="unfinished"/>
+        <translation>Digite o caminho da pasta que deseja guardar em...</translation>
     </message>
     <message>
         <source>Do you want to overwrite the existing file &quot;%1&quot;?</source>
-        <translation type="unfinished"/>
+        <translation>Deseja substituir o ficheiro existente &quot;%1&quot;?</translation>
     </message>
     <message>
         <source>File &quot;%1&quot; haven&apos;t been synced</source>
-        <translation type="unfinished"/>
+        <translation>O ficheiro &quot;%1&quot; não foi sincronizado</translation>
     </message>
     <message>
         <source>File %1 already exists.&lt;br/&gt;Do you like to overwrite it?&lt;br/&gt;&lt;small&gt;(Choose No to upload using an alternative name).&lt;/small&gt;</source>
-        <translation type="unfinished"/>
+        <translation>O ficheiro %1 já existe.&lt;br/&gt;Desja substituí-lo?&lt;br/&gt;&lt;small&gt;(Escolha Não para carregá-lo com um nome alternativo).&lt;/small&gt;</translation>
     </message>
     <message>
         <source>File does not exist</source>
-        <translation type="unfinished"/>
+        <translation>O ficheiro não existe</translation>
     </message>
     <message>
         <source>Failed to download file: %1</source>
-        <translation type="unfinished"/>
+        <translation>Falha ao descarregar o ficheiro: %1</translation>
     </message>
     <message>
         <source>Select a file to upload</source>
-        <translation type="unfinished"/>
+        <translation>Selecione um ficheiro para carregar</translation>
     </message>
     <message>
         <source>Select a directory to upload</source>
-        <translation type="unfinished"/>
+        <translation>Selecione um diretório para carregar.</translation>
     </message>
     <message>
         <source>Rename</source>
-        <translation type="unfinished"/>
+        <translation>Renomear</translation>
     </message>
     <message>
         <source>Do you really want to delete these items</source>
-        <translation type="unfinished"/>
+        <translation>Realmente quer apagar estes itens</translation>
     </message>
     <message>
         <source>Create folder failed</source>
-        <translation type="unfinished"/>
+        <translation>Criação de pasta falhou</translation>
     </message>
     <message>
         <source>Lock file failed</source>
-        <translation type="unfinished"/>
+        <translation>Bloquear arquivo falhou</translation>
     </message>
     <message>
         <source>Select a file to update %1</source>
-        <translation type="unfinished"/>
+        <translation>Selecione um ficheiro para carregar %1</translation>
     </message>
     <message>
         <source>Rename failed</source>
-        <translation type="unfinished"/>
+        <translation>Renomear falhou</translation>
     </message>
     <message>
         <source>Remove failed</source>
-        <translation type="unfinished"/>
+        <translation>Remover falhou</translation>
     </message>
     <message>
         <source>Share failed</source>
-        <translation type="unfinished"/>
+        <translation>Partilha falhou</translation>
     </message>
     <message>
         <source>Cannot paste files from the same folder</source>
-        <translation type="unfinished"/>
+        <translation>Não é possível colar ficheiros na mesma pasta</translation>
     </message>
     <message>
         <source>Cannot paste the folder to its subfolder</source>
-        <translation type="unfinished"/>
+        <translation>Não é possível colar a pasta na sua subpasta</translation>
     </message>
     <message>
         <source>Copy failed</source>
-        <translation type="unfinished"/>
+        <translation>Copiar falhou</translation>
     </message>
     <message>
         <source>Move failed</source>
-        <translation type="unfinished"/>
+        <translation>Mover falhou</translation>
     </message>
     <message>
         <source>Create library failed!</source>
-        <translation type="unfinished"/>
+        <translation>Criação de biblioteca falhou!</translation>
     </message>
     <message>
         <source>You do not have permission to upload to this folder</source>
-        <translation type="unfinished"/>
+        <translation>Não tem permissão para carregar para esta pasta</translation>
     </message>
     <message>
         <source>Authorization expired</source>
-        <translation type="unfinished"/>
+        <translation>Autorização expirada</translation>
     </message>
     <message>
         <source>Permission Error!</source>
-        <translation type="unfinished"/>
+        <translation>Erro de Permissão!</translation>
     </message>
     <message>
         <source>Library/Folder not found.</source>
-        <translation type="unfinished"/>
+        <translation>Biblioteca/Pasta não encontrada.</translation>
     </message>
     <message>
         <source>Failed to upload file %1: %2</source>
@@ -2383,6 +2387,10 @@ File path contains invalid characters. It is not synced to this computer.</sourc
         <source>Syncing is stopped by logout. Please re-sync the library if needed</source>
         <translation type="unfinished"/>
     </message>
+    <message>
+        <source>Encryption key is corrupted. Please create a new library and upload files again</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>ReliablePostFileTask</name>
@@ -3375,6 +3383,10 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     </message>
     <message>
         <source>No sync errors.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Descriptions for sync errors</source>
         <translation type="unfinished"/>
     </message>
 </context>

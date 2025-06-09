@@ -2391,6 +2391,10 @@ File path contains invalid characters. It is not synced to this computer.</sourc
         <source>Syncing is stopped by logout. Please re-sync the library if needed</source>
         <translation type="unfinished"/>
     </message>
+    <message>
+        <source>Encryption key is corrupted. Please create a new library and upload files again</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>ReliablePostFileTask</name>
@@ -3383,6 +3387,10 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     </message>
     <message>
         <source>No sync errors.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Descriptions for sync errors</source>
         <translation type="unfinished"/>
     </message>
 </context>

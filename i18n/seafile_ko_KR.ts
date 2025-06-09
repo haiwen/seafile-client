@@ -1073,7 +1073,7 @@ failed to upload.</source>
     </message>
     <message>
         <source>&amp;Rename</source>
-        <translation>제거(&amp;R)</translation>
+        <translation>이름 바꾸기(&amp;R)</translation>
     </message>
     <message>
         <source>&amp;Delete</source>
@@ -2398,6 +2398,10 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     </message>
     <message>
         <source>Syncing is stopped by logout. Please re-sync the library if needed</source>
+        <translation>로그아웃하여 동기화 과정을 멈추었습니다. 필요하다면 라이브러리를 다시 동기화하세요</translation>
+    </message>
+    <message>
+        <source>Encryption key is corrupted. Please create a new library and upload files again</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -3394,6 +3398,10 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     <message>
         <source>No sync errors.</source>
         <translation>오류 없이 동기화했습니다.</translation>
+    </message>
+    <message>
+        <source>Descriptions for sync errors</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>

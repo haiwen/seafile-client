@@ -2398,6 +2398,10 @@ Die Ordnerstruktur enthält ungültige Zeichen. Synchronisieren mit diesem Compu
         <source>Syncing is stopped by logout. Please re-sync the library if needed</source>
         <translation>Die Synchronisierung wird beim Abmelden gestoppt. Falls erforderlich, die Bibliothek später neu synchronisieren</translation>
     </message>
+    <message>
+        <source>Encryption key is corrupted. Please create a new library and upload files again</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>ReliablePostFileTask</name>
@@ -3391,6 +3395,10 @@ Die Ordnerstruktur enthält ungültige Zeichen. Synchronisieren mit diesem Compu
     <message>
         <source>No sync errors.</source>
         <translation>Keine Fehler beim Synchronisieren.</translation>
+    </message>
+    <message>
+        <source>Descriptions for sync errors</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>

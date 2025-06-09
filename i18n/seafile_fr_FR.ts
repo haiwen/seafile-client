@@ -26,11 +26,11 @@
     <name>AccountManager</name>
     <message>
         <source>failed to open account database</source>
-        <translation>Impossible d&apos;ouvrir la base de données des comptes</translation>
+        <translation>L&apos;ouverture de la base de données du compte a échoué.</translation>
     </message>
     <message>
         <source>Authorization expired, please re-login</source>
-        <translation>Autorisation expirée, reconnectez-vous</translation>
+        <translation>L&apos;autorisation a expirée. Veuillez vous reconnecter.</translation>
     </message>
     <message>
         <source>Failed to remove local repos sync token: %1</source>
@@ -156,27 +156,27 @@
     </message>
     <message>
         <source>settings</source>
-        <translation type="unfinished"/>
+        <translation>Paramètres</translation>
     </message>
     <message>
         <source>refresh</source>
-        <translation type="unfinished"/>
+        <translation>Rafraichir</translation>
     </message>
     <message>
         <source>sort</source>
-        <translation type="unfinished"/>
+        <translation>Trier</translation>
     </message>
     <message>
         <source>Sort libraries by</source>
-        <translation type="unfinished"/>
+        <translation>Trier les bibliothèques par</translation>
     </message>
     <message>
         <source>Modification time</source>
-        <translation type="unfinished"/>
+        <translation>Date de modification</translation>
     </message>
     <message>
         <source>Library names</source>
-        <translation type="unfinished"/>
+        <translation>Noms de bibliothèques</translation>
     </message>
 </context>
 <context>
@@ -234,11 +234,11 @@ n&apos;a pu être envoyé.</translation>
     </message>
     <message>
         <source>File size exceeds limit</source>
-        <translation type="unfinished"/>
+        <translation>La taille du fichier dépasse la limite.</translation>
     </message>
     <message>
         <source>Number of file exceeds limit</source>
-        <translation type="unfinished"/>
+        <translation>Le nombre de fichiers dépasse la limite.</translation>
     </message>
 </context>
 <context>
@@ -546,11 +546,11 @@ n&apos;a pu être envoyé.</translation>
     </message>
     <message>
         <source>File changes on network drives may not be synced automatically. You can set sync intervals to enable periodic sync. Do you want to sync with this folder?</source>
-        <translation type="unfinished"/>
+        <translation>Les modifications apportées aux fichiers sur les lecteurs réseau peuvent ne pas être synchronisées automatiquement. Vous pouvez définir des intervalles de synchronisation pour activer la synchronisation périodique. Voulez-vous synchroniser avec ce dossier ?</translation>
     </message>
     <message>
         <source>Creating a library with encryption version less than 2 is not supported</source>
-        <translation type="unfinished"/>
+        <translation>La création d&apos;une bibliothèque avec une version de cryptage inférieure à 2 n&apos;est pas possible.</translation>
     </message>
 </context>
 <context>
@@ -675,7 +675,7 @@ n&apos;a pu être envoyé.</translation>
     </message>
     <message>
         <source>File changes on network drives may not be synced automatically. You can set sync intervals to enable periodic sync. Do you want to sync with this folder?</source>
-        <translation type="unfinished"/>
+        <translation>Les modifications apportées aux fichiers sur les lecteurs réseau peuvent ne pas être synchronisées automatiquement. Vous pouvez définir des intervalles de synchronisation pour activer la synchronisation périodique. Voulez-vous synchroniser avec ce dossier ?</translation>
     </message>
 </context>
 <context>
@@ -927,11 +927,11 @@ n&apos;a pu être envoyé.</translation>
     </message>
     <message>
         <source>File size exceeds limit</source>
-        <translation type="unfinished"/>
+        <translation>La taille du fichier dépasse la limite.</translation>
     </message>
     <message>
         <source>Number of file exceeds limit</source>
-        <translation type="unfinished"/>
+        <translation>Le nombre de fichiers dépasse la limite.</translation>
     </message>
 </context>
 <context>
@@ -1545,23 +1545,23 @@ Voulez-vous télécharger la bibliothèque par défaut ?</translation>
     </message>
     <message>
         <source>Failed to get server info. Please check the server address.</source>
-        <translation type="unfinished"/>
+        <translation>Impossible d&apos;obtenir les informations du serveur. Veuillez vérifier l&apos;adresse du serveur.</translation>
     </message>
     <message>
         <source>Failed to get client sso link.</source>
-        <translation type="unfinished"/>
+        <translation>Impossible d&apos;obtenir le lien SSO du client</translation>
     </message>
     <message>
         <source>SSO login failed.</source>
-        <translation type="unfinished"/>
+        <translation>La connexion SSO a échoué.</translation>
     </message>
     <message>
         <source>Failed to get client sso status.</source>
-        <translation type="unfinished"/>
+        <translation>Impossible d&apos;obtenir l&apos;état SSO du client</translation>
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;For example: https://example.your-server.com&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Par example: https://example.votre-serveur.fr&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
 </context>
 <context>
@@ -1678,15 +1678,15 @@ Le nom de fichier contient des caractères invalides. Il n&apos;est pas synchron
     </message>
     <message>
         <source>Path has character case conflict with existing file or folder. Will not be downloaded</source>
-        <translation type="unfinished"/>
+        <translation>Le chemin d&apos;accès présente un conflit de caractères avec un fichier ou un dossier existant. Le téléchargement n&apos;est pas éffectué.</translation>
     </message>
     <message>
         <source>Library cannot be synced since it has too many files.</source>
-        <translation type="unfinished"/>
+        <translation>La bibliothèque ne peut pas être synchronisée. Elle contient trop de fichiers.</translation>
     </message>
     <message>
         <source>Files cannot be uploaded to this library due to file number limit settings.</source>
-        <translation type="unfinished"/>
+        <translation>Les fichiers ne peuvent pas être importés vers cette bibliothèque. La limite du nombre de fichiers est dépassé.</translation>
     </message>
 </context>
 <context>
@@ -1916,7 +1916,7 @@ Le nom de fichier contient des caractères invalides. Il n&apos;est pas synchron
     </message>
     <message>
         <source>Done</source>
-        <translation>Terminé</translation>
+        <translation>Fait</translation>
     </message>
     <message>
         <source>checking server info...</source>
@@ -2348,54 +2348,58 @@ Le nom de fichier contient des caractères invalides. Il n&apos;est pas synchron
     </message>
     <message>
         <source>Path has character case conflict with existing file or folder. Will not be downloaded</source>
-        <translation type="unfinished"/>
+        <translation>Le chemin d&apos;accès présente un conflit de caractères avec un fichier ou un dossier existant. Le téléchargement n&apos;est pas éffectué.</translation>
     </message>
     <message>
         <source>Library cannot be synced since it has too many files.</source>
-        <translation type="unfinished"/>
+        <translation>La bibliothèque ne peut pas être synchronisée. Elle contient trop de fichiers.</translation>
     </message>
     <message>
         <source>Files cannot be uploaded to this library due to file number limit settings.</source>
-        <translation type="unfinished"/>
+        <translation>Les fichiers ne peuvent pas être importés vers cette bibliothèque. La limite du nombre de fichiers est dépassé.</translation>
     </message>
     <message>
         <source>File is locked by another application. Right click and choose &quot;Show sync errors&quot; to find details</source>
-        <translation type="unfinished"/>
+        <translation>Le fichier est verrouillé par une autre application. Cliquez avec le bouton droit de la souris et sélectionnez « Afficher les erreurs de synchronisation » pour obtenir des détails.</translation>
     </message>
     <message>
         <source>Error when indexing. Right click and choose &quot;Show sync errors&quot; to find details</source>
-        <translation type="unfinished"/>
+        <translation>Une erreur s&apos;est produite lors de l&apos;indexation. Cliquez avec le bouton droit de la souris et sélectionnez « Afficher les erreurs de synchronisation » pour obtenir des détails.</translation>
     </message>
     <message>
         <source>Path ends with space or period character. Right click and choose &quot;Show sync errors&quot; to find details</source>
-        <translation type="unfinished"/>
+        <translation>Le chemin d&apos;accès se termine par un espace ou un point. Cliquez avec le bouton droit de la souris et sélectionnez « Afficher les erreurs de synchronisation » pour obtenir des détails.</translation>
     </message>
     <message>
         <source>Path contains invalid characters like &apos;|&apos; or &apos;:&apos;. Right click and choose &quot;Show sync errors&quot; to find details</source>
-        <translation type="unfinished"/>
+        <translation>Le chemin d&apos;accès contient des caractères invalides tels que &apos;|&apos; ou &apos;:&apos;. Cliquez avec le bouton droit de la souris et sélectionnez « Afficher les erreurs de synchronisation » pour obtenir des détails.</translation>
     </message>
     <message>
         <source>Created or updated a file in a non-writable library or folder. Right click and choose &quot;Show sync errors&quot; to find details</source>
-        <translation type="unfinished"/>
+        <translation>Un fichier a été ajouté ou modifié dans une bibliothèque ou un dossier en lecture seule. Cliquez avec le bouton droit de la souris et sélectionnez « Afficher les erreurs de synchronisation » pour obtenir des détails.</translation>
     </message>
     <message>
         <source>A folder that may contain not-yet-uploaded files is moved to seafile-recycle-bin folder. Right click and choose &quot;Show sync errors&quot; to find details</source>
-        <translation type="unfinished"/>
+        <translation>Un dossier pouvant contenir des fichiers qui n&apos;ont pas encore été importés est déplacé dans le dossier seafile-recycle-bin. Cliquez avec le bouton droit de la souris et sélectionez « Afficher les erreurs de synchronisation » pour obtenir des détails.</translation>
     </message>
     <message>
         <source>The file path contains symbols that are not supported by the Windows system. Right click and choose &quot;Show sync errors&quot; to find details</source>
-        <translation type="unfinished"/>
+        <translation>Le chemin d&apos;accès contient des symboles qui ne sont pas supportés par Windows. Cliquez avec le bouton droit de la souris et sélectionnez « Afficher les erreurs de synchronisation » pour obtenir des détails.</translation>
     </message>
     <message>
         <source>Failed to download file. Please check disk space or folder permissions. Right click and choose &quot;Show sync errors&quot; to find details</source>
-        <translation type="unfinished"/>
+        <translation>Le téléchargement du ficher a échoué. Veuillez vérifier l&apos;espace disque dur ou l&apos;autorisations du dossier. Cliquez avec le bouton droit de la souris et sélectionnez « Afficher les erreurs de synchronisation » pour obtenir des détails.</translation>
     </message>
     <message>
         <source>Path has character case conflict with existing file or folder. Will not be downloaded. Right click and choose &quot;Show sync errors&quot; to find details</source>
-        <translation type="unfinished"/>
+        <translation>Le chemin d&apos;accès présente un conflit de caractères avec un fichier ou un dossier existant. Le téléchargement n&apos;est pas éffectué. Cliquez avec le bouton droit de la souris et sélectionnez « Afficher les erreurs de synchronisation » pour obtenir des détails.</translation>
     </message>
     <message>
         <source>Syncing is stopped by logout. Please re-sync the library if needed</source>
+        <translation>La synchronisation est arrêtée par la déconnexion. Veuillez resynchroniser la bibliothèque si nécessaire.</translation>
+    </message>
+    <message>
+        <source>Encryption key is corrupted. Please create a new library and upload files again</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -2710,7 +2714,7 @@ Le nom de fichier contient des caractères invalides. Il n&apos;est pas synchron
     </message>
     <message>
         <source>Set Sync Interval For Library &quot;%1&quot;</source>
-        <translation type="unfinished"/>
+        <translation>Définir l&apos;intervalle de synchronisation pour  « %1 »</translation>
     </message>
     <message>
         <source>Show sync errors</source>
@@ -2959,7 +2963,7 @@ Le nom de fichier contient des caractères invalides. Il n&apos;est pas synchron
     </message>
     <message>
         <source>Failed to fix sync status icons for Explorer</source>
-        <translation type="unfinished"/>
+        <translation>La correction des icônes d&apos;état de synchronisation pour Explorer a échoué.</translation>
     </message>
 </context>
 <context>
@@ -3214,7 +3218,7 @@ Le nom de fichier contient des caractères invalides. Il n&apos;est pas synchron
     </message>
     <message>
         <source>Don&apos;t sync symbolic links</source>
-        <translation type="unfinished"/>
+        <translation>Ne pas synchroniser les liens symboliques</translation>
     </message>
 </context>
 <context>
@@ -3299,18 +3303,18 @@ Le nom de fichier contient des caractères invalides. Il n&apos;est pas synchron
     </message>
     <message>
         <source>Password</source>
-        <translation type="unfinished"/>
+        <translation>Mot de passe</translation>
     </message>
     <message>
         <source>Failed to generate share link: %1</source>
-        <translation type="unfinished"/>
+        <translation>La génération du lien de partage a échoué : %1</translation>
     </message>
 </context>
 <context>
     <name>ShibLoginDialog</name>
     <message>
         <source>Single Sign On</source>
-        <translation type="unfinished"/>
+        <translation>Authentification unique</translation>
     </message>
 </context>
 <context>
@@ -3391,6 +3395,10 @@ Le nom de fichier contient des caractères invalides. Il n&apos;est pas synchron
     <message>
         <source>No sync errors.</source>
         <translation>Aucune erreur de synchronisation</translation>
+    </message>
+    <message>
+        <source>Descriptions for sync errors</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>

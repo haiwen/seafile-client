@@ -2401,6 +2401,10 @@ Cesta k souboru obsahuje nepovolený znak. Není synchronizovaný do tohoto poč
         <source>Syncing is stopped by logout. Please re-sync the library if needed</source>
         <translation type="unfinished"/>
     </message>
+    <message>
+        <source>Encryption key is corrupted. Please create a new library and upload files again</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>ReliablePostFileTask</name>
@@ -3394,6 +3398,10 @@ Cesta k souboru obsahuje nepovolený znak. Není synchronizovaný do tohoto poč
     <message>
         <source>No sync errors.</source>
         <translation>Žádné chyby synchronizace.</translation>
+    </message>
+    <message>
+        <source>Descriptions for sync errors</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>

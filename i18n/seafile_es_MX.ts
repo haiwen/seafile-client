@@ -2399,6 +2399,10 @@ La ruta al archivo contiene caracteres invalidos. No se sincroniza a esta comput
         <source>Syncing is stopped by logout. Please re-sync the library if needed</source>
         <translation type="unfinished"/>
     </message>
+    <message>
+        <source>Encryption key is corrupted. Please create a new library and upload files again</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>ReliablePostFileTask</name>
@@ -3392,6 +3396,10 @@ La ruta al archivo contiene caracteres invalidos. No se sincroniza a esta comput
     <message>
         <source>No sync errors.</source>
         <translation>No hay errores de sincronización</translation>
+    </message>
+    <message>
+        <source>Descriptions for sync errors</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>

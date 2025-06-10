@@ -2402,7 +2402,7 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     </message>
     <message>
         <source>Encryption key is corrupted. Please create a new library and upload files again</source>
-        <translation type="unfinished"/>
+        <translation>Поврежден ключ шифрования. Создайте новую библиотеку и загрузите файлы заново</translation>
     </message>
 </context>
 <context>
@@ -3398,7 +3398,7 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     </message>
     <message>
         <source>Descriptions for sync errors</source>
-        <translation type="unfinished"/>
+        <translation>Описания ошибок синхронизации</translation>
     </message>
 </context>
 <context>

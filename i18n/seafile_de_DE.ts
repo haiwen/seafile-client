@@ -2400,7 +2400,7 @@ Die Ordnerstruktur enthält ungültige Zeichen. Synchronisieren mit diesem Compu
     </message>
     <message>
         <source>Encryption key is corrupted. Please create a new library and upload files again</source>
-        <translation type="unfinished"/>
+        <translation>Der Schlüssel für die Verschlüsselung ist beschädigt. Bitte erstellen Sie eine neue Bibliothek und laden Sie die Dateien erneut hoch </translation>
     </message>
 </context>
 <context>
@@ -3398,7 +3398,7 @@ Die Ordnerstruktur enthält ungültige Zeichen. Synchronisieren mit diesem Compu
     </message>
     <message>
         <source>Descriptions for sync errors</source>
-        <translation type="unfinished"/>
+        <translation>Beschreibungen der Fehlermeldungen beim Synchronisieren</translation>
     </message>
 </context>
 <context>

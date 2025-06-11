@@ -9,6 +9,7 @@
 #include <QAction>
 
 #include "QtAwesome.h"
+#include "i18n.h"
 #include "utils/utils.h"
 #include "seafile-applet.h"
 #include "rpc/rpc-client.h"
@@ -96,7 +97,7 @@ SyncErrorsDialog::SyncErrorsDialog(QWidget *parent)
     stack_->setContentsMargins(0, 0, 0, 0);
 
     QString text;
-    if (QLocale::system().name() == "zh_CN") {
+    if (I18NHelper::getInstance()->isChinese()) {
         text = "<a href=\"https://cloud.seafile.com/wiki/publish/seafile-user-manual/7he2/\">" + tr("Descriptions for sync errors") + "</a>";
     } else {
         text = "<a href=\"https://help.seafile.com/faq/#meaning-file-syncing-errors\">" + tr("Descriptions for sync errors") + "</a>";

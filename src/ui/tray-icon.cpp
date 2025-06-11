@@ -12,6 +12,7 @@
 #include <QSysInfo>
 #include <QCoreApplication>
 
+#include "i18n.h"
 #include "rpc/local-repo.h"
 #include "utils/utils.h"
 #include "utils/utils-mac.h"
@@ -523,7 +524,7 @@ void SeafileTrayIcon::about()
 void SeafileTrayIcon::openHelp()
 {
     QString url;
-    if (QLocale::system().name() == "zh_CN") {
+    if (I18NHelper::getInstance()->isChinese()) {
         url = "https://cloud.seafile.com/published/seafile-user-manual/syncing_client/install_syncing_client.md";
     } else {
         url = "https://help.seafile.com/syncing_client/install_sync/";

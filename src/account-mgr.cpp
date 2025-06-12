@@ -31,6 +31,8 @@ const char *kCustomLogoKeyName = "custom-logo";
 const char *kTotalStorage = "storage.total";
 const char *kUsedStorage = "storage.used";
 const char *kNickname = "name";
+const char *kEmail = "email";
+const char *kContactEmail = "contact_email";
 
 struct ColumnCheckData {
     QString name;
@@ -229,6 +231,10 @@ bool AccountManager::loadServerInfoCB(sqlite3_stmt *stmt, void *data)
         account->accountInfo.usedStorage = value_string.toLongLong();
     } else if (key_string == kNickname) {
         account->accountInfo.name = value_string;
+    } else if (key_string == kEmail) {
+        account->accountInfo.email = value_string;
+    } else if (key_string == kContactEmail) {
+        account->accountInfo.contact_email = value_string;
     }
     return true;
 }
@@ -508,6 +514,10 @@ void AccountManager::updateAccountInfo(const Account& account,
                           QString::number(info.usedStorage));
     setServerInfoKeyValue(db, account, kNickname,
                           info.name);
+    setServerInfoKeyValue(db, account, kEmail,
+                          info.email);
+    setServerInfoKeyValue(db, account, kContactEmail,
+                          info.contact_email);
 
     for (size_t i = 0; i < accounts_.size(); i++) {
         if (accounts_[i] == account) {

@@ -175,6 +175,7 @@ int AccountManager::start()
 
 void AccountManager::onAboutToQuit()
 {
+    about_to_quit_ = true;
     logoutDeviceNonautoLogin();
 }
 
@@ -594,7 +595,9 @@ void AccountManager::clearAccountToken(const Account& account)
     sqlite_query_exec(db, zql);
     sqlite3_free(zql);
 
-    emit accountsChanged();
+    if (!about_to_quit_) {
+        emit accountsChanged();
+    }
 }
 
 void AccountManager::clearSyncToken(const Account& account)

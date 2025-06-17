@@ -140,6 +140,8 @@ private:
 
     QMutex accounts_mutex_;
     QMutex accounts_cache_mutex_;
+
+    bool about_to_quit_;
 };
 
 #endif  // _SEAF_ACCOUNT_MGR_H

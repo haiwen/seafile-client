@@ -33,7 +33,7 @@ bool loadTimeStampCB(sqlite3_stmt *stmt, void* data)
 } // namespace
 
 const int AvatarService::kAvatarSize = 40;
-const int kAvatarSizeFromServer = 80;
+const int kAvatarSizeFromServer = 256;
 
 struct PendingRequestInfo {
     int last_wait;

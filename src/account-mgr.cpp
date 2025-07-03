@@ -594,7 +594,9 @@ void AccountManager::clearAccountToken(const Account& account)
     sqlite_query_exec(db, zql);
     sqlite3_free(zql);
 
-    emit accountsChanged();
+    if (!seafApplet->closingDown()) {
+        emit accountsChanged();
+    }
 }
 
 void AccountManager::clearSyncToken(const Account& account)

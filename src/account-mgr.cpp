@@ -175,7 +175,6 @@ int AccountManager::start()
 
 void AccountManager::onAboutToQuit()
 {
-    about_to_quit_ = true;
     logoutDeviceNonautoLogin();
 }
 
@@ -595,7 +594,7 @@ void AccountManager::clearAccountToken(const Account& account)
     sqlite_query_exec(db, zql);
     sqlite3_free(zql);
 
-    if (!about_to_quit_) {
+    if (!seafApplet->closingDown()) {
         emit accountsChanged();
     }
 }

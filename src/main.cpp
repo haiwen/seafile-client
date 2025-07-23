@@ -17,9 +17,13 @@
 #include "seafile-applet.h"
 #include "QtAwesome.h"
 #include "open-local-helper.h"
+
 #if defined(Q_OS_WIN32)
+#include <QAbstractNativeEventFilter>
+#include <qt_windows.h>
 #include "utils/utils-win.h"
 #endif
+
 #if defined(Q_OS_MAC)
 #include "application.h"
 #endif
@@ -46,6 +50,20 @@ void initBreakpad()
         QDir(defaultCcnetDir()).absoluteFilePath("crash-applet"));
 #endif
 }
+
+class CustomFilter : public QAbstractNativeEventFilter
+{
+public:
+    bool nativeEventFilter(const QByteArray &eventType, void *message, qintptr *result) override
+    {
+        MSG *msg = static_cast<MSG *>(message);
+        if (msg->message == WM_GETOBJECT) {
+            *result = 0;
+            return true;
+        }
+        return false;
+    }
+};
 #endif
 
 void setupHIDPIFix()
@@ -163,6 +181,12 @@ int main(int argc, char *argv[])
     Application app(argc, argv);
 #else
     QApplication app(argc, argv);
+#endif
+
+#ifdef Q_OS_WIN32
+    // Fix a memory leak in Qt when using screen translation software (NetEase Youdao Dictionary).
+    // See https://bugreports.qt.io/browse/QTBUG-77974
+    app.installNativeEventFilter(new CustomFilter());
 #endif
 
     // don't quit even if the last windows is closed

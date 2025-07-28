@@ -6,7 +6,7 @@
 
 ### Prerequisites ###
 
-- Qt5
+- Qt >=5.2 required (Qt >=5.5 recommended)
 - cmake
 - [libsearpc](https://github.com/haiwen/libsearpc)
 - [seafile](https://github.com/haiwen/seafile)
@@ -19,36 +19,18 @@ make
 make install
 ```
 
-> Qt 5.2 or higher is required
-
-Ubuntu users can install seafile client from this [PPA](https://code.launchpad.net/~seafile/+archive/ubuntu/seafile-client)
-
-### INSTALL with Qt5 ###
-
-```
-cmake .
-make
-make install
-```
-
-> Qt 5.5 or higher is recommanded but not required
-
-## Internationalization
-
-You are welcome to add translation in your language.
-
 ### Contribute your translation
+
+You are welcome to contribute a translation in your language.
 
 Please submit translations via Transifex:
 
-Steps:
+1. Go to [https://explore.transifex.com/haiwen/seafile-client/](https://explore.transifex.com/haiwen/seafile-client/)
 
-1. Visit the webpage of Transifex ([https://explore.transifex.com/haiwen/seafile-client/](https://explore.transifex.com/haiwen/seafile-client/)).
+2. Click "Join this project" in the bottom right corner
 
-2. Click the "Join this project" button in the bottom right corner.
+3. Use an email or GitHub account(recommended) to create an account
 
-3. Use an email or GitHub account(recommended) to create an account.
+4. Select a language and click 'Join project'
 
-4. Select a language and click 'Join project' to join the language translation.
-
-5. After accepted by the project maintainer, then you can upload your file or translate online.
+5. After you've been accepted by the project maintainer, you can submit your translations

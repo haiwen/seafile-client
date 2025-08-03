@@ -10,6 +10,7 @@
 namespace {
 const char* langs[] = {
     NULL, //reserved for system locale
+    "ar_SA",
     "ca",
     "de_DE",
     "en",

@@ -690,8 +690,13 @@ void GetFileTask::onHttpRequestFinished()
 
     QString parent_dir = ::getParentPath(local_path_);
     if (!::createDirIfNotExists(parent_dir)) {
-        setError(FileNetworkTask::FileIOError, tr("Failed to write file to disk"));
+        if (::hasInvalidCharInPath(parent_dir)) {
+            setError(FileNetworkTask::FileIOError, tr("Invalid characters in file path"));
+        } else {
+            setError(FileNetworkTask::FileIOError, tr("Failed to write file to disk"));
+        }
         emit finished(false);
+        return;
     }
 
     QFile oldfile(local_path_);
@@ -702,7 +707,11 @@ void GetFileTask::onHttpRequestFinished()
     }
 
     if (!tmp_file_->rename(local_path_)) {
-        setError(FileNetworkTask::FileIOError, tr("Failed to move file"));
+        if (::hasInvalidCharInPath(local_path_)) {
+            setError(FileNetworkTask::FileIOError, tr("Invalid characters in file path"));
+        } else {
+            setError(FileNetworkTask::FileIOError, tr("Failed to move file"));
+        }
         emit finished(false);
         return;
     }

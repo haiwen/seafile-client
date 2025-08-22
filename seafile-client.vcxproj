@@ -31,7 +31,7 @@
     <QtUic Include="ui\uninstall-helper-dialog.ui" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="i18n\seafile_ar_SA.ts" />
+    <None Include="i18n\seafile_ar.ts" />
     <None Include="i18n\seafile_bg_BG.ts" />
     <None Include="i18n\seafile_ca.ts" />
     <None Include="i18n\seafile_cs_CZ.ts" />

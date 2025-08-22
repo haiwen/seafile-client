@@ -59,7 +59,7 @@
     <!-- Sparkle would choose one based on current system language -->
     <!-- See https://github.com/sparkle-project/Sparkle/issues/238#issuecomment-11927292  -->
     <array>
-      <string>ar_SA</string>
+      <string>ar</string>
       <string>ca</string>
       <string>cs</string>
       <string>da</string>

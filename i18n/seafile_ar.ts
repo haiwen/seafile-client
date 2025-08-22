@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><!DOCTYPE TS><TS version="2.1" language="ar_SA">
+<?xml version="1.0" encoding="utf-8"?><!DOCTYPE TS><TS version="2.1" language="ar">
 <context>
     <name>AboutDialog</name>
     <message>
@@ -1351,9 +1351,9 @@ You can click the &quot;Open&quot; button to view it.</source>
         <translation>شعار</translation>
     </message>
     <message>
-        <source>%1 organizes files by libraries. 
+        <source>%1 organizes files by libraries.
 Do you like to download your default library?</source>
-        <translation>%1 ينظم الملفات حسب المكتبات. 
+        <translation>%1 ينظم الملفات حسب المكتبات.
 هل ترغب في تنزيل مكتبتك الافتراضية؟</translation>
     </message>
 </context>

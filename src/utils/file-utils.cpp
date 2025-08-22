@@ -2,6 +2,7 @@
 #include <QFileInfo>
 #include <QDir>
 #include <QStringList>
+#include <QRegularExpression>
 #include "stl.h"
 #include "utils.h"
 
@@ -763,6 +764,18 @@ QString pathJoin(const QString& a, const QStringList& rest)
     }
 
     return result;
+}
+
+bool hasInvalidCharInPath(const QString& path)
+{
+#ifdef Q_OS_WIN32
+    // Windows forbids the characters < > : " / \ | ? * and all control codes (0x00–0x1F) in file or folder names.
+    static const QRegularExpression pattern(R"([<>:"/\\|?*\x00-\x1F])");
+    return pattern.match(path).hasMatch();
+#else
+    // TODO: other OS
+    return false;
+#endif
 }
 
 bool createDirIfNotExists(const QString& path)

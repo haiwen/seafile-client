@@ -26,6 +26,7 @@ QString pathJoin(const QString& a, const QStringList& rest);
 QString expandVars(const QString& origin);
 QString expandUser(const QString& origin);
 
+bool hasInvalidCharInPath(const QString& path);
 bool createDirIfNotExists(const QString& path);
 
 

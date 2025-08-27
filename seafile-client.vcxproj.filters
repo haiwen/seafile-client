@@ -119,9 +119,6 @@
     </QtUic>
   </ItemGroup>
   <ItemGroup>
-    <None Include="i18n\seafile_ar_SA.ts">
-      <Filter>Translation Files</Filter>
-    </None>
     <None Include="i18n\seafile_bg_BG.ts">
       <Filter>Translation Files</Filter>
     </None>

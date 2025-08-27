@@ -641,7 +641,6 @@ SET(SC_LIBS utils quazip)
 
 SET(SEAFILE_TRANSLATE_SOURCES ${seafile_client_sources} ${utils_sources} ${moc_output} ${ui_output} "src/ext-handler.cpp")
 SET(LANGUAGES
-  ar_SA
   ca
   de_DE
   en

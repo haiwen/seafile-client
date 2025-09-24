@@ -963,7 +963,11 @@ void FileSearchRequest::requestSuccess(QNetworkReply& reply)
         tmp.repo_name = RepoService::instance()->getRepo(tmp.repo_id).name;
         tmp.name = map["name"].toString();
         tmp.oid = map["oid"].toString();
-        tmp.last_modified = map["last_modified"].toLongLong();
+        if (map.contains("last_modified")) {
+            tmp.last_modified = map["last_modified"].toLongLong();
+        } else if (map.contains("mtime")) {
+            tmp.last_modified = map["mtime"].toLongLong();
+        }
         tmp.fullpath = map["fullpath"].toString();
         tmp.size = map["size"].toLongLong();
         tmp.is_dir = map["is_dir"].toBool();

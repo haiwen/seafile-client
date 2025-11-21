@@ -10,6 +10,9 @@ G_BEGIN_DECLS
 
 int applet_log_init (const char *ccnet_dir);
 
+void
+applet_log_rotate (const char *ccnet_dir);
+
 G_END_DECLS
 
 #endif // SEAFILE_CLIENT_UTILS_LOG_H

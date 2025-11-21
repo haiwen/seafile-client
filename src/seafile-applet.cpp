@@ -61,6 +61,8 @@ enum DEBUG_LEVEL {
   WARNING
 };
 
+const int kAppletLogRotateIntervalMesc = 1000 * 60 * 60; // 1 hour
+
 // -DQT_NO_DEBUG is used with cmake and qmake if it is a release build
 // if it is debug build, use DEBUG level as default
 #if !defined(QT_NO_DEBUG) || !defined(NDEBUG)
@@ -490,6 +492,15 @@ void SeafileApplet::initLog()
         else
             qInstallMessageHandler(myLogHandler);
     }
+
+    connect(&log_rotate_timer_, SIGNAL(timeout()),
+            this, SLOT(logRotate()));
+    log_rotate_timer_.start(kAppletLogRotateIntervalMesc);
+}
+
+void SeafileApplet::logRotate()
+{
+    applet_log_rotate(toCStr(configurator_->ccnetDir()));
 }
 
 bool SeafileApplet::loadQss(const QString& path)

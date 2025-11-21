@@ -5,6 +5,7 @@
 #include <QVariant>
 #include <QMessageBox>
 #include <QLineEdit>
+#include <QTimer>
 
 class Configurator;
 class DaemonManager;
@@ -95,6 +96,7 @@ private slots:
     void checkInitVDrive();
     void updateReposPropertyForHttpSync();
     void onAboutToQuit();
+    void logRotate();
 
 private:
     Q_DISABLE_COPY(SeafileApplet)
@@ -134,6 +136,8 @@ private:
     bool is_pro_;
 
     bool about_to_quit_;
+
+    QTimer log_rotate_timer_;
 };
 
 /**

@@ -165,8 +165,7 @@ void FileTableViewDelegate::paint(QPainter *painter, const QStyleOptionViewItem 
 
         // draw text
         QFont font = model->data(index, Qt::FontRole).value<QFont>();
-        QRect rect(option_rect.topLeft() + QPoint(kMarginLeft + 2 * 2 + kColumnIconSize, -2),
-                   size - QSize(kColumnIconSize + kMarginLeft, 0));
+        QRect rect(option_rect.topLeft() + QPoint(kMarginLeft + 2 * 2 + kColumnIconSize, -2), option_rect.size() - QSize(kColumnIconSize + kMarginLeft, 0));
         painter->setPen(kFileNameFontColor);
         painter->setFont(font);
         painter->drawText(
@@ -911,16 +910,8 @@ void FileTableView::onOpenLocalCacheFolder()
     parent_->onOpenLocalCacheFolder();
 }
 
-void FileTableView::resizeEvent(QResizeEvent *event)
-{
-    QTableView::resizeEvent(event);
-    if (source_model_)
-        source_model_->onResize(event->size());
-}
-
 FileTableModel::FileTableModel(QObject *parent)
-    : QAbstractTableModel(parent),
-     name_column_width_(kFileNameColumnWidth)
+    : QAbstractTableModel(parent)
 {
     task_progress_timer_ = new QTimer(this);
     connect(task_progress_timer_, SIGNAL(timeout()),
@@ -991,18 +982,6 @@ QVariant FileTableModel::data(const QModelIndex & index, int role) const
 
     if (role == Qt::SizeHintRole) {
         QSize qsize(kDefaultColumnWidth, kDefaultColumnHeight);
-        switch (column) {
-        case FILE_COLUMN_NAME:
-            qsize.setWidth(name_column_width_);
-            break;
-        case FILE_COLUMN_PROGRESS:
-        case FILE_COLUMN_SIZE:
-        case FILE_COLUMN_MTIME:
-            qsize.setWidth(name_column_width_);
-        case FILE_COLUMN_MODIFIER:
-        default:
-            break;
-        }
         return qsize;
     }
 
@@ -1099,12 +1078,6 @@ QVariant FileTableModel::headerData(int section,
         return QBrush(kFontColor);
     }
 
-    if (role == Qt::SizeHintRole && section == FILE_COLUMN_NAME) {
-        if (dirents_.empty()) {
-            return QSize(name_column_width_, 0);
-        }
-    }
-
     return QVariant();
 }
 
@@ -1156,16 +1129,6 @@ void FileTableModel::renameItemNamed(const QString &name, const QString &new_nam
         }
 }
 
-void FileTableModel::onResize(const QSize &size)
-{
-    name_column_width_ = size.width() - kDefaultColumnSum + kFileNameColumnWidth;
-    // name_column_width_ should be always larger than kFileNameColumnWidth
-    if (dirents_.empty())
-        return;
-    emit dataChanged(index(0, FILE_COLUMN_NAME),
-                     index(dirents_.size()-1 , FILE_COLUMN_NAME));
-}
-
 void FileTableModel::updateDownloadInfo()
 {
     FileBrowserDialog *dialog = (FileBrowserDialog *)(QObject::parent());
@@ -1184,7 +1147,6 @@ void FileTableModel::updateDownloadInfo()
     emit dataChanged(index(0, FILE_COLUMN_SIZE),
                      index(dirents_.size() - 1 , FILE_COLUMN_SIZE));
 }
-
 
 void FileTableModel::updateFileCacheStatus()
 {

@@ -90,7 +90,6 @@ private:
     // the indexes it uses internally is mapped to source model
     QList<const SeafDirent *> getSelectedItemsFromSource();
     void contextMenuEvent(QContextMenuEvent *event);
-    void resizeEvent(QResizeEvent *event);
     void onShareToUserOrGroup(bool to_group);
 
     Q_DISABLE_COPY(FileTableView)
@@ -152,8 +151,6 @@ public:
     void removeItemNamed(const QString &name);
     void renameItemNamed(const QString &name, const QString &new_name);
 
-    void onResize(const QSize &size);
-
 private slots:
     void updateDownloadInfo();
     void updateFileCacheStatus();
@@ -168,8 +165,6 @@ private:
 
     QHash<QString, QString> progresses_;
     QHash<QString, AutoUpdateManager::FileStatus> file_cache_statuses_;
-
-    int name_column_width_;
 
     QTimer *task_progress_timer_;
 };

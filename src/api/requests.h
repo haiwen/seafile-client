@@ -892,7 +892,7 @@ class ClientSSOLinkRequest : public SeafileApiRequest
     Q_OBJECT
 
 public:
-    ClientSSOLinkRequest(const QUrl& server_url);
+    ClientSSOLinkRequest(const QUrl& server_url, const QString& computer_name);
 
 signals:
     void success(const QString& link);

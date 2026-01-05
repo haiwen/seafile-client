@@ -1457,8 +1457,11 @@ void GetUploadFileLinkRequest::requestSuccess(QNetworkReply& reply)
     emit failed(ApiError::fromHttpError(500));
 }
 
-ClientSSOLinkRequest::ClientSSOLinkRequest(const QUrl& server_url)
-    : SeafileApiRequest(urlJoin(server_url, kClientSSOLinkUrl),
+ClientSSOLinkRequest::ClientSSOLinkRequest(const QUrl& server_url,
+                                           const QString& computer_name)
+    : SeafileApiRequest(::includeQueryParams(
+                            urlJoin(server_url, kClientSSOLinkUrl),
+                            ::getSeafileLoginParams(computer_name, "shib_")),
                         SeafileApiRequest::METHOD_POST)
 {
 }

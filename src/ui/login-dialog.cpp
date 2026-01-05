@@ -456,7 +456,7 @@ void LoginDialog::serverInfoSuccess(const ServerInfo& info)
 
     qInfo() << "begin sso login via local browser";
 
-    ClientSSOLinkRequest *request = new ClientSSOLinkRequest(sso_server_);
+    ClientSSOLinkRequest *request = new ClientSSOLinkRequest(sso_server_, mComputerName->text());
     connect(request, SIGNAL(success(const QString&)),
             this, SLOT(clientSSOLinkSuccess(const QString&)));
     connect(request, SIGNAL(failed(const ApiError&)),

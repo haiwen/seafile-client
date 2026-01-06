@@ -1211,6 +1211,10 @@ failed to upload.</source>
         <source>Failed to move file</source>
         <translation>파일 이동에 실패했습니다</translation>
     </message>
+    <message>
+        <source>Invalid characters in file path</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>InitSeafileDialog</name>
@@ -2402,6 +2406,10 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     </message>
     <message>
         <source>Encryption key is corrupted. Please create a new library and upload files again</source>
+        <translation>암호화 키가 손상되었습니다.새로운 라이브러리를 만들고 다시 파일을 업로드하십시오.</translation>
+    </message>
+    <message>
+        <source>Permission denied</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -3401,7 +3409,7 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     </message>
     <message>
         <source>Descriptions for sync errors</source>
-        <translation type="unfinished"/>
+        <translation>동기화 오류에 대한 설명</translation>
     </message>
 </context>
 <context>

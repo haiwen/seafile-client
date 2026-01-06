@@ -1203,6 +1203,10 @@ failed to upload.</source>
         <source>Failed to move file</source>
         <translation>移动文件时出错</translation>
     </message>
+    <message>
+        <source>Invalid characters in file path</source>
+        <translation>文件路径包含非法字符</translation>
+    </message>
 </context>
 <context>
     <name>InitSeafileDialog</name>
@@ -2393,6 +2397,10 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     <message>
         <source>Encryption key is corrupted. Please create a new library and upload files again</source>
         <translation>加密密钥已损坏。请创建一个新的资料库并重新上传文件</translation>
+    </message>
+    <message>
+        <source>Permission denied</source>
+        <translation>权限错误</translation>
     </message>
 </context>
 <context>

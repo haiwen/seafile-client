@@ -1209,6 +1209,10 @@ Incapaz de encontrar um nome alternativo para a pasta</translation>
         <source>Failed to move file</source>
         <translation>Falha ao mover o arquivo</translation>
     </message>
+    <message>
+        <source>Invalid characters in file path</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>InitSeafileDialog</name>
@@ -2392,6 +2396,10 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     </message>
     <message>
         <source>Encryption key is corrupted. Please create a new library and upload files again</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Permission denied</source>
         <translation type="unfinished"/>
     </message>
 </context>

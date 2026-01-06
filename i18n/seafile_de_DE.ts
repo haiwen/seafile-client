@@ -1209,6 +1209,10 @@ Bitte %1</translation>
         <source>Failed to move file</source>
         <translation>Das Verschieben der Datei ist fehlgeschlagen.</translation>
     </message>
+    <message>
+        <source>Invalid characters in file path</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>InitSeafileDialog</name>
@@ -2401,6 +2405,10 @@ Die Ordnerstruktur enthält ungültige Zeichen. Synchronisieren mit diesem Compu
     <message>
         <source>Encryption key is corrupted. Please create a new library and upload files again</source>
         <translation>Der Schlüssel für die Verschlüsselung ist beschädigt. Bitte erstellen Sie eine neue Bibliothek und laden Sie die Dateien erneut hoch </translation>
+    </message>
+    <message>
+        <source>Permission denied</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>

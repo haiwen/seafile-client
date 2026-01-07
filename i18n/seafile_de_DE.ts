@@ -1211,7 +1211,7 @@ Bitte %1</translation>
     </message>
     <message>
         <source>Invalid characters in file path</source>
-        <translation type="unfinished"/>
+        <translation>Unzulässige Zeichen im Dateipfad</translation>
     </message>
 </context>
 <context>
@@ -2408,7 +2408,7 @@ Die Ordnerstruktur enthält ungültige Zeichen. Synchronisieren mit diesem Compu
     </message>
     <message>
         <source>Permission denied</source>
-        <translation type="unfinished"/>
+        <translation>Keine ausreichenden Rechte</translation>
     </message>
 </context>
 <context>

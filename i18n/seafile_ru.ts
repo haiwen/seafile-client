@@ -1213,7 +1213,7 @@ failed to upload.</source>
     </message>
     <message>
         <source>Invalid characters in file path</source>
-        <translation type="unfinished"/>
+        <translation>Недопустимые символы в пути к файлу</translation>
     </message>
 </context>
 <context>
@@ -2410,7 +2410,7 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     </message>
     <message>
         <source>Permission denied</source>
-        <translation type="unfinished"/>
+        <translation>В разрешении отказано</translation>
     </message>
 </context>
 <context>

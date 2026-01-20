@@ -6,7 +6,9 @@
 #include <QQueue>
 
 #include "account.h"
+#ifdef HAVE_LOG_UPLOADER
 #include "log-uploader.h"
+#endif // HAVE_LOG_UPLOADER
 
 class ApiError;
 class QAction;
@@ -73,10 +75,12 @@ private slots:
     void openSeafileFolder();
     void openLogDirectory();
     void shellExtFix();
-    void uploadLogDirectory();
     void about();
     void checkTrayIconMessageQueue();
+#ifdef HAVE_LOG_UPLOADER
+    void uploadLogDirectory();
     void clearUploader();
+#endif // HAVE_LOG_UPLOADER
 
     // only used on windows
     void onMessageClicked();
@@ -108,7 +112,9 @@ private:
     QAction *open_seafile_folder_action_;
     QAction *open_log_directory_action_;
     QAction *shellext_fix_action_;
+#ifdef HAVE_LOG_UPLOADER
     QAction *upload_log_directory_action_;
+#endif
     QAction *show_sync_errors_action_;
 
     QAction *about_action_;
@@ -149,7 +155,9 @@ private:
 
     SyncErrorsDialog *sync_errors_dialog_;
     AboutDialog *about_dialog_;
-    LogDirUploader *log_dir_uploader_;
+#ifdef HAVE_LOG_UPLOADER
+    LogDirUploader *log_dir_uploader_ = nullptr;
+#endif // HAVE_LOG_UPLOADER
     bool have_sync_errors_  = false;
 };
 

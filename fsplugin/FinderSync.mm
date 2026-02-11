@@ -295,9 +295,25 @@ static constexpr double kGetFileStatusInterval = 2.0; // seconds
 }
 
 - (void)requestBadgeIdentifierForURL:(NSURL *)url {
-    // convert NFD to NFC
-    std::string file_path =
-        url.path.precomposedStringWithCanonicalMapping.UTF8String;
+    NSString *nsPath = url.path;
+    if (!nsPath) {
+        NSLog(@"[FinderSync] requestBadgeIdentifierForURL: url.path is nil — url: %@", url);
+        return;
+    }
+
+    NSString *normalized = [nsPath precomposedStringWithCanonicalMapping];
+    if (!normalized) {
+        NSLog(@"[FinderSync] precomposedStringWithCanonicalMapping returned nil for: %@", nsPath);
+        return;
+    }
+
+    const char *cpath = [normalized UTF8String];
+    if (!cpath) {
+        NSLog(@"[FinderSync] UTF8String returned NULL for: %@", normalized);
+        return;
+    }
+
+    std::string file_path(cpath);
 
     // find where we have it
     auto repo = findRepoContainPath(watched_repos_, file_path);

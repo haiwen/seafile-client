@@ -295,49 +295,112 @@ static constexpr double kGetFileStatusInterval = 2.0; // seconds
 }
 
 - (void)requestBadgeIdentifierForURL:(NSURL *)url {
+    NSLog(@"[FinderSync] ENTER requestBadgeIdentifierForURL");
+
+    if (!url) {
+        NSLog(@"[FinderSync][ERROR] url is nil");
+        return;
+    }
+
     NSString *nsPath = url.path;
+    NSLog(@"[FinderSync] url.path=%@ (len=%lu)",
+          nsPath, (unsigned long)nsPath.length);
+
     if (!nsPath) {
-        NSLog(@"[FinderSync] requestBadgeIdentifierForURL: url.path is nil — url: %@", url);
+        NSLog(@"[FinderSync][ERROR] url.path is nil — url: %@", url);
         return;
     }
 
     NSString *normalized = [nsPath precomposedStringWithCanonicalMapping];
+    NSLog(@"[FinderSync] normalized=%@ (len=%lu)",
+          normalized, (unsigned long)normalized.length);
+
     if (!normalized) {
-        NSLog(@"[FinderSync] precomposedStringWithCanonicalMapping returned nil for: %@", nsPath);
+        NSLog(@"[FinderSync][ERROR] precomposedStringWithCanonicalMapping returned nil for: %@", nsPath);
         return;
     }
 
     const char *cpath = [normalized UTF8String];
+    NSLog(@"[FinderSync] UTF8String ptr=%p", cpath);
+
     if (!cpath) {
-        NSLog(@"[FinderSync] UTF8String returned NULL for: %@", normalized);
+        NSLog(@"[FinderSync][ERROR] UTF8String returned NULL for: %@", normalized);
         return;
     }
 
     std::string file_path(cpath);
+    NSLog(@"[FinderSync] file_path='%s'", file_path.c_str());
+
+    // ---- Repo lookup ----
+    NSLog(@"[FinderSync] watched_repos_ size=%zu", watched_repos_.size());
 
     // find where we have it
     auto repo = findRepoContainPath(watched_repos_, file_path);
-    if (repo == watched_repos_.end())
+    if (repo == watched_repos_.end()) {
+        NSLog(@"[FinderSync] No repo found containing path='%s'", file_path.c_str());
         return;
+    }
 
-    NSNumber *isDirectory;
-    if ([url getResourceValue:&isDirectory
-                       forKey:NSURLIsDirectoryKey
-                        error:nil] &&
-        [isDirectory boolValue]) {
+    NSLog(@"[FinderSync] Matched repo_id='%s' worktree='%s'",
+          repo->repo_id.c_str(),
+          repo->worktree.c_str());
+
+    NSNumber *isDirectory = nil;
+    NSError *dirError = nil;
+    BOOL gotValue = [url getResourceValue:&isDirectory
+                                   forKey:NSURLIsDirectoryKey
+                                    error:&dirError];
+
+    NSLog(@"[FinderSync] getResourceValue success=%d isDirectory=%@ error=%@",
+          gotValue, isDirectory, dirError);
+
+    if (gotValue && [isDirectory boolValue]) {
         file_path += "/";
+        NSLog(@"[FinderSync] Path adjusted for directory: '%s'", file_path.c_str());
     }
 
     std::string repo_id = repo->repo_id;
     std::string relative_path = getRelativePath(file_path, repo->worktree);
-    if (relative_path.empty())
+
+    NSLog(@"[FinderSync] relative_path='%s' (empty=%d)",
+          relative_path.c_str(),
+          relative_path.empty());
+
+    if (relative_path.empty()) {
+        NSLog(@"[FinderSync] relative_path empty — returning");
         return;
+    }
+
+    NSLog(@"[FinderSync] Inserting into file_status_ (size before=%zu)",
+          file_status_.size());
 
     file_status_.emplace(file_path, PathStatus::SYNC_STATUS_NONE);
+
+    NSLog(@"[FinderSync] Setting badge identifier for '%s'",
+          file_path.c_str());
+
     setBadgeIdentifierFor(file_path, PathStatus::SYNC_STATUS_NONE);
+
+    NSLog(@"[FinderSync] Dispatching doGetFileStatus repo_id='%s' relative_path='%s'"
+          @" client_=%p queue=%@",
+          repo_id.c_str(),
+          relative_path.c_str(),
+          client_,
+          self.client_command_queue_);
+
     dispatch_async(self.client_command_queue_, ^{
-      client_->doGetFileStatus(repo_id.c_str(), relative_path.c_str());
+        NSLog(@"[FinderSync] Async block executing for repo_id='%s'",
+              repo_id.c_str());
+
+        if (!client_) {
+            NSLog(@"[FinderSync][ERROR] client_ is NULL inside async block");
+            return;
+        }
+
+        client_->doGetFileStatus(repo_id.c_str(), relative_path.c_str());
     });
+
+    NSLog(@"[FinderSync] EXIT requestBadgeIdentifierForURL");
 }
 
 #pragma mark - Menu and toolbar item support

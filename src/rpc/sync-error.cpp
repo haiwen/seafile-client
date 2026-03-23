@@ -46,7 +46,5 @@ SyncError SyncError::fromGObject(GObject *obj)
 // SyncError only include file level and repository level
 void SyncError::translateErrorStr()
 {
-    readable_time_stamp = translateCommitTime(timestamp);
-
     error_str = translateSyncErrorCode(error_id);
 }

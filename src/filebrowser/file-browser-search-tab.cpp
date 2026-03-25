@@ -159,6 +159,8 @@ FileBrowserSearchView::FileBrowserSearchView(QWidget* parent)
     horizontalHeader()->setStretchLastSection(true);
     horizontalHeader()->setHighlightSections(false);
     horizontalHeader()->setSortIndicatorShown(true);
+    horizontalHeader()->setSortIndicatorClearable(true);
+    horizontalHeader()->setSortIndicator(-1, Qt::AscendingOrder);
     horizontalHeader()->setDefaultAlignment(Qt::AlignLeft | Qt::AlignVCenter);
 
     setGridStyle(Qt::NoPen);
@@ -253,9 +255,6 @@ void FileBrowserSearchView::setModel(QAbstractItemModel *model)
 //    setColumnHidden(FILE_COLUMN_PROGRESS, true);
     connect(model, SIGNAL(modelAboutToBeReset()), this, SLOT(onAboutToReset()));
     setSortingEnabled(true);
-
-    // set default sort by folder
-    sortByColumn(FILE_COLUMN_NAME, Qt::AscendingOrder);
 }
 
 void FileBrowserSearchView::onAboutToReset()

@@ -16,7 +16,6 @@ public:
     int error_id;
 
     // Generated fields.
-    QString readable_time_stamp;
     QString error_str;
 
     static SyncError fromGObject(_GObject *obj);

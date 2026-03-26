@@ -405,7 +405,7 @@ QVariant SyncErrorsTableModel::data(const QModelIndex & index, int role) const
     } else if (column == COLUMN_ERROR_STR) {
         return error.error_str;
     } else if (column == COLUMN_TIMESTAMP) {
-        return error.readable_time_stamp;
+        return ::translateCommitTime(error.timestamp);
     }
 
     return QVariant();

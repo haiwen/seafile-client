@@ -551,6 +551,7 @@ struct FileSearchResult {
     QString repo_name;
     QString name;
     QString oid;
+    QString modifier_name;
     qint64 last_modified;
     QString fullpath;
     qint64 size;

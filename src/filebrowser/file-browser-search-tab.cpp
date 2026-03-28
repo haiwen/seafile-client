@@ -17,6 +17,7 @@ enum {
     FILE_COLUMN_NAME = 0,
     FILE_COLUMN_MTIME,
     FILE_COLUMN_SIZE,
+    FILE_COLUMN_MODIFIER,
     FILE_MAX_COLUMN
 };
 
@@ -109,8 +110,7 @@ void FileBrowserSearchItemDelegate::paint(QPainter *painter,
 
         // draw text
         QFont font = model->data(index, Qt::FontRole).value<QFont>();
-        QRect rect(option_rect.topLeft() + QPoint(kMarginLeft + 2 * 2 + kColumnIconSize, -2),
-                   size - QSize(kColumnIconSize + kMarginLeft, 0));
+        QRect rect(option_rect.topLeft() + QPoint(kMarginLeft + 2 * 2 + kColumnIconSize, -2), option_rect.size() - QSize(kColumnIconSize + kMarginLeft, 0));
         painter->setPen(kFileNameFontColor);
         painter->setFont(font);
         painter->drawText(
@@ -125,12 +125,9 @@ void FileBrowserSearchItemDelegate::paint(QPainter *painter,
          break;
 
     case FILE_COLUMN_SIZE:
-        if (!text.isEmpty())
-            text = ::readableFileSize(model->data(index, Qt::DisplayRole).value<quint64>());
-    case FILE_COLUMN_MTIME:
     {
-        if (index.column() == FILE_COLUMN_MTIME) {
-            text = ::translateCommitTime(model->data(index, Qt::DisplayRole).value<quint64>(), true);
+        if (!text.isEmpty()) {
+            text = ::readableFileSize(model->data(index, Qt::DisplayRole).value<quint64>());
         }
         QFont font = model->data(index, Qt::FontRole).value<QFont>();
         QRect rect(option_rect.topLeft() + QPoint(9, -2), size - QSize(10, 0));
@@ -141,6 +138,32 @@ void FileBrowserSearchItemDelegate::paint(QPainter *painter,
         painter->restore();
     }
         break;
+
+    case FILE_COLUMN_MTIME:
+    {
+        text = ::translateCommitTime(model->data(index, Qt::DisplayRole).value<quint64>(), true);
+        QFont font = model->data(index, Qt::FontRole).value<QFont>();
+        QRect rect(option_rect.topLeft() + QPoint(9, -2), size - QSize(10, 0));
+        painter->save();
+        painter->setPen(kFontColor);
+        painter->setFont(font);
+        painter->drawText(rect, Qt::AlignLeft | Qt::AlignVCenter | Qt::TextSingleLine, text);
+        painter->restore();
+    }
+        break;
+
+    case FILE_COLUMN_MODIFIER:
+    {
+        QFont font = model->data(index, Qt::FontRole).value<QFont>();
+        QRect rect(option_rect.topLeft() + QPoint(9, -2), size - QSize(10, 0));
+        painter->save();
+        painter->setPen(kFontColor);
+        painter->setFont(font);
+        painter->drawText(rect, Qt::AlignLeft | Qt::AlignVCenter | Qt::TextSingleLine, text);
+        painter->restore();
+    }
+        break;
+
     default:
         qWarning() << "invalid item (row)";
         break;
@@ -263,16 +286,8 @@ void FileBrowserSearchView::onAboutToReset()
     search_item_.reset(NULL);
 }
 
-void FileBrowserSearchView::resizeEvent(QResizeEvent *event)
-{
-    QTableView::resizeEvent(event);
-    if (search_model_)
-        search_model_->onResize(event->size());
-}
-
 FileBrowserSearchModel::FileBrowserSearchModel(QObject *parent)
-    : QAbstractTableModel(parent),
-      name_column_width_(kFileNameColumnWidth)
+    : QAbstractTableModel(parent)
 {
 
 }
@@ -317,23 +332,12 @@ QVariant FileBrowserSearchModel::data(const QModelIndex &index, int role) const
 
     if (role == Qt::SizeHintRole) {
         QSize qsize(kDefaultColumnWidth, kDefaultColumnHeight);
-        switch (column) {
-        case FILE_COLUMN_NAME:
-            qsize.setWidth(name_column_width_);
-            break;
-        case FILE_COLUMN_SIZE:
-        case FILE_COLUMN_MTIME:
-            qsize.setWidth(name_column_width_);
-        default:
-            break;
-        }
         return qsize;
     }
 
     //DisplayRole
     switch (column) {
     case FILE_COLUMN_NAME:
-
         return result.name;
     case FILE_COLUMN_SIZE:
         if (result.fullpath.endsWith("/"))
@@ -341,6 +345,8 @@ QVariant FileBrowserSearchModel::data(const QModelIndex &index, int role) const
         return result.size;
     case FILE_COLUMN_MTIME:
         return result.last_modified;
+    case FILE_COLUMN_MODIFIER:
+        return result.is_dir ? "" : result.modifier_name;
     default:
         return QVariant();
     }
@@ -370,6 +376,8 @@ QVariant FileBrowserSearchModel::headerData(int section,
             return tr("Size");
         case FILE_COLUMN_MTIME:
             return tr("Last Modified");
+        case FILE_COLUMN_MODIFIER:
+            return tr("Modifier");
         default:
             return QVariant();
         }
@@ -385,22 +393,7 @@ QVariant FileBrowserSearchModel::headerData(int section,
         return QBrush(kFontColor);
     }
 
-    if (role == Qt::SizeHintRole && section == FILE_COLUMN_NAME) {
-        if (results_.empty()) {
-            return QSize(name_column_width_, 0);
-        }
-    }
     return QVariant();
-}
-
-void FileBrowserSearchModel::onResize(const QSize &size)
-{
-    name_column_width_ = size.width() - kDefaultColumnSum + kFileNameColumnWidth;
-    // name_column_width_ should be always larger than kFileNameColumnWidth
-    if (results_.empty())
-        return;
-    emit dataChanged(index(0, FILE_COLUMN_NAME),
-                     index(results_.size()-1 , FILE_COLUMN_NAME));
 }
 
 const FileSearchResult* FileBrowserSearchModel::resultAt(int row) const

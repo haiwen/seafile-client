@@ -74,7 +74,7 @@ DEBUG_LEVEL seafile_client_debug_level = WARNING;
 
 void myLogHandlerDebug(QtMsgType type, const QMessageLogContext &context, const QString &msg)
 {
-    QByteArray localMsg = msg.toLocal8Bit();
+    QByteArray localMsg = msg.toUtf8();
     switch (type) {
 // Note: By default, this information (QMessageLogContext) is recorded only in debug builds.
 // You can overwrite this explicitly by defining QT_MESSAGELOGCONTEXT or QT_NO_MESSAGELOGCONTEXT.
@@ -118,7 +118,7 @@ void myLogHandlerDebug(QtMsgType type, const QMessageLogContext &context, const 
 }
 void myLogHandler(QtMsgType type, const QMessageLogContext &context, const QString &msg)
 {
-    QByteArray localMsg = msg.toLocal8Bit();
+    QByteArray localMsg = msg.toUtf8();
     switch (type) {
 #ifdef QT_MESSAGELOGCONTEXT
     case QtWarningMsg:

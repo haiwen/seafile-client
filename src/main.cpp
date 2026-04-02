@@ -1,5 +1,5 @@
-#include <getopt.h>
 #include <QApplication>
+#include <QCommandLineParser>
 #include <QMessageBox>
 #include <QWidget>
 #include <QDir>
@@ -74,59 +74,51 @@ void setupSettingDomain()
     QCoreApplication::setApplicationName(QString("%1 Client").arg(getBrand()));
 }
 
-void handleCommandLineOption(int argc, char *argv[])
+void handleCommandLineOption(const QApplication &app)
 {
-    int c;
-    static const char *short_options = "KDXPc:d:f:";
-    static const struct option long_options[] = {
-        { "config-dir", required_argument, NULL, 'c' },
-        { "data-dir", required_argument, NULL, 'd' },
-        { "stop", no_argument, NULL, 'K' },
-        { "delay", no_argument, NULL, 'D' },
-        { "remove-user-data", no_argument, NULL, 'X' },
-        { "open-local-file", no_argument, NULL, 'f' },
-        { "stdout", no_argument, NULL, 'l' },
-        { "ping", no_argument, NULL, 'P' },
-        { NULL, 0, NULL, 0, },
-    };
+    QCommandLineParser parser;
 
-    while ((c = getopt_long (argc, argv, short_options,
-                             long_options, NULL)) != EOF) {
-        switch (c) {
-        case 'c':
-            g_setenv ("CCNET_CONF_DIR", optarg, 1);
-            break;
-        case 'd':
-            g_setenv ("SEAFILE_DATA_DIR", optarg, 1);
-            break;
-        case 'l':
-            g_setenv ("LOG_STDOUT", "", 1);
-            break;
-        case 'K':
-            do_stop();
-            exit(0);
-        case 'P':
-            do_ping();
-            exit(0);
-        case 'D':
-            msleep(1000);
-            break;
-        case 'X':
-            do_remove_user_data();
-            exit(0);
-        case 'f':
-            OpenLocalHelper::instance()->handleOpenLocalFromCommandLine(optarg);
-            break;
-#if defined(HAVE_SPARKLE_SUPPORT) && defined(WINSPARKLE_DEBUG)
-        case 'U':
-            g_setenv ("SEAFILE_CLIENT_APPCAST_URI", optarg, 1);
-            break;
-#endif
-        default:
-            exit(1);
-        }
+    parser.addOptions({
+        QCommandLineOption(QStringList({"D", "delay"})),
+        QCommandLineOption(QStringList({"K", "stop"})),
+        QCommandLineOption(QStringList({"P", "ping"})),
+        QCommandLineOption(QStringList({"X", "remove-user-data"})),
+        QCommandLineOption(QStringList({"c", "config-dir"}), "The config dir", "config"),
+        QCommandLineOption(QStringList({"d", "data-dir"}), "The data dir", "data"),
+        QCommandLineOption(QStringList({"f", "open-local-file"}), "Open a local file", "file"),
+        QCommandLineOption(QStringList({"l", "stdout"}))
+    });
+    parser.process(app);
+
+    if (parser.isSet("D")) {
+        msleep(1000);
     }
-
+    if (parser.isSet("c")) {
+        QByteArray path = parser.value("c").toUtf8();
+        g_setenv("CCNET_CONF_DIR", path.constData(), 1);
+    }
+    if (parser.isSet("d")) {
+        QByteArray path = parser.value("d").toUtf8();
+        g_setenv("SEAFILE_DATA_DIR", path.constData(), 1);
+    }
+    if (parser.isSet("l")) {
+        g_setenv("LOG_STDOUT", "", 1);
+    }
+    if (parser.isSet("K")) {
+        do_stop();
+        exit(0);
+    }
+    if (parser.isSet("P")) {
+        do_ping();
+        exit(0);
+    }
+    if (parser.isSet("X")) {
+        do_remove_user_data();
+        exit(0);
+    }
+    if (parser.isSet("f")) {
+        OpenLocalHelper::instance()->handleOpenLocalFromCommandLine(parser.value("f"));
+    }
 }
 
 } // anonymous namespace
@@ -182,7 +174,7 @@ int main(int argc, char *argv[])
     seafApplet = &mApplet;
 
     // handle with the command arguments
-    handleCommandLineOption(argc, argv);
+    handleCommandLineOption(app);
 
     // count if we have any instance running now. if more than one, exit
     if (count_process(APPNAME) > 1) {

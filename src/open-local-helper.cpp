@@ -49,6 +49,11 @@ OpenLocalHelper::OpenLocalHelper()
     QDesktopServices::setUrlHandler(kSeafileProtocolScheme, this, SLOT(openLocalFile(const QUrl&)));
 }
 
+OpenLocalHelper::~OpenLocalHelper()
+{
+    QDesktopServices::unsetUrlHandler(kSeafileProtocolScheme);
+}
+
 OpenLocalHelper*
 OpenLocalHelper::instance()
 {
@@ -120,12 +125,12 @@ void OpenLocalHelper::messageBox(const QString& msg)
     seafApplet->messageBox(msg);
 }
 
-void OpenLocalHelper::handleOpenLocalFromCommandLine(const char *url)
+void OpenLocalHelper::handleOpenLocalFromCommandLine(const QString &url)
 {
     SeafileAppletRpcServer::Client *client = SeafileAppletRpcServer::getClient();
     if (client->connect()) {
         // An instance of seafile applet is running
-        client->sendOpenSeafileUrlCommand(QUrl::fromEncoded(url));
+        client->sendOpenSeafileUrlCommand(QUrl(url));
         exit(0);
     } else {
         // No instance of seafile client running, we just record the url and
@@ -138,7 +143,7 @@ void OpenLocalHelper::handleOpenLocalFromCommandLine(const char *url)
 void OpenLocalHelper::checkPendingOpenLocalRequest()
 {
     if (!url_.isEmpty()) {
-        openLocalFile(QUrl::fromEncoded(url_));
+        openLocalFile(QUrl(url_));
         setUrl(NULL);
     }
 }

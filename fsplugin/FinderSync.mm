@@ -295,32 +295,56 @@ static constexpr double kGetFileStatusInterval = 2.0; // seconds
 }
 
 - (void)requestBadgeIdentifierForURL:(NSURL *)url {
-    // convert NFD to NFC
-    std::string file_path =
-        url.path.precomposedStringWithCanonicalMapping.UTF8String;
+    if (!url) {
+        return;
+    }
+
+    NSString *nsPath = url.path;
+    if (!nsPath) {
+        return;
+    }
+
+    NSString *normalized = [nsPath precomposedStringWithCanonicalMapping];
+    if (!normalized) {
+        return;
+    }
+
+    const char *cpath = [normalized UTF8String];
+    if (!cpath) {
+        return;
+    }
+
+    std::string file_path(cpath);
 
     // find where we have it
     auto repo = findRepoContainPath(watched_repos_, file_path);
-    if (repo == watched_repos_.end())
+    if (repo == watched_repos_.end()) {
         return;
+    }
 
-    NSNumber *isDirectory;
-    if ([url getResourceValue:&isDirectory
-                       forKey:NSURLIsDirectoryKey
-                        error:nil] &&
-        [isDirectory boolValue]) {
+    NSNumber *isDirectory = nil;
+    NSError *dirError = nil;
+    BOOL gotValue = [url getResourceValue:&isDirectory
+                                   forKey:NSURLIsDirectoryKey
+                                    error:&dirError];
+    if (gotValue && [isDirectory boolValue]) {
         file_path += "/";
     }
 
     std::string repo_id = repo->repo_id;
     std::string relative_path = getRelativePath(file_path, repo->worktree);
-    if (relative_path.empty())
+    if (relative_path.empty()) {
         return;
+    }
 
     file_status_.emplace(file_path, PathStatus::SYNC_STATUS_NONE);
     setBadgeIdentifierFor(file_path, PathStatus::SYNC_STATUS_NONE);
     dispatch_async(self.client_command_queue_, ^{
-      client_->doGetFileStatus(repo_id.c_str(), relative_path.c_str());
+        if (!client_) {
+            return;
+        }
+
+        client_->doGetFileStatus(repo_id.c_str(), relative_path.c_str());
     });
 }
 

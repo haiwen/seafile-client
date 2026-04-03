@@ -20,9 +20,9 @@ public:
 
     bool openLocalFile(const QUrl &url);
 
-    void setUrl(const char *url) { url_ = url; }
+    void setUrl(const QString &url) { url_ = url; }
 
-    void handleOpenLocalFromCommandLine(const char *url);
+    void handleOpenLocalFromCommandLine(const QString &url);
 
     void checkPendingOpenLocalRequest();
 
@@ -32,10 +32,11 @@ private:
     static OpenLocalHelper* singleton_;
 
     OpenLocalHelper();
+    ~OpenLocalHelper();
 
     void messageBox(const QString& msg);
 
-    QByteArray url_;
+    QString url_;
 };
 
 

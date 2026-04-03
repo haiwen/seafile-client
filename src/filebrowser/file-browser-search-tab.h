@@ -29,7 +29,6 @@ public:
     FileBrowserSearchView(QWidget *parent);
     void setModel(QAbstractItemModel *model);
 
-    void resizeEvent(QResizeEvent *event);
     void setupContextMenu();
 signals:
     void clearSearchBar();
@@ -67,16 +66,12 @@ public:
 
     void setSearchResult(const std::vector<FileSearchResult>& results);
 
-    void onResize(const QSize &size);
-
     const FileSearchResult* resultAt(int row) const;
 
 private:
     Q_DISABLE_COPY(FileBrowserSearchModel)
 
     std::vector<FileSearchResult> results_;
-
-    int name_column_width_;
 };
 
 class FileSearchSortFilterProxyModel : public QSortFilterProxyModel {

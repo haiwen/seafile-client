@@ -158,7 +158,9 @@ FileBrowserSearchView::FileBrowserSearchView(QWidget* parent)
     horizontalHeader()->setStretchLastSection(true);
     horizontalHeader()->setHighlightSections(false);
     horizontalHeader()->setSortIndicatorShown(true);
+#ifndef Q_OS_LINUX
     horizontalHeader()->setSortIndicatorClearable(true);
+#endif
     horizontalHeader()->setSortIndicator(-1, Qt::AscendingOrder);
     horizontalHeader()->setDefaultAlignment(Qt::AlignLeft | Qt::AlignVCenter);
 

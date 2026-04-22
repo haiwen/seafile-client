@@ -203,7 +203,6 @@ private:
     //search
     QTimer *search_timer_;
     FileSearchRequest *search_request_;
-    qint64 search_text_last_modified_;
 
     // copy-paste related items between different instances of FileBrowserDialog
     static QMap<QString, int> file_names_to_be_pasted_;

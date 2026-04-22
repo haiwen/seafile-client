@@ -132,7 +132,7 @@ void FileBrowserSearchItemDelegate::paint(QPainter *painter,
             text = ::translateCommitTime(model->data(index, Qt::DisplayRole).value<quint64>(), true);
         }
         QFont font = model->data(index, Qt::FontRole).value<QFont>();
-        QRect rect(option_rect.topLeft() + QPoint(9, -2), size - QSize(10, 0));
+        QRect rect = option_rect.adjusted(9, -2, -1, 0);
         painter->save();
         painter->setPen(kFontColor);
         painter->setFont(font);
@@ -312,19 +312,22 @@ QVariant FileBrowserSearchModel::data(const QModelIndex &index, int role) const
         return qsize;
     }
 
-    //DisplayRole
-    switch (column) {
-    case FILE_COLUMN_NAME:
-        return result.name;
-    case FILE_COLUMN_SIZE:
-        if (result.fullpath.endsWith("/"))
-            return "";
-        return result.size;
-    case FILE_COLUMN_MTIME:
-        return result.last_modified;
-    default:
-        return QVariant();
+    if (role == Qt::DisplayRole) {
+        switch (column) {
+        case FILE_COLUMN_NAME:
+            return result.name;
+        case FILE_COLUMN_SIZE:
+            if (result.fullpath.endsWith("/"))
+                return "";
+            return result.size;
+        case FILE_COLUMN_MTIME:
+            return result.last_modified;
+        default:
+            return QVariant();
+        }
     }
+
+    return QVariant();
 }
 
 QVariant FileBrowserSearchModel::headerData(int section,

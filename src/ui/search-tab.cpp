@@ -178,8 +178,7 @@ void SearchTab::stopRefresh()
 
 void SearchTab::doSearch(const QString& keyword)
 {
-    // make it search utf-8 charcters
-    if (keyword.toUtf8().size() < kMinimumKeywordLength) {
+    if (keyword.size() < kMinimumKeywordLength) {
         mStack->setCurrentIndex(INDEX_WAITING_VIEW);
         return;
     }

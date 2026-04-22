@@ -119,7 +119,6 @@ FileBrowserDialog::FileBrowserDialog(const Account &account, const ServerRepo& r
       current_path_(path),
       current_readonly_(repo_.readonly),
       search_request_(NULL),
-      search_text_last_modified_(0),
       has_password_dialog_(false)
 {
     current_lpath_ = current_path_.split('/');
@@ -201,8 +200,9 @@ FileBrowserDialog::FileBrowserDialog(const Account &account, const ServerRepo& r
     vlayout->addWidget(status_bar_);
 
     search_timer_ = new QTimer(this);
+    search_timer_->setInterval(300);
+    search_timer_->setSingleShot(true);
     connect(search_timer_, SIGNAL(timeout()), this, SLOT(doRealSearch()));
-    search_timer_->start(300);
 
     // this <--> table_view_
     connect(table_view_, SIGNAL(direntClicked(const SeafDirent&)),
@@ -376,6 +376,8 @@ void FileBrowserDialog::createToolBar()
     search_toolbar_->addWidget(search_bar_);
     connect(search_bar_, SIGNAL(textChanged(const QString&)),
             this, SLOT(doSearch(const QString&)));
+    connect(search_bar_, SIGNAL(editingFinished()),
+            this, SLOT(doRealSearch()));
     if (!account_.isPro()) {
         search_toolbar_->setVisible(false);
     }
@@ -539,7 +541,6 @@ void FileBrowserDialog::onRefresh()
             return;
     }
     if (!search_bar_->text().isEmpty()) {
-        search_text_last_modified_ = 1;
         doRealSearch();
     } else {
         forceRefresh();
@@ -1177,6 +1178,7 @@ void FileBrowserDialog::goForward()
     if (!forward_history_.empty()) {
         path = forward_history_.pop();
     }
+    search_bar_->clear();
     backward_history_.push(current_path_);
     enterPath(path);
 }
@@ -1187,6 +1189,7 @@ void FileBrowserDialog::goBackward()
     if (!backward_history_.empty()) {
         path = backward_history_.pop();
     }
+    search_bar_->clear();
     forward_history_.push(current_path_);
     enterPath(path);
 }
@@ -1196,6 +1199,7 @@ void FileBrowserDialog::goHome()
     if (current_path_ == "/") {
         return;
     }
+    search_bar_->clear();
     backward_history_.push(current_path_);
     forward_history_.clear();
     enterPath("/");
@@ -1255,6 +1259,7 @@ void FileBrowserDialog::onNavigatorClick(int id)
     for(int i = 1; i <= id; i++)
       path += current_lpath_[i] + "/";
 
+    search_bar_->clear();
     backward_history_.push(current_path_);
     forward_history_.clear();
     enterPath(path);
@@ -1700,27 +1705,23 @@ void FileBrowserDialog::onAccountInfoUpdated()
 
 void FileBrowserDialog::doSearch(const QString &keyword)
 {
-    // make it search utf-8 charcters
-    if (keyword.toUtf8().size() < 3) {
+    if (keyword.size() < 3) {
+        search_timer_->stop();
+
         stack_->setCurrentIndex(INDEX_TABLE_VIEW);
         updateFileCount();
         return;
     }
 
-    // save for doRealSearch
-    search_text_last_modified_ = QDateTime::currentMSecsSinceEpoch();
+    search_timer_->start();
 }
 
 void FileBrowserDialog::doRealSearch()
 {
-    // not modified
-    if (search_text_last_modified_ == 0)
-        return;
-    // modified too fast
-    if (QDateTime::currentMSecsSinceEpoch() - search_text_last_modified_ <= 300)
+    if (!account_.isValid())
         return;
 
-    if (!account_.isValid())
+    if (search_bar_->text().size() < 3)
         return;
 
     if (search_request_) {
@@ -1729,6 +1730,7 @@ void FileBrowserDialog::doRealSearch()
         search_request_ = NULL;
     }
 
+    search_timer_->stop();
     stack_->setCurrentIndex(INDEX_LOADING_VIEW);
 
     search_request_ = new FileSearchRequest(account_, search_bar_->text(), kAllPage, kPerPageCount, repo_.id);
@@ -1738,15 +1740,16 @@ void FileBrowserDialog::doRealSearch()
             this, SLOT(onSearchFailed(const ApiError&)));
 
     search_request_->send();
-
-    // reset
-    search_text_last_modified_ = 0;
 }
 
 void FileBrowserDialog::onSearchSuccess(const std::vector<FileSearchResult>& results,
                                 bool is_loading_more,
                                 bool has_more)
 {
+    if (search_bar_->text().size() < 3 || sender() != search_request_) {
+        return;
+    }
+
     search_model_->setSearchResult(results);
     stack_->setCurrentIndex(INDEX_SEARCH_VIEW);
     updateFileCount();
@@ -1754,10 +1757,11 @@ void FileBrowserDialog::onSearchSuccess(const std::vector<FileSearchResult>& res
 
 void FileBrowserDialog::onSearchFailed(const ApiError& error)
 {
-    stack_->setCurrentIndex(INDEX_LOADING_FAILED_VIEW);
-    if (search_bar_->text().length() == 0) {
-        onRefresh();
+    if (search_bar_->text().size() < 3 || sender() != search_request_) {
+        return;
     }
+
+    stack_->setCurrentIndex(INDEX_LOADING_FAILED_VIEW);
 }
 
 

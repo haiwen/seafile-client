@@ -7,10 +7,11 @@
 #include <QUrlQuery>
 #include <QVariant>
 
-extern "C" {
 #include <searpc-client.h>
-
 #include <searpc.h>
+
+extern "C" {
+
 #if defined(_MSC_VER)
 #include "include/seafile.h"
 #include "lib/seafile-object.h"

@@ -732,13 +732,14 @@ int SeafileRpcClient::updateReposServerHost(const QUrl& old_server_url,
                                         "string", toCStr(old_server_url.toString()),
                                         "string", toCStr(new_server_url));
 
-    if (ret < 0) {
+    if (ret < 0 || error) {
         if (error) {
             *err = QString::fromUtf8(error->message);
             g_error_free(error);
         } else {
             *err = tr("Unknown error");
         }
+        ret = -1;
     }
 
     return ret;

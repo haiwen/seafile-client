@@ -1,5 +1,5 @@
 {
-    "builtin-baseline": "f63682b9182187131b564c1395e4ac8ecb0c5ea8",
+    "builtin-baseline": "f9ffbaa46ad8e284b2b74919f7e0ba259564d424",
     "dependencies": [
         "getopt",
         "glib",
@@ -15,8 +15,8 @@
             "version": "2.12-1"
         },
         {
-            "name": "pthreads",
-            "version": "3.0.0-4"
+            "name": "openssl",
+            "version": "3.5.4"
         },
         {
             "name": "sqlite3",

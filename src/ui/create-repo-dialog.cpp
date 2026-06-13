@@ -46,11 +46,10 @@ CreateRepoDialog::CreateRepoDialog(const Account& account,
     connect(mChooseDirBtn, SIGNAL(clicked()), this, SLOT(chooseDirAction()));
     connect(mOkBtn, SIGNAL(clicked()), this, SLOT(createAction()));
 
+    mTipLabel->setText(tr("(For security reasons, the password for the encrypted library is not stored on the server. If you forget it, you will not be able to recover the password.)"));
+
     const QRect screen = getScreenSize(0);
-
     move(screen.center() - this->rect().center());
-
-    mTipLabel->setText("(" + tr("end-to-end encryption") + ")");
 }
 
 CreateRepoDialog::~CreateRepoDialog()

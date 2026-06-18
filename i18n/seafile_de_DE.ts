@@ -536,10 +536,6 @@ wurde nicht hochgeladen.</translation>
         <translation>Abbrechen</translation>
     </message>
     <message>
-        <source>end-to-end encryption</source>
-        <translation>Ende-zu-Ende-Verschlüsselung</translation>
-    </message>
-    <message>
         <source>TextLabel</source>
         <translation>Tag</translation>
     </message>
@@ -550,6 +546,10 @@ wurde nicht hochgeladen.</translation>
     <message>
         <source>Creating a library with encryption version less than 2 is not supported</source>
         <translation>Verschlüsselte Bibliotheken müssen mindestens Sicherheitsstufe 2 haben</translation>
+    </message>
+    <message>
+        <source>(For security reasons, the password for the encrypted library is not stored on the server. If you forget it, you will not be able to recover the password.)</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>

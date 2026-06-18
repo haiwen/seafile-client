@@ -537,10 +537,6 @@ failed to upload.</source>
         <translation>취소</translation>
     </message>
     <message>
-        <source>end-to-end encryption</source>
-        <translation>종단간 암호화</translation>
-    </message>
-    <message>
         <source>TextLabel</source>
         <translation>텍스트 레이블</translation>
     </message>
@@ -551,6 +547,10 @@ failed to upload.</source>
     <message>
         <source>Creating a library with encryption version less than 2 is not supported</source>
         <translation>암호화 버전 2 미만의 라이브러리 만들기는 지원하지 않습니다</translation>
+    </message>
+    <message>
+        <source>(For security reasons, the password for the encrypted library is not stored on the server. If you forget it, you will not be able to recover the password.)</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -1213,7 +1213,7 @@ failed to upload.</source>
     </message>
     <message>
         <source>Invalid characters in file path</source>
-        <translation type="unfinished"/>
+        <translation>파일 경로에 잘못된 문자가 있습니다</translation>
     </message>
 </context>
 <context>
@@ -2410,7 +2410,7 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     </message>
     <message>
         <source>Permission denied</source>
-        <translation type="unfinished"/>
+        <translation>권한을 거부했습니다</translation>
     </message>
 </context>
 <context>

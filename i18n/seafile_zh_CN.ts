@@ -532,10 +532,6 @@ failed to upload.</source>
         <translation>取消</translation>
     </message>
     <message>
-        <source>end-to-end encryption</source>
-        <translation>端到端加密</translation>
-    </message>
-    <message>
         <source>TextLabel</source>
         <translation>文本标签</translation>
     </message>
@@ -546,6 +542,10 @@ failed to upload.</source>
     <message>
         <source>Creating a library with encryption version less than 2 is not supported</source>
         <translation>不支持创建加密版本低于 2 的资料库</translation>
+    </message>
+    <message>
+        <source>(For security reasons, the password for the encrypted library is not stored on the server. If you forget it, you will not be able to recover the password.)</source>
+        <translation>（出于安全原因，加密库的密码不会存储在服务器上。如果您忘记了密码，将无法恢复该密码。）</translation>
     </message>
 </context>
 <context>

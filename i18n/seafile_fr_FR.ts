@@ -537,10 +537,6 @@ n&apos;a pu être envoyé.</translation>
         <translation>Annuler</translation>
     </message>
     <message>
-        <source>end-to-end encryption</source>
-        <translation>Cryptage de bout en bout</translation>
-    </message>
-    <message>
         <source>TextLabel</source>
         <translation>LabelTexte</translation>
     </message>
@@ -551,6 +547,10 @@ n&apos;a pu être envoyé.</translation>
     <message>
         <source>Creating a library with encryption version less than 2 is not supported</source>
         <translation>La création d&apos;une bibliothèque avec une version de cryptage inférieure à 2 n&apos;est pas possible.</translation>
+    </message>
+    <message>
+        <source>(For security reasons, the password for the encrypted library is not stored on the server. If you forget it, you will not be able to recover the password.)</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -1212,7 +1212,7 @@ n&apos;a pu être envoyé.</translation>
     </message>
     <message>
         <source>Invalid characters in file path</source>
-        <translation type="unfinished"/>
+        <translation>Caractères invalides dans le chemin du fichier</translation>
     </message>
 </context>
 <context>
@@ -2404,11 +2404,11 @@ Le nom de fichier contient des caractères invalides. Il n&apos;est pas synchron
     </message>
     <message>
         <source>Encryption key is corrupted. Please create a new library and upload files again</source>
-        <translation type="unfinished"/>
+        <translation>La clé de chiffrement est corrompue. Veuillez créer une nouvelle bibliothèque et y télécharger à nouveau les fichiers.</translation>
     </message>
     <message>
         <source>Permission denied</source>
-        <translation type="unfinished"/>
+        <translation>Accès refusé</translation>
     </message>
 </context>
 <context>
@@ -3406,7 +3406,7 @@ Le nom de fichier contient des caractères invalides. Il n&apos;est pas synchron
     </message>
     <message>
         <source>Descriptions for sync errors</source>
-        <translation type="unfinished"/>
+        <translation>Descriptions des erreurs de synchronisation</translation>
     </message>
 </context>
 <context>

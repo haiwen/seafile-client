@@ -537,10 +537,6 @@ falhou ao carregar.</translation>
         <translation>Cancelar</translation>
     </message>
     <message>
-        <source>end-to-end encryption</source>
-        <translation>encriptação ponta-a-ponta</translation>
-    </message>
-    <message>
         <source>TextLabel</source>
         <translation>Etiqueta</translation>
     </message>
@@ -551,6 +547,10 @@ falhou ao carregar.</translation>
     <message>
         <source>Creating a library with encryption version less than 2 is not supported</source>
         <translation>Não há suporte para a criação de uma biblioteca com versão de encriptação inferior a 2</translation>
+    </message>
+    <message>
+        <source>(For security reasons, the password for the encrypted library is not stored on the server. If you forget it, you will not be able to recover the password.)</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>

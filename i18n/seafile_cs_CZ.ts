@@ -537,10 +537,6 @@ nahrání selhalo.</translation>
         <translation>Zrušit</translation>
     </message>
     <message>
-        <source>end-to-end encryption</source>
-        <translation>end-to-end šifrování</translation>
-    </message>
-    <message>
         <source>TextLabel</source>
         <translation>Označení textu</translation>
     </message>
@@ -551,6 +547,10 @@ nahrání selhalo.</translation>
     <message>
         <source>Creating a library with encryption version less than 2 is not supported</source>
         <translation>Vytvoření knihovny s verzí šifrování nižší než 2 není podporováno</translation>
+    </message>
+    <message>
+        <source>(For security reasons, the password for the encrypted library is not stored on the server. If you forget it, you will not be able to recover the password.)</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>

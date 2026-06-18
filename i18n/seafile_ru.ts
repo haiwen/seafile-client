@@ -537,10 +537,6 @@ failed to upload.</source>
         <translation>Отмена</translation>
     </message>
     <message>
-        <source>end-to-end encryption</source>
-        <translation>сквозное шифрование</translation>
-    </message>
-    <message>
         <source>TextLabel</source>
         <translation>Метка</translation>
     </message>
@@ -551,6 +547,10 @@ failed to upload.</source>
     <message>
         <source>Creating a library with encryption version less than 2 is not supported</source>
         <translation>Создание библиотеки с версией шифрования ниже 2 не поддерживается</translation>
+    </message>
+    <message>
+        <source>(For security reasons, the password for the encrypted library is not stored on the server. If you forget it, you will not be able to recover the password.)</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>

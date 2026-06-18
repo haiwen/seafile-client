@@ -338,19 +338,19 @@ failed to upload.</source>
     </message>
     <message>
         <source>Libraries</source>
-        <translation type="unfinished"/>
+        <translation>ספריות</translation>
     </message>
     <message>
         <source>Starred</source>
-        <translation type="unfinished"/>
+        <translation>מועדפים</translation>
     </message>
     <message>
         <source>Activities</source>
-        <translation type="unfinished"/>
+        <translation>פעילויות</translation>
     </message>
     <message>
         <source>Search</source>
-        <translation type="unfinished"/>
+        <translation>חיפוש</translation>
     </message>
     <message>
         <source>current download rate</source>
@@ -402,7 +402,7 @@ failed to upload.</source>
     </message>
     <message>
         <source>brand</source>
-        <translation type="unfinished"/>
+        <translation>סימל</translation>
     </message>
     <message>
         <source>or Drop Folder to Sync</source>
@@ -433,7 +433,7 @@ failed to upload.</source>
     </message>
     <message>
         <source>Unable to create preconfigure directory &quot;%1&quot;</source>
-        <translation type="unfinished"/>
+        <translation>נכשל ליצירת ספרייה תבנית &quot;%1&quot;</translation>
     </message>
     <message>
         <source>failed to read %1</source>
@@ -456,7 +456,7 @@ failed to upload.</source>
     </message>
     <message>
         <source>Failed to generate encryption key for this library</source>
-        <translation type="unfinished"/>
+        <translation>נכשל ליצירת מפתח הצפנה עבור הספרייה זו</translation>
     </message>
     <message>
         <source>Please choose the directory to sync</source>
@@ -491,7 +491,8 @@ failed to upload.</source>
     <message>
         <source>Failed to create library on the server:
 %1</source>
-        <translation type="unfinished"/>
+        <translation>נכשל ליצירת ספרייה על השרת:
+%1</translation>
     </message>
     <message>
         <source>Dialog</source>
@@ -527,26 +528,26 @@ failed to upload.</source>
     </message>
     <message>
         <source>OK</source>
-        <translation type="unfinished"/>
+        <translation>אישור</translation>
     </message>
     <message>
         <source>Cancel</source>
         <translation>ביטול</translation>
     </message>
     <message>
-        <source>end-to-end encryption</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
         <source>TextLabel</source>
-        <translation type="unfinished"/>
+        <translation>תגית טקסט</translation>
     </message>
     <message>
         <source>File changes on network drives may not be synced automatically. You can set sync intervals to enable periodic sync. Do you want to sync with this folder?</source>
-        <translation type="unfinished"/>
+        <translation>שינויים בקובץ על נתיבים של רשת לא ייסנכרן אוטומטית. ניתן להגדיר תקציבי синქרונציה כדי לאפשר синქרונציה פ�ериодиית. האם ברצונך לסנכרן עם התיקייה הזאת?</translation>
     </message>
     <message>
         <source>Creating a library with encryption version less than 2 is not supported</source>
+        <translation>ליצור ספרייה עם גרסה הצפנה פחות מ-2 אינה נתמכת</translation>
+    </message>
+    <message>
+        <source>(For security reasons, the password for the encrypted library is not stored on the server. If you forget it, you will not be able to recover the password.)</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -554,18 +555,18 @@ failed to upload.</source>
     <name>DaemonManager</name>
     <message>
         <source>%1 client failed to initialize</source>
-        <translation type="unfinished"/>
+        <translation>נכשל בהתחלה של הלקוח %1</translation>
     </message>
     <message>
         <source>%1 exited unexpectedly</source>
-        <translation type="unfinished"/>
+        <translation>הלקוח %1 נכשל באופן לא צפויה</translation>
     </message>
 </context>
 <context>
     <name>DataManager</name>
     <message>
         <source>Another copy or move operation is in progress. Please wait until it finishes.</source>
-        <translation type="unfinished"/>
+        <translation>נכשל במעבר או בעתיד של פעולה אחרת. אנא המתן עד שהפעולה נגמר.</translation>
     </message>
 </context>
 <context>
@@ -580,63 +581,63 @@ failed to upload.</source>
     </message>
     <message>
         <source>Sync folder &quot;%1&quot;</source>
-        <translation type="unfinished"/>
+        <translation>סנכרון תיקיית &quot;1%&quot;</translation>
     </message>
     <message>
         <source>Sync to folder:</source>
-        <translation type="unfinished"/>
+        <translation>סנכרון לתיקייה:</translation>
     </message>
     <message>
         <source>or</source>
-        <translation type="unfinished"/>
+        <translation>או</translation>
     </message>
     <message>
         <source>sync with an existing folder</source>
-        <translation type="unfinished"/>
+        <translation>סנכרון עם תיקייה קיימת</translation>
     </message>
     <message>
         <source>create a new sync folder</source>
-        <translation type="unfinished"/>
+        <translation>יצירת תיקייה חדשה לסנכרון</translation>
     </message>
     <message>
         <source>Sync with this existing folder:</source>
-        <translation type="unfinished"/>
+        <translation>סנכרון עם תיקייה קיימת:</translation>
     </message>
     <message>
         <source>Please choose a folder</source>
-        <translation type="unfinished"/>
+        <translation>אנא בחר תיקייה</translation>
     </message>
     <message>
         <source>The folder does not exist</source>
-        <translation type="unfinished"/>
+        <translation>התיקייה לא קיימת</translation>
     </message>
     <message>
         <source>Please choose the folder to sync.</source>
-        <translation type="unfinished"/>
+        <translation>אנא בחר את התיקייה להסנכרון.</translation>
     </message>
     <message>
         <source>Your organization disables putting a library outside %1 folder.</source>
-        <translation type="unfinished"/>
+        <translation>הארגון שלך מבינה את היכולת להעלות ספרייה מחוץ לתיקיית %1.</translation>
     </message>
     <message>
         <source>Conflicting with existing file &quot;%1&quot;, please choose a different folder.</source>
-        <translation type="unfinished"/>
+        <translation>נגדיר עם קובץ קיים &quot;%1&quot;, אנא בחר תיקייה אחרת.</translation>
     </message>
     <message>
         <source>Conflicting with existing library &quot;%1&quot;, please choose a different folder.</source>
-        <translation type="unfinished"/>
+        <translation>נגדיר עם ספרייה קיימת &quot;%1&quot;, אנא בחר תיקייה אחרת.</translation>
     </message>
     <message>
         <source>The folder &quot;%1&quot; already exists. Are you sure to sync with it (contents will be merged)?</source>
-        <translation type="unfinished"/>
+        <translation>התיקייה &quot;%1&quot; כבר קיימת. האם ברצונך לסנכרן עם התיקייה הזאת (תוכן ייחודי ייוב ישלח אל תיקיית המסנכרון)?</translation>
     </message>
     <message>
         <source>Click No to sync with a new folder instead</source>
-        <translation type="unfinished"/>
+        <translation>לחץ No כדי לסנכרן עם תיקייה חדשה במקום</translation>
     </message>
     <message>
         <source>Unable to find an alternative folder name</source>
-        <translation type="unfinished"/>
+        <translation>לא ניתן למצוא שם תיקייה חדש</translation>
     </message>
     <message>
         <source>Failed to add download task:
@@ -647,7 +648,8 @@ failed to upload.</source>
     <message>
         <source>Failed to get repo download information:
 %1</source>
-        <translation type="unfinished"/>
+        <translation>נכשל לקבל מידע על הורדה של הספרייה:
+%1</translation>
     </message>
     <message>
         <source>Download Library</source>
@@ -663,7 +665,7 @@ failed to upload.</source>
     </message>
     <message>
         <source>OK</source>
-        <translation type="unfinished"/>
+        <translation>אישור</translation>
     </message>
     <message>
         <source>Cancel</source>
@@ -671,481 +673,481 @@ failed to upload.</source>
     </message>
     <message>
         <source>File changes on network drives may not be synced automatically. You can set sync intervals to enable periodic sync. Do you want to sync with this folder?</source>
-        <translation type="unfinished"/>
+        <translation>לא ניתן לסנכרן באופן אוטומטי עם תיקיית רשת. ניתן להגדיר תקציב סנכרון כדי לסנכרן באופן אוטומטי. האם ברצונך לסנכרן עם התיקייה הזאת?</translation>
     </message>
 </context>
 <context>
     <name>EventDetailsDialog</name>
     <message>
         <source>Modification Details</source>
-        <translation type="unfinished"/>
+        <translation>פרטים על שינויים</translation>
     </message>
 </context>
 <context>
     <name>EventDetailsListModel</name>
     <message>
         <source>Added files</source>
-        <translation type="unfinished"/>
+        <translation>קובצים מוסמכים</translation>
     </message>
     <message>
         <source>Deleted files</source>
-        <translation type="unfinished"/>
+        <translation>קובצים מחוקים</translation>
     </message>
     <message>
         <source>Modified files</source>
-        <translation type="unfinished"/>
+        <translation>קובצים שינויים</translation>
     </message>
     <message>
         <source>Added folders</source>
-        <translation type="unfinished"/>
+        <translation>תיקיות מוסמכות</translation>
     </message>
     <message>
         <source>Deleted folders</source>
-        <translation type="unfinished"/>
+        <translation>תיקיות מחוקות</translation>
     </message>
 </context>
 <context>
     <name>EventDetailsListView</name>
     <message>
         <source>&amp;Open</source>
-        <translation type="unfinished"/>
+        <translation>פתח תיקייה</translation>
     </message>
     <message>
         <source>Open &amp;parent folder</source>
-        <translation type="unfinished"/>
+        <translation>פתח תיקייה אחרת</translation>
     </message>
 </context>
 <context>
     <name>FileBrowserDialog</name>
     <message>
         <source>Cloud File Browser</source>
-        <translation type="unfinished"/>
+        <translation>דפדפן קבצים באינטרנט</translation>
     </message>
     <message>
         <source>Back</source>
-        <translation type="unfinished"/>
+        <translation>חזרה</translation>
     </message>
     <message>
         <source>Forward</source>
-        <translation type="unfinished"/>
+        <translation>קדימה</translation>
     </message>
     <message>
         <source>Home</source>
-        <translation type="unfinished"/>
+        <translation>בית</translation>
     </message>
     <message>
         <source>Upload files</source>
-        <translation type="unfinished"/>
+        <translation> העלה קבצים</translation>
     </message>
     <message>
         <source>Upload a directory</source>
-        <translation type="unfinished"/>
+        <translation> העלה תיקייה</translation>
     </message>
     <message>
         <source>You don&apos;t have permission to upload files to this library</source>
-        <translation type="unfinished"/>
+        <translation>אין לך הרשאה להעלות קבצים לספרייה זו</translation>
     </message>
     <message>
         <source>Create a folder</source>
-        <translation type="unfinished"/>
+        <translation>צור תיקייה</translation>
     </message>
     <message>
         <source>Refresh</source>
-        <translation type="unfinished"/>
+        <translation>רענן</translation>
     </message>
     <message>
         <source>%1 items</source>
-        <translation type="unfinished"/>
+        <translation>%1 פריטים</translation>
     </message>
     <message>
         <source>Folder name</source>
-        <translation type="unfinished"/>
+        <translation>שם תיקייה</translation>
     </message>
     <message>
         <source>Invalid folder name!</source>
-        <translation type="unfinished"/>
+        <translation>שם תיקייה לא תקין!</translation>
     </message>
     <message>
         <source>The name &quot;%1&quot; is already taken.</source>
-        <translation type="unfinished"/>
+        <translation>השם &quot;%1&quot; כבר נמצא בשימוש.</translation>
     </message>
     <message>
         <source>retry</source>
-        <translation type="unfinished"/>
+        <translation>נסה שוב</translation>
     </message>
     <message>
         <source>Failed to get files information&lt;br/&gt;Please %1</source>
-        <translation type="unfinished"/>
+        <translation>לא ניתן לקבל מידע על הקבצים. אנא %1</translation>
     </message>
     <message>
         <source>This folder is empty.</source>
-        <translation type="unfinished"/>
+        <translation>התיקייה ריקה.</translation>
     </message>
     <message>
         <source>Enter name of file to save to...</source>
-        <translation type="unfinished"/>
+        <translation>הזן שם קובץ לשמירה...</translation>
     </message>
     <message>
         <source>Unable to remove file &quot;%1&quot;</source>
-        <translation type="unfinished"/>
+        <translation>לא ניתן למחוק את הקובץ &quot;%1&quot;</translation>
     </message>
     <message>
         <source>Enter the path of the folder you want to save to...</source>
-        <translation type="unfinished"/>
+        <translation>הזן את הנתיב של התיקייה שאתה רוצה לשמור בו...</translation>
     </message>
     <message>
         <source>Do you want to overwrite the existing file &quot;%1&quot;?</source>
-        <translation type="unfinished"/>
+        <translation>האם אתה רוצה להחליף את הקובץ קיים &quot;%1&quot;?</translation>
     </message>
     <message>
         <source>File &quot;%1&quot; haven&apos;t been synced</source>
-        <translation type="unfinished"/>
+        <translation>הקובץ &quot;%1&quot; לא נסנק</translation>
     </message>
     <message>
         <source>File %1 already exists.&lt;br/&gt;Do you like to overwrite it?&lt;br/&gt;&lt;small&gt;(Choose No to upload using an alternative name).&lt;/small&gt;</source>
-        <translation type="unfinished"/>
+        <translation>הקובץ %1 כבר קיים. האם אתה רוצה להחליף אותו?&lt;br/&gt;&lt;small&gt;(בחר לא כדי להעלות עם שם אחר).&lt;/small&gt;</translation>
     </message>
     <message>
         <source>File does not exist</source>
-        <translation type="unfinished"/>
+        <translation>הקובץ לא קיים</translation>
     </message>
     <message>
         <source>Failed to download file: %1</source>
-        <translation type="unfinished"/>
+        <translation>לא ניתן להוריד את הקובץ: %1</translation>
     </message>
     <message>
         <source>Select a file to upload</source>
-        <translation type="unfinished"/>
+        <translation>בחר קובץ להעלאה</translation>
     </message>
     <message>
         <source>Select a directory to upload</source>
-        <translation type="unfinished"/>
+        <translation>בחר תיקייה להעלאה</translation>
     </message>
     <message>
         <source>Rename</source>
-        <translation type="unfinished"/>
+        <translation>שינוי שם</translation>
     </message>
     <message>
         <source>Do you really want to delete these items</source>
-        <translation type="unfinished"/>
+        <translation>האם אתה רוצה למחוק את הפריטים הזו?</translation>
     </message>
     <message>
         <source>Create folder failed</source>
-        <translation type="unfinished"/>
+        <translation>לא ניתן ליצור תיקייה</translation>
     </message>
     <message>
         <source>Lock file failed</source>
-        <translation type="unfinished"/>
+        <translation>לא ניתן לייעול את הקובץ</translation>
     </message>
     <message>
         <source>Select a file to update %1</source>
-        <translation type="unfinished"/>
+        <translation>בחר קובץ לעדכון %1</translation>
     </message>
     <message>
         <source>Rename failed</source>
-        <translation type="unfinished"/>
+        <translation>לא ניתן לשנות את שם הקובץ</translation>
     </message>
     <message>
         <source>Remove failed</source>
-        <translation type="unfinished"/>
+        <translation>לא ניתן למחוק את הקובץ</translation>
     </message>
     <message>
         <source>Share failed</source>
-        <translation type="unfinished"/>
+        <translation>לא ניתן לשתף את הקובץ</translation>
     </message>
     <message>
         <source>Cannot paste files from the same folder</source>
-        <translation type="unfinished"/>
+        <translation>לא ניתן להדביק קבצים מתוך תיקייה זהה</translation>
     </message>
     <message>
         <source>Cannot paste the folder to its subfolder</source>
-        <translation type="unfinished"/>
+        <translation>לא ניתן להדביק תיקייה внутрь себе</translation>
     </message>
     <message>
         <source>Copy failed</source>
-        <translation type="unfinished"/>
+        <translation>לא ניתן להעתיק את הקובץ</translation>
     </message>
     <message>
         <source>Move failed</source>
-        <translation type="unfinished"/>
+        <translation>לא ניתן להעביר את הקובץ</translation>
     </message>
     <message>
         <source>Create library failed!</source>
-        <translation type="unfinished"/>
+        <translation>לא ניתן ליצור ספרייה</translation>
     </message>
     <message>
         <source>You do not have permission to upload to this folder</source>
-        <translation type="unfinished"/>
+        <translation>לא יש לך הרשאה להעלות לתיקייה זו</translation>
     </message>
     <message>
         <source>Authorization expired</source>
-        <translation type="unfinished"/>
+        <translation>האישור פג תוקפו</translation>
     </message>
     <message>
         <source>Permission Error!</source>
-        <translation type="unfinished"/>
+        <translation>שגיאה בגישה הרשאה!</translation>
     </message>
     <message>
         <source>Library/Folder not found.</source>
-        <translation type="unfinished"/>
+        <translation>לא נמצאה תיקייה או ספרייה</translation>
     </message>
     <message>
         <source>Failed to upload file %1: %2</source>
-        <translation type="unfinished"/>
+        <translation>לא ניתן להעלות את הקובץ %1: %2</translation>
     </message>
     <message>
         <source>Unable to create cache folder</source>
-        <translation type="unfinished"/>
+        <translation>לא ניתן ליצור תיקיית קורדינאטור</translation>
     </message>
     <message>
         <source>Unable to open cache folder</source>
-        <translation type="unfinished"/>
+        <translation>לא ניתן לפתוח תיקיית קורדינאטור</translation>
     </message>
     <message>
         <source>Search files</source>
-        <translation type="unfinished"/>
+        <translation>חיפוש קבצים</translation>
     </message>
     <message>
         <source>Failed to get link</source>
-        <translation type="unfinished"/>
+        <translation>לא ניתן לקבל קישור</translation>
     </message>
     <message>
         <source>Failed to get upload link information for file &quot;%1&quot;</source>
-        <translation type="unfinished"/>
+        <translation>לא ניתן לקבל מידע על קישור ההעלאה עבור הקובץ &quot;%1&quot;</translation>
     </message>
     <message>
         <source>Do you really want to delete file &quot;%1&quot;?</source>
-        <translation type="unfinished"/>
+        <translation>האם אתה רוצה למחוק את הקובץ &quot;%1&quot;?</translation>
     </message>
     <message>
         <source>Do you really want to delete folder &quot;%1&quot;?</source>
-        <translation type="unfinished"/>
+        <translation>האם אתה רוצה למחוק את התיקייה &quot;%1&quot;?</translation>
     </message>
     <message>
         <source>File size exceeds limit</source>
-        <translation type="unfinished"/>
+        <translation>גודל הקובץ חורג מהמגבלה</translation>
     </message>
     <message>
         <source>Number of file exceeds limit</source>
-        <translation type="unfinished"/>
+        <translation>סך הקובצים חורג מהמגבלה</translation>
     </message>
 </context>
 <context>
     <name>FileBrowserProgressDialog</name>
     <message>
         <source>Pending</source>
-        <translation type="unfinished"/>
+        <translation>מתינה</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation type="unfinished"/>
+        <translation>ביטול</translation>
     </message>
     <message>
         <source>Upload</source>
-        <translation type="unfinished"/>
+        <translation>העלאה</translation>
     </message>
     <message>
         <source>Uploading %1</source>
-        <translation type="unfinished"/>
+        <translation>העלאת %1</translation>
     </message>
     <message>
         <source>Download</source>
-        <translation type="unfinished"/>
+        <translation>הורדה</translation>
     </message>
     <message>
         <source>Downloading %1</source>
-        <translation type="unfinished"/>
+        <translation>הורדת %1</translation>
     </message>
     <message>
         <source>%1 of %2</source>
-        <translation type="unfinished"/>
+        <translation>%1 מתוך %2</translation>
     </message>
     <message>
         <source>Failed to upload file &quot;%1&quot;, do you want to retry?</source>
-        <translation type="unfinished"/>
+        <translation>לא ניתן להעלות את הקובץ &quot;%1&quot;, האם אתה רוצה לנסות שוב?</translation>
     </message>
     <message>
         <source>Retry</source>
-        <translation type="unfinished"/>
+        <translation>נסיון שוב</translation>
     </message>
     <message>
         <source>Skip</source>
-        <translation type="unfinished"/>
+        <translation>דלג</translation>
     </message>
     <message>
         <source>Abort</source>
-        <translation type="unfinished"/>
+        <translation>ביטול</translation>
     </message>
 </context>
 <context>
     <name>FileBrowserSearchModel</name>
     <message>
         <source>Name</source>
-        <translation type="unfinished"/>
+        <translation>שם</translation>
     </message>
     <message>
         <source>Size</source>
-        <translation type="unfinished"/>
+        <translation>גודל</translation>
     </message>
     <message>
         <source>Last Modified</source>
-        <translation type="unfinished"/>
+        <translation>תאריך שינוי אחרון</translation>
     </message>
 </context>
 <context>
     <name>FileBrowserSearchView</name>
     <message>
         <source>&amp;Show in folder</source>
-        <translation type="unfinished"/>
+        <translation>הצג בתיקייה</translation>
     </message>
     <message>
         <source>Show in folder</source>
-        <translation type="unfinished"/>
+        <translation>הצג בתיקייה</translation>
     </message>
 </context>
 <context>
     <name>FileNetworkTask</name>
     <message>
         <source>Operation canceled</source>
-        <translation type="unfinished"/>
+        <translation>ביטול הפעולה</translation>
     </message>
     <message>
         <source>pending</source>
-        <translation type="unfinished"/>
+        <translation>מתינה</translation>
     </message>
 </context>
 <context>
     <name>FileServerTask</name>
     <message>
         <source>task cancelled</source>
-        <translation type="unfinished"/>
+        <translation>ביטול הפעולה</translation>
     </message>
     <message>
         <source>Internal Server Error</source>
-        <translation type="unfinished"/>
+        <translation>שגיאה פנימית של השרת</translation>
     </message>
     <message>
         <source>The storage quota has been used up</source>
-        <translation type="unfinished"/>
+        <translation>המגבלה של הזיכרון נגעלה</translation>
     </message>
     <message>
         <source>The uploaded file exceeds the size limit</source>
-        <translation type="unfinished"/>
+        <translation>הקובץ שהועלה חורג מהמגבלה</translation>
     </message>
 </context>
 <context>
     <name>FileTableModel</name>
     <message>
         <source>locked by %1</source>
-        <translation type="unfinished"/>
+        <translation>עוגרת על ידי %1</translation>
     </message>
     <message>
         <source>Name</source>
-        <translation type="unfinished"/>
+        <translation>שם</translation>
     </message>
     <message>
         <source>Size</source>
-        <translation type="unfinished"/>
+        <translation>גודל</translation>
     </message>
     <message>
         <source>Last Modified</source>
-        <translation type="unfinished"/>
+        <translation>תאריך שינוי אחרון</translation>
     </message>
     <message>
         <source>Modifier</source>
-        <translation type="unfinished"/>
+        <translation>מונח</translation>
     </message>
 </context>
 <context>
     <name>FileTableView</name>
     <message>
         <source>&amp;Save As...</source>
-        <translation type="unfinished"/>
+        <translation>שמור כ...</translation>
     </message>
     <message>
         <source>&amp;Lock</source>
-        <translation type="unfinished"/>
+        <translation>עוגרת</translation>
     </message>
     <message>
         <source>&amp;Rename</source>
-        <translation type="unfinished"/>
+        <translation>שינוי שם</translation>
     </message>
     <message>
         <source>&amp;Delete</source>
-        <translation type="unfinished"/>
+        <translation>מחיקה</translation>
     </message>
     <message>
         <source>Share to Group</source>
-        <translation type="unfinished"/>
+        <translation>שיתוף עם קבוצה</translation>
     </message>
     <message>
         <source>&amp;Update</source>
-        <translation type="unfinished"/>
+        <translation>עדכון</translation>
     </message>
     <message>
         <source>&amp;Copy</source>
-        <translation type="unfinished"/>
+        <translation>העתקה</translation>
     </message>
     <message>
         <source>Cu&amp;t</source>
-        <translation type="unfinished"/>
+        <translation>הגדרה</translation>
     </message>
     <message>
         <source>&amp;Paste</source>
-        <translation type="unfinished"/>
+        <translation>הדבקה</translation>
     </message>
     <message>
         <source>Canc&amp;el Download</source>
-        <translation type="unfinished"/>
+        <translation>ביטול הורדה</translation>
     </message>
     <message>
         <source>&amp;Sync this folder</source>
-        <translation type="unfinished"/>
+        <translation>סנכרון תיקייה זו</translation>
     </message>
     <message>
         <source>This feature is available in pro version only
 </source>
-        <translation type="unfinished"/>
+        <translation>תכונה זו זמינה רק בגרסה התומכת</translation>
     </message>
     <message>
         <source>&amp;Generate %1 Download Link</source>
-        <translation type="unfinished"/>
+        <translation>צור קישור הורדה %1</translation>
     </message>
     <message>
         <source>Share to User</source>
-        <translation type="unfinished"/>
+        <translation>שיתוף עם משתמש</translation>
     </message>
     <message>
         <source>G&amp;enerate %1 Internal Link</source>
-        <translation type="unfinished"/>
+        <translation>צור קישור פנימי %1</translation>
     </message>
     <message>
         <source>&amp;Save As To...</source>
-        <translation type="unfinished"/>
+        <translation>שמור כ...</translation>
     </message>
     <message>
         <source>Un&amp;lock</source>
-        <translation type="unfinished"/>
+        <translation>ביטול העוגרת</translation>
     </message>
     <message>
         <source>Unable to remove readonly files</source>
-        <translation type="unfinished"/>
+        <translation>לא ניתן למחוק קבצים בלבד לקריאה</translation>
     </message>
     <message>
         <source>Unable to cut readonly files</source>
-        <translation type="unfinished"/>
+        <translation>לא ניתן להגדיר קבצים בלבד לקריאה</translation>
     </message>
     <message>
         <source>Retry Upload</source>
-        <translation type="unfinished"/>
+        <translation>נסיון העלאה שוב</translation>
     </message>
     <message>
         <source>Delete Local Version</source>
-        <translation type="unfinished"/>
+        <translation>מחיקת גרסה מקומית</translation>
     </message>
     <message>
         <source>Local Version Save As...</source>
-        <translation type="unfinished"/>
+        <translation>שמור גרסה מקומית כ...</translation>
     </message>
     <message>
         <source>Open Local Cache Folder</source>
@@ -1153,61 +1155,61 @@ failed to upload.</source>
     </message>
     <message>
         <source>&amp;Generate %1 Upload Link</source>
-        <translation type="unfinished"/>
+        <translation>צור קישור העלאה %1</translation>
     </message>
 </context>
 <context>
     <name>FinderSyncHost</name>
     <message>
         <source>File &quot;%1&quot; is locked by %2</source>
-        <translation type="unfinished"/>
+        <translation>קובץ &quot;%1&quot; מועוגרת על ידי %2</translation>
     </message>
     <message>
         <source>Failed to get lock information for file &quot;%1&quot;</source>
-        <translation type="unfinished"/>
+        <translation>לא ניתן לקבל מידע על העוגרת עבור קובץ &quot;%1&quot;</translation>
     </message>
     <message>
         <source>No permissions to create a shared link</source>
-        <translation type="unfinished"/>
+        <translation>לא יש הרשאות ליצירת קישור שיתוף</translation>
     </message>
     <message>
         <source>Failed to get shared link: %1</source>
-        <translation type="unfinished"/>
+        <translation>לא ניתן לקבל קישור שיתוף: %1</translation>
     </message>
     <message>
         <source>Failed to get upload link for file &quot;%1&quot;: </source>
-        <translation type="unfinished"/>
+        <translation>לא ניתן לקבל קישור העלאה עבור קובץ &quot;%1&quot;: %2</translation>
     </message>
     <message>
         <source>Failed to get internal link: %1</source>
-        <translation type="unfinished"/>
+        <translation>לא ניתן לקבל קישור פנימי: %1</translation>
     </message>
 </context>
 <context>
     <name>GetFileTask</name>
     <message>
         <source>Failed to create folders</source>
-        <translation type="unfinished"/>
+        <translation>לא ניתן ליצור תיקיות</translation>
     </message>
     <message>
         <source>Failed to create temporary files</source>
-        <translation type="unfinished"/>
+        <translation>לא ניתן ליצור קבצים זמניים</translation>
     </message>
     <message>
         <source>Failed to write file to disk</source>
-        <translation type="unfinished"/>
+        <translation>לא ניתן לכתוב קובץ למערכת הקבצים</translation>
     </message>
     <message>
         <source>Failed to remove the older version of the downloaded file</source>
-        <translation type="unfinished"/>
+        <translation>לא ניתן למחוק גרסה ישנה של קובץ הורדה</translation>
     </message>
     <message>
         <source>Failed to move file</source>
-        <translation type="unfinished"/>
+        <translation>לא ניתן להעביר קובץ</translation>
     </message>
     <message>
         <source>Invalid characters in file path</source>
-        <translation type="unfinished"/>
+        <translation> תווים לא חוקיים בנתיב הקובץ</translation>
     </message>
 </context>
 <context>
@@ -1218,7 +1220,7 @@ failed to upload.</source>
     </message>
     <message>
         <source>Choose %1 folder</source>
-        <translation type="unfinished"/>
+        <translation>בחר תיקיית %1</translation>
     </message>
     <message>
         <source>Please choose a directory</source>
@@ -1242,11 +1244,11 @@ failed to upload.</source>
     </message>
     <message>
         <source>Choose a folder</source>
-        <translation type="unfinished"/>
+        <translation>בחר תיקייה</translation>
     </message>
     <message>
         <source>Please choose a folder. We will create a %1 subfolder in it. When you download a library, it will be saved there by default.</source>
-        <translation type="unfinished"/>
+        <translation>אנא בחר תיקייה. נתון תיקיית %1 תת- תיקייה בה יישמרו כל הקובצים שהורדתם. כאשר תהיה הורדה של ספרייה, היא יישמר שם ברירת המחדל.</translation>
     </message>
     <message>
         <source>Choose...</source>
@@ -1266,7 +1268,8 @@ failed to upload.</source>
     <message>
         <source>%1 organizes files by libraries.
 Do you like to download your default library?</source>
-        <translation type="unfinished"/>
+        <translation>נהל קבצים לפי ספריות.
+האם אתה רוצה להוריד את הספרייה ברירת המחדל שלך?</translation>
     </message>
     <message>
         <source>Checking your default library...</source>
@@ -1287,12 +1290,14 @@ The server version must be 2.1 or higher to support this.</source>
     <message>
         <source>Failed to get default library:
 %1</source>
-        <translation type="unfinished"/>
+        <translation>נכשל בקבלת ספריית ברירת מחדל:
+%1</translation>
     </message>
     <message>
         <source>Failed to create default library:
 %1</source>
-        <translation type="unfinished"/>
+        <translation>נכשל ביצירת ספריית ברירת מחדל:
+%1</translation>
     </message>
     <message>
         <source>Downloading default library...</source>
@@ -1301,7 +1306,8 @@ The server version must be 2.1 or higher to support this.</source>
     <message>
         <source>Failed to download default library:
 %1</source>
-        <translation type="unfinished"/>
+        <translation>נכשל בניסיון להוריד ספריית ברירת מחדל:
+%1</translation>
     </message>
     <message>
         <source>The default library has been downloaded.
@@ -1354,60 +1360,61 @@ You can click the &quot;Open&quot; button to view it.</source>
     <message>
         <source>%1 organizes files by libraries. 
 Do you like to download your default library?</source>
-        <translation type="unfinished"/>
+        <translation>נהל קבצים לפי ספריות.
+האם אתה רוצה להוריד את הספרייה ברירת המחדל שלך?</translation>
     </message>
 </context>
 <context>
     <name>LoadMoreButton</name>
     <message>
         <source>load more</source>
-        <translation type="unfinished"/>
+        <translation>טען עוד</translation>
     </message>
 </context>
 <context>
     <name>LogDirUploader</name>
     <message>
         <source>Upload log files failed</source>
-        <translation type="unfinished"/>
+        <translation>נכשל בהעלאת קבצי журнал</translation>
     </message>
     <message>
         <source>Upload log files</source>
-        <translation type="unfinished"/>
+        <translation>העלה קבצי журнал</translation>
     </message>
     <message>
         <source>Permission Error!</source>
-        <translation type="unfinished"/>
+        <translation>שגיאה בגישה!</translation>
     </message>
     <message>
         <source>Library/Folder not found.</source>
-        <translation type="unfinished"/>
+        <translation>לא נמצאה ספרייה/תיקייה.</translation>
     </message>
     <message>
         <source>Authorization expired</source>
-        <translation type="unfinished"/>
+        <translation>תוקף אישור פג</translation>
     </message>
     <message>
         <source>Upload log files failed :%1</source>
-        <translation type="unfinished"/>
+        <translation>נכשל בהעלאת קבצי журнал: %1</translation>
     </message>
     <message>
         <source>Successfully uploaded log files</source>
-        <translation type="unfinished"/>
+        <translation>נכשל בהעלאת קבצי журнал</translation>
     </message>
 </context>
 <context>
     <name>LogUploadProgressDialog</name>
     <message>
         <source>Compressing</source>
-        <translation type="unfinished"/>
+        <translation>קימפסת</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation type="unfinished"/>
+        <translation>ביטול</translation>
     </message>
     <message>
         <source>%1 of %2</source>
-        <translation type="unfinished"/>
+        <translation>%1 מתוך %2</translation>
     </message>
 </context>
 <context>
@@ -1418,11 +1425,11 @@ Do you like to download your default library?</source>
     </message>
     <message>
         <source>Single Sign On</source>
-        <translation type="unfinished"/>
+        <translation>כניסה אחת</translation>
     </message>
     <message>
         <source>Re-login</source>
-        <translation type="unfinished"/>
+        <translation>התחבר מחדש</translation>
     </message>
     <message>
         <source>Logging in...</source>
@@ -1452,19 +1459,19 @@ Do you like to download your default library?</source>
     </message>
     <message>
         <source>Please enter the computer name</source>
-        <translation type="unfinished"/>
+        <translation>אנא הכנס את שם המחשב</translation>
     </message>
     <message>
         <source>%1 Server Address</source>
-        <translation type="unfinished"/>
+        <translation>כתובת שרת %1</translation>
     </message>
     <message>
         <source>Server address must not be empty</source>
-        <translation type="unfinished"/>
+        <translation>כתובת שרת לא יכול להיות ריקה</translation>
     </message>
     <message>
         <source>%1 is not a valid server address. It has to start with &apos;https://&apos;</source>
-        <translation type="unfinished"/>
+        <translation>כתובת שרת %1 אינה כתובת שרת חוקית. חייבת להתחיל ב&apos;https://&apos;</translation>
     </message>
     <message>
         <source>Please enter the password</source>
@@ -1476,7 +1483,7 @@ Do you like to download your default library?</source>
     </message>
     <message>
         <source>Logging in too frequently, please wait a minute</source>
-        <translation type="unfinished"/>
+        <translation>נכשל בהתחברות מדי פעם, אנא המתן דקה</translation>
     </message>
     <message>
         <source>Internal Server Error</source>
@@ -1500,11 +1507,11 @@ Do you like to download your default library?</source>
     </message>
     <message>
         <source>Server:</source>
-        <translation type="unfinished"/>
+        <translation>שרת:</translation>
     </message>
     <message>
         <source>or http://192.168.1.24:8000</source>
-        <translation type="unfinished"/>
+        <translation>או http://192.168.1.24:8000</translation>
     </message>
     <message>
         <source>Password:</source>
@@ -1516,15 +1523,15 @@ Do you like to download your default library?</source>
     </message>
     <message>
         <source>Computer Name:</source>
-        <translation type="unfinished"/>
+        <translation>שם המחשב:</translation>
     </message>
     <message>
         <source>Email / Username:</source>
-        <translation type="unfinished"/>
+        <translation>דוא&quot;ל / שם משתמש:</translation>
     </message>
     <message>
         <source>e.g. Jim&apos;s laptop</source>
-        <translation type="unfinished"/>
+        <translation>לדוגמה:Jim&apos;s laptop</translation>
     </message>
     <message>
         <source>Login</source>
@@ -1536,42 +1543,42 @@ Do you like to download your default library?</source>
     </message>
     <message>
         <source>Automatic Login</source>
-        <translation type="unfinished"/>
+        <translation>התחבר אוטומטית</translation>
     </message>
     <message>
         <source>Failed to get server info. Please check the server address.</source>
-        <translation type="unfinished"/>
+        <translation>נכשל בקבלת מידע על השרת. אנא בדוק את כתובת השרת.</translation>
     </message>
     <message>
         <source>Failed to get client sso link.</source>
-        <translation type="unfinished"/>
+        <translation>נכשל בקבלת קישור SSO לקוח.</translation>
     </message>
     <message>
         <source>SSO login failed.</source>
-        <translation type="unfinished"/>
+        <translation>נכשל בהתחברות SSO.</translation>
     </message>
     <message>
         <source>Failed to get client sso status.</source>
-        <translation type="unfinished"/>
+        <translation>נכשל בקבלת סטטוס SSO לקוח.</translation>
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;For example: https://example.your-server.com&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"/>
+        <translation>לדוגמה: https://example.your-server.com</translation>
     </message>
 </context>
 <context>
     <name>LogoutView</name>
     <message>
         <source>You are logout. Please </source>
-        <translation type="unfinished"/>
+        <translation>נכשל בהתחברות. אנא התחבר שוב.</translation>
     </message>
     <message>
         <source>login</source>
-        <translation type="unfinished"/>
+        <translation>התחבר</translation>
     </message>
     <message>
         <source>Add an account</source>
-        <translation type="unfinished"/>
+        <translation>הוסף חשבון</translation>
     </message>
 </context>
 <context>
@@ -1585,45 +1592,45 @@ Do you like to download your default library?</source>
     <name>MessagePoller</name>
     <message>
         <source>&quot;%1&quot; is synchronized</source>
-        <translation type="unfinished"/>
+        <translation>נכשל בהתחברות. אנא התחבר שוב.</translation>
     </message>
     <message>
         <source>Files uploaded to &quot;%1&quot;</source>
-        <translation type="unfinished"/>
+        <translation>נכשל בהתחברות. אנא התחבר שוב.</translation>
     </message>
     <message>
         <source>Failed to sync file %1
 File is locked by other application. This file will be updated when you close the application.</source>
-        <translation type="unfinished"/>
+        <translation>נכשל בהתחברות. אנא התחבר שוב.</translation>
     </message>
     <message>
         <source>Failed to sync folder %1
 Some file in this folder is locked by other application. This folder will be updated when you close the application.</source>
-        <translation type="unfinished"/>
+        <translation>נכשל בהתחברות. אנא התחבר שוב.</translation>
     </message>
     <message>
         <source>Failed to sync file %1
 File is locked by another user. Update to this file is not uploaded.</source>
-        <translation type="unfinished"/>
+        <translation>נכשל בהתחברות. אנא התחבר שוב.</translation>
     </message>
     <message>
         <source>Failed to index file %1
 Please check file permission and disk space.</source>
-        <translation type="unfinished"/>
+        <translation>נכשל בהתחברות. אנא התחבר שוב.</translation>
     </message>
     <message>
         <source>Failed to sync %1
 File path is ended with space or period and cannot be created on Windows.</source>
-        <translation type="unfinished"/>
+        <translation>נכשל בהתחברות. אנא התחבר שוב.</translation>
     </message>
     <message>
         <source>Failed to sync %1
 File path contains invalid characters. It is not synced to this computer.</source>
-        <translation type="unfinished"/>
+        <translation>נכשל בהתחברות. אנא התחבר שוב.</translation>
     </message>
     <message>
         <source>Update to file %1 is denied by folder permission setting.</source>
-        <translation type="unfinished"/>
+        <translation>נכשל בהתחברות. אנא התחבר שוב.</translation>
     </message>
     <message>
         <source>Updates in read-only library %1 will not be uploaded.</source>

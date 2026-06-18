@@ -537,10 +537,6 @@ falló la subida.</translation>
         <translation>Cancelar</translation>
     </message>
     <message>
-        <source>end-to-end encryption</source>
-        <translation>cifrado punto a punto</translation>
-    </message>
-    <message>
         <source>TextLabel</source>
         <translation>TextLabel</translation>
     </message>
@@ -550,6 +546,10 @@ falló la subida.</translation>
     </message>
     <message>
         <source>Creating a library with encryption version less than 2 is not supported</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>(For security reasons, the password for the encrypted library is not stored on the server. If you forget it, you will not be able to recover the password.)</source>
         <translation type="unfinished"/>
     </message>
 </context>

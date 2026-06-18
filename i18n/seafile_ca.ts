@@ -535,10 +535,6 @@ failed to upload.</source>
         <translation>Cancel·la</translation>
     </message>
     <message>
-        <source>end-to-end encryption</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
         <source>TextLabel</source>
         <translation type="unfinished"/>
     </message>
@@ -548,6 +544,10 @@ failed to upload.</source>
     </message>
     <message>
         <source>Creating a library with encryption version less than 2 is not supported</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>(For security reasons, the password for the encrypted library is not stored on the server. If you forget it, you will not be able to recover the password.)</source>
         <translation type="unfinished"/>
     </message>
 </context>

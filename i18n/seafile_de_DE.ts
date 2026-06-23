@@ -536,10 +536,6 @@ wurde nicht hochgeladen.</translation>
         <translation>Abbrechen</translation>
     </message>
     <message>
-        <source>TextLabel</source>
-        <translation>Tag</translation>
-    </message>
-    <message>
         <source>File changes on network drives may not be synced automatically. You can set sync intervals to enable periodic sync. Do you want to sync with this folder?</source>
         <translation>Änderungen an Dateien auf Netzlaufwerken werden ggf. nicht automatisch mit dem Server synchronisiert. In diesem Fall setzen Sie die Sync-Intervalle auf periodischen Sync. Wollen Sie mit diesem Ordner synchronisieren?</translation>
     </message>
@@ -548,8 +544,8 @@ wurde nicht hochgeladen.</translation>
         <translation>Verschlüsselte Bibliotheken müssen mindestens Sicherheitsstufe 2 haben</translation>
     </message>
     <message>
-        <source>(For security reasons, the password for the encrypted library is not stored on the server. If you forget it, you will not be able to recover the password.)</source>
-        <translation type="unfinished"/>
+        <source>For security reasons, the password for the encrypted library is not stored on the server. If you forget it, you will not be able to recover the password.</source>
+        <translation>Aus Sicherheitsgründen wird das Passwort für eine verschlüsselte Bibliothek nicht auf dem Server gespeichert. Wenn Sie es vergessen sollten, kann es nicht wiederhergestellt werden.</translation>
     </message>
 </context>
 <context>

@@ -535,10 +535,6 @@ failed to upload.</source>
         <translation>ביטול</translation>
     </message>
     <message>
-        <source>TextLabel</source>
-        <translation>תגית טקסט</translation>
-    </message>
-    <message>
         <source>File changes on network drives may not be synced automatically. You can set sync intervals to enable periodic sync. Do you want to sync with this folder?</source>
         <translation>שינויים בקובץ על נתיבים של רשת לא ייסנכרן אוטומטית. ניתן להגדיר תקציבי синქרונציה כדי לאפשר синქרונציה פ�ериодиית. האם ברצונך לסנכרן עם התיקייה הזאת?</translation>
     </message>
@@ -547,7 +543,7 @@ failed to upload.</source>
         <translation>ליצור ספרייה עם גרסה הצפנה פחות מ-2 אינה נתמכת</translation>
     </message>
     <message>
-        <source>(For security reasons, the password for the encrypted library is not stored on the server. If you forget it, you will not be able to recover the password.)</source>
+        <source>For security reasons, the password for the encrypted library is not stored on the server. If you forget it, you will not be able to recover the password.</source>
         <translation type="unfinished"/>
     </message>
 </context>

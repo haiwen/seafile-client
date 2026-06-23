@@ -532,10 +532,6 @@ failed to upload.</source>
         <translation>取消</translation>
     </message>
     <message>
-        <source>TextLabel</source>
-        <translation>文本标签</translation>
-    </message>
-    <message>
         <source>File changes on network drives may not be synced automatically. You can set sync intervals to enable periodic sync. Do you want to sync with this folder?</source>
         <translation>网络驱动器上的文件改动可能不会被自动同步。您可以设置资料库的同步间隔以启用定时同步。您想要继续与此文件夹同步吗？</translation>
     </message>
@@ -544,8 +540,8 @@ failed to upload.</source>
         <translation>不支持创建加密版本低于 2 的资料库</translation>
     </message>
     <message>
-        <source>(For security reasons, the password for the encrypted library is not stored on the server. If you forget it, you will not be able to recover the password.)</source>
-        <translation>（出于安全原因，加密库的密码不会存储在服务器上。如果您忘记了密码，将无法恢复该密码。）</translation>
+        <source>For security reasons, the password for the encrypted library is not stored on the server. If you forget it, you will not be able to recover the password.</source>
+        <translation>出于安全原因，加密库的密码不会存储在服务器上。如果您忘记了密码，将无法恢复该密码。</translation>
     </message>
 </context>
 <context>

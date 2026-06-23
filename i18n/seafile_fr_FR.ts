@@ -537,10 +537,6 @@ n&apos;a pu être envoyé.</translation>
         <translation>Annuler</translation>
     </message>
     <message>
-        <source>TextLabel</source>
-        <translation>LabelTexte</translation>
-    </message>
-    <message>
         <source>File changes on network drives may not be synced automatically. You can set sync intervals to enable periodic sync. Do you want to sync with this folder?</source>
         <translation>Les modifications apportées aux fichiers sur les lecteurs réseau peuvent ne pas être synchronisées automatiquement. Vous pouvez définir des intervalles de synchronisation pour activer la synchronisation périodique. Voulez-vous synchroniser avec ce dossier ?</translation>
     </message>
@@ -549,7 +545,7 @@ n&apos;a pu être envoyé.</translation>
         <translation>La création d&apos;une bibliothèque avec une version de cryptage inférieure à 2 n&apos;est pas possible.</translation>
     </message>
     <message>
-        <source>(For security reasons, the password for the encrypted library is not stored on the server. If you forget it, you will not be able to recover the password.)</source>
+        <source>For security reasons, the password for the encrypted library is not stored on the server. If you forget it, you will not be able to recover the password.</source>
         <translation type="unfinished"/>
     </message>
 </context>

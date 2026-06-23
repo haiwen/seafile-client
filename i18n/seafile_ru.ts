@@ -537,10 +537,6 @@ failed to upload.</source>
         <translation>Отмена</translation>
     </message>
     <message>
-        <source>TextLabel</source>
-        <translation>Метка</translation>
-    </message>
-    <message>
         <source>File changes on network drives may not be synced automatically. You can set sync intervals to enable periodic sync. Do you want to sync with this folder?</source>
         <translation>Изменения файлов на сетевых дисках могут не синхронизироваться автоматически. Вы можете установить интервалы синхронизации, чтобы включить периодическую синхронизацию. Вы хотите выполнить синхронизацию с этой папкой?</translation>
     </message>
@@ -549,7 +545,7 @@ failed to upload.</source>
         <translation>Создание библиотеки с версией шифрования ниже 2 не поддерживается</translation>
     </message>
     <message>
-        <source>(For security reasons, the password for the encrypted library is not stored on the server. If you forget it, you will not be able to recover the password.)</source>
+        <source>For security reasons, the password for the encrypted library is not stored on the server. If you forget it, you will not be able to recover the password.</source>
         <translation type="unfinished"/>
     </message>
 </context>

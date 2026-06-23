@@ -537,10 +537,6 @@ failed to upload.</source>
         <translation>취소</translation>
     </message>
     <message>
-        <source>TextLabel</source>
-        <translation>텍스트 레이블</translation>
-    </message>
-    <message>
         <source>File changes on network drives may not be synced automatically. You can set sync intervals to enable periodic sync. Do you want to sync with this folder?</source>
         <translation>네트워크 드라이브에서 바뀐 파일은 자동으로 동기화하지 않습니다. 주기적으로 동기화하도록 동기화 주기 시간을 설정할 수 있습니다. 이 폴더와 동기화를 진행할까요?</translation>
     </message>
@@ -549,7 +545,7 @@ failed to upload.</source>
         <translation>암호화 버전 2 미만의 라이브러리 만들기는 지원하지 않습니다</translation>
     </message>
     <message>
-        <source>(For security reasons, the password for the encrypted library is not stored on the server. If you forget it, you will not be able to recover the password.)</source>
+        <source>For security reasons, the password for the encrypted library is not stored on the server. If you forget it, you will not be able to recover the password.</source>
         <translation type="unfinished"/>
     </message>
 </context>

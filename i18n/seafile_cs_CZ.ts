@@ -537,10 +537,6 @@ nahrání selhalo.</translation>
         <translation>Zrušit</translation>
     </message>
     <message>
-        <source>TextLabel</source>
-        <translation>Označení textu</translation>
-    </message>
-    <message>
         <source>File changes on network drives may not be synced automatically. You can set sync intervals to enable periodic sync. Do you want to sync with this folder?</source>
         <translation>Změny souborů na síťových jednotkách se nemusí synchronizovat automaticky. Pro povolení periodické synchronizace můžete nastavit intervaly synchronizace. Chcete synchronizovat s touto složkou?</translation>
     </message>
@@ -549,7 +545,7 @@ nahrání selhalo.</translation>
         <translation>Vytvoření knihovny s verzí šifrování nižší než 2 není podporováno</translation>
     </message>
     <message>
-        <source>(For security reasons, the password for the encrypted library is not stored on the server. If you forget it, you will not be able to recover the password.)</source>
+        <source>For security reasons, the password for the encrypted library is not stored on the server. If you forget it, you will not be able to recover the password.</source>
         <translation type="unfinished"/>
     </message>
 </context>

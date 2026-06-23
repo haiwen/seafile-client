@@ -537,10 +537,6 @@ falhou ao carregar.</translation>
         <translation>Cancelar</translation>
     </message>
     <message>
-        <source>TextLabel</source>
-        <translation>Etiqueta</translation>
-    </message>
-    <message>
         <source>File changes on network drives may not be synced automatically. You can set sync intervals to enable periodic sync. Do you want to sync with this folder?</source>
         <translation>Modificações do ficheiro nos discos em rede podem não ser sincronizadas automaticamente. Pode definir intervalos de sincronização para ativar a sincronização periódica. Pretende sincronizar com esta pasta?</translation>
     </message>
@@ -549,7 +545,7 @@ falhou ao carregar.</translation>
         <translation>Não há suporte para a criação de uma biblioteca com versão de encriptação inferior a 2</translation>
     </message>
     <message>
-        <source>(For security reasons, the password for the encrypted library is not stored on the server. If you forget it, you will not be able to recover the password.)</source>
+        <source>For security reasons, the password for the encrypted library is not stored on the server. If you forget it, you will not be able to recover the password.</source>
         <translation type="unfinished"/>
     </message>
 </context>

@@ -140,7 +140,7 @@
          </sizepolicy>
         </property>
         <property name="text">
-         <string>(For security reasons, the password for the encrypted library is not stored on the server. If you forget it, you will not be able to recover the password.)</string>
+         <string>For security reasons, the password for the encrypted library is not stored on the server. If you forget it, you will not be able to recover the password.</string>
         </property>
         <property name="textFormat">
          <enum>Qt::PlainText</enum>

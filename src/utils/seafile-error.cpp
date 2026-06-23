@@ -128,6 +128,9 @@ QString translateSyncErrorCode(const int error_code)
         case SYNC_ERROR_ID_CORRUPTED_ENC_KEY:
             error_str = QObject::tr("Encryption key is corrupted. Please create a new library and upload files again");
             break;
+        case SYNC_ERROR_ID_WATCH_FAILED:
+            error_str = QObject::tr("Failed to monitor local folder changes. Please check Linux inotify limits or ignore rules");
+            break;
         default:
             qWarning("Unknown sync error");
     }

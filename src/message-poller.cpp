@@ -153,6 +153,7 @@ void MessagePoller::processNotification(const SyncNotification& notification)
         case SYNC_ERROR_ID_INVALID_PATH_ON_WINDOWS:
 #endif
         case SYNC_ERROR_ID_CASE_CONFLICT:
+        case SYNC_ERROR_ID_WATCH_FAILED:
             LastSyncError::instance()->flagRepoSyncError(repo_id, err_id);
             break;
         }

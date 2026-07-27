@@ -327,23 +327,29 @@ std::string getLocalPipeName(const char *pipe_name)
 
 // Qt's QProcess function cannot invoke programs that require administrator privileges,
 // so we need windows api funtion to invoke the program that require adminstrator privileges.
-DWORD runShellAsAdministrator(LPCSTR cmd, LPCSTR arg, int n_show)
+DWORD runShellAsAdministrator(LPCWSTR cmd, LPCWSTR arg, int n_show)
 {
-    SHELLEXECUTEINFO shell_exec_info = {0};
-    shell_exec_info.cbSize = sizeof(SHELLEXECUTEINFO);
+    SHELLEXECUTEINFOW shell_exec_info = {0};
+    shell_exec_info.cbSize = sizeof(SHELLEXECUTEINFOW);
     shell_exec_info.fMask = SEE_MASK_NOCLOSEPROCESS;
     shell_exec_info.hwnd = NULL;
-    shell_exec_info.lpVerb = "runas";
+    shell_exec_info.lpVerb = L"runas";
     shell_exec_info.lpFile = cmd;
     shell_exec_info.lpParameters = arg;
     shell_exec_info.lpDirectory = NULL;
     shell_exec_info.nShow = n_show;
     shell_exec_info.hInstApp = NULL;
 
-    BOOL ret = ShellExecuteEx(&shell_exec_info);
+    BOOL ret = ShellExecuteExW(&shell_exec_info);
+    if (!ret || !shell_exec_info.hProcess) {
+        DWORD err = GetLastError();
+        // If GetLastError() didn't set a code, fall back to a generic Win32 failure code.
+        return (err != ERROR_SUCCESS) ? err : ERROR_GEN_FAILURE;
+    }
+
     WaitForSingleObject(shell_exec_info.hProcess, INFINITE);
 
-    DWORD exit_code=0;
+    DWORD exit_code = 0;
     GetExitCodeProcess(shell_exec_info.hProcess, &exit_code);
     CloseHandle(shell_exec_info.hProcess);
     return exit_code;

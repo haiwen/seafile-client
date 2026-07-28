@@ -102,10 +102,10 @@ QModelIndex RepoTreeModel::proxiedIndexFromItem(const QStandardItem* item)
 
 void RepoTreeModel::clear()
 {
-    beginResetModel();
+    // QStandardItemModel::clear() already emits model reset signals.
+    // Wrapping it with begin/endResetModel() causes nested reset warnings.
     QStandardItemModel::clear();
     initialize();
-    endResetModel();
 }
 
 void RepoTreeModel::setRepos(const std::vector<ServerRepo>& repos)
@@ -573,7 +573,6 @@ bool RepoFilterProxyModel::filterAcceptsRow(int source_row,
 void RepoFilterProxyModel::setFilterText(const QString& text)
 {
     has_filter_ = !text.isEmpty();
-    invalidate();
 #if (QT_VERSION >= QT_VERSION_CHECK(6, 0, 0))
     setFilterRegularExpression(makeFilterRegExp(text));
 #else

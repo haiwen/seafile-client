@@ -543,16 +543,19 @@ void SeafileTrayIcon::shellExtFix()
 #if defined(Q_OS_WIN32)
     QString application_dir = QCoreApplication::applicationDirPath();
     QString shellext_fix_path = pathJoin(application_dir, kShellExtFixExecutableName);
-    shellext_fix_path = QString("\"%1\"").arg(shellext_fix_path);
 
     QString log_dir = QDir(seafApplet->configurator()->ccnetDir()).absoluteFilePath("logs");
     QString log_path = pathJoin(log_dir, kShellFixLogName);
+    QString shellext_fix_arg = QString("\"%1\"").arg(log_path);
 
     qWarning("will exec shellext fix command is: %s, the log path is: %s",
         toCStr(shellext_fix_path),
         toCStr(log_path));
 
-    DWORD res = utils::win::runShellAsAdministrator(toCStr(shellext_fix_path), toCStr(log_path), SW_HIDE);
+    DWORD res = utils::win::runShellAsAdministrator(
+        reinterpret_cast<LPCWSTR>(shellext_fix_path.utf16()),
+        reinterpret_cast<LPCWSTR>(shellext_fix_arg.utf16()),
+        SW_HIDE);
     if (res == 0) {
         seafApplet->warningBox(tr("Successfully fixed sync status icons for Explorer"));
 

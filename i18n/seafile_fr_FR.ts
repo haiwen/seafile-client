@@ -2406,6 +2406,10 @@ Le nom de fichier contient des caractères invalides. Il n&apos;est pas synchron
         <source>Permission denied</source>
         <translation>Accès refusé</translation>
     </message>
+    <message>
+        <source>Failed to monitor local folder changes. Please check Linux inotify limits or ignore rules</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>ReliablePostFileTask</name>

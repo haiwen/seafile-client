@@ -2407,6 +2407,10 @@ La ruta al archivo contiene caracteres invalidos. No se sincroniza a esta comput
         <source>Permission denied</source>
         <translation type="unfinished"/>
     </message>
+    <message>
+        <source>Failed to monitor local folder changes. Please check Linux inotify limits or ignore rules</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>ReliablePostFileTask</name>

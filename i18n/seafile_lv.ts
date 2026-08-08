@@ -2385,6 +2385,10 @@ File path contains invalid characters. It is not synced to this computer.</sourc
         <source>Permission denied</source>
         <translation type="unfinished"/>
     </message>
+    <message>
+        <source>Failed to monitor local folder changes. Please check Linux inotify limits or ignore rules</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>ReliablePostFileTask</name>

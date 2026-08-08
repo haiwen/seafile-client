@@ -546,7 +546,7 @@ failed to upload.</source>
     </message>
     <message>
         <source>For security reasons, the password for the encrypted library is not stored on the server. If you forget it, you will not be able to recover the password.</source>
-        <translation type="unfinished"/>
+        <translation>Из соображений безопасности пароль зашифрованной библиотеки не хранится на сервере. Если вы его забудете, то не сможете восстановить пароль.</translation>
     </message>
 </context>
 <context>
@@ -2407,6 +2407,10 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     <message>
         <source>Permission denied</source>
         <translation>В разрешении отказано</translation>
+    </message>
+    <message>
+        <source>Failed to monitor local folder changes. Please check Linux inotify limits or ignore rules</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>

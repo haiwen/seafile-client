@@ -2409,6 +2409,10 @@ Cesta k souboru obsahuje nepovolený znak. Není synchronizovaný do tohoto poč
         <source>Permission denied</source>
         <translation type="unfinished"/>
     </message>
+    <message>
+        <source>Failed to monitor local folder changes. Please check Linux inotify limits or ignore rules</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>ReliablePostFileTask</name>

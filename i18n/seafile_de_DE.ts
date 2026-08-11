@@ -2408,7 +2408,7 @@ Die Ordnerstruktur enthält ungültige Zeichen. Synchronisieren mit diesem Compu
     </message>
     <message>
         <source>Failed to monitor local folder changes. Please check Linux inotify limits or ignore rules</source>
-        <translation type="unfinished"/>
+        <translation>Änderungen in Ordnern können nicht verfolgt werden. Bitte überprüfen Sie Beschränkungen in Linux Inotify oder lassen Sie Regeln ignorieren.</translation>
     </message>
 </context>
 <context>

@@ -2410,7 +2410,7 @@ File path contains invalid characters. It is not synced to this computer.</sourc
     </message>
     <message>
         <source>Failed to monitor local folder changes. Please check Linux inotify limits or ignore rules</source>
-        <translation type="unfinished"/>
+        <translation>Не удалось отследить изменения в локальной папке. Проверьте ограничения Linux inotify или игнорируйте правила</translation>
     </message>
 </context>
 <context>

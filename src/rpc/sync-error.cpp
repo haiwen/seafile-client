@@ -5,6 +5,11 @@
 #include "utils/utils.h"
 #include "sync-error.h"
 #include "utils/seafile-error.h"
+#if defined(_MSC_VER)
+#include "include/seafile-error.h"
+#else
+#include <seafile/seafile-error.h>
+#endif
 
 SyncError SyncError::fromGObject(GObject *obj)
 {
@@ -47,4 +52,21 @@ SyncError SyncError::fromGObject(GObject *obj)
 void SyncError::translateErrorStr()
 {
     error_str = translateSyncErrorCode(error_id);
+}
+
+bool SyncError::isNetworkError() const
+{
+    switch (error_id) {
+    case SYNC_ERROR_ID_NETWORK:
+    case SYNC_ERROR_ID_RESOLVE_PROXY:
+    case SYNC_ERROR_ID_RESOLVE_HOST:
+    case SYNC_ERROR_ID_CONNECT:
+    case SYNC_ERROR_ID_SSL:
+    case SYNC_ERROR_ID_TX:
+    case SYNC_ERROR_ID_TX_TIMEOUT:
+    case SYNC_ERROR_ID_UNHANDLED_REDIRECT:
+        return true;
+    default:
+        return false;
+    }
 }

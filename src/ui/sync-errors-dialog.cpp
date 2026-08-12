@@ -18,6 +18,7 @@
 #include "sync-errors-dialog.h"
 #include "ui/tray-icon.h"
 #include "sync-error-service.h"
+#include "server-status-service.h"
 
 class SeafileTrayIcon;
 
@@ -283,9 +284,30 @@ void SyncErrorsTableModel::updateErrors()
     }
     if (errors.size() > 0) {
         if (current_id_ != errors[0].id) {
+            // The errors before the last seen one are the new ones.
+            bool has_new_persistent_error = false;
+            bool has_new_network_error = false;
+            for (size_t i = 0; i < errors.size() && errors[i].id != current_id_; i++) {
+                if (errors[i].isNetworkError()) {
+                    has_new_network_error = true;
+                } else {
+                    has_new_persistent_error = true;
+                }
+            }
             current_id_ = errors[0].id;
             LastSyncError::instance()->saveLatestErrorID(current_id_);
-            emit sigSyncErrorUpdated();
+            if (has_new_persistent_error) {
+                emit sigSyncErrorUpdated();
+            }
+            if (has_new_network_error) {
+                // Network errors are transient, so don't latch the tray
+                // error state (the user could only reset it by opening
+                // this dialog). Instead re-check server connectivity:
+                // the tray shows "servers not connected" while the
+                // server is unreachable, and that state clears itself
+                // once the server can be pinged again.
+                ServerStatusService::instance()->refresh();
+            }
         }
     }
 

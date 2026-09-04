@@ -1,6 +1,9 @@
 #include <QTimer>
 #include <QDateTime>
 #include <QJsonDocument>
+#include <QJsonObject>
+#include <QJsonValue>
+#include <QRegularExpression>
 
 #include "utils/utils.h"
 #include "utils/translate-commit-desc.h"

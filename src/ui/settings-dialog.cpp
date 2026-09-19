@@ -54,6 +54,14 @@ SettingsDialog::SettingsDialog(QWidget *parent) : QDialog(parent)
 #endif
 
     connect(mOkBtn, SIGNAL(clicked()), this, SLOT(onOkBtnClicked()));
+    connect(mIgnoreSymlinksCheckBox, &QCheckBox::toggled, this, [this](bool checked) {
+        if (checked)
+            mPreserveSymlinksCheckBox->setChecked(false);
+    });
+    connect(mPreserveSymlinksCheckBox, &QCheckBox::toggled, this, [this](bool checked) {
+        if (checked)
+            mIgnoreSymlinksCheckBox->setChecked(false);
+    });
 }
 
 void SettingsDialog::setCurrentTab(int index)
@@ -61,9 +69,18 @@ void SettingsDialog::setCurrentTab(int index)
     mTabWidget->setCurrentIndex(index);
 }
 
-void SettingsDialog::updateSettings()
+bool SettingsDialog::updateSettings()
 {
     SettingsManager *mgr = seafApplet->settingsManager();
+    bool preservation_changed = false;
+#if defined(Q_OS_LINUX) || defined(Q_OS_MAC)
+    bool preserve = mPreserveSymlinksCheckBox->isChecked();
+    preservation_changed = preserve != mgr->getPreserveSymlinks();
+    if (!mgr->setSymlinkOptions(preserve, mIgnoreSymlinksCheckBox->isChecked())) {
+        seafApplet->warningBox(tr("Unable to save symbolic link settings. Please try again."), this);
+        return false;
+    }
+#endif
     mgr->setNotify(mNotifyCheckBox->checkState() == Qt::Checked);
     mgr->setAutoStart(mAutoStartCheckBox->checkState() == Qt::Checked);
     mgr->setHideDockIcon(mHideDockIconCheckBox->checkState() == Qt::Checked);
@@ -81,7 +98,6 @@ void SettingsDialog::updateSettings()
 #endif
 #if defined(Q_OS_LINUX) || defined(Q_OS_MAC)
     mgr->setHideWindowsIncompatibilityPathMsg(mHideWindowsIncompatibilityCheckBox->checkState() == Qt::Checked);
-    mgr->setIgnoreSymlinks(mIgnoreSymlinksCheckBox->checkState() == Qt::Checked);
 #endif
 
 #ifdef Q_OS_WIN32
@@ -96,12 +112,16 @@ void SettingsDialog::updateSettings()
         I18NHelper::getInstance()->setPreferredLanguage(mLanguageComboBox->currentIndex());
     }
 
-    if (language_changed && seafApplet->yesOrNoBox(tr("You have changed languange. Restart to apply it?"), this, true))
-        seafApplet->restartApp();
+    if (preservation_changed && seafApplet->yesOrNoBox(
+            tr("Changes to symbolic link preservation take effect after restarting %1. Restart now?").arg(getBrand()), this, true))
+        QTimer::singleShot(0, this, [] { seafApplet->restartApp(); });
+    else if (!preservation_changed && language_changed && seafApplet->yesOrNoBox(tr("You have changed languange. Restart to apply it?"), this, true))
+        QTimer::singleShot(0, this, [] { seafApplet->restartApp(); });
 
     // if (proxy_changed && seafApplet->yesOrNoBox(tr("You have changed proxy settings. Restart to apply it?"), this, true))
     //     seafApplet->restartApp();
 
+    return true;
 }
 
 void SettingsDialog::closeEvent(QCloseEvent *event)
@@ -158,11 +178,15 @@ void SettingsDialog::showEvent(QShowEvent *event)
     state = mgr->getHideWindowsIncompatibilityPathMsg() ? Qt::Checked : Qt::Unchecked;
     mHideWindowsIncompatibilityCheckBox->setCheckState(state);
 
+    // Ignore takes precedence if both settings were enabled outside the UI.
+    mPreserveSymlinksCheckBox->setChecked(mgr->getPreserveSymlinks());
     state = mgr->getIgnoreSymlinks() ? Qt::Checked : Qt::Unchecked;
     mIgnoreSymlinksCheckBox->setCheckState(state);
 #else
     mHideWindowsIncompatibilityCheckBox->hide();
     mIgnoreSymlinksCheckBox->hide();
+    mPreserveSymlinksCheckBox->hide();
+    mSymlinksRestartLabel->hide();
 #endif
 
 #if defined(Q_OS_WIN32)
@@ -422,6 +446,6 @@ void SettingsDialog::onOkBtnClicked()
     if (!validateProxyInputs()) {
         return;
     }
-    updateSettings();
-    accept();
+    if (updateSettings())
+        accept();
 }

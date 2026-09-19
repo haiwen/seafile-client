@@ -472,8 +472,17 @@ void SeafileApplet::restartApp()
     if (!found)
         args.push_back("--delay");
 
-    QProcess::startDetached(QApplication::applicationFilePath(), args);
-    QCoreApplication::quit();
+    if (!QProcess::startDetached(QApplication::applicationFilePath(), args)) {
+        in_exit_ = false;
+        warningBox(tr("Unable to restart %1. Please quit and start it manually.").arg(getBrand()));
+        return;
+    }
+
+    // A confirmed restart must leave the event loop even if a window or
+    // event filter declines a normal quit request. Normal teardown stops
+    // the daemon so its next instance loads the saved settings.
+    qWarning("Restarting applet and daemon");
+    QCoreApplication::exit(0);
 }
 
 void SeafileApplet::initLog()

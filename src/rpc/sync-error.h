@@ -9,6 +9,7 @@ struct _GObject;
 class SyncError {
 public:
     int id;
+    QString server;
     QString repo_id;
     QString repo_name;
     QString path;
@@ -24,6 +25,7 @@ public:
 
     bool operator==(const SyncError& rhs) const {
             return id == rhs.id
+            && server == rhs.server
             && repo_id == rhs.repo_id
             && repo_name == rhs.repo_name
             && path == rhs.path

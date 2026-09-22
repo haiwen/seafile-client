@@ -106,6 +106,7 @@ private:
     std::vector<SyncError> errors_;
     QTimer *update_timer_;
     int repo_name_column_width_;
+    int server_column_width_;
     int path_column_width_;
     int error_column_width_;
     int current_id_ = 0;

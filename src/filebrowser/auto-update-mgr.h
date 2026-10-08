@@ -90,7 +90,7 @@ private:
     bool system_shut_down_;
 };
 
-#ifdef Q_OS_MAC
+#ifdef Q_OS_MACOS
 /**
  * On MacOSX, when open an image file in Preview app, a file modificatin event
  * would be triggered, but the file is not modified. We need to work around
@@ -106,7 +106,7 @@ public:
 private:
     QHash<QString, qint64> images_;
 };
-#endif // Q_OS_MAC
+#endif // Q_OS_MACOS
 
 class CachedFilesCleaner : public QObject, public QRunnable {
     Q_OBJECT

@@ -175,7 +175,7 @@ QSize SearchResultItemDelegate::sizeHint(const QStyleOptionViewItem &option,
 
 SearchResultListView::SearchResultListView(QWidget* parent) : QListView(parent)
 {
-#if defined(Q_OS_MAC)
+#if defined(Q_OS_MACOS)
     setAttribute(Qt::WA_MacShowFocusRect, 0);
 #endif
     createActions();

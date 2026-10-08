@@ -194,7 +194,7 @@ EventDetailsListView::EventDetailsListView(const SeafEvent& event, QWidget *pare
     : QListView(parent),
       event_(event)
 {
-#if defined(Q_OS_MAC)
+#if defined(Q_OS_MACOS)
     this->setAttribute(Qt::WA_MacShowFocusRect, 0);
 #endif
 

@@ -12,7 +12,7 @@ class ApiError;
 class QAction;
 class QMenu;
 class QMenuBar;
-#if defined(Q_OS_MAC)
+#if defined(Q_OS_MACOS)
 class TrayNotificationManager;
 #endif
 class AboutDialog;
@@ -114,7 +114,7 @@ private:
     QAction *about_action_;
     QAction *open_help_action_;
 
-#if defined(Q_OS_MAC)
+#if defined(Q_OS_MACOS)
     TrayNotificationManager *tnm;
 #endif
 

@@ -101,7 +101,7 @@ RepoTreeView::RepoTreeView(QWidget *parent)
 
     connect(this, SIGNAL(doubleClicked(const QModelIndex&)),
             this, SLOT(onItemDoubleClicked(const QModelIndex&)));
-#if defined(Q_OS_MAC)
+#if defined(Q_OS_MACOS)
     this->setAttribute(Qt::WA_MacShowFocusRect, 0);
 #endif
 

@@ -33,7 +33,7 @@ CreateRepoDialog::CreateRepoDialog(const Account& account,
     setWindowFlags(windowFlags() & ~Qt::WindowContextHelpButtonHint);
     setWindowIcon(QIcon(":/images/seafile.png"));
 
-#if defined(Q_OS_MAC)
+#if defined(Q_OS_MACOS)
     layout()->setContentsMargins(6, 6, 6, 6);
     layout()->setSpacing(5);
 #endif

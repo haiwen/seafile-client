@@ -82,7 +82,7 @@ void openFile(const QString& path)
     g_setenv("QT_SCREEN_SCALE_FACTORS", factors, 1);
 #endif
 
-#ifdef Q_OS_MAC
+#ifdef Q_OS_MACOS
     MacImageFilesWorkAround::instance()->fileOpened(path);
 #endif
 }
@@ -172,7 +172,7 @@ FileBrowserDialog::FileBrowserDialog(const Account &account, const ServerRepo& r
 
     search_view_ = new FileBrowserSearchView(this);
     search_view_->setObjectName("searchResult");
-#ifdef Q_OS_MAC
+#ifdef Q_OS_MACOS
     search_view_->setAttribute(Qt::WA_MacShowFocusRect, 0);
 #endif
     search_model_ = new FileBrowserSearchModel(this);

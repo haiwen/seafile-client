@@ -114,7 +114,7 @@ void disableWeakCiphers()
     QSslConfiguration::setDefaultConfiguration(configuration);
 }
 
-#ifdef Q_OS_MAC
+#ifdef Q_OS_MACOS
 void loadUserCaCertificate()
 {
     QList<QSslCertificate> certificates;
@@ -138,7 +138,7 @@ NetworkManager::NetworkManager() : should_retry_(true) {
     // remove unsafe cipher
     disableWeakCiphers();
 
-#ifdef Q_OS_MAC
+#ifdef Q_OS_MACOS
     // load user ca certificate from system, mac only
     loadUserCaCertificate();
 #endif

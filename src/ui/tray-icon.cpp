@@ -30,7 +30,7 @@
 #include "filebrowser/progress-dialog.h"
 
 #include "tray-icon.h"
-#if defined(Q_OS_MAC)
+#if defined(Q_OS_MACOS)
 #include "traynotificationmanager.h"
 // QT's platform apis
 // http://qt-project.org/doc/qt-4.8/exportedfunctions.html
@@ -141,7 +141,7 @@ SeafileTrayIcon::SeafileTrayIcon(QObject *parent)
     hide();
 
     createGlobalMenuBar();
-#if defined(Q_OS_MAC)
+#if defined(Q_OS_MACOS)
     tnm = new TrayNotificationManager(this);
 #endif
 }
@@ -260,7 +260,7 @@ void SeafileTrayIcon::createGlobalMenuBar()
 {
     // support it only on mac os x currently
     // TODO: destroy the objects when seafile closes
-#ifdef Q_OS_MAC
+#ifdef Q_OS_MACOS
     // create qmenu used in menubar and docker menu
     global_menu_ = new QMenu(tr("File"));
     global_menu_->addAction(show_main_window_action_);
@@ -281,7 +281,7 @@ void SeafileTrayIcon::createGlobalMenuBar()
     qApp->setAttribute(Qt::AA_DontUseNativeMenuBar, false);
 
     global_menu_->setAsDockMenu();
-#endif // Q_OS_MAC
+#endif // Q_OS_MACOS
 }
 
 void SeafileTrayIcon::rotate(bool start)
@@ -315,7 +315,7 @@ void SeafileTrayIcon::showMessage(const QString &title,
                                   bool is_error_message)
 {
     is_error_message_ = is_error_message;
-#ifdef Q_OS_MAC
+#ifdef Q_OS_MACOS
     repo_id_ = repo_id;
     commit_id_ = commit_id;
     previous_commit_id_ = previous_commit_id;
@@ -403,7 +403,7 @@ QIcon SeafileTrayIcon::getIcon(const QString& name)
     }
 
     QIcon icon(name);
-#ifdef Q_OS_MAC
+#ifdef Q_OS_MACOS
     // The icon style has been changed to monochrome on macOS.
     icon.setIsMask(true);
 #endif
@@ -440,7 +440,7 @@ QIcon SeafileTrayIcon::stateToIcon(TrayState state)
         break;
     }
     return getIcon(icon_name);
-#elif defined(Q_OS_MAC)
+#elif defined(Q_OS_MACOS)
     QString icon_name;
 
     switch (state) {
@@ -605,7 +605,7 @@ void SeafileTrayIcon::slotSyncErrorUpdate() {
 
 void SeafileTrayIcon::onActivated(QSystemTrayIcon::ActivationReason reason)
 {
-#if !defined(Q_OS_MAC)
+#if !defined(Q_OS_MACOS)
     switch(reason) {
     case QSystemTrayIcon::Trigger: // single click
     case QSystemTrayIcon::MiddleClick:

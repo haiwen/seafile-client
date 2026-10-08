@@ -28,7 +28,7 @@
 #include "utils/utils-mac.h"
 #include "utils/utils-win.h"
 
-#if defined(Q_OS_MAC)
+#if defined(Q_OS_MACOS)
     #include <sys/sysctl.h>
 #elif defined(Q_OS_WIN32)
     #include <windows.h>
@@ -124,7 +124,7 @@ bool openInNativeExtension(const QString &path) {
 #if defined(Q_OS_WIN32)
     //call ShellExecute internally
     return openUrl(QUrl::fromLocalFile(path));
-#elif defined(Q_OS_MAC)
+#elif defined(Q_OS_MACOS)
     // mac's open program, it will fork to open the file in a subprocess
     // so we will wait for it to check whether it succeeds or not
     QProcess subprocess;
@@ -165,7 +165,7 @@ bool showInGraphicalShell(const QString& path) {
         params << QLatin1String("/select,");
     params << QDir::toNativeSeparators(path);
     return QProcess::startDetached(QLatin1String("explorer.exe"), params);
-#elif defined(Q_OS_MAC)
+#elif defined(Q_OS_MACOS)
     QStringList scriptArgs;
     scriptArgs << QLatin1String("-e")
                << QString::fromLatin1("tell application \"Finder\" to reveal POSIX file \"%1\"")
@@ -379,7 +379,7 @@ set_seafile_auto_start(bool on)
     return result;
 }
 
-#elif defined(Q_OS_MAC)
+#elif defined(Q_OS_MACOS)
 int
 get_seafile_auto_start()
 {
@@ -412,7 +412,7 @@ set_seafile_auto_start(bool /* on */)
 int
 set_seafile_dock_icon_style(bool hidden)
 {
-#if defined(Q_OS_MAC)
+#if defined(Q_OS_MACOS)
     utils::mac::setDockIconStyle(hidden);
 #endif
     return 0;
@@ -810,7 +810,7 @@ bool shouldUseFramelessWindow()
 
     if (_shouldUseFramelessWindow < 0) {
         _shouldUseFramelessWindow = 1;
-#if defined(Q_OS_MAC)
+#if defined(Q_OS_MACOS)
         _shouldUseFramelessWindow = 0;
 #elif defined(Q_OS_WIN32)
         if (utils::win::isWindows10OrHigher()) {

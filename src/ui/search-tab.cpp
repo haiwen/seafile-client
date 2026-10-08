@@ -83,7 +83,7 @@ void SearchTab::createSearchView()
 
     search_view_ = new SearchResultListView;
     search_view_->setObjectName("searchResult");
-#ifdef Q_OS_MAC
+#ifdef Q_OS_MACOS
     search_view_->setAttribute(Qt::WA_MacShowFocusRect, 0);
 #endif
     search_model_ = new SearchResultListModel;

@@ -37,7 +37,7 @@ const int kMarginRight = 5;
 const int kMarginTop = 5;
 const int kMarginBottom = 5;
 const int kPadding = 5;
-#ifdef Q_OS_MAC
+#ifdef Q_OS_MACOS
 const int kExtraPadding = 5;
 #else
 const int kExtraPadding = 0;

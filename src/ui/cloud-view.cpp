@@ -83,7 +83,7 @@ CloudView::CloudView(QWidget* parent)
     if (shouldUseFramelessWindow()) {
         marginTop = 0;
     }
-#ifdef Q_OS_MAC
+#ifdef Q_OS_MACOS
     marginTop = 0;
 #endif
 
@@ -159,7 +159,7 @@ void CloudView::setupHeader()
 void CloudView::createAccountView()
 {
     account_view_ = new AccountView;
-// #ifdef Q_OS_MAC
+// #ifdef Q_OS_MACOS
 //     account_view_->setContentsMargins(0, 0, 0, -8);
 // #else
 //     account_view_->setContentsMargins(0, -8, 0, -8);

@@ -91,7 +91,7 @@ public:
         win_sparkle_set_automatic_check_for_updates(enabled ? 1 : 0);
     }
 };
-#elif defined(Q_OS_MAC)
+#elif defined(Q_OS_MACOS)
 class MacAutoUpdateAdapter: public AutoUpdateAdapter {
 public:
     void prepare() {

@@ -45,7 +45,7 @@ SettingsDialog::SettingsDialog(QWidget *parent) : QDialog(parent)
     connect(mProxyRequirePassword, SIGNAL(stateChanged(int)),
             this, SLOT(proxyRequirePasswordChanged(int)));
 
-#if defined(Q_OS_MAC)
+#if defined(Q_OS_MACOS)
     layout()->setContentsMargins(8, 9, 9, 4);
     layout()->setSpacing(5);
 
@@ -79,7 +79,7 @@ void SettingsDialog::updateSettings()
     if(mFinderSyncCheckBox->isEnabled())
         mgr->setFinderSyncExtension(mFinderSyncCheckBox->checkState() == Qt::Checked);
 #endif
-#if defined(Q_OS_LINUX) || defined(Q_OS_MAC)
+#if defined(Q_OS_LINUX) || defined(Q_OS_MACOS)
     mgr->setHideWindowsIncompatibilityPathMsg(mHideWindowsIncompatibilityCheckBox->checkState() == Qt::Checked);
     mgr->setIgnoreSymlinks(mIgnoreSymlinksCheckBox->checkState() == Qt::Checked);
 #endif
@@ -139,7 +139,7 @@ void SettingsDialog::showEvent(QShowEvent *event)
     // currently supports windows only
     state = mgr->autoStart() ? Qt::Checked : Qt::Unchecked;
     mAutoStartCheckBox->setCheckState(state);
-#if !defined(Q_OS_WIN32) && !defined(Q_OS_MAC)
+#if !defined(Q_OS_WIN32) && !defined(Q_OS_MACOS)
     mAutoStartCheckBox->hide();
 #endif
 #ifdef HAVE_FINDER_SYNC_SUPPORT
@@ -154,7 +154,7 @@ void SettingsDialog::showEvent(QShowEvent *event)
     mFinderSyncCheckBox->hide();
 #endif
 
-#if defined(Q_OS_LINUX) || defined(Q_OS_MAC)
+#if defined(Q_OS_LINUX) || defined(Q_OS_MACOS)
     state = mgr->getHideWindowsIncompatibilityPathMsg() ? Qt::Checked : Qt::Unchecked;
     mHideWindowsIncompatibilityCheckBox->setCheckState(state);
 
@@ -175,7 +175,7 @@ void SettingsDialog::showEvent(QShowEvent *event)
     // currently supports mac only
     state = mgr->hideDockIcon() ? Qt::Checked : Qt::Unchecked;
     mHideDockIconCheckBox->setCheckState(state);
-#if !defined(Q_OS_MAC)
+#if !defined(Q_OS_MACOS)
     mHideDockIconCheckBox->hide();
 #endif
 

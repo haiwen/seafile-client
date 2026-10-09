@@ -3431,6 +3431,10 @@ Die Ordnerstruktur enthält ungültige Zeichen. Synchronisieren mit diesem Compu
         <source>Time</source>
         <translation>Zeit</translation>
     </message>
+    <message>
+        <source>Server</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>SyncErrorsTableView</name>

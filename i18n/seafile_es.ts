@@ -3432,6 +3432,10 @@ La ruta al archivo contiene caracteres invalidos. No se sincroniza a esta comput
         <source>Time</source>
         <translation>Hora</translation>
     </message>
+    <message>
+        <source>Server</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>SyncErrorsTableView</name>

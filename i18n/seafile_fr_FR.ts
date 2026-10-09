@@ -3431,6 +3431,10 @@ Le nom de fichier contient des caractères invalides. Il n&apos;est pas synchron
         <source>Time</source>
         <translation>Temps</translation>
     </message>
+    <message>
+        <source>Server</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>SyncErrorsTableView</name>

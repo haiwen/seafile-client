@@ -3423,6 +3423,10 @@ File path contains invalid characters. It is not synced to this computer.</sourc
         <source>Time</source>
         <translation type="unfinished"/>
     </message>
+    <message>
+        <source>Server</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>SyncErrorsTableView</name>

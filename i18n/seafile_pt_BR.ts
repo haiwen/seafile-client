@@ -3424,6 +3424,10 @@ Abrir % 1 ajuda on-line</translation>
         <source>Time</source>
         <translation type="unfinished"/>
     </message>
+    <message>
+        <source>Server</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>SyncErrorsTableView</name>

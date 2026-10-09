@@ -60,7 +60,7 @@ void FileDownloadHelper::openFile(const QString& path, bool work_around_mac_auto
         return;
     }
 
-#ifdef Q_OS_MAC
+#ifdef Q_OS_MACOS
     MacImageFilesWorkAround::instance()->fileOpened(path);
 #endif
 }

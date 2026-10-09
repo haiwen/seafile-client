@@ -113,7 +113,7 @@ public:
     void setFinderSyncExtension(bool enabled);
 #endif // HAVE_FINDER_SYNC_SUPPORT
 
-#if defined(Q_OS_LINUX) || defined(Q_OS_MAC)
+#if defined(Q_OS_LINUX) || defined(Q_OS_MACOS)
     bool getHideWindowsIncompatibilityPathMsg();
     void setHideWindowsIncompatibilityPathMsg(bool enabled);
     bool getIgnoreSymlinks();

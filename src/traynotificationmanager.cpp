@@ -9,7 +9,7 @@ TrayNotificationManager::TrayNotificationManager(QObject *parent)
     m_width = 320;
     m_height = 150;
     m_onScreenCount = 0;
-#if defined(Q_OS_MAC)
+#if defined(Q_OS_MACOS)
     m_startX = clientRect.width() - m_width;
     m_startY = 10;
     m_up = false;

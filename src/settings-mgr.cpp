@@ -45,7 +45,7 @@ const char *kFinderSync = "finderSync";
 const char *kLastShibUrl = "lastShiburl";
 #endif // HAVE_SHIBBOLETH_SUPPORT
 
-#if defined(Q_OS_LINUX) || defined(Q_OS_MAC)
+#if defined(Q_OS_LINUX) || defined(Q_OS_MACOS)
 const char * kSetHideWindowsIncompatibilityPathMsg = "setHideWindowsIncompatibilityPathMsg";
 #endif
 
@@ -360,7 +360,7 @@ void SettingsManager::setHideDockIcon(bool hide)
     settings.endGroup();
 
     set_seafile_dock_icon_style(hide);
-#ifdef Q_OS_MAC
+#ifdef Q_OS_MACOS
     // for UIElement application, the main window might sink
     // under many applications
     // this will force it to stand before all
@@ -708,7 +708,7 @@ void SettingsManager::setFinderSyncExtension(bool enabled)
 }
 #endif // HAVE_FINDER_SYNC_SUPPORT
 
-#if defined(Q_OS_LINUX) || defined(Q_OS_MAC)
+#if defined(Q_OS_LINUX) || defined(Q_OS_MACOS)
 bool SettingsManager::getHideWindowsIncompatibilityPathMsg()
 {
     QString str;

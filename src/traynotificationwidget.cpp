@@ -3,7 +3,7 @@
 TrayNotificationWidget::TrayNotificationWidget(QPixmap pixmapIcon, QString headerText, QString messageText) : QWidget(0)
 {
     setWindowFlags(
-        #if defined(Q_OS_MAC)
+        #if defined(Q_OS_MACOS)
             Qt::SubWindow | // This type flag is the second point
         #else
             Qt::Tool |

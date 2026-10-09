@@ -17,7 +17,7 @@ SearchBar::SearchBar(QWidget *parent)
     setObjectName("mSearchBar");
 
     setClearButtonEnabled(false);
-#ifdef Q_OS_MAC
+#ifdef Q_OS_MACOS
     setAttribute(Qt::WA_MacShowFocusRect, 0);
 #endif
 

@@ -176,7 +176,7 @@ void AutoUpdateManager::onFileChanged(const QString& local_path)
         return;
     }
 
-#ifdef Q_OS_MAC
+#ifdef Q_OS_MACOS
     if (MacImageFilesWorkAround::instance()->isRecentOpenedImage(local_path)) {
         qInfo("[AutoUpdateManager] skip the image file updates on mac for %s", toCStr(local_path));
         return;
@@ -388,7 +388,7 @@ AutoUpdateManager::getFileStatusForDirectory(const QString &account_sig,
     return ret;
 }
 
-#ifdef Q_OS_MAC
+#ifdef Q_OS_MACOS
 SINGLETON_IMPL(MacImageFilesWorkAround)
 
 MacImageFilesWorkAround::MacImageFilesWorkAround()

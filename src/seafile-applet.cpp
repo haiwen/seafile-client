@@ -49,7 +49,7 @@
     #include "finder-sync/finder-sync-listener.h"
 #endif
 
-#if defined(Q_OS_MAC)
+#if defined(Q_OS_MACOS)
 #include "utils/utils-mac.h"
 #endif
 
@@ -152,7 +152,7 @@ void myLogHandler(QtMsgType type, const QMessageLogContext &context, const QStri
     }
 }
 
-#ifdef Q_OS_MAC
+#ifdef Q_OS_MACOS
 void writeCABundleForCurl()
 {
     QString ca_bundle_path = QDir(seafApplet->configurator()->seafileDir()).filePath("ca-bundle.pem");
@@ -263,7 +263,7 @@ void SeafileApplet::start()
         qWarning("Failed to set CRASH_RPT_PATH env variable.\n");
 #endif
 
-#if defined(Q_OS_MAC)
+#if defined(Q_OS_MACOS)
     writeCABundleForCurl();
 #endif
 
@@ -323,7 +323,7 @@ void SeafileApplet::onDaemonStarted()
     //
     main_win_ = new MainWindow;
 
-#if defined(Q_OS_MAC)
+#if defined(Q_OS_MACOS)
     seafApplet->settingsManager()->setHideDockIcon(seafApplet->settingsManager()->hideDockIcon());
 #endif
 

@@ -97,7 +97,7 @@ MainWindow::MainWindow()
 
     createActions();
 
-#if defined(Q_OS_MAC)
+#if defined(Q_OS_MACOS)
     connect(qApp, SIGNAL(applicationStateChanged(Qt::ApplicationState)),
             this, SLOT(checkShowWindow()));
 #endif
@@ -175,7 +175,7 @@ void MainWindow::showEvent(QShowEvent *event)
 void MainWindow::checkShowWindow()
 {
     // printf ("app inactive = %s\n", (qApp->applicationState() & Qt::ApplicationInactive) ? "yes" : "no");
-#if defined(Q_OS_MAC)
+#if defined(Q_OS_MACOS)
     if (qApp->applicationState() & Qt::ApplicationActive) {
         if (qApp->activeModalWidget() || qApp->activePopupWidget() || qApp->activeWindow())
             return;
@@ -215,7 +215,7 @@ void MainWindow::showWindow()
     raise();
     activateWindow();
     // a hack with UIElement application
-#ifdef Q_OS_MAC
+#ifdef Q_OS_MACOS
     utils::mac::orderFrontRegardless(seafApplet->mainWindow()->winId());
 #endif
 }

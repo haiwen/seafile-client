@@ -1,7 +1,7 @@
 #ifndef SEAFILE_CLIENT_UTILS_MAC_H_
 #define SEAFILE_CLIENT_UTILS_MAC_H_
 #include <QtGlobal>
-#ifdef Q_OS_MAC
+#ifdef Q_OS_MACOS
 #include <QString>
 #include <vector>
 #include <QByteArray>
@@ -43,6 +43,6 @@ inline bool isOSXMountainLionOrGreater() { return false; }
 inline bool isOSXLionOrGreater() { return false; }
 } // namespace mac
 } // namespace utils
-#endif /* Q_OS_MAC */
+#endif /* Q_OS_MACOS */
 
 #endif /* SEAFILE_CLIENT_UTILS_MAC_H_ */

@@ -112,7 +112,7 @@ DownloadRepoDialog::DownloadRepoDialog(const Account& account,
     }
 
     int height = 250;
-#if defined(Q_OS_MAC)
+#if defined(Q_OS_MACOS)
     layout()->setContentsMargins(8, 9, 9, 5);
     layout()->setSpacing(6);
     verticalLayout_3->setSpacing(6);

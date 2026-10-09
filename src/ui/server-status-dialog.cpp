@@ -5,7 +5,7 @@ ServerStatusDialog::ServerStatusDialog(QWidget *parent) : QDialog(parent)
 {
     setupUi(this);
 
-#if defined(Q_OS_MAC)
+#if defined(Q_OS_MACOS)
     layout()->setContentsMargins(8, 9, 9, 4);
     layout()->setSpacing(5);
 #endif

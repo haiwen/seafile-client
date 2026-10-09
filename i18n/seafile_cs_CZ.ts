@@ -3434,6 +3434,10 @@ Cesta k souboru obsahuje nepovolený znak. Není synchronizovaný do tohoto poč
         <source>Time</source>
         <translation>Čas</translation>
     </message>
+    <message>
+        <source>Server</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>SyncErrorsTableView</name>

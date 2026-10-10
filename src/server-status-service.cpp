@@ -9,7 +9,7 @@
 namespace {
 
 // const int kRefreshInterval = 3 * 60 * 1000; // 3 min
-// const int kRefreshIntervalForUnconnected = 30 * 1000; // 30 sec
+const int kRefreshIntervalForUnconnected = 30 * 1000; // 30 sec
 
 }
 
@@ -30,7 +30,12 @@ ServerStatusService::ServerStatusService(QObject *parent)
 void ServerStatusService::start()
 {
     // refresh_timer_->start(kRefreshInterval);
-    // refresh_unconnected_timer_->start(kRefreshIntervalForUnconnected);
+
+    // Keep retrying servers that are marked disconnected, so the
+    // "servers not connected" tray state resolves itself once the
+    // server is reachable again. This sends no requests while all
+    // servers are connected.
+    refresh_unconnected_timer_->start(kRefreshIntervalForUnconnected);
 }
 
 void ServerStatusService::stop()

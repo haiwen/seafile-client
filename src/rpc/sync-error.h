@@ -23,6 +23,10 @@ public:
 
     void translateErrorStr();
 
+    // Network errors are transient: they happen when the server is
+    // unreachable and become irrelevant once the connection recovers.
+    bool isNetworkError() const;
+
     bool operator==(const SyncError& rhs) const {
             return id == rhs.id
             && server == rhs.server

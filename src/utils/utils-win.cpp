@@ -362,10 +362,17 @@ bool isNetworkDevice(QString path)
         return true;
     }
 
-    QString root = path;
-    while (!QDir(root).isRoot()) {
+    QString root = QDir(path).absolutePath();
+    QString prev;
+    if (!root.endsWith("/")) {
+        root += "/";
+    }
+
+    while (!QDir(root).isRoot() && root != prev) {
+        prev = root;
         root = QDir::cleanPath(root + "/..");
     }
+
     if (!root.endsWith("/")) {
         root += "/";
     }

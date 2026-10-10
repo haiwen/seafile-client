@@ -157,6 +157,14 @@ int main(int argc, char *argv[])
     QApplication app(argc, argv);
 #endif
 
+    // Required on Linux/Wayland (GNOME) for the systray icon to register
+    // with the XDG desktop portal. Without this, QSystemTrayIcon silently
+    // fails to show with newer Qt6, even though no error is raised beyond
+    // a log line ("desktopFileName not set. Unable to register application
+    // with portal registry"). Must match the installed .desktop file's id
+    // (filename without the .desktop suffix).
+    app.setDesktopFileName(QStringLiteral("com.seafile.seafile-applet"));
+
     // don't quit even if the last windows is closed
     app.setQuitOnLastWindowClosed(false);
 

@@ -382,6 +382,8 @@ void DownloadRepoDialog::onDownloadRepoRequestSuccess(const RepoDownloadInfo& in
             error = QObject::tr("The path \"%1\" conflicts with an existing library").arg(worktree);
         } else if (error == "Library name contains invalid characters such as ':', '*', '|', '?'") {
             error = QObject::tr("Library name contains invalid characters such as ':', '*', '|', '?'");
+        } else if (error == "Worktree cannot be drive root directory") {
+            error = QObject::tr("The path cannot be drive root directory");
         }
         seafApplet->warningBox(tr("Failed to add download task:\n %1").arg(error), this);
         setAllInputsEnabled(true);

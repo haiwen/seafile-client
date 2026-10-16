@@ -251,6 +251,8 @@ QString CreateRepoDialog::translateErrorMsg(const QString& error)
         return QObject::tr("The path \"%1\" conflicts with system path").arg(path_);
     } else if (error == "Worktree conflicts existing repo") {
         return QObject::tr("The path \"%1\" conflicts with an existing library").arg(path_);
+    } else if (error == "Worktree cannot be drive root directory") {
+        return QObject::tr("The path cannot be drive root directory");
     }
     return error;
 }

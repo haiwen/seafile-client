@@ -88,6 +88,26 @@
         </widget>
        </item>
        <item>
+        <widget class="QCheckBox" name="mPreserveSymlinksCheckBox">
+         <property name="toolTip">
+          <string>Sync symbolic links themselves instead of the files or folders they point to. Older clients and Windows clients receive regular placeholder files. If neither symbolic link option is selected, link targets are synced.</string>
+         </property>
+         <property name="text">
+          <string>Preserve symbolic links</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="mSymlinksRestartLabel">
+         <property name="text">
+          <string>Changes to symbolic link preservation require a restart.</string>
+         </property>
+         <property name="wordWrap">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
         <layout class="QFormLayout" name="formLayout">
          <property name="labelAlignment">
           <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>

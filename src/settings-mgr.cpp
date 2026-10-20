@@ -58,6 +58,7 @@ const char *kProxyUsername = "proxy_username";
 const char *kProxyPassword = "proxy_password";
 const char *kHideWindowsIncompatiblePathNotification = "hide_windows_incompatible_path_notification";
 const char *kIgnoreSymlinks = "ignore_symlinks";
+const char *kPreserveSymlinks = "preserve_symlinks";
 const char *kRepoSortOrdersGroup = "repo_sort_orders";
 
 const int kCheckSystemProxyIntervalMSecs = 5 * 1000;
@@ -735,6 +736,34 @@ void SettingsManager::setIgnoreSymlinks(bool enabled)
     QString set_value = enabled == true ? "true" : "false";
     seafApplet->rpcClient()->seafileSetConfig(kIgnoreSymlinks, set_value);
     return;
+}
+
+bool SettingsManager::getPreserveSymlinks()
+{
+    QString value;
+    seafApplet->rpcClient()->seafileGetConfig(kPreserveSymlinks, &value);
+    return value == "true";
+}
+
+bool SettingsManager::setSymlinkOptions(bool preserve, bool ignore)
+{
+    if (preserve && ignore)
+        return false;
+
+    SeafileRpcClient *rpc = seafApplet->rpcClient();
+    QString old_preserve;
+    if (rpc->seafileGetConfig(kPreserveSymlinks, &old_preserve) < 0)
+        return false;
+
+    // Save preservation first. When it changes, the daemon defers both
+    // settings until restart so an Ignore -> Preserve transition is safe.
+    if (rpc->seafileSetConfig(kPreserveSymlinks, preserve ? "true" : "false") < 0)
+        return false;
+    if (rpc->seafileSetConfig(kIgnoreSymlinks, ignore ? "true" : "false") < 0) {
+        rpc->seafileSetConfig(kPreserveSymlinks, old_preserve);
+        return false;
+    }
+    return true;
 }
 #endif
 

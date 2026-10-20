@@ -22,7 +22,7 @@ private slots:
     void uploadChanged(int value);
     void closeEvent(QCloseEvent *event);
     void showEvent(QShowEvent *event);
-    void updateSettings();
+    bool updateSettings();
     void onOkBtnClicked();
 
     void proxyRequirePasswordChanged(int state);

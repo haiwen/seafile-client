@@ -118,6 +118,8 @@ public:
     void setHideWindowsIncompatibilityPathMsg(bool enabled);
     bool getIgnoreSymlinks();
     void setIgnoreSymlinks(bool enabled);
+    bool getPreserveSymlinks();
+    bool setSymlinkOptions(bool preserve, bool ignore);
 #endif
 
 #ifdef Q_OS_WIN32
